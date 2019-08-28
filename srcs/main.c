@@ -6,13 +6,17 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2019/08/22 12:50:12 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/08/28 09:30:36 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 
-int		main(int argc, char **argv)
+int		main()
 {
+	t_al	al;
+
+	init(&al);
+	main_loop(&al);
 	return (0);
 }

@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   yeet.c                                             :+:      :+:    :+:   */
+/*   edit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2019/08/28 16:44:44 by becaraya         ###   ########.fr       */
+/*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
+/*   Updated: 2019/08/28 16:37:35 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 
-void	refresh(t_al *al)
+void	edit(t_al *al)
 {
-	if ((SDL_UpdateTexture(al->tex, 0, al->pix, WIN_SIZEX * sizeof(int)) < 0)
-		|| (SDL_RenderCopy(al->ren, al->tex, 0, 0) < 0))
-		yeet(al);
-	SDL_RenderPresent(al->ren);
-}
-
-int		yeet(t_al *al)
-{
-	al->pix ? free(al->pix) : 0;
-	al->ren ? SDL_DestroyRenderer(al->ren) : 0;
-	al->tex ? SDL_DestroyTexture(al->tex) : 0;
-	if (al->win)
-	{
-		SDL_DestroyWindow(al->win);
-		SDL_Quit();
-	}
-	exit(0);
+	(void)al;
 }

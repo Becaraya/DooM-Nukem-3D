@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2019/08/29 11:35:20 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/08/29 16:19:03 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,13 @@ void		menu(t_al *al)
 
 	for (int i = 0; i < 1280; i++){
 		for (int j = 0; j < 720; j++){
-			al->pix[WIN_SIZEX * j + i] = al->txt.s_menu[j * 1280 + i];
+			al->pix[WIN_SIZEX * j + i] = al->txt.s_menu[j * 1280 + i];// 0x34652864;//
 		}
 	}
-	refresh(al);
+	SDL_UpdateTexture(al->tex, 0, al->pix, WIN_SIZEX * sizeof(int));
+	SDL_RenderCopy(al->ren, al->tex, 0, 0);
+	SDL_RenderPresent(al->ren);
+	//refresh(al);
 }
 
 static void	dtime(t_al *al)
@@ -42,8 +45,8 @@ static void	dtime(t_al *al)
 
 static void	stat(t_al *al)
 {
-	if (al->status == ST_EDIT)
-		edit(al);
+	if (al->status == ST_MENU)
+		menu(al);
 }
 
 void		main_loop(t_al *al)

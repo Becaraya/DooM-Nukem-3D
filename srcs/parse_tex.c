@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:20:41 by pitriche          #+#    #+#             */
-/*   Updated: 2019/08/29 15:56:09 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/08/29 16:20:08 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,11 @@ static int 		for_huehue(int fd, unsigned int *pix, unsigned char *buf, int w,
 	int i;
 	int j;
 
-	j = w - 1;
+	j = h - 1;
 	while (j >= 0)
 	{
 		i = 0;
-		while (i < h)
+		while (i < w)
 		{
 			if (read(fd, buf, 3) != 3)
 				return (0);
@@ -58,12 +58,13 @@ unsigned int	*parse_tex(t_al *al, char *name)
 	w = buf[18] + buf[19] * 256;
 	h = buf[20] + buf[21] * 256;
 	// printf("%d\n", buf[22] + buf[23] * 256);
-	printf("%d w=%d\n", h, w);
-	// for (int u = 0; u < l; u++){printf("buff[%d] = %d\n", u, buf[u]);}
+	// printf("%d w=%d\n", h, w);
+	// for (int u = 0; u < 60; u++){printf("buff[%d] = %d\n", u, buf[u]);}
 	
 	if (!(pix = ft_memalloc(w * h * sizeof(int))))
 		yeet(al);
 	read(fd, buf, buf[10] - 22);
+	
 	if (!for_huehue(fd, pix, buf, w, h))
 		yeet(al);
 	close(fd);

@@ -6,18 +6,18 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2019/08/28 16:13:54 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/08/29 11:35:20 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "doom-nukem.h"
 
-void		st_menu(t_al *al)
+void		menu(t_al *al)
 {
 
 	for (int i = 0; i < 1280; i++){
 		for (int j = 0; j < 720; j++){
-			al->pix[WIN_SIZEX * j + i] = 0;
+			al->pix[WIN_SIZEX * j + i] = al->txt.s_menu[j * 1280 + i];
 		}
 	}
 	refresh(al);
@@ -43,7 +43,7 @@ static void	dtime(t_al *al)
 static void	stat(t_al *al)
 {
 	if (al->status == ST_EDIT)
-		st_edit(al);
+		edit(al);
 }
 
 void		main_loop(t_al *al)

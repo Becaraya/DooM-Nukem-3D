@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/08/28 11:11:28 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/08/29 14:54:36 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		init_text(t_al *al)
 {
-	al->txt.s_menu = parse_tex(al, "ressource/resume.bmp");
+	al->txt.s_menu = parse_tex(al, "ressources/menu_3.bmp");
 }
 
 void	init(t_al *al)
@@ -34,5 +34,5 @@ void	init(t_al *al)
 		yeet(al);
 	if ((al->pix = ft_memalloc(WIN_SIZEX * WIN_SIZEY * sizeof(int))) == NULL)
 		yeet(al);
-	// init_text(al);
+	init_text(al);
 }

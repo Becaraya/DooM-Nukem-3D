@@ -22,9 +22,10 @@ HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
 SRC_LIST = main.c 		\
+		event_func.c	\
+		edit.c			\
 		parse_tex.c 	\
 		main_loop.c 	\
-		event_func.c 	\
 		init.c 			\
 		yeet.c
 

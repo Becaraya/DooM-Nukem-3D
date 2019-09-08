@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:20:41 by pitriche          #+#    #+#             */
-/*   Updated: 2019/08/29 16:20:08 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/09/06 11:30:11 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,23 +42,23 @@ static int 		for_huehue(int fd, unsigned int *pix, unsigned char *buf, int w,
 	return (1);
 }
 
-unsigned int	*parse_tex(t_al *al, char *name)
+unsigned int	*parse_tex(t_al *al, char *name, int w, int h)
 {
 	unsigned char	buf[64];
 	int				fd;
 	unsigned int	*pix;
-	int				w;
-	int				h;
+	// int				w;
+	// int				h;
 
 	pix = 0;
 	if ((fd = open(name, O_RDONLY)) < 0)
 		err_tex(al);
 	if (read(fd, buf, 22) != 22 || buf[10] - 22 > 64)
 		err_tex(al);
-	w = buf[18] + buf[19] * 256;
-	h = buf[20] + buf[21] * 256;
-	// printf("%d\n", buf[22] + buf[23] * 256);
-	// printf("%d w=%d\n", h, w);
+	// w = buf[18] + buf[19] * 256;
+	// h = buf[20] + buf[21] * 256;
+	// printf("%d\n", /buf[22] + buf[23] * 256);
+	// printf("%s => h=%d w=%d\n", name, h, w);
 	// for (int u = 0; u < 60; u++){printf("buff[%d] = %d\n", u, buf[u]);}
 	
 	if (!(pix = ft_memalloc(w * h * sizeof(int))))

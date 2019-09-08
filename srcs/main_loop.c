@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2019/08/29 16:19:03 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/09/08 16:53:49 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ void		menu(t_al *al)
 			al->pix[WIN_SIZEX * j + i] = al->txt.s_menu[j * 1280 + i];// 0x34652864;//
 		}
 	}
-	SDL_UpdateTexture(al->tex, 0, al->pix, WIN_SIZEX * sizeof(int));
-	SDL_RenderCopy(al->ren, al->tex, 0, 0);
-	SDL_RenderPresent(al->ren);
-	//refresh(al);
+	// SDL_UpdateTexture(al->tex, 0, al->pix, WIN_SIZEX * sizeof(int));
+	// SDL_RenderCopy(al->ren, al->tex, 0, 0);
+	// SDL_RenderPresent(al->ren);
+	refresh(al);
 }
 
 static void	dtime(t_al *al)
@@ -47,6 +47,8 @@ static void	stat(t_al *al)
 {
 	if (al->status == ST_MENU)
 		menu(al);
+	if (al->status == ST_EDIT)
+		edit(al);
 }
 
 void		main_loop(t_al *al)
@@ -59,10 +61,10 @@ void		main_loop(t_al *al)
 			if ((al->ev.type == SDL_KEYDOWN || al->ev.type == SDL_KEYUP) &&
 				!al->ev.key.repeat)
 				key_func(al);
-			if (al->ev.type == SDL_MOUSEMOTION)
-				mouse_func(al);
 			if (al->ev.type == SDL_MOUSEBUTTONDOWN)
 				mouse_press(al);
+			if (al->ev.type == SDL_MOUSEMOTION)
+				mouse_func(al);
 		}
 		dtime(al);
 		stat(al);

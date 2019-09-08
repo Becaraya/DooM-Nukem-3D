@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/08/28 16:44:53 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/09/08 17:04:01 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 # include <fcntl.h>
 # include "libft.h"
 # include <stdio.h>
-# include <math.h>
+// # include <math.h>
 # include <mlx.h>
 # include <sys/time.h>
 # include <SDL.h>
+# include <SDL_ttf.h>
 
 # define WIN_TITLE "s     p     o     o     k     y"
 # define WIN_SIZEX 1280
@@ -33,6 +34,16 @@
 # define ST_SETTING 4
 # define ST_EDIT 5
 # define ST_MAP_CUSTOME 6
+
+/*
+**TOOLS
+*/
+
+# define T_SELECT 1
+# define T_WALL_1 2
+# define T_WALL_2 3
+# define T_WALL_3 4
+
 
 typedef struct		s_keys
 {
@@ -59,29 +70,43 @@ typedef struct		s_mouse
 	unsigned		click:1;
 }					t_mouse;
 
+typedef struct		s_icon
+{
+	unsigned int	*chest;
+	unsigned int	*click;
+	unsigned int	*path;
+	unsigned int	*portal;
+	unsigned int	*wall;
+}					t_icon;
+
 typedef struct		s_texture
 {
 	unsigned int	*s_menu;
+	t_icon			ic;
 }					t_texture;
 
-typedef struct		s_map
+typedef struct		s_point
+{
+	int				x;
+	int				y;
+	int				color;
+}					t_point;
+
+typedef struct		s_wall
 {
 	int				x1;
 	int				y1;
 	int				x2;
 	int				y2;
-	struct s_map	*prev;
-	struct s_map	*next;
-}					t_map;
-
-typedef struct		s_wall
-{
-	int				txt;
-	int				x;
-	int				y;
 	struct s_wall	*prev;
 	struct s_wall	*next;
 }					t_wall;
+
+typedef struct		s_edit
+{
+	int				stat;
+	int				zoom;
+}					t_edit;
 
 typedef struct		s_al
 {
@@ -98,6 +123,8 @@ typedef struct		s_al
 	long			tgt_time;
 	int				dtime;
 
+	t_edit			edit;
+
 	t_keys			k;
 	SDL_Event		ev;
 	t_mouse			m;
@@ -105,12 +132,12 @@ typedef struct		s_al
 	t_texture		txt;
 
 	t_wall			*wall;
-	t_map			*map;	
+	int				c_wall;
 
 	char			v0id[32];
 }					t_al;
 
-unsigned int		*parse_tex(t_al *al, char *name);
+unsigned int		*parse_tex(t_al *al, char *name, int w, int h);
 
 void				init(t_al *al);
 void				main_loop(t_al *al);

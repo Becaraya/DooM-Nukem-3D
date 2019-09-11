@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/08 17:04:01 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/09/11 13:09:52 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,8 @@
 # include "libft.h"
 # include <stdio.h>
 // # include <math.h>
-# include <mlx.h>
 # include <sys/time.h>
 # include <SDL.h>
-# include <SDL_ttf.h>
 
 # define WIN_TITLE "s     p     o     o     k     y"
 # define WIN_SIZEX 1280
@@ -40,8 +38,8 @@
 */
 
 # define T_SELECT 1
-# define T_WALL_1 2
-# define T_WALL_2 3
+# define T_WALL_DRAWING 2
+# define T_WALL_IDLE 3
 # define T_WALL_3 4
 
 
@@ -111,7 +109,7 @@ typedef struct		s_edit
 typedef struct		s_al
 {
 	int				status;
-	
+
 	SDL_Window		*win;
 	SDL_Texture		*tex;
 	SDL_Renderer	*ren;
@@ -141,7 +139,7 @@ unsigned int		*parse_tex(t_al *al, char *name, int w, int h);
 
 void				init(t_al *al);
 void				main_loop(t_al *al);
-void				edit(t_al *al);
+void				editor(t_al *al);
 
 void				key_func(t_al *al);
 void				mouse_press(t_al *al);

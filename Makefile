@@ -6,12 +6,9 @@ FLAGS = -Wall -Wextra
 LIBRARIES = -lft -L$(LIBFT_DIR) $(SDL_DIR)
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_HEAD) $(SDL_PATH)
 
-SDL_DIR = -L$(HOME)/.brew/Cellar/sdl2/2.0.9_1/lib -lSDL2			\
-		-L$(HOME)/.brew/Cellar/sdl2_ttf/2.0.15/lib -lSDL2_ttf		\
-		-L$(HOME)/.brew/Cellar/sdl2_image/2.0.5/lib -lSDL2_image
-SDL_PATH = -I $(HOME)/.brew/Cellar/sdl2/2.0.9_1/include/SDL2		\
-		-I $(HOME)/.brew/Cellar/sdl2_ttf/2.0.15/include/SDL2		\
-		-I $(HOME)/.brew/Cellar/sdl2_image/2.0.1_2/include/SDL2		\
+SDL_DIR = -L$(HOME)/homebrew/Cellar/sdl2/2.0.10/lib -lSDL2
+
+SDL_PATH = -I $(HOME)/homebrew/Cellar/sdl2/2.0.10/include/SDL2
 
 LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_DIR = ./Libft/

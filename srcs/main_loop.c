@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/08 16:53:49 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/09/11 13:09:46 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ static void	dtime(t_al *al)
 	al->tgt_time = al->last_time + 1000000 / al->fps;
 }
 
-static void	stat(t_al *al)
+static void	status(t_al *al)
 {
 	if (al->status == ST_MENU)
 		menu(al);
 	if (al->status == ST_EDIT)
-		edit(al);
+		editor(al);
 }
 
 void		main_loop(t_al *al)
@@ -67,6 +67,6 @@ void		main_loop(t_al *al)
 				mouse_func(al);
 		}
 		dtime(al);
-		stat(al);
+		status(al);
 	}
 }

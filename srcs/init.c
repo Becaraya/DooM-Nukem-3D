@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/08 17:04:49 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/09/11 12:58:20 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void		init_text(t_al *al)
 
 static void		init_wall(t_al *al)
 {
-	if (!(al->wall = (t_wall *)malloc(sizeof(t_wall))))
+	if (!(al->wall = (t_wall *)ft_memalloc(sizeof(t_wall))))
 		yeet(al);
 	al->wall->next = NULL;
 	al->wall->prev = NULL;
@@ -37,7 +37,7 @@ void	init(t_al *al)
 {
 	al->status = ST_EDIT;
 	al->fps = 60;
-	al->edit.stat = T_WALL_1;
+	al->edit.stat = T_WALL_IDLE;
 	al->c_wall = 0;
 	al->edit.zoom = 1;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)

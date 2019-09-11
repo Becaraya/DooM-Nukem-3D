@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/08 18:04:07 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/09/11 13:20:26 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,18 +24,9 @@
 
 static void		set_edit(t_al *al)
 {
-	for (int i = 0; i < 1280; i++){
-		for (int j = 0; j < 720; j++){
-			// if (i < 1000)
-			// 	al->pix[WIN_SIZEX * j + i] = 0x202020;
-			// if ((j % (100 * al->edit.zoom)) == 0 || (i % (100 * al->edit.zoom)) == 0)
-				// al->pix[WIN_SIZEX * j + i] = 0xffffff;
-
-			// else
-				al->pix[WIN_SIZEX * j + i] = 0x000000;
-			
-		}
-	}	
+	/* si tu veut init une grosse zone a null utilise bzero plutot  que des for
+	ou while. Et fait des typedef sur la win_size plutot que hardcode les val */
+	ft_bzero(al->pix, 1280 * 720 * sizeof(int));
 }
 
 int		ft_abs(int value)
@@ -85,18 +76,18 @@ void		draw_wall(t_al *al, t_wall *wall)
 	b.x = wall->x2;
 	b.y = wall->y2;
 	ft_put_line(a, b, al);
-	if (al->wall->next)
-		draw_wall(al, al->wall->next);
+	if (wall->next)
+		draw_wall(al, wall->next);
 }
 
-void	edit(t_al *al)
+void	editor(t_al *al)
 {
 	set_edit(al);
 	if (al->c_wall > 0)
 		draw_wall(al, al->wall);
-	if (al->k.space == 1 && al->edit.stat == T_WALL_2) 
+	if (al->k.space == 1 && al->edit.stat == T_WALL_IDLE) 
 	{
-		al->edit.stat = T_WALL_1;
+		al->edit.stat = T_WALL_DRAWING;
 		al->wall->x1 = 0;
 		al->wall->y1 = 0;
 		al->wall->x2 = 0;

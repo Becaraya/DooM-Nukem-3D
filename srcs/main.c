@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2019/08/28 09:30:36 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/09/11 12:08:08 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 
-int		main()
+int		main(void)
 {
 	t_al	al;
 

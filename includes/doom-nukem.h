@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/11 13:09:52 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/19 20:44:45 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 # include <fcntl.h>
 # include "libft.h"
 # include <stdio.h>
-// # include <math.h>
+# include <math.h>
 # include <sys/time.h>
-# include <SDL.h>
+# include "SDL.h"
+# include "SDL_ttf.h"
 
 # define WIN_TITLE "s     p     o     o     k     y"
 # define WIN_SIZEX 1280
@@ -42,6 +43,20 @@
 # define T_WALL_IDLE 3
 # define T_WALL_3 4
 
+typedef enum		e_status_ed
+{
+	SELECT,
+	DRAWING,
+	FIRST_CLICK,
+	RECTANGLE_SELECT,
+	RECTANGLE_DRAW
+}					t_status_ed;
+
+typedef enum		e_stat_wall
+{
+	SIMPLE,
+	RECT
+}					t_stat_wall;
 
 typedef struct		s_keys
 {
@@ -96,13 +111,14 @@ typedef struct		s_wall
 	int				y1;
 	int				x2;
 	int				y2;
+	t_stat_wall		type;
 	struct s_wall	*prev;
 	struct s_wall	*next;
 }					t_wall;
 
 typedef struct		s_edit
 {
-	int				stat;
+	t_status_ed		stat;
 	int				zoom;
 }					t_edit;
 
@@ -114,6 +130,11 @@ typedef struct		s_al
 	SDL_Texture		*tex;
 	SDL_Renderer	*ren;
 	unsigned int	*pix;
+
+	SDL_Window		*win_;
+	SDL_Texture		*tex_;
+	SDL_Renderer	*ren_;
+	unsigned int	*pix_;
 
 	char			fps;
 	long			last_time;
@@ -144,6 +165,7 @@ void				editor(t_al *al);
 void				key_func(t_al *al);
 void				mouse_press(t_al *al);
 void				mouse_func(t_al *al);
+void				mouse_weel(t_al *al);
 
 void				refresh(t_al *al);
 int					yeet(t_al *al);

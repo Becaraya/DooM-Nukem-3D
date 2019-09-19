@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/11 13:09:46 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/19 21:14:44 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ static void	dtime(t_al *al)
 
 static void	status(t_al *al)
 {
-	if (al->status == ST_MENU)
-		menu(al);
+	// if (al->status == ST_MENU)
+	// 	menu(al);
 	if (al->status == ST_EDIT)
 		editor(al);
 }
@@ -65,6 +65,10 @@ void		main_loop(t_al *al)
 				mouse_press(al);
 			if (al->ev.type == SDL_MOUSEMOTION)
 				mouse_func(al);
+			if (al->ev.type == SDL_MOUSEWHEEL)
+				mouse_weel(al);
+			// if (al->ev.type == SDL_WINDOWEVENT_RESIZED)
+			// 	{}
 		}
 		dtime(al);
 		status(al);

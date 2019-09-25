@@ -31,7 +31,6 @@ HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 SRC_LIST = main.c		\
 		edit.c			\
 		event_func.c	\
-		edit.c			\
 		game.c			\
 		render.c		\
 		sport_physics.c	\

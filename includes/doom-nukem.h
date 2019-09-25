@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/25 11:09:35 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/25 12:44:45 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define WIN_POSX 100
 # define WIN_POSY 10
 
+# define MAX_WALLS_HIT 1000
+
 # define DEFAULT_G 9.81
 # define DEFAULT_FOV 2
 
@@ -36,13 +38,6 @@
 # define PLAYER_ANA_POWER 950
 # define LOOK_SENS 1.0
 
-/*# define ST_GAME 1
-# define ST_PAUSE 2
-# define ST_MENU 3
-# define ST_SETTING 4
-# define ST_EDIT 5
-# define ST_MAP_CUSTOME 6*/
-
 # define MERROR_MESS "Malloc error\n"
 
 /*
@@ -51,12 +46,22 @@
 
 # define M_2PI 6.283185307179586476925286766559005768394338798750211641949
 
+/*
+** Pls change this to an enum
+*/
+
 # define T_SELECT 1
 # define T_WALL_DRAWING 2
 # define T_WALL_IDLE 3
 # define T_WALL_3 4
 
-# define MAX_IMGSIZE 10000
+/*
+** ENUMS, for all status ######################################################
+*/
+
+/*
+** main status
+*/
 
 typedef enum		e_status_ed
 {
@@ -72,6 +77,52 @@ typedef enum		e_stat_wall
 	SIMPLE,
 	RECT
 }					t_stat_wall;
+
+/*
+** STRUCTURES #################################################################
+*/
+
+/*
+** .hms parser and the main game data
+*/
+
+typedef struct		s_walls
+{
+	double			x1;
+	double			y1;
+	double			x2;
+	double			y2;
+	unsigned short	wall_tex;
+	unsigned short	top_tex;
+	unsigned short	bot_tex;
+	unsigned short	is_cross;
+	unsigned int	sec_lnk;
+}					t_walls;
+
+/*
+**	fl:floor ce:ceiling hei:height tex:texture index
+*/
+
+typedef struct		s_sector
+{
+	double			fl_hei;
+	double			ce_hei;
+	unsigned short	fl_tex;
+	unsigned short	ce_tex;
+	unsigned int	nb_wal;
+	t_walls			*walls;
+}					t_sector;
+
+typedef struct		s_tex
+{
+	unsigned int	size_x;
+	unsigned int	size_y;
+	unsigned int	*pix;
+}					t_tex;
+
+/*
+** key currently pressed
+*/
 
 typedef struct		s_keys
 {
@@ -139,24 +190,36 @@ typedef enum		e_status
 }					t_status;
 
 /*
-** horizontal force descripting struct, adding z force vector could be done
-** but is useless for our usage
+** raycast hit descripting struct to add info missing from t_walls
 */
 
-typedef struct		s_force
+typedef struct		s_rc_hit
 {
-	double	x;
-	double	y;
-}					t_force;
+	double	hitdst;
+	t_walls	wall;
+}					t_rc_hit;
+
+/*
+** raycast ray descripting func to add info missing from t_walls
+*/
+
+typedef struct		s_rc_ray
+{
+	double		angle;
+	int			nb_hits;
+	t_rc_hit	hits[MAX_WALLS_HIT];
+}					t_rc_ray;
 
 /*
 ** Player info struct
-** Velocities are in m/s, positions are in cm (could be switched to meters at
-** the extent of clarity with map), mass is in kg and power is in watt
+** Velocities are in m/s, positions are in m, mass is in kg and power is in watt
+** csec: current sector, pointer to current sector, must be updated if crossing
+** sectors
 */
 
 typedef struct		s_player
 {
+	t_sector	*csec;
 	double		posx;
 	double		posy;
 	double		posz;
@@ -174,44 +237,6 @@ typedef struct		s_player
 	double		look_up;
 	unsigned	on_ground:1;
 }					t_player;
-
-/*
-** From here, all types are for the .hms parser and hence the game data
-*/
-
-typedef struct		s_walls
-{
-	signed int		x1;
-	signed int		y1;
-	signed int		x2;
-	signed int		y2;
-	unsigned short	wall_tex;
-	unsigned short	top_tex;
-	unsigned short	bot_tex;
-	unsigned short	is_cross;
-	unsigned int	sec_lnk;
-}					t_walls;
-
-typedef struct		s_tex
-{
-	unsigned int	size_x;
-	unsigned int	size_y;
-	unsigned int	*pix;
-}					t_tex;
-
-/*
-**	fl:floor ce:ceiling hei:height tex:texture index
-*/
-
-typedef struct		s_sector
-{
-	unsigned int	fl_hei;
-	unsigned int	ce_hei;
-	unsigned short	fl_tex;
-	unsigned short	ce_tex;
-	unsigned int	nb_wal;
-	t_walls			*walls;
-}					t_sector;
 
 /*
 ** Main structure #############################################################
@@ -260,7 +285,7 @@ typedef struct		s_al
 }					t_al;
 
 /*
-** Prototypes
+** Prototypes #################################################################
 */
 
 unsigned int		*parse_tex(t_al *al, char *name, int w, int h);
@@ -282,15 +307,6 @@ void				refresh(t_al *al);
 void				yeet(t_al *al);
 
 /*
-** status functions
-*/
-
-void				editor(t_al *al);
-void				menu(t_al *al);
-void				game(t_al *al);
-void				render(t_al *al);
-
-/*
 ** hms parser
 */
 
@@ -302,5 +318,14 @@ int					parse_sector(t_sector *sec, int fd);
 int					parse_sectors(t_al *al, int fd);
 int					parse_wall(t_walls *wall, int fd);
 int					parse_walls(t_sector *sec, int fd);
+
+/*
+** status functions
+*/
+
+void				editor(t_al *al);
+void				menu(t_al *al);
+void				game(t_al *al);
+void				render(t_al *al);
 
 #endif

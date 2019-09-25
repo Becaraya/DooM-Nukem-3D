@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/25 11:17:55 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/25 12:40:06 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->power_mult = 1;
 	pl->size = PLAYER_SIZE;
 	pl->on_ground = 1;
-	pl->posz = al->sec[1].fl_hei;
+	pl->posz = pl->csec->fl_hei;
 }
 
 static void		init_edit(t_al *al)
@@ -55,10 +55,11 @@ static void		init_edit(t_al *al)
 		yeet(al);
 }
 
-void			init(t_al *al)
+void			init(t_al *al, char *str)
 {
-	if (hms_parser(al, "h.hms"))
+	if (hms_parser(al, str))
 		exit(0);
+	init_player(al, &al->play);
 	init_status(al);
 	al->status = GAME; // al->status = EDIT;
 	al->fps = 60;
@@ -78,9 +79,6 @@ void			init(t_al *al)
 		yeet(al);
 	if ((al->pix = ft_memalloc(WIN_SIZEX * WIN_SIZEY * sizeof(int))) == NULL)
 		exit(pr_err(MERROR_MESS));
-	init_player(al, &al->play);
-	init_wall(al);
-	init_text(al);
 	init_wall(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->wall->x1 = -1;

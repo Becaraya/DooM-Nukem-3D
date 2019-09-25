@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/09/25 10:30:50 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/25 12:35:08 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,17 +115,17 @@ static void		acceleration(t_al *al)
 }
 
 /*
-**  /10000 as opposed to standard 1000000 to convert m in cm
+**  apply displacment according to velocities and collisions (soon)
 */
 
 static void		displacement(t_al *al)
 {
-	al->play.posx += al->play.velx * al->dtime / 10000;
-	al->play.posy += al->play.vely * al->dtime / 10000;
-	al->play.posz += al->play.velz * al->dtime / 10000;
-	if (al->play.posz < al->sec[1].fl_hei)
+	al->play.posx += al->play.velx * al->dtime / 1000000;
+	al->play.posy += al->play.vely * al->dtime / 1000000;
+	al->play.posz += al->play.velz * al->dtime / 1000000;
+	if (al->play.posz < al->play.csec->fl_hei)
 	{
-		al->play.posz = al->sec[1].fl_hei;
+		al->play.posz = al->play.csec->fl_hei;
 		al->play.velz = 0;
 		al->play.on_ground = 1;
 	}
@@ -139,7 +139,7 @@ static void		flyyyy(t_al *al)
 
 void		game(t_al *al)
 {
-	printf("x%.1fm y%.1fm z%.1fcm speed>%.1fkm/h\n", al->play.posx/100, al->play.posy/100, al->play.posz, al->play.gd_vel * 3.6);
+	printf("x%.1fm y%.1fm z%.1fcm speed>%.1fkm/h\n", al->play.posx, al->play.posy, al->play.posz*100, al->play.gd_vel * 3.6);
 	rotate(al);
 	if (al->play.on_ground)
 		acceleration(al);

@@ -7,7 +7,9 @@ The binary takes a file witch content follows this pattern:
 
 (16 header)
 4  0- number of sectors
-12 4- pad
+4  4- player starting sector
+4  8- player starting x
+4 12- player starting y
 sectors (16 header + nb_wall * 32 walls):
 {
 	4  0- floor height

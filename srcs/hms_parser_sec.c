@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 11:45:25 by pitriche          #+#    #+#             */
-/*   Updated: 2019/09/20 12:11:02 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/25 13:07:31 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ int		parse_wall(t_walls *wall, int fd)
 
 	if (read(fd, buf, 32) != 32)
 		return (1);
-	wall->x1 = *(signed int *)(buf + 0);
-	wall->y1 = *(signed int *)(buf + 4);
-	wall->x2 = *(signed int *)(buf + 8);
-	wall->y2 = *(signed int *)(buf + 12);
+	wall->x1 = *(signed int *)(buf + 0) / 100.0;
+	wall->y1 = *(signed int *)(buf + 4) / 100.0;
+	wall->x2 = *(signed int *)(buf + 8) / 100.0;
+	wall->y2 = *(signed int *)(buf + 12) / 100.0;
 	wall->wall_tex = *(unsigned short *)(buf + 16);
 	wall->bot_tex = *(unsigned short *)(buf + 18);
 	wall->top_tex = *(unsigned short *)(buf + 20);
 	wall->sec_lnk = *(unsigned int *)(buf + 24);
 	if (wall->sec_lnk)
 		wall->is_cross = *(unsigned short *)(buf + 22);
-printf("Parse wall %4d,%-4d %4d,%-4d link>%d solid:%c\n", wall->x1, wall->y1, wall->x2, wall->y2, wall->sec_lnk, wall->is_cross ? 'N' : 'Y');
+printf("Parse wall %5.2f,%-5.2f %5.2f,%-5.2f link>%d solid:%c\n", wall->x1, wall->y1, wall->x2, wall->y2, wall->sec_lnk, wall->is_cross ? 'N' : 'Y');
 	return (0);
 }
 
@@ -60,10 +60,10 @@ int		parse_sector(t_sector *sec, int fd)
 
 	if (read(fd, buf, 16) != 16)
 		return (1);
-	sec->fl_hei = *(unsigned int *)buf;
-	sec->ce_hei = *(unsigned int *)(buf + 4);
-	sec->fl_tex = *(buf + 8);
-	sec->ce_tex = *(buf + 10);
+	sec->fl_hei = *(unsigned int *)(buf + 0) / 100.0;
+	sec->ce_hei = *(unsigned int *)(buf + 4) / 100.0;
+	sec->fl_tex = *(unsigned short *)(buf + 8);
+	sec->ce_tex = *(unsigned short *)(buf + 10);
 	sec->nb_wal = *(unsigned int *)(buf + 12);
 	if (sec->nb_wal < 3)
 		return (pr_err("Not enough walls\n"));
@@ -76,10 +76,16 @@ int		parse_sectors(t_al *al, int fd)
 {
 	unsigned char	buf[16];
 	unsigned int	i;
+	unsigned int	csec;
 
 	if (read(fd, buf, 16) != 16)
 		return (1);
-	al->nb_sec = *(unsigned int *)buf;
+	al->nb_sec = *(unsigned int *)(buf + 0);
+	csec = *(unsigned int *)(buf + 4);
+	al->play.posx = *(signed int *)(buf + 8) / 100.0;
+	al->play.posy = *(signed int *)(buf + 12) / 100.0;
+	if (!csec || csec > al->nb_sec)
+		return (pr_err("Invalid starting sector\n"));
 	if (!(al->sec = ft_memalloc((al->nb_sec + 1) * sizeof(t_sector))))
 		exit(pr_err(MERROR_MESS));
 	i = 0;
@@ -88,5 +94,6 @@ int		parse_sectors(t_al *al, int fd)
 			return (1);
 	if (check_links(al->sec, al->nb_sec))
 		return (1);
+	al->play.csec = al->sec + csec;
 	return (0);
 }

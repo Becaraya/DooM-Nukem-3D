@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:39:49 by pitriche          #+#    #+#             */
-/*   Updated: 2019/09/20 12:11:05 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/25 12:31:33 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int		parse_texture(t_tex *tex, int fd)
 	tex->size_y = *(unsigned int *)(buf + 4);
 	if (!tex->size_x || !tex->size_y)
 		return (pr_err("Null sized texture\n"));
-	if (tex->size_x > MAX_IMGSIZE || tex->size_y > MAX_IMGSIZE)
-		return (pr_err("Too large texture\n"));
 	if (parse_pixels(tex, fd))
 		return (1);
 	return (0);

@@ -6,11 +6,11 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/20 12:47:29 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/25 11:20:20 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "doom-nukem.h"
+#include "doom-nukem.h"
 
 void		menu(t_al *al)
 {
@@ -53,6 +53,10 @@ void		main_loop(t_al *al)
 				mouse_press(al);
 			if (al->ev.type == SDL_MOUSEMOTION)
 				mouse_func(al);
+			if (al->ev.type == SDL_MOUSEWHEEL)
+				mouse_weel(al);
+			// if (al->ev.type == SDL_WINDOWEVENT_RESIZED)
+			// 	{}
 		}
 		dtime(al);
 		al->stat_fnc[al->status](al);

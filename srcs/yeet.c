@@ -6,11 +6,15 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2019/09/20 12:45:34 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/25 11:23:04 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
+
+/*
+** /!\ This only refresh first window
+*/
 
 void	refresh(t_al *al)
 {
@@ -23,11 +27,19 @@ void	refresh(t_al *al)
 void	yeet(t_al *al)
 {
 	al->pix ? free(al->pix) : 0;
+	al->pix_ ? free(al->pix_) : 0;
 	al->sdlren ? SDL_DestroyRenderer(al->sdlren) : 0;
+	al->ren_ ? SDL_DestroyRenderer(al->ren_) : 0;
 	al->sdltex ? SDL_DestroyTexture(al->sdltex) : 0;
+	al->tex_ ? SDL_DestroyTexture(al->tex_) : 0;
 	if (al->sdlwin)
 	{
 		SDL_DestroyWindow(al->sdlwin);
+		!al->win_ ? SDL_Quit() : 0;
+	}
+	if (al->win_)
+	{
+		SDL_DestroyWindow(al->win_);
 		SDL_Quit();
 	}
 	exit(0);

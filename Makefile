@@ -3,12 +3,22 @@ NAME = doom-nukem
 CC = gcc
 CCF = -fsanitize=address
 FLAGS = -Wall -Wextra
-LIBRARIES = -lft -L$(LIBFT_DIR) $(SDL_DIR)
-INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_HEAD) $(SDL_PATH)
+LIBRARIES = -lft -L$(LIBFT_DIR)
+INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_HEAD) $(SDL_HEAD)
 
-SDL_DIR = -L$(HOME)/homebrew/Cellar/sdl2/2.0.10/lib -lSDL2
+SDL_DIR = ./SDL2.framework/lib
+SDL_HEAD = -I ./frameworks/SDL2.framework/Versions/A/Headers \
+		-I ./frameworks/SDL2_ttf.framework/Versions/A/Headers \
+		-I ./frameworks/SDL2_image.framework/Versions/A/Headers \
+		-I ./frameworks/SDL2_mixer.framework/Headers \
+		-I ./frameworks/SDL2_net.framework/Headers \
+		-F ./frameworks
 
-SDL_PATH = -I $(HOME)/homebrew/Cellar/sdl2/2.0.10/include/SDL2
+FRAMEWORKS = -F ./frameworks \
+		-rpath ./frameworks \
+		-framework OpenGL -framework AppKit -framework OpenCl \
+		-framework SDL2 -framework SDL2_ttf -framework SDL2_image \
+		-framework SDL2_mixer -framework SDL2_net
 
 LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_DIR = ./Libft/
@@ -18,7 +28,8 @@ HEADERS_LIST = doom-nukem.h
 HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
-SRC_LIST = main.c 		\
+SRC_LIST = main.c		\
+		edit.c			\
 		event_func.c	\
 		edit.c			\
 		game.c			\
@@ -49,11 +60,8 @@ RESET = \033[0m
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ)
-	@if !(brew ls --versions sdl2) > /dev/null; then\
-		brew install sdl2;\
-	fi
 	@echo "$(YELLOW)Sources compilation $(RESET)[$(GREEN)OK$(RESET)]\n"
-	@$(CC) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJ) -o $(NAME)
+	@$(CC) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(FRAMEWORKS) $(OBJ) -o $(NAME)
 	@echo "[$(BLUE)$(NAME) Compiled$(RESET)]"
 
 $(OBJ_DIR):
@@ -85,4 +93,4 @@ sani :  $(LIBFT) $(OBJ_DIR) $(OBJ)
 
 re: fclean all
 
-.PHONY: all clean fclean re sani
+.PHONY: all clean fclean re sani 

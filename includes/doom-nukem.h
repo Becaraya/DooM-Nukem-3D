@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/24 11:46:53 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/25 11:09:35 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,8 @@
 # include <stdio.h>
 # include <math.h>
 # include <sys/time.h>
-# include <SDL.h>
+# include "SDL.h"
+# include "SDL_ttf.h"
 
 # define WIN_TITLE "100% totally mario sunshine virus free i swear"
 # define WIN_SIZEX 1280
@@ -57,6 +58,20 @@
 
 # define MAX_IMGSIZE 10000
 
+typedef enum		e_status_ed
+{
+	SELECT,
+	DRAWING,
+	FIRST_CLICK,
+	RECTANGLE_SELECT,
+	RECTANGLE_DRAW
+}					t_status_ed;
+
+typedef enum		e_stat_wall
+{
+	SIMPLE,
+	RECT
+}					t_stat_wall;
 
 typedef struct		s_keys
 {
@@ -104,13 +119,14 @@ typedef struct		s_wall
 	int				y1;
 	int				x2;
 	int				y2;
+	t_stat_wall		type;
 	struct s_wall	*prev;
 	struct s_wall	*next;
 }					t_wall;
 
 typedef struct		s_edit
 {
-	int				stat;
+	t_status_ed		stat;
 	int				zoom;
 }					t_edit;
 
@@ -211,13 +227,18 @@ typedef struct		s_al
 	SDL_Renderer	*sdlren;
 	unsigned int	*pix;
 
+	SDL_Window		*win_;
+	SDL_Texture		*tex_;
+	SDL_Renderer	*ren_;
+	unsigned int	*pix_;
+
 	unsigned int	nb_sec;
 	t_sector		*sec;
 	unsigned short	nb_tex;
 	t_tex			*tex;
 
-	double			g;
 	t_player		play;
+	double			g;
 	double			fov;
 
 	char			fps;
@@ -252,6 +273,7 @@ void				main_loop(t_al *al);
 void				key_func(t_al *al);
 void				mouse_press(t_al *al);
 void				mouse_func(t_al *al);
+void				mouse_weel(t_al *al);
 
 double				power_to_run(t_al *al);
 void				jump(t_al *al);

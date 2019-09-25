@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/22 19:37:26 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/25 11:18:59 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ void		mouse_menu(t_al *al)
 				printf("GO\n");
 			if (bev.y > 472 && bev.y < 574 && bev.x > 772 && bev.x < 943)
 				printf("QUIT\n");
-			//	yeet(al);
 			if (bev.y > 347 && bev.y < 444 && bev.x > 720 && bev.x < 1004)
 				printf("SETTING\n");
 		}
@@ -78,14 +77,12 @@ void		mouse_menu(t_al *al)
 void		new_wall(t_al *al)
 {
 	t_wall	*new;
-
 	if (!(new = (t_wall *)ft_memalloc(sizeof(t_wall))))
 		yeet(al);
 	new->x1 = al->wall->x2;
 	new->y1 = al->wall->y2;
 	new->x2 = al->wall->x2;
 	new->y2 = al->wall->y2;
-
 	new->next = al->wall;
 	al->wall->prev = new;
 	al->wall = new;
@@ -98,19 +95,34 @@ void		mouse_edit(t_al *al)
 	bev = al->ev.button;
 	if (bev.type == SDL_MOUSEBUTTONUP)
 		return ;
-	if (al->edit.stat == T_WALL_IDLE)
+	if (al->edit.stat == FIRST_CLICK || al->edit.stat == RECTANGLE_SELECT)
 	{
-		al->edit.stat = T_WALL_DRAWING;
-		al->wall->x1 = bev.x;
-		al->wall->y1 = bev.y;
-		al->wall->x2 = bev.x;
-		al->wall->y2 = bev.y;
+		// al->wall->type = (al->edit.stat == FIRST_CLICK) ? SIMPLE : RECT;
+		al->edit.stat = (al->edit.stat == FIRST_CLICK) ? DRAWING : RECTANGLE_DRAW;
+		al->wall->x1 = bev.x - (bev.x % al->edit.zoom);
+		al->wall->y1 = bev.y - (bev.y % al->edit.zoom);
+		al->wall->x2 = bev.x - (bev.x % al->edit.zoom);
+		al->wall->y2 = bev.y - (bev.y % al->edit.zoom);
 		al->c_wall++;
 	}
-	else if (al->edit.stat == T_WALL_DRAWING)
+	if (al->edit.stat == DRAWING)
 	{
-		al->edit.stat = T_WALL_IDLE;
 		new_wall(al);
+		al->wall->type = SIMPLE;
+		al->wall->x1 = bev.x - (bev.x % al->edit.zoom);
+		al->wall->y1 = bev.y - (bev.y % al->edit.zoom);
+		al->wall->x2 = bev.x - (bev.x % al->edit.zoom);
+		al->wall->y2 = bev.y - (bev.y % al->edit.zoom);
+	}
+	if (al->edit.stat == RECTANGLE_DRAW)
+	{
+		new_wall(al);
+		// al->edit.stat = RECTANGLE_SELECT;
+		al->wall->type = RECT;
+		al->wall->x1 = bev.x - (bev.x % al->edit.zoom);
+		al->wall->y1 = bev.y - (bev.y % al->edit.zoom);
+		al->wall->x2 = bev.x - (bev.x % al->edit.zoom);
+		al->wall->y2 = bev.y - (bev.y % al->edit.zoom);
 	}
 }
 
@@ -139,9 +151,45 @@ void		mouse_func(t_al *al)
 	SDL_MouseMotionEvent	mev;
 
 	mev = al->ev.motion;
-	if (al->edit.stat == T_WALL_DRAWING)
+	if (al->edit.stat == DRAWING || (al->edit.stat == RECTANGLE_DRAW))
 	{
-		al->wall->x2 = mev.x;
-		al->wall->y2 = mev.y;
+		al->wall->x2 = mev.x - (mev.x % al->edit.zoom);
+		al->wall->y2 = mev.y - (mev.y % al->edit.zoom);
+		printf("%d \n", al->edit.stat);
 	}
+}
+
+// void		convert_wall(t_al *al, t_wall *wall)
+// {
+// 	wall->x1++;
+// 	wall->y1++;
+// 	wall->x2++;
+// 	wall->y2++;
+// 	if (wall->next)
+// 		convert_wall(al, wall->next);
+// }
+
+void		mouse_weel(t_al *al)
+{
+	t_wall	*tmp;
+
+	(void)al;
+	// if (al->ev.wheel.y > 0) // scroll up
+	// {
+	// 	al->edit.zoom++;
+	// 	if (al->wall->x2 != -1)
+	// 	{
+	// 		convert_wall(al, al->wall);
+	// 	}
+	// }	// printf("test up\n");
+	// else if (al->ev.wheel.y < 0 && al->edit.zoom > 2)
+	// 	al->edit.zoom--;
+	// if (al->wall->x2 != -1)
+		// convert_wall(al, al->wall);
+	// scroll down
+		// printf("test down\n");
+	// if (al->ev.wheel.x > 0) // scroll right
+	// 	printf("test up x\n");
+	// else if (al->ev.wheel.x < 0)
+	// 	printf("test down x\n");
 }

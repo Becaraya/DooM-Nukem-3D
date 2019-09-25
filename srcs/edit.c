@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/11 13:20:26 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/19 20:11:22 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,24 @@
 
 static void		set_edit(t_al *al)
 {
+	int x;
+	int y;
 	/* si tu veut init une grosse zone a null utilise bzero plutot  que des for
 	ou while. Et fait des typedef sur la win_size plutot que hardcode les val */
-	ft_bzero(al->pix, 1280 * 720 * sizeof(int));
+	x = 0;
+	y = 0;
+	ft_bzero(al->pix, WIN_SIZEX * WIN_SIZEY * sizeof(int));
+	while (x < WIN_SIZEX)
+	{
+		while (y < WIN_SIZEY)
+		{
+			if (((x % (al->edit.zoom)) == 0) && (y % (al->edit.zoom) == 0) && y > 0 && x > 0)
+				al->pix[x + (y * WIN_SIZEX)] = 0xffffff;
+			y++;
+		}
+		y = 0;
+		x++;
+	}
 }
 
 int		ft_abs(int value)
@@ -66,6 +81,21 @@ void			ft_put_line(t_point a, t_point b, t_al *al)
 	}
 }
 
+void		put_rectangle(t_point a, t_point b, t_al *al)
+{
+	t_point	c;
+	t_point	d;
+
+	c.x = a.x;
+	c.y = b.y;
+	d.x = b.x;
+	d.y = a.y;
+	ft_put_line(a, d, al);
+	ft_put_line(a, c, al);
+	ft_put_line(c, b, al);
+	ft_put_line(d, b, al);
+}
+
 void		draw_wall(t_al *al, t_wall *wall)
 {
 	t_point		a;
@@ -75,7 +105,10 @@ void		draw_wall(t_al *al, t_wall *wall)
 	a.y = wall->y1;
 	b.x = wall->x2;
 	b.y = wall->y2;
-	ft_put_line(a, b, al);
+	if (wall->type == RECT)
+		put_rectangle(a, b, al);
+	else
+		ft_put_line(a, b, al);
 	if (wall->next)
 		draw_wall(al, wall->next);
 }
@@ -83,16 +116,20 @@ void		draw_wall(t_al *al, t_wall *wall)
 void	editor(t_al *al)
 {
 	set_edit(al);
-	if (al->c_wall > 0)
-		draw_wall(al, al->wall);
-	if (al->k.space == 1 && al->edit.stat == T_WALL_IDLE) 
+	if (al->k.space == 1)
 	{
-		al->edit.stat = T_WALL_DRAWING;
+		al->edit.stat = FIRST_CLICK;
 		al->wall->x1 = 0;
 		al->wall->y1 = 0;
 		al->wall->x2 = 0;
 		al->wall->y2 = 0;
 	}
+	if (al->c_wall > 0)
+		draw_wall(al, al->wall);
+	// if (al->edit.stat == IDLE) 
+	// {
+	// 	// al->edit.stat = DRAWING;
+	// }
 	// icon_edit(al);
 	refresh(al);
 }

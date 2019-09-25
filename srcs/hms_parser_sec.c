@@ -1,0 +1,92 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hms_parser_sec.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/09/20 11:45:25 by pitriche          #+#    #+#             */
+/*   Updated: 2019/09/20 12:11:02 by pitriche         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "doom-nukem.h"
+
+int		parse_wall(t_walls *wall, int fd)
+{
+	unsigned char buf[32];
+
+	if (read(fd, buf, 32) != 32)
+		return (1);
+	wall->x1 = *(signed int *)(buf + 0);
+	wall->y1 = *(signed int *)(buf + 4);
+	wall->x2 = *(signed int *)(buf + 8);
+	wall->y2 = *(signed int *)(buf + 12);
+	wall->wall_tex = *(unsigned short *)(buf + 16);
+	wall->bot_tex = *(unsigned short *)(buf + 18);
+	wall->top_tex = *(unsigned short *)(buf + 20);
+	wall->sec_lnk = *(unsigned int *)(buf + 24);
+	if (wall->sec_lnk)
+		wall->is_cross = *(unsigned short *)(buf + 22);
+printf("Parse wall %4d,%-4d %4d,%-4d link>%d solid:%c\n", wall->x1, wall->y1, wall->x2, wall->y2, wall->sec_lnk, wall->is_cross ? 'N' : 'Y');
+	return (0);
+}
+
+int		parse_walls(t_sector *sec, int fd)
+{
+	unsigned int	i;
+
+	i = 0;
+	if (!(sec->walls = ft_memalloc(sec->nb_wal * sizeof(t_walls))))
+		exit(pr_err(MERROR_MESS));
+	while (i < sec->nb_wal)
+	{
+		parse_wall(sec->walls + i, fd);
+		if (i != 0)
+			if (sec->walls[i].x1 != sec->walls[i - 1].x2 || sec->walls[i].y1
+				!= sec->walls[i - 1].y2)
+				return (pr_err("Walls not connected\n"));
+		i++;
+	}
+	if (sec->walls[0].x1 != sec->walls[i - 1].x2 || sec->walls[0].y1
+		!= sec->walls[i - 1].y2)
+		return (pr_err("Walls not connected\n"));
+	return (0);
+}
+
+int		parse_sector(t_sector *sec, int fd)
+{
+	unsigned char buf[16];
+
+	if (read(fd, buf, 16) != 16)
+		return (1);
+	sec->fl_hei = *(unsigned int *)buf;
+	sec->ce_hei = *(unsigned int *)(buf + 4);
+	sec->fl_tex = *(buf + 8);
+	sec->ce_tex = *(buf + 10);
+	sec->nb_wal = *(unsigned int *)(buf + 12);
+	if (sec->nb_wal < 3)
+		return (pr_err("Not enough walls\n"));
+	if (parse_walls(sec, fd))
+		return (1);
+	return (0);
+}
+
+int		parse_sectors(t_al *al, int fd)
+{
+	unsigned char	buf[16];
+	unsigned int	i;
+
+	if (read(fd, buf, 16) != 16)
+		return (1);
+	al->nb_sec = *(unsigned int *)buf;
+	if (!(al->sec = ft_memalloc((al->nb_sec + 1) * sizeof(t_sector))))
+		exit(pr_err(MERROR_MESS));
+	i = 0;
+	while (i++ < al->nb_sec)
+		if (parse_sector(al->sec + i, fd))
+			return (1);
+	if (check_links(al->sec, al->nb_sec))
+		return (1);
+	return (0);
+}

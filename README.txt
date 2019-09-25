@@ -2,45 +2,54 @@ Documentation file for Doom-nukem project by becaraya and pitriche
 
 The binary takes a file witch content follows this pattern:
 (fields are indicated as 'size in byte - field name')
-(name:{} indicates a repeating field)
+(name:{} indicates a repeating field and () is a commentary)
 
-4 - total size
-2 - number of sectors
-sectors:
+
+(16 header)
+4  0- number of sectors
+12 4- pad
+sectors (16 header + nb_wall * 32 walls):
 {
-	2 - floor height
-	1 - floor texture index (0 for invisible floor)
-	2 - ceiling height
-	1 - ceiling texture index (0 for invisible roof)
-	2 - number of walls
-	walls:
+	4  0- floor height
+	4  4- ceiling height
+	2  8- floor texture index (0 for invisible floor)
+	2 10- ceiling texture index (0 for invisible roof)
+	4 12- number of walls
+	walls (32):
 	{
-		2 - x1
-		2 - y1
-		2 - x2
-		2 - y2
-		2 - sector index (0 if wall, index of linked sector if portal)
-		1 - wall texture (0 if invisible)
-		1 - bottom texture (0 if invisible)
-		1 - top texture (0 if invisible)
+		4  0- x1
+		4  4- y1
+		4  8- x2
+		4 12- y2
+		2 16- wall texture (0 if invisible)
+		2 18- bottom texture (0 if invisible)
+		2 20- top texture (0 if invisible)
+		2 22- is crossable (0 if solid, !0 if crossable)
+		4 24- sector index (0 if wall, index of linked sector if portal)
+		4 26- pad
 	}
 }
-1 - number of textures
-textures:
+(16 header)
+2  0- number of textures
+14 2- pad
+textures(16 header + x * y * 4 pixels with >16 padding):
 {
-	2 - texture size x
-	2 - texture size y
+	4 0- texture size x
+	4 4- texture size y
+	8 8- pad
 	pixels:
 	{
-		1 - transparency (0 for opaque and !=0 for transparent)
-		1 - red
-		1 - green
-		1 - blue
+		1  - transparency (0 for opaque and !=0 for transparent)
+		1 1- red
+		1 2- green
+		1 3- blue
 	}
+	4 - ((x * y) % 4) - pad
 }
 
 notes:
 Both textures and sectors tab must start at 1, for utility purposes (sorry).
 Pixels are in y lines of x pixels.
 The first step of rendering will be to fill screen with the skybox, witch will
-be in the texture tab at index 0.
+be in the texture tab at index 0. nb_tex doesn't count skybox in
+Coordonates and floor heights are in centimeters

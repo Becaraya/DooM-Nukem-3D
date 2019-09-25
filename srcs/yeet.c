@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yeet.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2019/08/28 16:44:44 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/09/20 12:45:34 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,20 +14,20 @@
 
 void	refresh(t_al *al)
 {
-	if ((SDL_UpdateTexture(al->tex, 0, al->pix, WIN_SIZEX * sizeof(int)) < 0)
-		|| (SDL_RenderCopy(al->ren, al->tex, 0, 0) < 0))
+	if ((SDL_UpdateTexture(al->sdltex, 0, al->pix, WIN_SIZEX * sizeof(int)) < 0)
+		|| (SDL_RenderCopy(al->sdlren, al->sdltex, 0, 0) < 0))
 		yeet(al);
-	SDL_RenderPresent(al->ren);
+	SDL_RenderPresent(al->sdlren);
 }
 
-int		yeet(t_al *al)
+void	yeet(t_al *al)
 {
 	al->pix ? free(al->pix) : 0;
-	al->ren ? SDL_DestroyRenderer(al->ren) : 0;
-	al->tex ? SDL_DestroyTexture(al->tex) : 0;
-	if (al->win)
+	al->sdlren ? SDL_DestroyRenderer(al->sdlren) : 0;
+	al->sdltex ? SDL_DestroyTexture(al->sdltex) : 0;
+	if (al->sdlwin)
 	{
-		SDL_DestroyWindow(al->win);
+		SDL_DestroyWindow(al->sdlwin);
 		SDL_Quit();
 	}
 	exit(0);

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/11 13:09:46 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/20 12:47:29 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,10 @@
 void		menu(t_al *al)
 {
 
-	for (int i = 0; i < 1280; i++){
-		for (int j = 0; j < 720; j++){
-			al->pix[WIN_SIZEX * j + i] = al->txt.s_menu[j * 1280 + i];// 0x34652864;//
-		}
-	}
-	// SDL_UpdateTexture(al->tex, 0, al->pix, WIN_SIZEX * sizeof(int));
-	// SDL_RenderCopy(al->ren, al->tex, 0, 0);
-	// SDL_RenderPresent(al->ren);
+	ft_bzero(al->pix, WIN_SIZEX * WIN_SIZEY);
+	SDL_UpdateTexture(al->sdltex, 0, al->pix, WIN_SIZEX * sizeof(int));
+	SDL_RenderCopy(al->sdlren, al->sdltex, 0, 0);
+	SDL_RenderPresent(al->sdlren);
 	refresh(al);
 }
 
@@ -43,14 +39,6 @@ static void	dtime(t_al *al)
 	al->tgt_time = al->last_time + 1000000 / al->fps;
 }
 
-static void	status(t_al *al)
-{
-	if (al->status == ST_MENU)
-		menu(al);
-	if (al->status == ST_EDIT)
-		editor(al);
-}
-
 void		main_loop(t_al *al)
 {
 	while (1)
@@ -67,6 +55,6 @@ void		main_loop(t_al *al)
 				mouse_func(al);
 		}
 		dtime(al);
-		status(al);
+		al->stat_fnc[al->status](al);
 	}
 }

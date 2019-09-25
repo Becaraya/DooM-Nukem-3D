@@ -21,6 +21,12 @@ HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 SRC_LIST = main.c 		\
 		event_func.c	\
 		edit.c			\
+		game.c			\
+		render.c		\
+		sport_physics.c	\
+		hms_parser.c	\
+		hms_parser_sec.c\
+		hms_parser_tex.c\
 		parse_tex.c 	\
 		main_loop.c 	\
 		init.c 			\

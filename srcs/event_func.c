@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/11 13:22:56 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/22 19:37:26 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ static void	keyup_func(t_al *al, SDL_KeyboardEvent kev)
 	kev.keysym.sym == SDLK_d ? al->k.d = 0 : 0;
 	kev.keysym.sym == SDLK_LEFT ? al->k.left = 0 : 0;
 	kev.keysym.sym == SDLK_RIGHT ? al->k.righ = 0 : 0;
-	kev.keysym.sym == SDLK_LSHIFT ? al->k.lshift = 0 : 0;
-	kev.keysym.sym == SDLK_SPACE ? al->k.space = 0 : 0;
+	kev.keysym.sym == SDLK_LSHIFT ? al->play.power = PLAYER_AERO_POWER : 0;
 	kev.keysym.sym == SDLK_UP ? al->k.up = 0 : 0;
 	kev.keysym.sym == SDLK_DOWN ? al->k.down = 0 : 0;
+	kev.keysym.sym == SDLK_SPACE ? al->k.space = 0 : 0;
 	kev.keysym.sym == SDLK_LCTRL ? al->k.ctrl = 0 : 0;
 }
 
@@ -36,7 +36,7 @@ void		key_func(t_al *al)
 	{
 		kev.keysym.sym == SDLK_ESCAPE ? yeet(al) : 0;
 		if (kev.keysym.sym == SDLK_F1)
-			al->status = (al->status == ST_GAME) ? ST_PAUSE : ST_GAME;
+			al->status = (al->status == GAME) ? PAUSE : GAME;
 		kev.keysym.sym == SDLK_w ? al->k.w = 1 : 0;
 		kev.keysym.sym == SDLK_a ? al->k.a = 1 : 0;
 		kev.keysym.sym == SDLK_s ? al->k.s = 1 : 0;
@@ -45,7 +45,8 @@ void		key_func(t_al *al)
 		kev.keysym.sym == SDLK_RIGHT ? al->k.righ = 1 : 0;
 		kev.keysym.sym == SDLK_UP ? al->k.up = 1 : 0;
 		kev.keysym.sym == SDLK_DOWN ? al->k.down = 1 : 0;
-		kev.keysym.sym == SDLK_LSHIFT ? al->k.lshift = 1 : 0;
+		kev.keysym.sym == SDLK_LSHIFT ? al->play.power = PLAYER_ANA_POWER : 0;
+		kev.keysym.sym == SDLK_SPACE ? jump(al) : 0;
 		kev.keysym.sym == SDLK_SPACE ? al->k.space = 1 : 0;
 		kev.keysym.sym == SDLK_LCTRL ? al->k.ctrl = 1 : 0;
 	}
@@ -115,9 +116,9 @@ void		mouse_edit(t_al *al)
 
 void		mouse_press(t_al *al)
 {
-	if (al->status == ST_MENU)
+	if (al->status == MENU)
 		mouse_menu(al);
-	else if (al->status == ST_EDIT)
+	else if (al->status == EDIT)
 		mouse_edit(al);
 }
 /*

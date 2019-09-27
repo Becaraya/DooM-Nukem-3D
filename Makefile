@@ -40,6 +40,7 @@ SRC_LIST = main.c		\
 		parse_tex.c 	\
 		main_loop.c 	\
 		init.c 			\
+		mouse_edit.c	\
 		yeet.c
 
 SRC_DIR = ./srcs/

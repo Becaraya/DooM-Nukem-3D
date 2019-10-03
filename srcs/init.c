@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/25 12:40:06 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/01 11:55:12 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,32 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->power_mult = 1;
 	pl->size = PLAYER_SIZE;
 	pl->on_ground = 1;
-	pl->posz = pl->csec->fl_hei;
+	pl->alive = 0;
+	pl->posz = al->sec[pl->csec].fl_hei;
+}
+
+static void		init_trigo(t_al *al)
+{
+	int i;
+
+	i = 0;
+	while (i < D_2PI)
+	{
+		al->sin[i] = sin(M_2PI * i / D_2PI);
+		i++;
+	}
+	i = 0;
+	while (i < D_2PI)
+	{
+		al->cos[i] = cos(M_2PI * i / D_2PI);
+		i++;
+	}
+	i = 0;
+	while (i < D_2PI)
+	{
+		al->sin[i] = sin(M_2PI * i / D_2PI);
+		i++;
+	}
 }
 
 static void		init_edit(t_al *al)
@@ -60,12 +85,13 @@ void			init(t_al *al, char *str)
 	if (hms_parser(al, str))
 		exit(0);
 	init_player(al, &al->play);
+	init_trigo(al);
 	init_status(al);
-	al->status = GAME; // al->status = EDIT;
+	al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
-
+	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		yeet(al);
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
@@ -80,6 +106,7 @@ void			init(t_al *al, char *str)
 	if ((al->pix = ft_memalloc(WIN_SIZEX * WIN_SIZEY * sizeof(int))) == NULL)
 		exit(pr_err(MERROR_MESS));
 	init_wall(al);
+	(void)init_edit;
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->wall->x1 = -1;
 	al->wall->x2 = -1;

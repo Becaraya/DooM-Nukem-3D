@@ -2,6 +2,7 @@ NAME = doom-nukem
 
 CC = gcc
 CCF = -fsanitize=address
+OPT_FLAGS = -flto -O3
 FLAGS = -Wall -Wextra
 LIBRARIES = -lft -L$(LIBFT_DIR)
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_HEAD) $(SDL_HEAD)
@@ -33,6 +34,7 @@ SRC_LIST = main.c		\
 		event_func.c	\
 		game.c			\
 		render.c		\
+		angles.c		\
 		sport_physics.c	\
 		hms_parser.c	\
 		hms_parser_sec.c\
@@ -60,7 +62,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ)
 	@echo "$(YELLOW)Sources compilation $(RESET)[$(GREEN)OK$(RESET)]\n"
-	@$(CC) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(FRAMEWORKS) $(OBJ) -o $(NAME)
+	@$(CC) $(FLAGS) $(OPT_FLAGS) $(LIBRARIES) $(INCLUDES) $(FRAMEWORKS) $(OBJ) -o $(NAME)
 	@echo "[$(BLUE)$(NAME) Compiled$(RESET)]"
 
 $(OBJ_DIR):
@@ -68,7 +70,7 @@ $(OBJ_DIR):
 	@echo "\n$(BLUE)Obj directory...$(RESET)[$(GREEN)created$(RESET)]\n"
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADERS)
-	@$(CC) $(FLAGS) -c $(INCLUDES) $< -o $@
+	@$(CC) $(FLAGS) $(OPT_FLAGS) -c $(INCLUDES) $< -o $@
 	@echo "$(YELLOW)$(notdir $(basename $@))...$(RESET)[$(GREEN)OK$(RESET)]"
 
 $(LIBFT):

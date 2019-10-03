@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 11:45:25 by pitriche          #+#    #+#             */
-/*   Updated: 2019/09/25 13:07:31 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/26 15:45:30 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,13 @@ printf("Parse wall %5.2f,%-5.2f %5.2f,%-5.2f link>%d solid:%c\n", wall->x1, wall
 	return (0);
 }
 
-int		parse_walls(t_sector *sec, int fd)
+int		parse_walls(t_sector *sec, t_sector *rotsec, int fd)
 {
 	unsigned int	i;
 
 	i = 0;
-	if (!(sec->walls = ft_memalloc(sec->nb_wal * sizeof(t_walls))))
+	if (!(sec->walls = ft_memalloc(sec->nb_wal * sizeof(t_walls))) ||
+		!(rotsec->walls = ft_memalloc(sec->nb_wal * sizeof(t_walls))))
 		exit(pr_err(MERROR_MESS));
 	while (i < sec->nb_wal)
 	{
@@ -54,7 +55,7 @@ int		parse_walls(t_sector *sec, int fd)
 	return (0);
 }
 
-int		parse_sector(t_sector *sec, int fd)
+int		parse_sector(t_sector *sec, t_sector *rotsec, int fd)
 {
 	unsigned char buf[16];
 
@@ -67,7 +68,7 @@ int		parse_sector(t_sector *sec, int fd)
 	sec->nb_wal = *(unsigned int *)(buf + 12);
 	if (sec->nb_wal < 3)
 		return (pr_err("Not enough walls\n"));
-	if (parse_walls(sec, fd))
+	if (parse_walls(sec, rotsec, fd))
 		return (1);
 	return (0);
 }
@@ -76,24 +77,23 @@ int		parse_sectors(t_al *al, int fd)
 {
 	unsigned char	buf[16];
 	unsigned int	i;
-	unsigned int	csec;
 
 	if (read(fd, buf, 16) != 16)
 		return (1);
 	al->nb_sec = *(unsigned int *)(buf + 0);
-	csec = *(unsigned int *)(buf + 4);
+	al->play.csec = *(unsigned int *)(buf + 4);
 	al->play.posx = *(signed int *)(buf + 8) / 100.0;
 	al->play.posy = *(signed int *)(buf + 12) / 100.0;
-	if (!csec || csec > al->nb_sec)
+	if (!al->play.csec || al->play.csec > al->nb_sec)
 		return (pr_err("Invalid starting sector\n"));
-	if (!(al->sec = ft_memalloc((al->nb_sec + 1) * sizeof(t_sector))))
+	if (!(al->sec = ft_memalloc((al->nb_sec + 1) * sizeof(t_sector))) ||
+		!(al->rotsec = ft_memalloc((al->nb_sec + 1) * sizeof(t_sector))))
 		exit(pr_err(MERROR_MESS));
 	i = 0;
 	while (i++ < al->nb_sec)
-		if (parse_sector(al->sec + i, fd))
+		if (parse_sector(al->sec + i, al->rotsec + i, fd))
 			return (1);
 	if (check_links(al->sec, al->nb_sec))
 		return (1);
-	al->play.csec = al->sec + csec;
 	return (0);
 }

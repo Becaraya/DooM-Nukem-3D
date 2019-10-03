@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/09/25 12:35:08 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/03 17:44:33 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,15 @@
 static void	rotate(t_al *al)
 {
 	if (al->k.left)
-		al->play.dir -= LOOK_SENS * al->dtime / 1000000;
+		al->play.dir = sub_angle(al->play.dir, LOOK_SENS * al->dtime / 1000000);
 	if (al->k.righ)
-		al->play.dir += LOOK_SENS * al->dtime / 1000000;
-	while (al->play.dir > M_2PI)
-		al->play.dir -= M_2PI;
-	while (al->play.dir < 0)
-		al->play.dir += M_2PI;
+		al->play.dir = add_angle(al->play.dir, LOOK_SENS * al->dtime / 1000000);
+	if (al->k.up)
+		al->play.horizon -= LOOK_SENS * al->dtime / 1000000;
+	if (al->k.down)
+		al->play.horizon += LOOK_SENS * al->dtime / 1000000;
+	al->play.horizon < -HORIZON_LIMIT ? al->play.horizon = -HORIZON_LIMIT : 0;
+	al->play.horizon > HORIZON_LIMIT ? al->play.horizon = HORIZON_LIMIT : 0;
 	// al->k.left || al->k.righ ?
 	// printf("%.3f, dtime:%d\n", al->play.dir, al->dtime) : 0;
 }
@@ -32,28 +34,28 @@ static void	rotate(t_al *al)
 ** return NaN in case of any contradicting keys
 */
 
-static double	angle(t_al *al)
+static t_angle	angle(t_al *al)
 {
-	double dir;
+	t_angle dir;
 
 	dir = al->play.dir;
 	if (al->k.w && !al->k.a && !al->k.s && !al->k.d)
-		return (dir);
+		return (dir & D_2PIM);
 	if (!al->k.w && al->k.a && !al->k.s && !al->k.d)
-		return (dir - M_PI_2);
+		return (sub_angle(dir, D_PI_2));
 	if (!al->k.w && !al->k.a && al->k.s && !al->k.d)
-		return (dir + M_PI);
+		return (add_angle(dir, D_PI));
 	if (!al->k.w && !al->k.a && !al->k.s && al->k.d)
-		return (dir + M_PI_2);
+		return (add_angle(dir, D_PI_2));
 	if (al->k.w && al->k.a && !al->k.s && !al->k.d)
-		return (dir - M_PI_4);
+		return (sub_angle(dir, D_PI_4));
 	if (!al->k.w && al->k.a && al->k.s && !al->k.d)
-		return (dir - M_PI + M_PI_4);
+		return (sub_angle(dir, D_PI + D_PI_4));
 	if (!al->k.w && !al->k.a && al->k.s && al->k.d)
-		return (dir + M_PI - M_PI_4);
+		return (add_angle(dir, D_PI - D_PI_4));
 	if (al->k.w && !al->k.a && !al->k.s && al->k.d)
-		return (dir + M_PI_4);
-	return (NAN);
+		return (add_angle(dir, D_PI_4));
+	return (69420);
 }
 
 /*
@@ -64,7 +66,7 @@ static void		deceleration(t_al *al)
 {
 	double wack;
 
-	wack = 0.95 * al->dtime / 1000000;
+	wack = 2.0 * al->dtime / 1000000.0;
 	wack = wack > 0.9 ? 0.9 : wack;
 	if (al->play.gd_vel < 1)
 		wack = 0.25;
@@ -90,28 +92,23 @@ static void		acceleration(t_al *al)
 	double net_power;
 	double net_force;
 	double net_accel;
-	double dir_force;
+	t_angle dir_force;
 
 	net_power = al->play.power * (al->k.w ? 1 : 0.3) * al->play.power_mult
 	- power_to_run(al);
 	dir_force = angle(al);
-	if (dir_force != dir_force)
+	if (dir_force == 69420 || net_power < 0)
 	{
 		deceleration(al);
 		return ;
 	}
 	net_force = net_power / (al->play.gd_vel > 1 ? al->play.gd_vel : 1);
 	net_accel = net_force / (al->play.mass ? al->play.mass : 1);
-	printf("pow>%f ", net_power);
-	printf("force>%f ", net_force);
-	printf("accel>%f\n", net_accel);
-	al->play.velx += sin(dir_force) * net_accel * al->dtime / 1000000;
-	al->play.vely += cos(dir_force) * net_accel * al->dtime / 1000000;
+	// printf("POWER ! > pow>%.fw force>%.fn accel>%.1fm/s^2\n", net_power, net_force, net_accel);
+	al->play.velx += al->sin[dir_force] * net_accel * al->dtime / 1000000;
+	al->play.vely += al->cos[dir_force] * net_accel * al->dtime / 1000000;
 	al->play.gd_vel = sqrt(al->play.velx * al->play.velx + al->play.vely *
 		al->play.vely);
-
-	//al->k.w || al->k.a || al->k.s || al->k.d ?
-	//printf("x%.1f y%.1f\n", al->play.posx, al->play.posy) : 0;
 }
 
 /*
@@ -123,24 +120,34 @@ static void		displacement(t_al *al)
 	al->play.posx += al->play.velx * al->dtime / 1000000;
 	al->play.posy += al->play.vely * al->dtime / 1000000;
 	al->play.posz += al->play.velz * al->dtime / 1000000;
-	if (al->play.posz < al->play.csec->fl_hei)
+	if (al->play.posz < al->sec[al->play.csec].fl_hei)
 	{
-		al->play.posz = al->play.csec->fl_hei;
+		al->play.posz = al->sec[al->play.csec].fl_hei;
 		al->play.velz = 0;
 		al->play.on_ground = 1;
 	}
-	// eventually add collision and physics
+	if (al->play.posz + al->play.size > al->sec[al->play.csec].ce_hei)
+	{
+		al->play.posz = al->sec[al->play.csec].ce_hei - al->play.size;
+		al->play.velz = 0;
+	}
+	if (al->sec[al->play.csec].ce_hei - al->sec[al->play.csec].fl_hei <
+		al->play.size)
+		al->play.alive = 0;
+	// eventually add collision and physics for walls
 }
 
 static void		flyyyy(t_al *al)
 {
 	al->play.velz -= al->g * al->dtime / 1000000;
+	// eventually add fly for jetpack or so
 }
 
 void		game(t_al *al)
 {
 	printf("x%.1fm y%.1fm z%.1fcm speed>%.1fkm/h\n", al->play.posx, al->play.posy, al->play.posz*100, al->play.gd_vel * 3.6);
 	rotate(al);
+	al->k.space ? jump(al) : 0;
 	if (al->play.on_ground)
 		acceleration(al);
 	else

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/25 12:44:45 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/03 14:52:21 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,25 @@
 # define WIN_POSY 10
 
 # define MAX_WALLS_HIT 1000
+# define HORIZON_LIMIT 1000
+
+# define D_2PI	2048 // 1<<11
+# define D_2PIM	2047
+# define D_PI	1024
+# define D_PI_2	512
+# define D_PI_4	256
 
 # define DEFAULT_G 9.81
-# define DEFAULT_FOV 2
+# define DEFAULT_FOV D_2PI * 0.35
 
-# define PLAYER_SIZE 178
+# define PLAYER_SIZE 1.78
 # define PLAYER_MASS 67
 # define PLAYER_AERO_POWER 400
 # define PLAYER_ANA_POWER 950
-# define LOOK_SENS 1.0
+
+# define LOOK_SENS 1000
 
 # define MERROR_MESS "Malloc error\n"
-
-/*
-** TOOLS (?)
-*/
 
 # define M_2PI 6.283185307179586476925286766559005768394338798750211641949
 
@@ -77,6 +81,12 @@ typedef enum		e_stat_wall
 	SIMPLE,
 	RECT
 }					t_stat_wall;
+
+/*
+** TYPEDEF ####################################################################
+*/
+
+typedef	unsigned int	t_angle;
 
 /*
 ** STRUCTURES #################################################################
@@ -195,8 +205,10 @@ typedef enum		e_status
 
 typedef struct		s_rc_hit
 {
-	double	hitdst;
-	t_walls	wall;
+	double		hitdst;
+	unsigned	fl_tex;
+	unsigned	ce_tex;
+	t_walls		wall;
 }					t_rc_hit;
 
 /*
@@ -205,7 +217,7 @@ typedef struct		s_rc_hit
 
 typedef struct		s_rc_ray
 {
-	double		angle;
+	t_angle		angle;
 	int			nb_hits;
 	t_rc_hit	hits[MAX_WALLS_HIT];
 }					t_rc_ray;
@@ -213,13 +225,13 @@ typedef struct		s_rc_ray
 /*
 ** Player info struct
 ** Velocities are in m/s, positions are in m, mass is in kg and power is in watt
-** csec: current sector, pointer to current sector, must be updated if crossing
-** sectors
+** csec: index of current sector, must be updated if crossing sectors
+** horizon: height of the horizon in pixels, indicates if lookup or down
 */
 
 typedef struct		s_player
 {
-	t_sector	*csec;
+	unsigned	csec;
 	double		posx;
 	double		posy;
 	double		posz;
@@ -233,9 +245,10 @@ typedef struct		s_player
 	double		power;
 	double		power_mult;
 
-	double		dir;
-	double		look_up;
+	t_angle		dir;
+	int			horizon;
 	unsigned	on_ground:1;
+	unsigned	alive:1;
 }					t_player;
 
 /*
@@ -259,14 +272,16 @@ typedef struct		s_al
 
 	unsigned int	nb_sec;
 	t_sector		*sec;
+	t_sector		*rotsec;
 	unsigned short	nb_tex;
 	t_tex			*tex;
 
 	t_player		play;
 	double			g;
-	double			fov;
+	t_angle			fov;
+	int				stretch;
 
-	char			fps;
+	unsigned int	fps;
 	long			last_time;
 	long			curr_time;
 	long			tgt_time;
@@ -280,6 +295,11 @@ typedef struct		s_al
 
 	t_wall			*wall;
 	int				c_wall;
+
+	double			sin[D_2PI];
+	double			cos[D_2PI];
+	double			tan[D_2PI];
+
 
 	char			v0id[32];
 }					t_al;
@@ -303,6 +323,9 @@ void				mouse_weel(t_al *al);
 double				power_to_run(t_al *al);
 void				jump(t_al *al);
 
+t_angle				add_angle(t_angle a1, t_angle a2);
+t_angle				sub_angle(t_angle a1, t_angle a2);
+
 void				refresh(t_al *al);
 void				yeet(t_al *al);
 
@@ -314,10 +337,7 @@ int					check_links(t_sector *sec, unsigned nb_sec);
 int					parse_pixels(t_tex *tex, int fd);
 int					parse_texture(t_tex *tex, int fd);
 int					parse_textures(t_al *al, int fd);
-int					parse_sector(t_sector *sec, int fd);
 int					parse_sectors(t_al *al, int fd);
-int					parse_wall(t_walls *wall, int fd);
-int					parse_walls(t_sector *sec, int fd);
 
 /*
 ** status functions

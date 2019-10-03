@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/25 11:18:59 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/27 12:27:43 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void		key_func(t_al *al)
 		kev.keysym.sym == SDLK_UP ? al->k.up = 1 : 0;
 		kev.keysym.sym == SDLK_DOWN ? al->k.down = 1 : 0;
 		kev.keysym.sym == SDLK_LSHIFT ? al->play.power = PLAYER_ANA_POWER : 0;
-		kev.keysym.sym == SDLK_SPACE ? jump(al) : 0;
 		kev.keysym.sym == SDLK_SPACE ? al->k.space = 1 : 0;
 		kev.keysym.sym == SDLK_LCTRL ? al->k.ctrl = 1 : 0;
 	}
@@ -174,6 +173,7 @@ void		mouse_weel(t_al *al)
 	t_wall	*tmp;
 
 	(void)al;
+	(void)tmp;
 	// if (al->ev.wheel.y > 0) // scroll up
 	// {
 	// 	al->edit.zoom++;

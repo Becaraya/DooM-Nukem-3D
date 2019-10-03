@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 17:21:04 by pitriche          #+#    #+#             */
-/*   Updated: 2019/09/25 10:00:58 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/26 14:51:51 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ inline double	power_to_run(t_al *al)
 }
 
 /*
-** consider jump is an instantaneous .25s power application
+** consider jump is an instantaneous 0.375s power application
 */
 
 void			jump(t_al *al)
@@ -34,7 +34,7 @@ void			jump(t_al *al)
 	if (al->play.on_ground)
 	{
 		al->play.on_ground = 0;
-		al->play.velz += sqrt(al->play.power * al->play.power_mult) / (1.41
+		al->play.velz += sqrt(al->play.power * al->play.power_mult * 1.5) / (1.41
 				* sqrt(al->play.mass));
 	}
 }

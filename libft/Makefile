@@ -67,11 +67,12 @@ SRC = ft_memset.c \
 
 OBJ = $(SRC:.c=.o)
 
+FLAG_OPT = -O3 -flto
 	
 all : $(NAME)
 
 $(NAME) : $(OBJ)
-	@gcc -c  -Wall -Wextra -Werror $(SRC)
+	@gcc -c $(FLAG_OPT) -Wall -Wextra -Werror $(SRC)
 	@ar rc $(NAME) $(OBJ)
 
 clean :

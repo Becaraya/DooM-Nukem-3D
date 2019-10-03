@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/03 14:52:21 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/03 18:02:46 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,7 +317,8 @@ void				main_loop(t_al *al);
 
 void				key_func(t_al *al);
 void				mouse_press(t_al *al);
-void				mouse_func(t_al *al);
+void				mouse_press_edit(t_al *al);
+void				mouse_mv(t_al *al);
 void				mouse_weel(t_al *al);
 
 double				power_to_run(t_al *al);

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/01 11:55:12 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/03 18:02:02 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,17 @@ static void		init_wall(t_al *al)
 		yeet(al);
 	al->wall->next = NULL;
 	al->wall->prev = NULL;
+	al->wall->x1 = -1;
+	al->wall->x2 = -1;
+	al->wall->y1 = -1;
+	al->wall->y2 = -1;
 }
 
 static void		init_status(t_al *al)
 {
 	al->stat_fnc[MENU] = menu;
 	al->stat_fnc[GAME] = game;
-	al->stat_fnc[PAUSE] = yeet; // to dew
+	al->stat_fnc[PAUSE] = yeet;
 	al->stat_fnc[EDIT] = editor;
 }
 
@@ -108,10 +112,6 @@ void			init(t_al *al, char *str)
 	init_wall(al);
 	(void)init_edit;
 	ft_bzero(&al->k, sizeof(t_keys));
-	al->wall->x1 = -1;
-	al->wall->x2 = -1;
-	al->wall->y1 = -1;
-	al->wall->y2 = -1;
 	al->edit.stat = RECTANGLE_SELECT; // al->edit.stat = FIRST_CLICK;
 	al->edit.zoom = 15;
 	al->c_wall = 0; // bzero init everything to 0, this func is for !0 inits ;)

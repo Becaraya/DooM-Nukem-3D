@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/25 11:20:20 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:28:17 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,9 @@ void		main_loop(t_al *al)
 			if (al->ev.type == SDL_MOUSEBUTTONDOWN)
 				mouse_press(al);
 			if (al->ev.type == SDL_MOUSEMOTION)
-				mouse_func(al);
+				mouse_mv(al);
 			if (al->ev.type == SDL_MOUSEWHEEL)
 				mouse_weel(al);
-			// if (al->ev.type == SDL_WINDOWEVENT_RESIZED)
-			// 	{}
 		}
 		dtime(al);
 		al->stat_fnc[al->status](al);

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 14:43:38 by becaraya          #+#    #+#             */
-/*   Updated: 2019/04/01 13:55:05 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:39:13 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ void			ft_swap(int *a, int *b);
 int				ft_power(int nb, int power);
 int				ft_isblank(int c);
 int				get_next_line(const int fd, char **line);
+int				ft_abs(int value);
 
 #endif

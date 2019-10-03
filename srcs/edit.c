@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/19 20:11:22 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/09/27 17:39:14 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 
 static void		set_edit(t_al *al)
 {
-	int x;
-	int y;
+	int			x;
+	int 		y;
 	/* si tu veut init une grosse zone a null utilise bzero plutot  que des for
 	ou while. Et fait des typedef sur la win_size plutot que hardcode les val */
 	x = 0;
@@ -42,13 +42,6 @@ static void		set_edit(t_al *al)
 		y = 0;
 		x++;
 	}
-}
-
-int		ft_abs(int value)
-{
-	if (value < 0)
-		value = -value;
-	return (value);
 }
 
 void			ft_put_line(t_point a, t_point b, t_al *al)
@@ -83,8 +76,8 @@ void			ft_put_line(t_point a, t_point b, t_al *al)
 
 void		put_rectangle(t_point a, t_point b, t_al *al)
 {
-	t_point	c;
-	t_point	d;
+	t_point		c;
+	t_point		d;
 
 	c.x = a.x;
 	c.y = b.y;
@@ -106,9 +99,9 @@ void		draw_wall(t_al *al, t_wall *wall)
 	b.x = wall->x2;
 	b.y = wall->y2;
 	if (wall->type == RECT)
-		put_rectangle(a, b, al);
+		(wall->x2 != -1) ? put_rectangle(a, b, al) : 0;
 	else
-		ft_put_line(a, b, al);
+		(wall->x2 != -1) ? ft_put_line(a, b, al) : 0;
 	if (wall->next)
 		draw_wall(al, wall->next);
 }
@@ -118,14 +111,18 @@ void	editor(t_al *al)
 	set_edit(al);
 	if (al->k.space == 1)
 	{
-		al->edit.stat = FIRST_CLICK;
-		al->wall->x1 = 0;
-		al->wall->y1 = 0;
-		al->wall->x2 = 0;
-		al->wall->y2 = 0;
+		if (al->edit.stat == RECTANGLE_DRAW
+			|| al->edit.stat == RECTANGLE_SELECT)
+				al->edit.stat = RECTANGLE_SELECT;
+		else
+			al->edit.stat = FIRST_CLICK;
+		al->wall->x1 = -1;
+		al->wall->y1 = -1;
+		al->wall->x2 = -1;
+		al->wall->y2 = -1;
 	}
-	if (al->c_wall > 0)
-		draw_wall(al, al->wall);
+	draw_wall(al, al->wall);
+	// if (al->c_wall > 0)
 	// if (al->edit.stat == IDLE) 
 	// {
 	// 	// al->edit.stat = DRAWING;

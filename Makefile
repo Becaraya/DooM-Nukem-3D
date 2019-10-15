@@ -34,6 +34,7 @@ SRC_LIST = main.c		\
 		event_func.c	\
 		game.c			\
 		render.c		\
+		column.c		\
 		angles.c		\
 		sport_physics.c	\
 		hms_parser.c	\

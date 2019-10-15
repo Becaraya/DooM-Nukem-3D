@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/03 18:02:02 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/11 15:00:57 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->power = PLAYER_AERO_POWER;
 	pl->power_mult = 1;
 	pl->size = PLAYER_SIZE;
+	pl->eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
 	pl->on_ground = 1;
 	pl->alive = 0;
 	pl->posz = al->sec[pl->csec].fl_hei;
@@ -62,7 +63,7 @@ static void		init_trigo(t_al *al)
 	i = 0;
 	while (i < D_2PI)
 	{
-		al->sin[i] = sin(M_2PI * i / D_2PI);
+		al->tan[i] = tan(M_2PI * i / D_2PI);
 		i++;
 	}
 }

@@ -41,10 +41,10 @@ textures(16 header + x * y * 4 pixels with >16 padding):
 	8 8- pad
 	pixels:
 	{
-		1  - transparency (0 for opaque and !=0 for transparent)
-		1 1- red
-		1 2- green
-		1 3- blue
+		1 0- blue
+		1 1- green
+		1 2- red
+		1 4- transparency (0 for opaque and !=0 for transparent)
 	}
 	4 - ((x * y) % 4) - pad
 }

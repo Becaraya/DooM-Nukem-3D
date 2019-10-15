@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/03 17:44:33 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/14 14:32:08 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 static void	rotate(t_al *al)
 {
 	if (al->k.left)
-		al->play.dir = sub_angle(al->play.dir, LOOK_SENS * al->dtime / 1000000);
+		al->play.dir = sub_angle(al->play.dir, (LOOK_SENS * D_2PI / 2500) * al->dtime / 1000000);
 	if (al->k.righ)
-		al->play.dir = add_angle(al->play.dir, LOOK_SENS * al->dtime / 1000000);
+		al->play.dir = add_angle(al->play.dir, (LOOK_SENS * D_2PI / 2500) * al->dtime / 1000000);
 	if (al->k.up)
 		al->play.horizon -= LOOK_SENS * al->dtime / 1000000;
 	if (al->k.down)
@@ -50,7 +50,7 @@ static t_angle	angle(t_al *al)
 	if (al->k.w && al->k.a && !al->k.s && !al->k.d)
 		return (sub_angle(dir, D_PI_4));
 	if (!al->k.w && al->k.a && al->k.s && !al->k.d)
-		return (sub_angle(dir, D_PI + D_PI_4));
+		return (sub_angle(dir, D_PI - D_PI_4));
 	if (!al->k.w && !al->k.a && al->k.s && al->k.d)
 		return (add_angle(dir, D_PI - D_PI_4));
 	if (al->k.w && !al->k.a && !al->k.s && al->k.d)
@@ -120,15 +120,19 @@ static void		displacement(t_al *al)
 	al->play.posx += al->play.velx * al->dtime / 1000000;
 	al->play.posy += al->play.vely * al->dtime / 1000000;
 	al->play.posz += al->play.velz * al->dtime / 1000000;
+	al->play.eyez += al->play.velz * al->dtime / 1000000;
 	if (al->play.posz < al->sec[al->play.csec].fl_hei)
 	{
 		al->play.posz = al->sec[al->play.csec].fl_hei;
+		al->play.eyez = al->sec[al->play.csec].fl_hei + al->play.size
+		- PLAYER_EYE_TOP;
 		al->play.velz = 0;
 		al->play.on_ground = 1;
 	}
 	if (al->play.posz + al->play.size > al->sec[al->play.csec].ce_hei)
 	{
 		al->play.posz = al->sec[al->play.csec].ce_hei - al->play.size;
+		al->play.eyez = al->sec[al->play.csec].ce_hei - PLAYER_EYE_TOP;
 		al->play.velz = 0;
 	}
 	if (al->sec[al->play.csec].ce_hei - al->sec[al->play.csec].fl_hei <
@@ -145,7 +149,7 @@ static void		flyyyy(t_al *al)
 
 void		game(t_al *al)
 {
-	printf("x%.1fm y%.1fm z%.1fcm speed>%.1fkm/h\n", al->play.posx, al->play.posy, al->play.posz*100, al->play.gd_vel * 3.6);
+	//printf("x%.1fm y%.1fm z%.1fcm speed>%.1fkm/h\n", al->play.posx, al->play.posy, al->play.posz*100, al->play.gd_vel * 3.6);
 	rotate(al);
 	al->k.space ? jump(al) : 0;
 	if (al->play.on_ground)

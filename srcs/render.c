@@ -6,45 +6,11 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/03 17:31:19 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/15 13:04:47 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
-
-inline int	skybox(t_al *al, int y, int tx)
-{
-	int ty;
-
-	ty = al->tex[0].size_y * (y + al->play.horizon + HORIZON_LIMIT)
-	/ al->stretch;
-	return (al->tex[0].pix[ty * al->tex[0].size_x + tx]);
-}
-
-void		column(t_al *al, int x, t_rc_ray *ray)
-{
-	int y;
-	int tx;
-
-	y = -1;
-	tx = al->tex[0].size_x * ray->angle / D_2PI;
-	while (++y < WIN_SIZEY)
-		al->pix[y * WIN_SIZEX + x] = skybox(al, y, tx);
-	y = (WIN_SIZEY / 2) - al->play.horizon;
-	int limit = (0.5 / ray->hits[0].hitdst) * 300;
-	limit = y - limit;
-	limit < 0 ? limit = 0 : 0;
-	while (y > limit)
-	{
-		al->pix[y * WIN_SIZEX + x] = 0xd080ff;
-		y--;
-	}
-
-}
-
-
-
-
 
 void		rot_sec(t_al *al, unsigned int secid, t_angle angle)
 {
@@ -73,25 +39,59 @@ void		rot_sec(t_al *al, unsigned int secid, t_angle angle)
 	}
 }
 
-int			test_aleready_hit(t_rc_ray *ray, t_walls *wall)
+int			test_aleready_hit(t_rc_ray *ray, t_walls *owall)
 {
 	int i;
 
+	i = 0;
 	while (i < ray->nb_hits)
 	{
-		if (ray->hits[i].wall.x1 == wall->x1 &&
-			ray->hits[i].wall.y1 == wall->y1 &&
-			ray->hits[i].wall.x2 == wall->x2 &&
-			ray->hits[i].wall.y2 == wall->y2)
+		//printf("\nwall1 [%4.1f,%4.1f %4.1f,%4.1f]   wall2 [%4.1f,%4.1f %4.1f,%4.1f]\n", owall->x1, owall->y1, owall->x2, owall->y2, ray->hits[i].wall.x1, ray->hits[i].wall.y1, ray->hits[i].wall.x2, ray->hits[i].wall.y2);
+		if ((ray->hits[i].wall.x1 == owall->x1 &&
+			ray->hits[i].wall.y1 == owall->y1 &&
+			ray->hits[i].wall.x2 == owall->x2 &&
+			ray->hits[i].wall.y2 == owall->y2) ||
+			(ray->hits[i].wall.x1 == owall->x2 &&
+			ray->hits[i].wall.y1 == owall->y2 &&
+			ray->hits[i].wall.x2 == owall->x1 &&
+			ray->hits[i].wall.y2 == owall->y1))
 			return (1);
 		i++;
 	}
 	return (0);
 }
 
+inline t_angle	d_atan2(double d1, double d2)
+{
+	d1 = atan2(d1, d2);
+	d1 = d1 < 0 ? M_2PI + d1 : d1;
+	return ((t_angle)(d1 * D_2PI / M_2PI));
+}
 
+inline t_angle	d_atan(double a)
+{
+	a = atan(a);
+	a = a < 0 ? M_2PI + a : a;
+	return ((t_angle)(a * D_2PI / M_2PI));
+}
 
+void		swapd(double *d1, double *d2)
+{
+	double tmp;
 
+	tmp = *d1;
+	*d1 = *d2;
+	*d2 = tmp;
+}
+
+inline double	wall_len(t_walls *wall)
+{
+	double	tmp;
+
+	tmp = (wall->x2 - wall->x1) * (wall->x2 - wall->x1);
+	tmp += (wall->y2 - wall->y1) * (wall->y2 - wall->y1);
+	return (sqrt(tmp));
+}
 
 void		test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 {
@@ -108,12 +108,18 @@ void		test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 		beta = wall->x1 - wall->y1 * alpha;
 		if ((tmp_dst = -beta / alpha) > 0)
 			if (tmp_dst < min)
-				if (!test_aleready_hit(ray, wall))
+				if (!test_aleready_hit(ray, owall))
 				{
-					//printf("HIT %d%+.2fm   ", ray->nb_hits, tmp_dst);
+					ray->hits[ray->nb_hits].wall_length = wall_len(owall);
+					wall->x1 > wall->x2 ? swapd(&wall->x1, &wall->x2) : 0;
+					ray->hits[ray->nb_hits].hit_texx =
+						(unsigned)(wall->x1 / (wall->x1 - wall->x2) * wall_len(owall) *
+						UINT16_MAX) % (unsigned)(TEX_REPEAT * UINT16_MAX) / TEX_REPEAT;
+					//!owall->sec_lnk ? printf("texx>%5u    wall [x1%4.1f  x2%4.1f]\n", ray->hits[ray->nb_hits].hit_texx, wall->x1, wall->x2) :0;
+					tmp_dst *= al->cos[sub_angle(ray->angle, al->play.dir)];
 					ray->hits[ray->nb_hits].hitdst = tmp_dst;
-					min = ray->hits[ray->nb_hits].hitdst;
 					ray->hits[ray->nb_hits].wall = *owall;
+					min = ray->hits[ray->nb_hits].hitdst;
 				}
 	}
 }
@@ -124,17 +130,19 @@ void		cast_sec(t_al *al, t_rc_ray *ray, unsigned secid, t_angle angle)
 	t_sector	*rsec;
 	t_walls		*wall;
 
-	i = 0;
+	i = -1;
 	ray->hits[ray->nb_hits].fl_tex = al->sec[secid].fl_tex;
+	ray->hits[ray->nb_hits].fl_hei = al->sec[secid].fl_hei;
 	ray->hits[ray->nb_hits].ce_tex = al->sec[secid].ce_tex;
+	ray->hits[ray->nb_hits].ce_hei = al->sec[secid].ce_hei;
 	rot_sec(al, secid, angle);
 	rsec = al->rotsec + secid;
-	while (i < rsec->nb_wal)
-		test_hit(al, ray, rsec->walls + i, al->sec[secid].walls + (i++));
-	//printf("a%d  %d%+.2fm wall%.2f,%.2f %.2f,%.2f\n", angle * 360 / D_2PI, ray->nb_hits, ray->hits[ray->nb_hits].hitdst, ray->hits[ray->nb_hits].wall.x1, ray->hits[ray->nb_hits].wall.y1, ray->hits[ray->nb_hits].wall.x2, ray->hits[ray->nb_hits].wall.y2);
+	while (++i < rsec->nb_wal)
+		test_hit(al, ray, rsec->walls + i, al->sec[secid].walls + i);
+	//printf("hiiit a%3d  %d%+.1fm wallx%4.1f,y%4.1f  x%4.1f,y%4.1f\n", angle * 360 / D_2PI, ray->nb_hits, ray->hits[ray->nb_hits].hitdst, ray->hits[ray->nb_hits].wall.x1, ray->hits[ray->nb_hits].wall.y1, ray->hits[ray->nb_hits].wall.x2, ray->hits[ray->nb_hits].wall.y2);
 	ray->nb_hits++;
-	//if (ray->hits[ray->nb_hits - 1].wall.sec_lnk)
-	//	cast_sec(al, ray, ray->hits[ray->nb_hits - 1].wall.sec_lnk, angle);
+	if (ray->hits[ray->nb_hits - 1].wall.sec_lnk)
+		cast_sec(al, ray, ray->hits[ray->nb_hits - 1].wall.sec_lnk, angle);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/03 18:02:46 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/14 15:11:54 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,22 @@
 # define WIN_POSX 100
 # define WIN_POSY 10
 
-# define MAX_WALLS_HIT 1000
-# define HORIZON_LIMIT 1000
+# define MAX_WALLS_HIT	1000
+# define HORIZON_LIMIT	1000
 
-# define D_2PI	2048 // 1<<11
-# define D_2PIM	2047
-# define D_PI	1024
-# define D_PI_2	512
-# define D_PI_4	256
+# define D_2PI	4096 // 1<12
+# define D_2PIM	4095
+# define D_PI	2048
+# define D_PI_2	1024
+# define D_PI_4	512
 
 # define DEFAULT_G 9.81
-# define DEFAULT_FOV D_2PI * 0.35
+# define DEFAULT_FOV D_2PI * 0.2
+# define TEX_REPEAT 2.0
 
+# define PLAYER_CROUCH 1.10
 # define PLAYER_SIZE 1.78
+# define PLAYER_EYE_TOP 0.15
 # define PLAYER_MASS 67
 # define PLAYER_AERO_POWER 400
 # define PLAYER_ANA_POWER 950
@@ -54,10 +57,10 @@
 ** Pls change this to an enum
 */
 
-# define T_SELECT 1
-# define T_WALL_DRAWING 2
-# define T_WALL_IDLE 3
-# define T_WALL_3 4
+# define T_SELECT		1
+# define T_WALL_DRAWING	2
+# define T_WALL_IDLE	3
+# define T_WALL_3		4
 
 /*
 ** ENUMS, for all status ######################################################
@@ -144,8 +147,7 @@ typedef struct		s_keys
 	unsigned		righ:1;
 	unsigned		up:1;
 	unsigned		down:1;
-	unsigned		space:1;	
-	unsigned		ctrl:1;
+	unsigned		space:1;
 }					t_keys;
 
 typedef struct		s_mouse
@@ -201,13 +203,18 @@ typedef enum		e_status
 
 /*
 ** raycast hit descripting struct to add info missing from t_walls
+**  wall_length is length in m
 */
 
 typedef struct		s_rc_hit
 {
 	double		hitdst;
+	unsigned	hit_texx;
+	double		wall_length;
 	unsigned	fl_tex;
+	double		fl_hei;
 	unsigned	ce_tex;
+	double		ce_hei;
 	t_walls		wall;
 }					t_rc_hit;
 
@@ -227,6 +234,7 @@ typedef struct		s_rc_ray
 ** Velocities are in m/s, positions are in m, mass is in kg and power is in watt
 ** csec: index of current sector, must be updated if crossing sectors
 ** horizon: height of the horizon in pixels, indicates if lookup or down
+** eyez: eye position on z
 */
 
 typedef struct		s_player
@@ -241,6 +249,7 @@ typedef struct		s_player
 	double		gd_vel;
 
 	double		size;
+	double		eyez;
 	double		mass;
 	double		power;
 	double		power_mult;
@@ -326,6 +335,8 @@ void				jump(t_al *al);
 
 t_angle				add_angle(t_angle a1, t_angle a2);
 t_angle				sub_angle(t_angle a1, t_angle a2);
+
+void				column(t_al *al, int x, t_rc_ray *ray);
 
 void				refresh(t_al *al);
 void				yeet(t_al *al);

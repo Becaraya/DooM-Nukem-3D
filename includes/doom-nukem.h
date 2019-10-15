@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/14 15:11:54 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/15 16:01:23 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,16 @@
 # define MAX_WALLS_HIT	1000
 # define HORIZON_LIMIT	1000
 
-# define D_2PI	4096 // 1<12
-# define D_2PIM	4095
-# define D_PI	2048
-# define D_PI_2	1024
-# define D_PI_4	512
+# define D_2PI	8192 // 1<13
+# define D_2PIM	8191
+# define D_PI	4096
+# define D_PI_2	2048
+# define D_PI_4	1024
 
 # define DEFAULT_G 9.81
-# define DEFAULT_FOV D_2PI * 0.2
+# define DEFAULT_FOV D_2PI * 0.20
 # define TEX_REPEAT 2.0
+# define TEX_REPEAT_V 131072
 
 # define PLAYER_CROUCH 1.10
 # define PLAYER_SIZE 1.78
@@ -203,7 +204,7 @@ typedef enum		e_status
 
 /*
 ** raycast hit descripting struct to add info missing from t_walls
-**  wall_length is length in m
+** wall_length is length in m    
 */
 
 typedef struct		s_rc_hit
@@ -307,7 +308,7 @@ typedef struct		s_al
 
 	double			sin[D_2PI];
 	double			cos[D_2PI];
-	double			tan[D_2PI];
+	//double			tan[D_2PI];
 
 
 	char			v0id[32];

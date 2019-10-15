@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/11 15:00:57 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/15 14:56:31 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ static void		init_trigo(t_al *al)
 		al->cos[i] = cos(M_2PI * i / D_2PI);
 		i++;
 	}
-	i = 0;
+	/*i = 0;
 	while (i < D_2PI)
 	{
 		al->tan[i] = tan(M_2PI * i / D_2PI);
 		i++;
-	}
+	}*/
 }
 
 static void		init_edit(t_al *al)

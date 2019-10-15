@@ -6,24 +6,24 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/15 13:27:06 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/15 14:51:25 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 
-static void	lctrl_func(t_al *al, SDL_KeyboardEvent kev)
+static void	z_func(t_al *al, SDL_KeyboardEvent kev)
 {
 	if (al->ev.type == SDL_KEYDOWN)
 	{
 		al->play.size = PLAYER_CROUCH;
-		al->play.eyez = PLAYER_CROUCH - PLAYER_EYE_TOP;
+		al->play.eyez -= PLAYER_SIZE - PLAYER_CROUCH;
 		al->play.power_mult = 0.3;
 	}
 	else
 	{
 		al->play.size = PLAYER_SIZE;
-		al->play.eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
+		al->play.eyez += PLAYER_SIZE - PLAYER_CROUCH;
 		al->play.power_mult = 1;
 	}
 }
@@ -40,9 +40,6 @@ static void	keyup_func(t_al *al, SDL_KeyboardEvent kev)
 	kev.keysym.sym == SDLK_UP ? al->k.up = 0 : 0;
 	kev.keysym.sym == SDLK_DOWN ? al->k.down = 0 : 0;
 	kev.keysym.sym == SDLK_SPACE ? al->k.space = 0 : 0;
-	kev.keysym.sym == SDLK_KP_MINUS ? al->fov *= 1.1 : 0;
-	kev.keysym.sym == SDLK_KP_PLUS ? al->fov /= 1.1 : 0;
-	//kev.keysym.sym == SDLK_LCTRL ? lctrl_func(al, kev) : 0;
 }
 
 void		key_func(t_al *al)
@@ -50,6 +47,7 @@ void		key_func(t_al *al)
 	SDL_KeyboardEvent kev;
 
 	kev = al->ev.key;
+	kev.keysym.sym == SDLK_z ? z_func(al, kev) : 0;
 	if (al->ev.type == SDL_KEYDOWN)
 	{
 		kev.keysym.sym == SDLK_ESCAPE ? yeet(al) : 0;
@@ -65,7 +63,8 @@ void		key_func(t_al *al)
 		kev.keysym.sym == SDLK_DOWN ? al->k.down = 1 : 0;
 		kev.keysym.sym == SDLK_LSHIFT ? al->play.power = PLAYER_ANA_POWER : 0;
 		kev.keysym.sym == SDLK_SPACE ? al->k.space = 1 : 0;
-		//kev.keysym.sym == SDLK_LCTRL ? lctrl_func(al, kev) : 0;
+		kev.keysym.sym == SDLK_KP_MINUS ? al->fov *= 1.1 : 0;
+		kev.keysym.sym == SDLK_KP_PLUS ? al->fov /= 1.1 : 0;
 	}
 	else
 		keyup_func(al, kev);

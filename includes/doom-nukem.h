@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/15 16:01:23 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/16 12:19:58 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "SDL_ttf.h"
 
 # define WIN_TITLE "100% totally mario sunshine virus free i swear"
-# define WIN_SIZEX 1280
-# define WIN_SIZEY 720
+# define WIN_SIZEX 1366	//1280
+# define WIN_SIZEY 768	//720
 # define WIN_POSX 100
 # define WIN_POSY 10
 

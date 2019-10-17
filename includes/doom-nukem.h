@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/16 12:19:58 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/17 18:03:09 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,23 @@
 
 # define DEFAULT_G 9.81
 # define DEFAULT_FOV D_2PI * 0.20
+
+/*
+** TEX_REPEAT is horizontal repeat in m
+** TEX_REPEAT_V is vertical repeat in m*(1<<16)
+** TEX_REPEAT_F is floor repeat in m*(1<<16)
+*/
+
 # define TEX_REPEAT 2.0
 # define TEX_REPEAT_V 131072
+# define TEX_REPEAT_F 131072
 
 # define PLAYER_CROUCH 1.10
 # define PLAYER_SIZE 1.78
 # define PLAYER_EYE_TOP 0.15
 # define PLAYER_MASS 67
 # define PLAYER_AERO_POWER 400
-# define PLAYER_ANA_POWER 950
+# define PLAYER_ANA_POWER 1950
 
 # define LOOK_SENS 1000
 
@@ -221,11 +229,14 @@ typedef struct		s_rc_hit
 
 /*
 ** raycast ray descripting func to add info missing from t_walls
+** xfact and yfact are 16 bits sin and cos of anglem for floorcasting
 */
 
 typedef struct		s_rc_ray
 {
 	t_angle		angle;
+	int			xfact;
+	int			yfact;
 	int			nb_hits;
 	t_rc_hit	hits[MAX_WALLS_HIT];
 }					t_rc_ray;

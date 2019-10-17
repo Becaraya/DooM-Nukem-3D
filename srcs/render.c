@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/15 15:57:38 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/17 17:46:06 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,14 +153,14 @@ void		cast_sec(t_al *al, t_rc_ray *ray, unsigned secid, t_angle angle)
 void		cast_ray(t_al *al, int x, t_rc_ray *ray)
 {
 	unsigned	i;
-	int			tmp_angle;
+	unsigned	tmp_angle;
 
 	i = 0;
 	tmp_angle = al->play.dir + ((int)al->fov * (x - (WIN_SIZEX / 2))
 		/ WIN_SIZEX);
-	while (tmp_angle < 0)
-		tmp_angle += D_2PI;
 	ray->angle = tmp_angle & D_2PIM;
+	ray->xfact = al->sin[ray->angle] * SDL_MAX_UINT16;
+	ray->yfact = al->cos[ray->angle] * SDL_MAX_UINT16;
 	cast_sec(al, ray, al->play.csec, ray->angle);
 }
 
@@ -185,7 +185,6 @@ void		render(t_al *al)
 	x = 0;
 	while (x < WIN_SIZEX)
 	{
-		ray.angle = 0;
 		ray.nb_hits = 0;
 		cast_ray(al, x, &ray);
 		column(al, x, &ray);

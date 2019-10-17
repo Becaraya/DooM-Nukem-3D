@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 10:46:13 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/16 12:57:06 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/17 18:40:38 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@ inline int	skybox(t_al *al, int y, int tx)
 	return (al->tex[0].pix[ty * al->tex[0].size_x + tx]);
 }
 
-inline int	tex_find(t_al *al, int texx, int texy, t_tex *tex)
+inline int	tex_find(int *pix, int texx, int texy, t_tex *tex)
 {
-	return (tex->pix[tex->size_x * texy + texx]);
+	int color;
+
+	if (!((color = tex->pix[tex->size_x * texy + texx]) >> 24))
+		*pix = color;
 }
 
 void		column_wall(t_al *al, int x, int wall_size, int over_hor,
@@ -48,7 +51,7 @@ void		column_wall(t_al *al, int x, int wall_size, int over_hor,
 	//printf("((y - yor) * wall_heigth / texymax) > %u\n", (y - yor) * wall_heigth / texymax);
 		texy = ((((y - yor) * wall_heigth / texymax) % TEX_REPEAT_V) *
 			tex->size_y) / TEX_REPEAT_V;
-		al->pix[y * WIN_SIZEX + x] = tex_find(al, texx, texy, tex);
+		tex_find(al->pix + (y * WIN_SIZEX + x), texx, texy, tex);
 		y++;
 	}
 }
@@ -70,10 +73,51 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 	y = -1;
 	while (++y < WIN_SIZEY)
 		al->pix[y * WIN_SIZEX + x] = skybox(al, y, tx);
+	if ((cur_hit = ray->nb_hits - 1) == -1)
+		return ;
 	wall_scale = 200 * D_2PI / al->fov;
 
-	cur_hit = 0;
-	while (cur_hit < ray->nb_hits - 1)
+	// ######################## floorcasting ###################################
+
+	hit = ray->hits + cur_hit;
+	int mapx, mapy, mapxor, mapyor, mapdstor, mapdst;
+	mapdstor = al->play.eyez * UINT16_MAX * WIN_SIZEY;
+	mapdstor /= al->cos[sub_angle(ray->angle, al->play.dir)];
+	mapxor = al->play.posx * UINT16_MAX;
+	mapyor = al->play.posy * UINT16_MAX;
+	y = WIN_SIZEY / 2 + 1;
+	while (y < WIN_SIZEY)
+	{
+		tex = al->tex + 1;
+		mapdst = mapdstor;
+		mapdst /= 2 * y - WIN_SIZEY;
+		mapx = mapxor + mapdst * ray->xfact / UINT16_MAX;
+		mapx = mapx >= 0 ? mapx % TEX_REPEAT_F :
+		TEX_REPEAT_F + (mapx % TEX_REPEAT_F);
+		mapx *= tex->size_x;
+		mapy = mapyor + mapdst * ray->yfact / UINT16_MAX;
+		mapy = mapy >= 0 ? mapy % TEX_REPEAT_F :
+		TEX_REPEAT_F + (mapy % TEX_REPEAT_F);
+		mapy *= tex->size_y;
+
+		//tex_find(al->pix + WIN_SIZEX * 0 + 0, 0, 0, al->tex + 2);
+		tex_find(al->pix + WIN_SIZEX * y + x, mapx / TEX_REPEAT_F, mapy /
+		 	TEX_REPEAT_F, tex);
+		y++;
+	}
+
+	// ######################## wallcasting ####################################
+
+	hit = ray->hits + cur_hit;
+	wall_height = (hit->ce_hei - hit->fl_hei) * UINT16_MAX;
+	over_hor = (hit->ce_hei - al->play.eyez) * wall_scale / hit->hitdst;
+	wall_size = over_hor - ((hit->fl_hei - al->play.eyez) * wall_scale /
+		hit->hitdst);
+	tex = al->tex + hit->wall.wall_tex;
+	texx = hit->hit_texx * tex->size_x / SDL_MAX_UINT16;
+	column_wall(al, x, wall_size, over_hor, wall_height, texx, tex);
+
+	while (cur_hit--)
 	{
 		hit = ray->hits + cur_hit;
 		// top walls
@@ -82,8 +126,7 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 		{
 			wall_size = (hit->ce_hei - ray->hits[cur_hit + 1].ce_hei) *
 				wall_scale / hit->hitdst;
-			over_hor = (hit->ce_hei - al->play.eyez)
-				* wall_scale / hit->hitdst;
+			over_hor = (hit->ce_hei - al->play.eyez) * wall_scale / hit->hitdst;
 			tex = al->tex + hit->wall.top_tex;
 			texx = hit->hit_texx * tex->size_x / SDL_MAX_UINT16;
 			column_wall(al, x, wall_size, over_hor, wall_height, texx, tex);
@@ -94,24 +137,11 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 		{
 			wall_size = (ray->hits[cur_hit + 1].fl_hei - hit->fl_hei) *
 				wall_scale / hit->hitdst;
-			over_hor = (hit->fl_hei - al->play.eyez)
-				* wall_scale / hit->hitdst + wall_size;
+			over_hor = (hit->fl_hei - al->play.eyez) * wall_scale / hit->hitdst
+				+ wall_size;
 			tex = al->tex + hit->wall.bot_tex;
 			texx = hit->hit_texx * tex->size_x / SDL_MAX_UINT16;
 			column_wall(al, x, wall_size, over_hor, wall_height, texx, tex);
 		}
-		cur_hit++;
 	}
-	hit = ray->hits + cur_hit;
-	wall_size = (hit->ce_hei - hit->fl_hei) * wall_scale
-		/ hit->hitdst;
-	wall_height = (hit->ce_hei - hit->fl_hei) * UINT16_MAX;
-	over_hor = (ray->hits[ray->nb_hits - 1].ce_hei - al->play.eyez)
-		* wall_scale / ray->hits[ray->nb_hits - 1].hitdst;
-	tex = al->tex + ray->hits[ray->nb_hits - 1].wall.wall_tex;
-	texx = ray->hits[ray->nb_hits - 1].hit_texx *
-		al->tex[ray->hits[ray->nb_hits - 1].wall.wall_tex].size_x /
-		SDL_MAX_UINT16;
-
-	column_wall(al, x, wall_size, over_hor, wall_height, texx, tex);
 }

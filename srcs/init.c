@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/15 14:56:31 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/24 09:08:15 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ static void		init_wall(t_al *al)
 	if (!(al->wall = (t_wall *)ft_memalloc(sizeof(t_wall))))
 		yeet(al);
 	al->wall->next = NULL;
-	al->wall->prev = NULL;
 	al->wall->x1 = -1;
 	al->wall->x2 = -1;
 	al->wall->y1 = -1;
@@ -68,20 +67,37 @@ static void		init_trigo(t_al *al)
 	}*/
 }
 
+SDL_Color		add_color(int r, int g, int b, int a)
+{
+	SDL_Color c;
+
+	c.r = r;
+	c.g = g;
+	c.b = b;
+	c.a = a;
+	return (c);
+}
+
+
+void			ttf_init(t_al *al)
+{
+	al->ttf_st = (!TTF_Init()) ? 1 : 0; 
+	if (!(al->font = TTF_OpenFont("/Library/Fonts/Arial.ttf", 20)))
+		yeet(al);
+
+	al->color = add_color(255,255,255, 0);
+	// scale_text(env, &where, text, pos);
+	
+}
+
 static void		init_edit(t_al *al)
 {
-	// if (SDL_Init(SDL_INIT_VIDEO) < 0)
-	// 	yeet(al); supposed to be useless because theres aleready one in the main init
-	if (!(al->win_ = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY, WIN_SIZEX,
-				WIN_SIZEY, SDL_WINDOW_RESIZABLE)))
+	if (!(al->win_ = SDL_CreateWindow(WIN_TITLE, WIN_POSX + WIN_SIZEX, WIN_POSY, WIN_EDIT_SIZEX,
+				WIN_EDIT_SIZEY, SDL_WINDOW_SHOWN)))
 		yeet(al);
-	if ((al->ren_ = SDL_CreateRenderer(al->win_, -1, SDL_RENDERER_ACCELERATED |
-		SDL_RENDERER_PRESENTVSYNC)) == NULL)
+	if (!(al->surf_ = SDL_GetWindowSurface(al->win_)))
 		yeet(al);
-	if ((al->tex_ = SDL_CreateTexture(al->ren_, SDL_PIXELFORMAT_ARGB8888,
-		SDL_TEXTUREACCESS_STATIC, WIN_SIZEX, WIN_SIZEY)) == NULL)
-		yeet(al);
-	if ((al->pix_ = ft_memalloc(WIN_SIZEX * WIN_SIZEY * sizeof(int))) == NULL)
+	if ((al->pix_ = ft_memalloc(WIN_EDIT_SIZEX * WIN_EDIT_SIZEY * sizeof(int))) == NULL)
 		yeet(al);
 }
 
@@ -92,7 +108,8 @@ void			init(t_al *al, char *str)
 	init_player(al, &al->play);
 	init_trigo(al);
 	init_status(al);
-	al->status = GAME;
+	// al->status = GAME;
+	al->status = EDIT;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -102,18 +119,17 @@ void			init(t_al *al, char *str)
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
 			WIN_SIZEX, WIN_SIZEY, SDL_WINDOW_SHOWN)))
 		yeet(al);
-	if ((al->sdlren = SDL_CreateRenderer(al->sdlwin, -1,
-			SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC)) == NULL)
-		yeet(al);
-	if ((al->sdltex = SDL_CreateTexture(al->sdlren, SDL_PIXELFORMAT_ARGB8888,
-		SDL_TEXTUREACCESS_STATIC, WIN_SIZEX, WIN_SIZEY)) == NULL)
+	if (!(al->sdlsurf = SDL_GetWindowSurface(al->sdlwin)))
 		yeet(al);
 	if ((al->pix = ft_memalloc(WIN_SIZEX * WIN_SIZEY * sizeof(int))) == NULL)
 		exit(pr_err(MERROR_MESS));
+	// if ((al->pix_ = ft_memalloc(WIN_SIZEX * WIN_SIZEY * sizeof(int))) == NULL)
+	// 	exit(pr_err(MERROR_MESS));
 	init_wall(al);
-	(void)init_edit;
+	if (al->status == EDIT)
+		init_edit(al);
+	ttf_init(al);
 	ft_bzero(&al->k, sizeof(t_keys));
-	al->edit.stat = RECTANGLE_SELECT; // al->edit.stat = FIRST_CLICK;
+	al->edit.stat = FIRST_CLICK;
 	al->edit.zoom = 15;
-	al->c_wall = 0; // bzero init everything to 0, this func is for !0 inits ;)
 }

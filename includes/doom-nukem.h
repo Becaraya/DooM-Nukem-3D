@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/17 18:03:09 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/24 09:07:55 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # define WIN_SIZEY 768	//720
 # define WIN_POSX 100
 # define WIN_POSY 10
+
+# define WIN_EDIT_SIZEY 720
+# define WIN_EDIT_SIZEX 720
 
 # define MAX_WALLS_HIT	1000
 # define HORIZON_LIMIT	1000
@@ -62,31 +65,35 @@
 
 # define M_2PI 6.283185307179586476925286766559005768394338798750211641949
 
+# define WHITE 0xffffff
+
 /*
 ** Pls change this to an enum
 */
-
-# define T_SELECT		1
-# define T_WALL_DRAWING	2
-# define T_WALL_IDLE	3
-# define T_WALL_3		4
 
 /*
 ** ENUMS, for all status ######################################################
 */
 
+// typedef enum		e_status_edit
+// {
+// 	T_SELECT,
+// 	T_WALL_DRAWING,
+// 	T_WALL_IDLE,
+// 	T_WALL_3
+// }					t_status_edit;
 /*
 ** main status
 */
 
-typedef enum		e_status_ed
+typedef enum		e_status_draw
 {
 	SELECT,
 	DRAWING,
 	FIRST_CLICK,
 	RECTANGLE_SELECT,
 	RECTANGLE_DRAW
-}					t_status_ed;
+}					t_status_draw;
 
 typedef enum		e_stat_wall
 {
@@ -192,13 +199,12 @@ typedef struct		s_wall
 	int				x2;
 	int				y2;
 	t_stat_wall		type;
-	struct s_wall	*prev;
 	struct s_wall	*next;
 }					t_wall;
 
 typedef struct		s_edit
 {
-	t_status_ed		stat;
+	t_status_draw		stat;
 	int				zoom;
 }					t_edit;
 
@@ -285,11 +291,17 @@ typedef struct		s_al
 	SDL_Texture		*sdltex;
 	SDL_Renderer	*sdlren;
 	unsigned int	*pix;
+	SDL_Surface		*sdlsurf;
 
 	SDL_Window		*win_;
 	SDL_Texture		*tex_;
 	SDL_Renderer	*ren_;
 	unsigned int	*pix_;
+	SDL_Surface		*surf_;
+
+	unsigned		ttf_st:1;
+	TTF_Font		*font;
+	SDL_Color		color;
 
 	unsigned int	nb_sec;
 	t_sector		*sec;

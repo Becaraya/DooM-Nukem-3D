@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/27 17:39:14 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/24 11:12:34 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,39 @@
 // 	}
 // }
 
+// Uint32 couleur(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
+// {
+//    return r << 24 | g << 16 | b << 8 | a;
+// }
+
 static void		set_edit(t_al *al)
 {
 	int			x;
 	int 		y;
+	Uint32		*pix;
 	/* si tu veut init une grosse zone a null utilise bzero plutot  que des for
 	ou while. Et fait des typedef sur la win_size plutot que hardcode les val */
 	x = 0;
 	y = 0;
+
+	pix = al->sdlsurf->pixels;
 	ft_bzero(al->pix, WIN_SIZEX * WIN_SIZEY * sizeof(int));
+	// SDL_LockSurface(al->sdlsurf);
 	while (x < WIN_SIZEX)
 	{
 		while (y < WIN_SIZEY)
 		{
 			if (((x % (al->edit.zoom)) == 0) && (y % (al->edit.zoom) == 0) && y > 0 && x > 0)
-				al->pix[x + (y * WIN_SIZEX)] = 0xffffff;
+				pix[x + (y * WIN_SIZEX)] = WHITE;
 			y++;
 		}
 		y = 0;
 		x++;
 	}
+	// SDL_UnlockSurface(al->sdlsurf);
 }
 
-void			ft_put_line(t_point a, t_point b, t_al *al)
+void			ft_put_line(t_point a, t_point b, t_al *al, Uint32 *pix)
 {
 	t_point		delta;
 	t_point		sign;
@@ -59,7 +69,7 @@ void			ft_put_line(t_point a, t_point b, t_al *al)
 	cur = a;
 	while (cur.x != b.x || cur.y != b.y)
 	{
-		al->pix[cur.x + cur.y * WIN_SIZEX] = 0xffffff;
+		pix[cur.x + cur.y * WIN_SIZEX] = WHITE;
 		// printf("x = %d y = %d\n", cur.x, cur.y);
 		if ((tab[1] = tab[0] * 2) > -delta.y)
 		{
@@ -78,21 +88,26 @@ void		put_rectangle(t_point a, t_point b, t_al *al)
 {
 	t_point		c;
 	t_point		d;
+	Uint32 *pix;
 
+	pix = al->sdlsurf->pixels;
 	c.x = a.x;
 	c.y = b.y;
 	d.x = b.x;
 	d.y = a.y;
-	ft_put_line(a, d, al);
-	ft_put_line(a, c, al);
-	ft_put_line(c, b, al);
-	ft_put_line(d, b, al);
+	ft_put_line(a, d, al, pix);
+	ft_put_line(a, c, al, pix);
+	ft_put_line(c, b, al, pix);
+	ft_put_line(d, b, al, pix);
 }
 
 void		draw_wall(t_al *al, t_wall *wall)
 {
 	t_point		a;
 	t_point		b;
+	Uint32 *pix;
+
+	pix = al->sdlsurf->pixels;
 
 	a.x = wall->x1;
 	a.y = wall->y1;
@@ -101,7 +116,7 @@ void		draw_wall(t_al *al, t_wall *wall)
 	if (wall->type == RECT)
 		(wall->x2 != -1) ? put_rectangle(a, b, al) : 0;
 	else
-		(wall->x2 != -1) ? ft_put_line(a, b, al) : 0;
+		(wall->x2 != -1) ? ft_put_line(a, b, al, pix) : 0;
 	if (wall->next)
 		draw_wall(al, wall->next);
 }
@@ -122,11 +137,6 @@ void	editor(t_al *al)
 		al->wall->y2 = -1;
 	}
 	draw_wall(al, al->wall);
-	// if (al->c_wall > 0)
-	// if (al->edit.stat == IDLE) 
-	// {
-	// 	// al->edit.stat = DRAWING;
-	// }
 	// icon_edit(al);
 	refresh(al);
 }

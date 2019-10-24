@@ -44,6 +44,8 @@ SRC_LIST = main.c		\
 		main_loop.c 	\
 		init.c 			\
 		mouse_edit.c	\
+		sprite.c		\
+		sprite_chainlist.c\
 		yeet.c
 
 SRC_DIR = ./srcs/
@@ -96,4 +98,4 @@ sani :  $(LIBFT) $(OBJ_DIR) $(OBJ)
 
 re: fclean all
 
-.PHONY: all clean fclean re sani 
+.PHONY: all clean fclean re sani

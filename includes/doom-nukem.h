@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/24 09:07:55 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/24 16:27:16 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -290,7 +290,7 @@ typedef struct		s_al
 	SDL_Window		*sdlwin;
 	SDL_Texture		*sdltex;
 	SDL_Renderer	*sdlren;
-	unsigned int	*pix;
+	unsigned		*pix;
 	SDL_Surface		*sdlsurf;
 
 	SDL_Window		*win_;
@@ -326,6 +326,7 @@ typedef struct		s_al
 	SDL_Event		ev;
 	t_mouse			m;
 
+	t_sector		*sec_edit;
 	t_wall			*wall;
 	int				c_wall;
 

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/24 09:08:15 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/24 16:28:07 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,8 +121,9 @@ void			init(t_al *al, char *str)
 		yeet(al);
 	if (!(al->sdlsurf = SDL_GetWindowSurface(al->sdlwin)))
 		yeet(al);
-	if ((al->pix = ft_memalloc(WIN_SIZEX * WIN_SIZEY * sizeof(int))) == NULL)
-		exit(pr_err(MERROR_MESS));
+	al->pix = al->sdlsurf->pixels;
+	// if ((al->pix = ft_memalloc(WIN_SIZEX * WIN_SIZEY * sizeof(int))) == NULL)
+	// 	exit(pr_err(MERROR_MESS));
 	// if ((al->pix_ = ft_memalloc(WIN_SIZEX * WIN_SIZEY * sizeof(int))) == NULL)
 	// 	exit(pr_err(MERROR_MESS));
 	init_wall(al);
@@ -131,5 +132,6 @@ void			init(t_al *al, char *str)
 	ttf_init(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = FIRST_CLICK;
+	// al->edit.stat = RECTANGLE_SELECT;
 	al->edit.zoom = 15;
 }

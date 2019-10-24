@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/24 12:08:01 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/24 16:29:20 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void     stat_draw(t_al *al, SDL_MouseButtonEvent bev, int type)
 	new_wall(al);
 	set_coo(al, bev, 2);
 	al->wall->type = type;
-	return ;
+	return  ;
 }
 
 void		    mouse_press_edit(t_al *al)
@@ -92,7 +92,6 @@ void		    mouse_press_edit(t_al *al)
 				: RECTANGLE_DRAW;
 			set_coo(al, bev, 1);
 			set_coo(al, bev, 2);
-			
 		}
 		if (al->edit.stat == DRAWING)
 			stat_draw(al, bev, SIMPLE);
@@ -100,3 +99,28 @@ void		    mouse_press_edit(t_al *al)
 			stat_draw(al, bev, RECT);
 	}
 }
+
+// void		    mouse_press_edit(t_al *al)
+// {
+// 	SDL_MouseButtonEvent	bev;
+
+// 	bev = al->ev.button;
+// 	if (bev.type == SDL_MOUSEBUTTONUP)
+// 		return ;
+// 	printf("____________________________________________________________\n");
+// 	print_al(al->wall);
+// 	if (bev.windowID == 1)
+// 	{
+// 		// if (al->edit.stat == FIRST_CLICK || al->edit.stat == RECTANGLE_SELECT)
+// 		// {
+// 		// 	al->edit.stat = (al->edit.stat == FIRST_CLICK) ? DRAWING
+// 		// 		: RECTANGLE_DRAW;
+// 		// 	set_coo(al, bev, 1);
+// 		// 	set_coo(al, bev, 2);
+// 		// }
+// 		// if (al->edit.stat == DRAWING)
+// 		// 	stat_draw(al, bev, SIMPLE);
+// 		// if (al->edit.stat == RECTANGLE_DRAW)
+// 		// 	stat_draw(al, bev, RECT);
+// 	}
+// }

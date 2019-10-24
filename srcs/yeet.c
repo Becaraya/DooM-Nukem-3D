@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/23 14:52:57 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/24 16:31:08 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,13 +53,13 @@ void	refresh(t_al *al)
 	print_text(al);
 	SDL_UpdateWindowSurface(al->sdlwin);
 	SDL_UpdateWindowSurface(al->win_);
-	ft_bzero(al->sdlsurf->pixels, sizeof(void *) * WIN_SIZEX * WIN_SIZEY);
-	ft_bzero(al->surf_->pixels, sizeof(void *) * WIN_EDIT_SIZEX * WIN_EDIT_SIZEY);
+	// ft_bzero(al->sdlsurf->pixels, sizeof(void *) * WIN_SIZEX * WIN_SIZEY);
+	// ft_bzero(al->surf_->pixels, sizeof(void *) * WIN_EDIT_SIZEX * WIN_EDIT_SIZEY);
 }
 
 void	yeet(t_al *al)
 {
-	al->pix ? free(al->pix) : 0;
+	// al->pix ? free(al->pix) : 0;
 	// al->pix_ ? free(al->pix_) : 0;
 	al->font ? TTF_CloseFont(al->font) : 0;
 	al->ttf_st ? TTF_Quit() : 0;

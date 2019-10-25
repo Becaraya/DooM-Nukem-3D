@@ -412,13 +412,13 @@ void				render(t_al *al);
 ** sprites functions
 */
 
-t_sprite 	*create_sprite_elem(t_al *al, int id, char *name);
-void		add_sprite(t_al *al, char *name);
-void 		remove_sprite_by_id(t_al *al, int id);
-void 		reset_id(t_al *al);
-void 		remove_sprite(t_al *al, t_sprite *cur, t_sprite *next, t_sprite *prev);
-void 		draw_sprite(t_al *al);
-void 		display_sprite(t_al *al, t_sprite *cur);
+t_sprite 			*create_sprite_elem(t_al *al, int id, char *name);
+void				add_sprite(t_al *al, char *name);
+void 				remove_sprite_by_id(t_al *al, int id);
+void 				reset_id(t_al *al);
+void 				remove_sprite(t_al *al, t_sprite *cur, t_sprite *next, t_sprite *prev);
+void 				draw_sprite(t_al *al);
+void 				display_sprite(t_al *al, t_sprite *cur);
 
 
 

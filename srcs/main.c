@@ -20,7 +20,7 @@ int		main(int ac, char **av)
 	if (ac < 2)
 		return (pr_err("No .hms file provided\n"));
 	init(&al, av[1]);
-	hms_encoder(&al, "big_pp_kek.hms");
+	hms_encoder(&al, "big_pp.hms");
 	//main_loop(&al);
 	return (0);
 }

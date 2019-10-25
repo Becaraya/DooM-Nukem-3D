@@ -106,8 +106,8 @@ void			init(t_al *al, char *str)
 	init_player(al, &al->play);
 	init_trigo(al);
 	init_status(al);
-	// al->status = GAME;
-	al->status = EDIT;
+	 al->status = GAME;
+	//al->status = EDIT;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

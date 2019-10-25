@@ -398,11 +398,7 @@ int					parse_sectors(t_al *al, int fd);
 */
 
 int					hms_encoder(t_al *al, char *str);
-//int					parse_pixels(t_tex *tex, int fd);
-//int					parse_texture(t_tex *tex, int fd);
-//int					parse_textures(t_al *al, int fd);
-//int					write_sectors(t_al *al, int fd);
-
+int					write_sectors(t_al *al, int fd);
 /*
 ** status functions
 */

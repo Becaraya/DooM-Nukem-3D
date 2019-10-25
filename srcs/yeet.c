@@ -37,7 +37,7 @@ void	print_text(t_al *al)
 
 void	refresh(t_al *al)
 {
-	print_text(al);
+	//print_text(al);
 	if (SDL_UpdateWindowSurface(al->sdlwin))
 		yeet(al);
 	if (al->status == EDIT && (SDL_UpdateWindowSurface(al->win_ed)))

@@ -29,23 +29,25 @@ HEADERS_LIST = doom-nukem.h
 HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
-SRC_LIST = main.c		\
-		edit.c			\
-		event_func.c	\
-		game.c			\
-		render.c		\
-		column.c		\
-		angles.c		\
-		sport_physics.c	\
-		hms_parser.c	\
-		hms_parser_sec.c\
-		hms_parser_tex.c\
-		hms_encoder.c	\
-		parse_tex.c 	\
-		main_loop.c 	\
-		init.c 			\
-		mouse_edit.c	\
-		sprite.c		\
+SRC_LIST = main.c			\
+		edit.c				\
+		event_func.c		\
+		game.c				\
+		render.c			\
+		column.c			\
+		angles.c			\
+		sport_physics.c		\
+		hms_parser.c		\
+		hms_parser_sec.c	\
+		hms_parser_tex.c	\
+		hms_encoder.c		\
+		hms_encoder_sec.c	\
+		hms_encoder_tex.c	\
+		parse_tex.c 		\
+		main_loop.c 		\
+		init.c 				\
+		mouse_edit.c		\
+		sprite.c			\
 		sprite_chainlist.c\
 		yeet.c
 

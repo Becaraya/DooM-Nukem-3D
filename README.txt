@@ -34,7 +34,7 @@ sectors (16 header + nb_wall * 32 walls):
 (16 header)
 2  0- number of textures
 14 2- pad
-textures(16 header + x * y * 4 pixels with >16 padding):
+textures(16 header + x * y * 4 pixels):
 {
 	4 0- texture size x
 	4 4- texture size y
@@ -46,7 +46,6 @@ textures(16 header + x * y * 4 pixels with >16 padding):
 		1 2- red
 		1 4- transparency (0 for opaque and !=0 for transparent)
 	}
-	4 - ((x * y) % 4) - pad
 }
 
 notes:

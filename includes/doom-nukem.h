@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/24 15:26:29 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/25 10:35:26 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,7 +221,7 @@ typedef enum		e_status
 
 /*
 ** raycast hit descripting struct to add info missing from t_walls
-** wall_length is length in m    
+** wall_length is length in m
 */
 
 typedef struct		s_rc_hit
@@ -260,6 +260,18 @@ typedef struct		s_rc_ray
 ** horizon: height of the horizon in pixels, indicates if lookup or down
 ** eyez: eye position on z
 */
+typedef struct		s_sprite
+{
+	int 			id;
+	int 			w;
+	int 			h;
+	int 			x;
+	int 			y;
+	int				angle;
+	double			dist;
+	unsigned int	*tex;
+	struct s_sprite		*next;
+}					t_sprite;
 
 typedef struct		s_player
 {
@@ -333,6 +345,7 @@ typedef struct		s_al
 	double			cos[D_2PI];
 	//double			tan[D_2PI];
 
+	t_sprite 		*sprite;
 
 	char			v0id[32];
 }					t_al;
@@ -383,5 +396,27 @@ void				editor(t_al *al);
 void				menu(t_al *al);
 void				game(t_al *al);
 void				render(t_al *al);
+
+/*
+** sprites functions
+*/
+
+t_sprite 	*create_sprite_elem(t_al *al, int id, char *name);
+void		add_sprite(t_al *al, char *name);
+void 		remove_sprite_by_id(t_al *al, int id);
+void 		reset_id(t_al *al);
+void 		remove_sprite(t_al *al, t_sprite *cur, t_sprite *next, t_sprite *prev);
+void 		draw_sprite(t_al *al);
+void 		display_sprite(t_al *al, t_sprite *cur);
+
+
+
+
+
+
+
+
+
+
 
 #endif

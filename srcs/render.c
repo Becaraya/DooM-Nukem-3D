@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/22 11:18:04 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/25 11:46:33 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,7 +197,5 @@ void		render(t_al *al)
 		x++;
 	}*/
 	printf("FPS:%2d ", 1000000 / al->dtime); fflush(0);
-	SDL_UpdateTexture(al->sdltex, 0, al->pix, WIN_SIZEX * sizeof(int));
-	SDL_RenderCopy(al->sdlren, al->sdltex, 0, 0);
-	SDL_RenderPresent(al->sdlren);
+	refresh(al);
 }

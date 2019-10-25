@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/18 14:24:11 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/25 12:03:44 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,13 @@ void		mouse_mv(t_al *al)
 	SDL_MouseMotionEvent	mev;
 
 	mev = al->ev.motion;
-	if (al->edit.stat == DRAWING || (al->edit.stat == RECTANGLE_DRAW))
+	if (mev.windowID == 1)
 	{
-		al->wall->x2 = mev.x - (mev.x % al->edit.zoom);
-		al->wall->y2 = mev.y - (mev.y % al->edit.zoom);
+		if (al->edit.stat == DRAWING || (al->edit.stat == RECTANGLE_DRAW))
+		{
+			al->wall->x2 = mev.x - (mev.x % al->edit.zoom);
+			al->wall->y2 = mev.y - (mev.y % al->edit.zoom);
+		}
 	}
 }
 

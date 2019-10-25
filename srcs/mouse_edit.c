@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/27 17:38:54 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/25 12:10:42 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,11 @@ static void     stat_draw(t_al *al, SDL_MouseButtonEvent bev, int type)
 	al->wall->type = type;
 }
 
+void			mouse_press_edit_menu(t_al *al)
+{
+	(void)al;
+}
+
 void		    mouse_press_edit(t_al *al)
 {
 	SDL_MouseButtonEvent	bev;
@@ -71,16 +76,21 @@ void		    mouse_press_edit(t_al *al)
 		return ;
 	printf("____________________________________________________________\n");
 	print_al(al->wall);
-	if (al->edit.stat == FIRST_CLICK || al->edit.stat == RECTANGLE_SELECT)
+	if (bev.windowID == 1)
 	{
-		al->edit.stat = (al->edit.stat == FIRST_CLICK) ? DRAWING
-			: RECTANGLE_DRAW;
-		set_coo(al, bev, 1);
-		set_coo(al, bev, 2);
-		
+		if (al->edit.stat == FIRST_CLICK || al->edit.stat == RECTANGLE_SELECT)
+		{
+			al->edit.stat = (al->edit.stat == FIRST_CLICK) ? DRAWING
+				: RECTANGLE_DRAW;
+			set_coo(al, bev, 1);
+			set_coo(al, bev, 2);
+			
+		}
+		if (al->edit.stat == DRAWING)
+			stat_draw(al, bev, SIMPLE);
+		if (al->edit.stat == RECTANGLE_DRAW)
+			stat_draw(al, bev, RECT);
 	}
-	if (al->edit.stat == DRAWING)
-		stat_draw(al, bev, SIMPLE);
-	if (al->edit.stat == RECTANGLE_DRAW)
-		stat_draw(al, bev, RECT);
+	if (bev.windowID == 2)
+		mouse_press_edit_menu(al);
 }

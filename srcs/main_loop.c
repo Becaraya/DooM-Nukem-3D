@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/27 17:28:17 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/25 11:47:05 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,8 @@
 
 void		menu(t_al *al)
 {
-
-	ft_bzero(al->pix, WIN_SIZEX * WIN_SIZEY);
-	SDL_UpdateTexture(al->sdltex, 0, al->pix, WIN_SIZEX * sizeof(int));
-	SDL_RenderCopy(al->sdlren, al->sdltex, 0, 0);
-	SDL_RenderPresent(al->sdlren);
-	refresh(al);
+	(void)al;
+	// refresh(al);
 }
 
 static void	dtime(t_al *al)

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/25 10:35:26 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/25 12:30:16 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "SDL.h"
 # include "SDL_ttf.h"
 
-# define WIN_TITLE "100% totally mario sunshine virus free i swear"
+# define WIN_TITLE "100% really slenderman absolutely virus free i swear"
 # define WIN_SIZEX		1366//	1280
 # define WIN_SIZEY 		768	//	720
 # define WIN_POSX 100
@@ -355,7 +355,6 @@ typedef struct		s_al
 */
 
 unsigned int		*parse_tex(t_al *al, char *name, int w, int h);
-int					hms_parser(t_al *al, char *str);
 int					pr_err(char *str);
 
 void				init(t_al *al, char *str);
@@ -382,11 +381,22 @@ void				yeet(t_al *al);
 ** hms parser
 */
 
+int					hms_parser(t_al *al, char *str);
 int					check_links(t_sector *sec, unsigned nb_sec);
 int					parse_pixels(t_tex *tex, int fd);
 int					parse_texture(t_tex *tex, int fd);
 int					parse_textures(t_al *al, int fd);
 int					parse_sectors(t_al *al, int fd);
+
+/*
+** hms encoder
+*/
+
+int					hms_encoder(t_al *al, char *str);
+//int					parse_pixels(t_tex *tex, int fd);
+//int					parse_texture(t_tex *tex, int fd);
+//int					parse_textures(t_al *al, int fd);
+//int					write_sectors(t_al *al, int fd);
 
 /*
 ** status functions

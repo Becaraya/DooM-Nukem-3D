@@ -40,6 +40,7 @@ SRC_LIST = main.c		\
 		hms_parser.c	\
 		hms_parser_sec.c\
 		hms_parser_tex.c\
+		hms_encoder.c	\
 		parse_tex.c 	\
 		main_loop.c 	\
 		init.c 			\

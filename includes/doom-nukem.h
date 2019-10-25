@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/25 12:30:16 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/25 12:38:30 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # define WIN_SIZEY 		768	//	720
 # define WIN_POSX 100
 # define WIN_POSY 10
+
+# define WIN_EDIT_SIZEX	768
+# define WIN_EDIT_SIZEY	768
 
 # define MAX_WALLS_HIT	1000
 # define HORIZON_LIMIT	1000
@@ -306,14 +309,16 @@ typedef struct		s_al
 	void			(*stat_fnc[4])(struct s_al *);
 
 	SDL_Window		*sdlwin;
-	SDL_Texture		*sdltex;
-	SDL_Renderer	*sdlren;
-	unsigned int	*pix;
+	SDL_Surface		*sdlsurf;
+	unsigned		*pix;
 
-	SDL_Window		*win_;
-	SDL_Texture		*tex_;
-	SDL_Renderer	*ren_;
-	unsigned int	*pix_;
+	SDL_Window		*win_ed;
+	SDL_Surface		*surf_ed;
+	unsigned		*pix_ed;
+
+	unsigned		ttf_st:1;
+	TTF_Font		*font;
+	SDL_Color		color;
 
 	unsigned int	nb_sec;
 	t_sector		*sec;

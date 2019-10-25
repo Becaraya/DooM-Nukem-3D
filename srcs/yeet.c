@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/25 12:24:01 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/25 12:39:54 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,35 +16,45 @@
 ** /!\ This only refresh first window
 */
 
-void	refresh(t_al *al)
+void	print_text(t_al *al)
 {
-	if ((SDL_UpdateTexture(al->sdltex, 0, al->pix, WIN_SIZEX * sizeof(int)) < 0)
-		|| (SDL_RenderCopy(al->sdlren, al->sdltex, 0, 0) < 0))
+	SDL_Rect		where;
+	SDL_Surface		*tmp;
+	char			*segm;
+	
+	where.x = 0;
+	where.y = 0;
+	if (!(segm = ft_strdup("TEST")))
 		yeet(al);
-	SDL_RenderPresent(al->sdlren);
+	if (!(tmp = TTF_RenderText_Solid(al->font, segm, al->color)))
+		yeet(al);
+	if (SDL_BlitSurface(tmp, 0, al->surf_ed, &where))
+		yeet(al);
+	else
+		SDL_FreeSurface(tmp);
+	ft_strdel(&segm);
 }
 
-/*
-** al->sdlren ? SDL_DestroyRenderer(al->sdlren) : 0;
-** al->ren_ ? SDL_DestroyRenderer(al->ren_) : 0;
-** Il s'avere que ces ptit batars de l'arbalete de leurs morts, leaks. Donc on
-** les met pas.
-*/
+void	refresh(t_al *al)
+{
+	print_text(al);
+	if (SDL_UpdateWindowSurface(al->sdlwin))
+		yeet(al);
+	if (al->status == EDIT && (SDL_UpdateWindowSurface(al->win_ed)))
+		yeet(al);
+		
+}
 
 void	yeet(t_al *al)
 {
-	al->pix ? free(al->pix) : 0;
-	al->pix_ ? free(al->pix_) : 0;
-	al->sdltex ? SDL_DestroyTexture(al->sdltex) : 0;
-	al->tex_ ? SDL_DestroyTexture(al->tex_) : 0;
+	al->font ? TTF_CloseFont(al->font) : 0;
+	al->ttf_st ? TTF_Quit() : 0;
+	al->sdlsurf ? SDL_FreeSurface(al->sdlsurf) : 0;
+	al->surf_ed ? SDL_FreeSurface(al->surf_ed) : 0;
+	al->win_ed ? SDL_DestroyWindow(al->win_ed) : 0;
 	if (al->sdlwin)
 	{
 		SDL_DestroyWindow(al->sdlwin);
-		!al->win_ ? SDL_Quit() : 0;
-	}
-	if (al->win_)
-	{
-		SDL_DestroyWindow(al->win_);
 		SDL_Quit();
 	}
 	exit(0);

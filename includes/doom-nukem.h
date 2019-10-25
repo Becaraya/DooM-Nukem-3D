@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/17 18:03:09 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/24 15:26:29 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "SDL_ttf.h"
 
 # define WIN_TITLE "100% totally mario sunshine virus free i swear"
-# define WIN_SIZEX 1366	//1280
-# define WIN_SIZEY 768	//720
+# define WIN_SIZEX		1366//	1280
+# define WIN_SIZEY 		768	//	720
 # define WIN_POSX 100
 # define WIN_POSY 10
 
@@ -42,12 +42,21 @@
 /*
 ** TEX_REPEAT is horizontal repeat in m
 ** TEX_REPEAT_V is vertical repeat in m*(1<<16)
-** TEX_REPEAT_F is floor repeat in m*(1<<16)
 */
 
 # define TEX_REPEAT 2.0
 # define TEX_REPEAT_V 131072
-# define TEX_REPEAT_F 131072
+
+/*
+** now this one is very strange. REPEAT_F is repeat distance * 0x10000 - 1
+** and it is used as a mask so the -1 is important
+** REPEAT_F_DIV is log2 of REPEAT_F + 1, and to emulate a division with a
+** bit shift
+*/
+
+# define TEX_REPEAT_F		131071
+# define TEX_REPEAT_F_DIV	17
+
 
 # define PLAYER_CROUCH 1.10
 # define PLAYER_SIZE 1.78
@@ -224,6 +233,9 @@ typedef struct		s_rc_hit
 	double		fl_hei;
 	unsigned	ce_tex;
 	double		ce_hei;
+
+	int			w_toplim;
+	int			w_botlim;
 	t_walls		wall;
 }					t_rc_hit;
 

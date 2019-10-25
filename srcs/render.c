@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/17 17:46:06 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/22 11:18:04 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,6 @@ void		test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 					ray->hits[ray->nb_hits].hit_texx =
 						(unsigned)(wall->x1 / (wall->x1 - wall->x2) * wall_len(owall) *
 						UINT16_MAX) % (unsigned)(TEX_REPEAT * UINT16_MAX) / TEX_REPEAT;
-					//!owall->sec_lnk ? printf("texx>%5u    wall [x1%4.1f  x2%4.1f]\n", ray->hits[ray->nb_hits].hit_texx, wall->x1, wall->x2) :0;
 					tmp_dst *= al->cos[sub_angle(ray->angle, al->play.dir)];
 					ray->hits[ray->nb_hits].hitdst = tmp_dst;
 					ray->hits[ray->nb_hits].wall = *owall;
@@ -128,7 +127,6 @@ void		cast_sec(t_al *al, t_rc_ray *ray, unsigned secid, t_angle angle)
 {
 	unsigned	i;
 	t_sector	*rsec;
-	t_walls		*wall;
 
 	i = -1;
 	ray->hits[ray->nb_hits].fl_tex = al->sec[secid].fl_tex;
@@ -159,8 +157,9 @@ void		cast_ray(t_al *al, int x, t_rc_ray *ray)
 	tmp_angle = al->play.dir + ((int)al->fov * (x - (WIN_SIZEX / 2))
 		/ WIN_SIZEX);
 	ray->angle = tmp_angle & D_2PIM;
-	ray->xfact = al->sin[ray->angle] * SDL_MAX_UINT16;
-	ray->yfact = al->cos[ray->angle] * SDL_MAX_UINT16;
+	ray->xfact = al->sin[ray->angle] * UINT16_MAX;
+	ray->yfact = al->cos[ray->angle] * UINT16_MAX;
+	//printf("an>%3ddeg  x%03d%%, y%03d%%\n", ray->angle * 360 / D_2PI, ray->xfact * 100 / UINT16_MAX, ray->yfact * 100 / UINT16_MAX);
 	cast_sec(al, ray, al->play.csec, ray->angle);
 }
 

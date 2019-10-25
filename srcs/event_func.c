@@ -6,13 +6,13 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/15 14:51:25 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/18 14:24:11 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 
-static void	z_func(t_al *al, SDL_KeyboardEvent kev)
+static void	z_func(t_al *al)
 {
 	if (al->ev.type == SDL_KEYDOWN)
 	{
@@ -47,7 +47,7 @@ void		key_func(t_al *al)
 	SDL_KeyboardEvent kev;
 
 	kev = al->ev.key;
-	kev.keysym.sym == SDLK_z ? z_func(al, kev) : 0;
+	kev.keysym.sym == SDLK_z ? z_func(al) : 0;
 	if (al->ev.type == SDL_KEYDOWN)
 	{
 		kev.keysym.sym == SDLK_ESCAPE ? yeet(al) : 0;

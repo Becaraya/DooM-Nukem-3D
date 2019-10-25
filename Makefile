@@ -43,6 +43,7 @@ SRC_LIST = main.c			\
 		hms_encoder.c		\
 		hms_encoder_sec.c	\
 		hms_encoder_tex.c	\
+		bmp_to_tex.c		\
 		parse_tex.c 		\
 		main_loop.c 		\
 		init.c 				\

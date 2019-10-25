@@ -44,7 +44,7 @@ textures(16 header + x * y * 4 pixels):
 		1 0- blue
 		1 1- green
 		1 2- red
-		1 4- transparency (0 for opaque and !=0 for transparent)
+		1 4- alpha (0 for transparent and !=0 for opaque)
 	}
 }
 

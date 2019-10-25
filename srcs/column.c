@@ -25,7 +25,7 @@ inline int	tex_find(unsigned int *pix, int texx, int texy, t_tex *tex)
 {
 	int color;
 
-	if (!((color = tex->pix[tex->size_x * texy + texx]) >> 24))
+	if ((color = tex->pix[tex->size_x * texy + texx]) >> 24)
 		*pix = color;
 	else
 		return (1);

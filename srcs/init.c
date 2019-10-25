@@ -103,10 +103,20 @@ void			init(t_al *al, char *str)
 {
 	if (hms_parser(al, str))
 		exit(0);
+	//free(al->tex[0].pix);
+	//bmp_to_tex(al->tex + 0, "ressources/white-brick-texture.bmp", 800, 600);
+	//free(al->tex[1].pix);
+	//bmp_to_tex(al->tex + 1, "ressources/white-brick-texture.bmp", 800, 600);
+	//free(al->tex[2].pix);
+	//bmp_to_tex(al->tex + 2, "ressources/white-brick-texture.bmp", 800, 600);
+	//free(al->tex[3].pix);
+	//bmp_to_tex(al->tex + 3, "ressources/white-brick-texture.bmp", 800, 600);
+
+	
 	init_player(al, &al->play);
 	init_trigo(al);
 	init_status(al);
-	 al->status = GAME;
+	al->status = GAME;
 	//al->status = EDIT;
 	al->fps = 60;
 	al->g = DEFAULT_G;

@@ -91,6 +91,14 @@
 ** main status
 */
 
+typedef enum		e_status
+{
+	MENU,
+	GAME,
+	PAUSE,
+	EDIT
+}					t_status;
+
 typedef enum		e_status_ed
 {
 	SELECT,
@@ -213,14 +221,6 @@ typedef struct		s_edit
 	t_status_ed		stat;
 	int				zoom;
 }					t_edit;
-
-typedef enum		e_status
-{
-	MENU,
-	GAME,
-	PAUSE,
-	EDIT
-}					t_status;
 
 /*
 ** raycast hit descripting struct to add info missing from t_walls
@@ -393,12 +393,16 @@ int					parse_texture(t_tex *tex, int fd);
 int					parse_textures(t_al *al, int fd);
 int					parse_sectors(t_al *al, int fd);
 
+int					bmp_to_tex(t_tex *tex, char *str, int sizex, int sizey);
+
 /*
 ** hms encoder
 */
 
 int					hms_encoder(t_al *al, char *str);
 int					write_sectors(t_al *al, int fd);
+int					write_textures(t_al *al, int fd);
+
 /*
 ** status functions
 */

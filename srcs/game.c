@@ -55,7 +55,7 @@ static t_angle	angle(t_al *al)
 		return (add_angle(dir, D_PI - D_PI_4));
 	if (al->k.w && !al->k.a && !al->k.s && al->k.d)
 		return (add_angle(dir, D_PI_4));
-	return (69420);
+	return (64420);
 }
 
 /*
@@ -66,7 +66,7 @@ static void		deceleration(t_al *al)
 {
 	double wack;
 
-	wack = 2.0 * al->dtime / 1000000.0;
+	wack = 4.0 * al->dtime / 1000000.0;
 	wack = wack > 0.9 ? 0.9 : wack;
 	if (al->play.gd_vel < 1)
 		wack = 0.25;
@@ -94,10 +94,10 @@ static void		acceleration(t_al *al)
 	double net_accel;
 	t_angle dir_force;
 
-	net_power = al->play.power * (al->k.w ? 1 : 0.3) * al->play.power_mult
+	net_power = al->play.power * (al->k.w ? 1 : 0.4) * al->play.power_mult
 	- power_to_run(al);
 	dir_force = angle(al);
-	if (dir_force == 69420 || net_power < 0)
+	if (dir_force == 64420 || net_power < 0)
 	{
 		deceleration(al);
 		return ;
@@ -105,10 +105,9 @@ static void		acceleration(t_al *al)
 	net_force = net_power / (al->play.gd_vel > 1 ? al->play.gd_vel : 1);
 	net_accel = net_force / (al->play.mass ? al->play.mass : 1);
 	// printf("POWER ! > pow>%.fw force>%.fn accel>%.1fm/s^2\n", net_power, net_force, net_accel);
-	al->play.velx += al->sin[dir_force] * net_accel * al->dtime / 1000000;
-	al->play.vely += al->cos[dir_force] * net_accel * al->dtime / 1000000;
-	al->play.gd_vel = sqrt(al->play.velx * al->play.velx + al->play.vely *
-		al->play.vely);
+	al->play.gd_vel += net_accel * al->dtime / 1000000;
+	al->play.velx = al->sin[dir_force] * al->play.gd_vel;
+	al->play.vely = al->cos[dir_force] * al->play.gd_vel;
 }
 
 /*

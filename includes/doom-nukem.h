@@ -22,8 +22,8 @@
 # include "SDL_ttf.h"
 
 # define WIN_TITLE "100% really slenderman absolutely virus free i swear"
-# define WIN_SIZEX		1366//	1280
-# define WIN_SIZEY 		768	//	720
+# define WIN_SIZEX	1366
+# define WIN_SIZEY 	768
 # define WIN_POSX 100
 # define WIN_POSY 10
 

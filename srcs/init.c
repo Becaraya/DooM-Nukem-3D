@@ -106,12 +106,18 @@ void			init(t_al *al, char *str)
 	//free(al->tex[0].pix);
 	//bmp_to_tex(al->tex + 0, "ressources/white-brick-texture.bmp", 800, 600);
 	//free(al->tex[1].pix);
-	//bmp_to_tex(al->tex + 1, "ressources/white-brick-texture.bmp", 800, 600);
+	//bmp_to_tex(al->tex + 1, "ressources/wall_tex.bmp", 800, 600);
 	//free(al->tex[2].pix);
-	//bmp_to_tex(al->tex + 2, "ressources/white-brick-texture.bmp", 800, 600);
+	//bmp_to_tex(al->tex + 2, "ressources/floor_tex.bmp", 950, 950);
 	//free(al->tex[3].pix);
-	//bmp_to_tex(al->tex + 3, "ressources/white-brick-texture.bmp", 800, 600);
-
+	//bmp_to_tex(al->tex + 3, "ressources/ceiling_tex.bmp", 512, 512);
+	/*al->sec[2].fl_tex = 2;
+	al->sec[2].ce_tex = 3;
+	al->sec[1].walls[0].bot_tex = 1;
+	al->sec[1].walls[0].top_tex = 1;
+	al->sec[1].walls[1].wall_tex = 1;
+	al->sec[1].walls[4].wall_tex = 1;*/
+	
 	
 	init_player(al, &al->play);
 	init_trigo(al);

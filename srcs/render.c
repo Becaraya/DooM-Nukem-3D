@@ -145,28 +145,17 @@ void		cast_sec(t_al *al, t_rc_ray *ray, unsigned secid, t_angle angle)
 
 
 
-
-
-
-void		cast_ray(t_al *al, int x, t_rc_ray *ray)
+void		cast_ray(t_al *al, t_angle an, t_rc_ray *ray)
 {
 	unsigned	i;
-	unsigned	tmp_angle;
 
 	i = 0;
-	tmp_angle = al->play.dir + ((int)al->fov * (x - (WIN_SIZEX / 2))
-		/ WIN_SIZEX);
-	ray->angle = tmp_angle & D_2PIM;
+	ray->angle = an & D_2PIM;
 	ray->xfact = al->sin[ray->angle] * UINT16_MAX;
 	ray->yfact = al->cos[ray->angle] * UINT16_MAX;
 	//printf("an>%3ddeg  x%03d%%, y%03d%%\n", ray->angle * 360 / D_2PI, ray->xfact * 100 / UINT16_MAX, ray->yfact * 100 / UINT16_MAX);
 	cast_sec(al, ray, al->play.csec, ray->angle);
 }
-
-
-
-
-
 
 
 
@@ -185,7 +174,8 @@ void		render(t_al *al)
 	while (x < WIN_SIZEX)
 	{
 		ray.nb_hits = 0;
-		cast_ray(al, x, &ray);
+		cast_ray(al, al->play.dir + ((int)al->fov * (x - (WIN_SIZEX / 2)) /
+				WIN_SIZEX), &ray);
 		column(al, x, &ray);
 		x++;
 	}

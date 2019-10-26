@@ -245,6 +245,7 @@ typedef struct		s_rc_hit
 /*
 ** raycast ray descripting func to add info missing from t_walls
 ** xfact and yfact are 16 bits sin and cos of anglem for floorcasting
+** min is used in test_hit and is unimportant
 */
 
 typedef struct		s_rc_ray
@@ -254,6 +255,8 @@ typedef struct		s_rc_ray
 	int			yfact;
 	int			nb_hits;
 	t_rc_hit	hits[MAX_WALLS_HIT];
+
+	double		min;
 }					t_rc_ray;
 
 /*

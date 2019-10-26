@@ -116,7 +116,8 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 		hit->fl_hei);
 	while (y < WIN_SIZEY)
 	{
-		dist = initdst / (2 * (y + horizon) - al->stretch);
+		dist = !(tmp = (2 * (y + horizon) - al->stretch)) ? UINT16_MAX :
+		initdst / tmp;
 
 		distx = dist * ray->xfact / UINT16_MAX + posx;
 		distx = ((distx & TEX_REPEAT_F) * tex->size_x) >> 17;
@@ -136,8 +137,8 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 		al->play.eyez);
 	while (y < ymax)
 	{
-		tmp = al->stretch - 2 * (y + horizon);
-		dist = tmp > 0 ? initdst / tmp : 1000;
+		dist = !(tmp = (al->stretch - 2 * (y + horizon))) ? UINT16_MAX :
+		initdst / tmp;
 
 		distx = dist * ray->xfact / UINT16_MAX + posx;
 		distx = ((distx & TEX_REPEAT_F) * tex->size_x) >> 17;
@@ -145,7 +146,6 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 		disty = dist * ray->yfact / UINT16_MAX + posy;
 		disty = ((disty & TEX_REPEAT_F) * tex->size_y) >> 17;
 
-		y < 0 || y >= WIN_SIZEY ? printf("y%d\n", y) : 0;
 		al->pix[y * WIN_SIZEX + x] = tex->pix[disty * tex->size_x + distx];
 		y++;
 	}
@@ -190,7 +190,8 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 		initdst = UINT16_MAX * al->stretch / correct * (al->play.eyez - hit->fl_hei);
 		while (y < WIN_SIZEY)
 		{
-			dist = initdst / (2 * (y + horizon) - al->stretch);
+			dist = !(tmp = (2 * (y + horizon) - al->stretch)) ? UINT16_MAX :
+			initdst / tmp;
 
 			distx = dist * ray->xfact / UINT16_MAX + posx;
 			distx = ((distx & TEX_REPEAT_F) * tex->size_x) >> 17;
@@ -214,7 +215,8 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 		al->play.eyez);
 		while (y < ymax)
 		{
-			dist = initdst / (al->stretch - 2 * (y + horizon));
+			dist = !(tmp = (al->stretch - 2 * (y + horizon))) ? UINT16_MAX :
+			initdst / tmp;
 			distx = dist * ray->xfact / UINT16_MAX + posx;
 			distx = ((distx & TEX_REPEAT_F) * tex->size_x) >> 17;
 

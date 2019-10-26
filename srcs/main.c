@@ -20,7 +20,7 @@ int		main(int ac, char **av)
 	if (ac < 2)
 		return (pr_err("No .hms file provided\n"));
 	init(&al, av[1]);
-	//hms_encoder(&al, "tex_map.hms");
+	//hms_encoder(&al, "house.hms");
 	main_loop(&al);
 	return (0);
 }

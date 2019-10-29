@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/25 12:38:30 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/29 14:14:26 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,6 +303,34 @@ typedef struct		s_player
 }					t_player;
 
 /*
+* i think some var are usless on entity.
+*/
+
+typedef struct		s_entity
+{
+	unsigned	csec;
+	double		posx;
+	double		posy;
+	double		posz;
+	double		velx;
+	double		vely;
+	double		velz;
+	double		gd_vel;
+
+	double		size;
+//	double		eyez;
+	double		mass;
+	double		power;
+	double		power_mult;
+
+	t_angle		dir;
+//	int			horizon;
+	unsigned	on_ground:1;
+	unsigned	alive:1;
+}					t_entity;
+
+
+/*
 ** Main structure #############################################################
 */
 
@@ -328,6 +356,8 @@ typedef struct		s_al
 	t_sector		*rotsec;
 	unsigned short	nb_tex;
 	t_tex			*tex;
+
+	t_entity		ent;
 
 	t_player		play;
 	double			g;
@@ -428,11 +458,18 @@ void 				draw_sprite(t_al *al);
 void 				display_sprite(t_al *al, t_sprite *cur);
 
 
+/*
+** draw function
+*/
 
 
+void				ft_put_line(t_point a, t_point b, t_al *al);
 
+/*
+** entity mooving function
+*/
 
-
+void				mv_entity(t_al *al);
 
 
 

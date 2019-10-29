@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/25 12:01:19 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/29 14:02:06 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,23 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->on_ground = 1;
 	pl->alive = 0;
 	pl->posz = al->sec[pl->csec].fl_hei;
+}
+
+/*
+** je sait pas ou ranger cette fonction
+*/
+void    creat_entity(t_al *al)
+{
+	al->ent.posx = 0;
+    al->ent.posy = -1;
+	al->ent.vely = 0.1;
+	al->ent.size = PLAYER_SIZE;
+	al->ent.on_ground = 1;
+	al->ent.power = 400;
+	al->ent.power_mult = 1;
+	al->ent.mass = 67;
+	al->ent.alive = 1;
+	al->ent.posz = al->sec[al->play.csec].fl_hei;
 }
 
 static void		init_trigo(t_al *al)
@@ -365,6 +382,7 @@ void			init(t_al *al, char *str)
 
 
 	init_player(al, &al->play);
+	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
 	al->status = GAME;

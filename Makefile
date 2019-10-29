@@ -50,6 +50,7 @@ SRC_LIST = main.c			\
 		mouse_edit.c		\
 		sprite.c			\
 		sprite_chainlist.c	\
+		entity.c			\
 		yeet.c
 
 SRC_DIR = ./srcs/

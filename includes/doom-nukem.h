@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/25 12:38:30 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/29 14:57:04 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,7 @@
 
 # define M_2PI 6.283185307179586476925286766559005768394338798750211641949
 
-/*
-** Pls change this to an enum
-*/
-
-# define T_SELECT		1
-# define T_WALL_DRAWING	2
-# define T_WALL_IDLE	3
-# define T_WALL_3		4
+# define WHITE 0xffffff
 
 /*
 ** ENUMS, for all status ######################################################
@@ -102,10 +95,8 @@ typedef enum		e_status
 typedef enum		e_status_ed
 {
 	SELECT,
-	DRAWING,
 	FIRST_CLICK,
-	RECTANGLE_SELECT,
-	RECTANGLE_DRAW
+	DRAWING,
 }					t_status_ed;
 
 typedef enum		e_stat_wall
@@ -139,6 +130,7 @@ typedef struct		s_walls
 	unsigned short	bot_tex;
 	unsigned short	is_cross;
 	unsigned int	sec_lnk;
+	struct s_walls	*next;
 }					t_walls;
 
 /*
@@ -153,6 +145,7 @@ typedef struct		s_sector
 	unsigned short	ce_tex;
 	unsigned int	nb_wal;
 	t_walls			*walls;
+	struct s_sector	*next;
 }					t_sector;
 
 typedef struct		s_tex
@@ -205,16 +198,16 @@ typedef struct		s_point
 	int				color;
 }					t_point;
 
-typedef struct		s_wall
-{
-	int				x1;
-	int				y1;
-	int				x2;
-	int				y2;
-	t_stat_wall		type;
-	struct s_wall	*prev;
-	struct s_wall	*next;
-}					t_wall;
+// typedef struct		s_wall
+// {
+// 	int				x1;
+// 	int				y1;
+// 	int				x2;
+// 	int				y2;
+// 	t_stat_wall		type;
+// 	struct s_wall	*prev;
+// 	struct s_wall	*next;
+// }					t_wall;
 
 typedef struct		s_edit
 {
@@ -346,8 +339,9 @@ typedef struct		s_al
 	SDL_Event		ev;
 	t_mouse			m;
 
-	t_wall			*wall;
-	int				c_wall;
+	// t_wall			*wall;
+	// int				c_wall;
+	t_sector		*sect;
 
 	double			sin[D_2PI];
 	double			cos[D_2PI];

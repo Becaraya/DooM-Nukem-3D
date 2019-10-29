@@ -6,23 +6,23 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/25 12:01:19 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/29 14:01:09 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 
-static void		init_wall(t_al *al)
-{
-	if (!(al->wall = (t_wall *)ft_memalloc(sizeof(t_wall))))
-		yeet(al);
-	al->wall->next = NULL;
-	al->wall->prev = NULL;
-	al->wall->x1 = -1;
-	al->wall->x2 = -1;
-	al->wall->y1 = -1;
-	al->wall->y2 = -1;
-}
+// static void		init_wall(t_al *al)
+// {
+// 	if (!(al->wall = (t_wall *)ft_memalloc(sizeof(t_wall))))
+// 		yeet(al);
+// 	al->wall->next = NULL;
+// 	al->wall->prev = NULL;
+// 	al->wall->x1 = -1;
+// 	al->wall->x2 = -1;
+// 	al->wall->y1 = -1;
+// 	al->wall->y2 = -1;
+// }
 
 static void		init_status(t_al *al)
 {
@@ -97,6 +97,7 @@ static void		init_edit(t_al *al)
 	if (!(al->surf_ed = SDL_GetWindowSurface(al->win_ed)))
 		yeet(al);
 	al->pix_ed = al->sdlsurf->pixels;
+
 }
 
 void			init(t_al *al, char *str)
@@ -367,8 +368,8 @@ void			init(t_al *al, char *str)
 	init_player(al, &al->play);
 	init_trigo(al);
 	init_status(al);
-	al->status = GAME;
-	//al->status = EDIT;
+	// al->status = GAME;
+	al->status = EDIT;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -381,13 +382,16 @@ void			init(t_al *al, char *str)
 	if (!(al->sdlsurf = SDL_GetWindowSurface(al->sdlwin)))
 		yeet(al);
 	al->pix = al->sdlsurf->pixels;
-	init_wall(al);
+	// init_wall(al);
+	printf("test\n");
 	if (al->status == EDIT)
 		init_edit(al);
+	// printf("222\n");
+
 	init_ttf(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = FIRST_CLICK;
 	// al->edit.stat = RECTANGLE_SELECT;
 	al->edit.zoom = 15;
-	al->c_wall = 0; // bzero init everything to 0, this func is for !0 inits ;)
+	// al->c_wall = 0; // bzero init everything to 0, this func is for !0 inits ;)
 }

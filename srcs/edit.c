@@ -6,21 +6,11 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2019/09/27 17:39:14 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/29 14:56:36 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
-
-
-// static void		icon_edit(t_al *al)
-// {
-// 	for (int i = 0; i < 699; i++){
-// 		for (int j = 0; j < 604; j++){
-// 			al->pix[699 * j + i] = al->txt.ic.chest[j * 699 + i];
-// 		}
-// 	}
-// }
 
 static void		set_edit(t_al *al)
 {
@@ -36,7 +26,7 @@ static void		set_edit(t_al *al)
 		while (y < WIN_SIZEY)
 		{
 			if (((x % (al->edit.zoom)) == 0) && (y % (al->edit.zoom) == 0) && y > 0 && x > 0)
-				al->pix[x + (y * WIN_SIZEX)] = 0xffffff;
+				al->pix[x + (y * WIN_SIZEX)] = WHITE;
 			y++;
 		}
 		y = 0;
@@ -59,8 +49,7 @@ void			ft_put_line(t_point a, t_point b, t_al *al)
 	cur = a;
 	while (cur.x != b.x || cur.y != b.y)
 	{
-		al->pix[cur.x + cur.y * WIN_SIZEX] = 0xffffff;
-		// printf("x = %d y = %d\n", cur.x, cur.y);
+		al->pix[cur.x + cur.y * WIN_SIZEX] = WHITE;
 		if ((tab[1] = tab[0] * 2) > -delta.y)
 		{
 			tab[0] -= delta.y;
@@ -74,22 +63,7 @@ void			ft_put_line(t_point a, t_point b, t_al *al)
 	}
 }
 
-void		put_rectangle(t_point a, t_point b, t_al *al)
-{
-	t_point		c;
-	t_point		d;
-
-	c.x = a.x;
-	c.y = b.y;
-	d.x = b.x;
-	d.y = a.y;
-	ft_put_line(a, d, al);
-	ft_put_line(a, c, al);
-	ft_put_line(c, b, al);
-	ft_put_line(d, b, al);
-}
-
-void		draw_wall(t_al *al, t_wall *wall)
+void		draw_wall(t_al *al, t_walls *wall)
 {
 	t_point		a;
 	t_point		b;
@@ -98,35 +72,22 @@ void		draw_wall(t_al *al, t_wall *wall)
 	a.y = wall->y1;
 	b.x = wall->x2;
 	b.y = wall->y2;
-	if (wall->type == RECT)
-		(wall->x2 != -1) ? put_rectangle(a, b, al) : 0;
-	else
-		(wall->x2 != -1) ? ft_put_line(a, b, al) : 0;
+	(wall->x1 != -1) ? ft_put_line(a, b, al) : 0;
 	if (wall->next)
 		draw_wall(al, wall->next);
+}
+
+void		draw_sect(t_al *al, t_sector *sect)
+{
+	draw_wall(al, sect->walls);
+	if (sect->next)
+		draw_sect(al, sect->next);
 }
 
 void	editor(t_al *al)
 {
 	set_edit(al);
-	if (al->k.space == 1)
-	{
-		if (al->edit.stat == RECTANGLE_DRAW
-			|| al->edit.stat == RECTANGLE_SELECT)
-				al->edit.stat = RECTANGLE_SELECT;
-		else
-			al->edit.stat = FIRST_CLICK;
-		al->wall->x1 = -1;
-		al->wall->y1 = -1;
-		al->wall->x2 = -1;
-		al->wall->y2 = -1;
-	}
-	draw_wall(al, al->wall);
-	// if (al->c_wall > 0)
-	// if (al->edit.stat == IDLE) 
-	// {
-	// 	// al->edit.stat = DRAWING;
-	// }
-	// icon_edit(al);
+	if (al->sect)
+		draw_sect(al, al->sect);
 	refresh(al);
 }

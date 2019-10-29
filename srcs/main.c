@@ -3,14 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/25 12:31:33 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/29 08:54:46 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
+
+// __attribute__ ((destructor)) void no_end (void);
 
 int		main(int ac, char **av)
 {
@@ -24,3 +26,8 @@ int		main(int ac, char **av)
 	main_loop(&al);
 	return (0);
 }
+
+// void	no_end()
+// {
+// 	while (1);
+// }

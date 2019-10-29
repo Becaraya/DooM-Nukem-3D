@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/25 12:01:19 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/29 15:03:56 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,9 @@ void			init(t_al *al, char *str)
 {
 	if (hms_parser(al, str))
 		exit(0);
-	/*//free(al->tex[0].pix);
+	//free(al->tex[0].pix);
 	//bmp_to_tex(al->tex + 0, "ressources/wall_tex.bmp", 800, 600);
-	free(al->tex[1].pix);
+	/*free(al->tex[1].pix);
 	bmp_to_tex(al->tex + 1, "ressources/wall_tex.bmp", 800, 600);
 	free(al->tex[2].pix);
 	bmp_to_tex(al->tex + 2, "ressources/floor_tex.bmp", 950, 950);
@@ -113,9 +113,9 @@ void			init(t_al *al, char *str)
 	bmp_to_tex(al->tex + 3, "ressources/ceiling_tex.bmp", 512, 512);
 	
 	t_walls *w;
-	//free(al->sec[1].walls);
+	free(al->sec[1].walls);
 	//free(al->sec[2].walls);
-	//free(al->sec);
+	free(al->sec);
 	
 	al->play.posx = 1;
 	al->play.posy = 1;
@@ -137,6 +137,8 @@ void			init(t_al *al, char *str)
 	w->y1 = 0;
 	w->x2 = 0;
 	w->y2 = 15;
+	t_angle an;
+	an = D_PI;
 	w = al->sec[1].walls + 1;
 	w->wall_tex = 1;
 	w->x1 = 0;
@@ -211,7 +213,7 @@ void			init(t_al *al, char *str)
 	al->sec[2].fl_tex = 2;
 	al->sec[2].ce_tex = 3;
 	al->sec[2].walls = ft_memalloc(6 * sizeof(t_walls));
-	al->rotsec[2].walls = ft_memalloc(10 * sizeof(t_walls));
+	al->rotsec[2].walls = ft_memalloc(6 * sizeof(t_walls));
 	al->sec[2].nb_wal = 6;
 	w = al->sec[2].walls + 0;
 	w->bot_tex = 1;

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/25 12:38:30 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/29 15:00:00 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,11 @@ typedef enum		e_stat_wall
 	RECT
 }					t_stat_wall;
 
+typedef enum		e_ai
+{
+	NONE
+}					t_ai;
+
 /*
 ** TYPEDEF ####################################################################
 */
@@ -161,6 +166,20 @@ typedef struct		s_tex
 	unsigned int	size_y;
 	unsigned int	*pix;
 }					t_tex;
+
+typedef struct		s_tex_or
+{
+	unsigned int	**pix;
+}					t_tex_or;
+
+
+typedef struct		s_tex_group
+{
+	unsigned int	size_x;
+	unsigned int	size_y;
+	unsigned int	nb_tex;
+	t_tex_or		or[8];
+}					t_tex_group;
 
 /*
 ** key currently pressed
@@ -328,6 +347,7 @@ typedef struct		s_al
 	t_sector		*rotsec;
 	unsigned short	nb_tex;
 	t_tex			*tex;
+	t_tex_group		*texgp;
 
 	t_player		play;
 	double			g;

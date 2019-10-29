@@ -31,10 +31,10 @@ sectors (16 header + nb_wall * 32 walls):
 		4 26- pad
 	}
 }
-(16 header)
+textures (16 header)
 2  0- number of textures
 14 2- pad
-textures(16 header + x * y * 4 pixels):
+textures(16 header):
 {
 	4 0- texture size x
 	4 4- texture size y
@@ -47,6 +47,40 @@ textures(16 header + x * y * 4 pixels):
 		1 4- alpha (0 for transparent and !=0 for opaque)
 	}
 }
+texture groups(16 header)
+2  0- number of texture groups
+14 2- pad
+texture animation(16 header):
+{
+	4 0- texture size x
+	4 4- texture size y
+	4 8- number of textures in animation
+	4 12- pad
+	orientations(8x):
+	{
+		textures:
+		{
+			pixels:
+			{
+				1 0- blue
+				1 1- green
+				1 2- red
+				1 4- alpha (0 for transparent and !=0 for opaque)
+			}
+		}
+	}
+}
+(16 header)
+2  0- number of entities
+14 2- pad
+entities:
+{
+	4 0- initial x
+	4 4- initial y
+	4 8- initial sector
+	4 12- ai type
+}
+
 
 notes:
 Both textures and sectors tab must start at 1, for utility purposes (sorry).

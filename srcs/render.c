@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/25 11:46:33 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/10/29 14:14:35 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,37 @@ int			test_aleready_hit(t_rc_ray *ray, t_walls *owall)
 		i++;
 	}
 	return (0);
+}
+
+void		draw_map(t_al *al)
+{
+	t_point a;
+	t_point b;
+	unsigned int nb_wal;
+	unsigned int nb_sec;
+
+	nb_sec = al->nb_sec;
+	while ( nb_sec > 0)
+	{
+		nb_wal = al->sec[nb_sec].nb_wal;
+		while (nb_wal > 0)
+		{
+			a.x = al->sec[nb_sec].walls[nb_wal].x1 * 10 + (WIN_SIZEX / 2);
+			a.y = al->sec[nb_sec].walls[nb_wal].y1 * 10 + (WIN_SIZEY / 2);
+			b.x = al->sec[nb_sec].walls[nb_wal].x2 * 10 + (WIN_SIZEX / 2);
+			b.y = al->sec[nb_sec].walls[nb_wal].y2 * 10 + (WIN_SIZEY / 2);
+			//printf("xxxx%d,%d,%d,%dxxxxx",a.x,a.y,b.x,b.y);
+			ft_put_line(a, b, al);
+			nb_wal--;
+		}
+		nb_sec--;
+	}
+	a.x = al->ent.posx * 10 + (WIN_SIZEX / 2);
+	a.y = al->ent.posy * 10 + (WIN_SIZEY / 2);
+	al->pix[(int)(a.x + (a.y * WIN_SIZEX))] = 0xff00ff;
+	al->pix[(int)(a.x + 1 + (a.y * WIN_SIZEX))] = 0xff00ff;
+	al->pix[(int)(a.x + ((a.y + 1) * WIN_SIZEX))] = 0xff00ff;
+	al->pix[(int)(a.x + 1 + ((a.y + 1) * WIN_SIZEX))] = 0xff00ff;
 }
 
 void		test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
@@ -190,6 +221,8 @@ void		render(t_al *al)
 		column(al, x, &ray);
 		x++;
 	}*/
+	draw_map(al);
+	mv_entity(al);
 	printf("FPS:%2d ", 1000000 / al->dtime); fflush(0);
 	refresh(al);
 }

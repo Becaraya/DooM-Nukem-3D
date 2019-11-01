@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/29 15:05:46 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/10/29 15:49:10 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -308,6 +308,9 @@ typedef struct		s_player
 	double		vely;
 	double		velz;
 	double		gd_vel;
+	unsigned	on_ground:1;
+	unsigned	alive:1;
+	t_angle		dir;
 
 	double		size;
 	double		eyez;
@@ -315,17 +318,14 @@ typedef struct		s_player
 	double		power;
 	double		power_mult;
 
-	t_angle		dir;
 	int			horizon;
-	unsigned	on_ground:1;
-	unsigned	alive:1;
 }					t_player;
 
 /*
-* i think some var are usless on entity.
+** i think some var are usless on entity.
 */
 
-typedef struct		s_entity
+typedef struct		s_mob
 {
 	unsigned	csec;
 	double		posx;
@@ -335,17 +335,19 @@ typedef struct		s_entity
 	double		vely;
 	double		velz;
 	double		gd_vel;
-
-	double		size;
-//	double		eyez;
-	double		mass;
-	double		power;
-	double		power_mult;
-
-	t_angle		dir;
-//	int			horizon;
 	unsigned	on_ground:1;
 	unsigned	alive:1;
+	t_angle		dir;
+
+	double		size;
+	double		mass;
+	double		power;
+}					t_mob;
+
+typedef union		u_entity
+{
+	t_player	pl;
+	t_mob		mob;
 }					t_entity;
 
 
@@ -377,9 +379,8 @@ typedef struct		s_al
 	t_tex			*tex;
 	t_tex_group		*texgp;
 
-	t_entity		ent;
-
 	t_player		play;
+	t_entity		ent;
 	double			g;
 	t_angle			fov;
 	int				stretch;

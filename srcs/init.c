@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/04 18:09:28 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:56:45 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,12 @@ SDL_Color		add_color(int r, int g, int b, int a)
 
 void			init_ttf(t_al *al)
 {
-	al->ttf_st = (!TTF_Init()) ? 1 : 0; 
+	al->ttf_st = (!TTF_Init()) ? 1 : 0;
 	if (!(al->font = TTF_OpenFont("/Library/Fonts/Arial.ttf", 20)))
 		yeet(al);
 
 	al->color = add_color(255,255,255, 0);
-	
+
 }
 
 static void		init_edit(t_al *al)
@@ -130,12 +130,12 @@ void			init(t_al *al, char *str)
 	bmp_to_tex(al->tex + 2, "ressources/floor_tex.bmp", 950, 950);
 	free(al->tex[3].pix);
 	bmp_to_tex(al->tex + 3, "ressources/ceiling_tex.bmp", 512, 512);
-	
+
 	t_walls *w;
 	free(al->sec[1].walls);
 	//free(al->sec[2].walls);
 	free(al->sec);
-	
+
 	al->play.posx = 1;
 	al->play.posy = 1;
 	al->play.csec = 1;
@@ -275,7 +275,7 @@ void			init(t_al *al, char *str)
 	w->y1 = 10;
 	w->x2 = 4;
 	w->y2 = 10;
-	
+
 	//sec 3
 	al->sec[3].fl_hei = 0.25;
 	al->sec[3].ce_hei = 5;
@@ -390,11 +390,12 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	 al->status = GAME;
-	//al->status = EDIT;
+	// al->status = EDIT;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
+	al->nb_texgp = 1;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		yeet(al);
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
@@ -408,7 +409,7 @@ void			init(t_al *al, char *str)
 	if (al->status == EDIT)
 		init_edit(al);
 	// printf("222\n");
-
+	// init_texgrp(al);
 	init_ttf(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = FIRST_CLICK;

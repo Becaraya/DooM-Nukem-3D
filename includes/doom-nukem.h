@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/05 13:02:30 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/06 15:47:48 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@
 # define DEFAULT_G 9.81
 # define DEFAULT_FOV D_2PI * 0.20
 
+#define	SPRITE_W 512
+#define	SPRITE_H 512
 /*
 ** TEX_REPEAT is horizontal repeat in m
 ** TEX_REPEAT_V is vertical repeat in m*(1<<16)
@@ -173,7 +175,7 @@ typedef struct		s_tex_group
 	unsigned int	size_x;
 	unsigned int	size_y;
 	unsigned int	nb_tex;
-	t_tex_or		or[8];
+	t_tex_or		or[9];
 }					t_tex_group;
 
 /*
@@ -369,6 +371,7 @@ typedef struct		s_al
 	t_sector		*sec;
 	t_sector		*rotsec;
 	unsigned short	nb_tex;
+	unsigned short	nb_texgp;
 	t_tex			*tex;
 	t_tex_group		*texgp;
 
@@ -464,14 +467,8 @@ void				render(t_al *al);
 /*
 ** sprites functions
 */
-
-t_sprite 			*create_sprite_elem(t_al *al, int id, char *name);
-void				add_sprite(t_al *al, char *name);
-void 				remove_sprite_by_id(t_al *al, int id);
-void 				reset_id(t_al *al);
-void 				remove_sprite(t_al *al, t_sprite *cur, t_sprite *next, t_sprite *prev);
-void 				draw_sprite(t_al *al);
-void 				display_sprite(t_al *al, t_sprite *cur);
+void	init_texgrp(t_al *al);
+void	display_texgp(t_al *al, unsigned int *pix);
 
 
 /*

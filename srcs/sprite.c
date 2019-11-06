@@ -4,6 +4,7 @@ unsigned int		**load_anim(t_al *al, char *path, int nb_tex)
 {
 	unsigned int	**pix;
 	char			*name;
+	char			*id;
 	int				i;
 
 	i = -1;
@@ -11,16 +12,17 @@ unsigned int		**load_anim(t_al *al, char *path, int nb_tex)
 		yeet(al);
 	while (++i != (nb_tex))
 	{
-		name = ft_strjoin(path,ft_itoa(i + 1));
+		id = ft_itoa(i + 1);
+		name = ft_strjoin(path,id);
 		name = ft_strjoinfreef(name,".bmp");
 		// printf("path = %s\n",name);
 		pix[i] = parse_tex(al, name, SPRITE_W, SPRITE_H);
 		ft_strdel(&name);
+		ft_strdel(&id);
 	}
 	ft_strdel(&path);
 	return (pix);
 }
-// char	*ft_strjoinfreef(char *s1, char const *s2)
 
 void		init_or(t_al *al, t_tex_group *texgrp, char *path)
 {

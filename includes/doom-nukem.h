@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/04 18:05:59 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/05 13:02:30 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 # include <stdio.h>
 # include <math.h>
 # include <sys/time.h>
-# include "SDL.h"
-# include "SDL_ttf.h"
+# include <SDL2/SDL.h>
+# include <SDL2_ttf/SDL_ttf.h>
+# include <SDL2_image/SDL_image.h>
+# include <SDL2_mixer/SDL_mixer.h>
 
 # define WIN_TITLE "100% really slenderman absolutely virus free i swear"
 # define WIN_SIZEX	1366

@@ -12,12 +12,15 @@ unsigned int		**load_anim(t_al *al, char *path, int nb_tex)
 	while (++i != (nb_tex))
 	{
 		name = ft_strjoin(path,ft_itoa(i + 1));
-		printf("path = %s\n",ft_strjoin(name,".bmp"));
-		pix[i] = parse_tex(al, ft_strjoin(name,".bmp"), SPRITE_W,SPRITE_H);
-		free(name);
+		name = ft_strjoinfreef(name,".bmp");
+		// printf("path = %s\n",name);
+		pix[i] = parse_tex(al, name, SPRITE_W, SPRITE_H);
+		ft_strdel(&name);
 	}
+	ft_strdel(&path);
 	return (pix);
 }
+// char	*ft_strjoinfreef(char *s1, char const *s2)
 
 void		init_or(t_al *al, t_tex_group *texgrp, char *path)
 {

@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/04 18:06:23 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/08 13:42:22 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void		draw_map(t_al *al)
 	t_point b;
 	unsigned int nb_wal;
 	unsigned int nb_sec;
-
+ 
 	nb_sec = 1;
 	while (nb_sec <= al->nb_sec)
 	{
@@ -236,7 +236,6 @@ void		render(t_al *al)
 		x++;
 	}*/
 	draw_map(al);
-	mv_entity(al);
 	printf("FPS:%2d ", 1000000 / al->dtime); fflush(0);
 	refresh(al);
 }

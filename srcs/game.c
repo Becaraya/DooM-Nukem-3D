@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/04 18:32:34 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:51:48 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,17 +110,38 @@ static void		acceleration(t_al *al)
 	al->play.vely = al->cos[dir_force] * al->play.gd_vel;
 }
 
+static void		acceleration_entities(t_al *al)
+{
+	t_entity *ent;
+
+	ent = &al->ent;
+	if (ent->posx < al->play.posx)
+		ent->velx = 1;
+	if (ent->posx > al->play.posx)
+		ent->velx = -1;
+	if (ent->posy < al->play.posy)
+		ent->vely = 1;
+	if (ent->posy > al->play.posy)
+		ent->vely = -1;
+	//ent->dir = 8192 / ( + 1)
+	 
+	//ent->velx = al->sin[ent->dir] * ent->gd_vel;
+	//ent->vely = al->cos[ent->dir] * ent->gd_vel;
+	
+}
+
 /*
 **  apply displacment according to velocities and collisions (soon)
 */
 
 static void		displacement(t_al *al)
 {
-	ft_nop_player(al, 0, al->play.velx * al->dtime / 1000000, al->play.vely * al->dtime / 1000000);
-	//al->play.posx += al->play.velx * al->dtime / 1000000;
-	//al->play.posy += al->play.vely * al->dtime / 1000000;
-	al->play.posz += al->play.velz * al->dtime / 1000000;
+	if (al->dtime > 1)
+		ft_nop_player(al, 0, al->play.velx * al->dtime / 1000000, al->play.vely * al->dtime / 1000000);
+	al->play.posz +=  al->play.velz * al->dtime / 1000000;
 	al->play.eyez += al->play.velz * al->dtime / 1000000;
+	if (al->dtime > 1)
+		ft_nop (al, 0, al->ent.velx * al->dtime / 1000000, al->ent.vely * al->dtime / 1000000);
 	if (al->play.posz < al->sec[al->play.csec].fl_hei)
 	{
 		al->play.posz = al->sec[al->play.csec].fl_hei;
@@ -154,6 +175,9 @@ void		game(t_al *al)
 	al->k.space ? jump(al) : 0;
 	if (al->play.on_ground)
 		acceleration(al);
+//	while (al->ent[x] < al->nb_entity)
+		if (al->ent.on_ground)
+			acceleration_entities(al);
 	else
 		flyyyy(al);
 	displacement(al);

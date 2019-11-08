@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/06 15:47:48 by ydemange         ###   ########.fr       */
+/*   Updated: 2019/11/07 19:57:53 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,15 @@
 # define M_2PI 6.283185307179586476925286766559005768394338798750211641949
 
 # define WHITE 0xffffff
+
+/*
+** just too simplify
+*/
+
+# define PPX al->play.posx
+# define PPY al->play.posy
+# define EPX al->ent.posx
+# define EPY al->ent.posy
 
 /*
 ** ENUMS, for all status ######################################################
@@ -479,10 +488,13 @@ void	display_texgp(t_al *al, unsigned int *pix);
 void				ft_put_line(t_point a, t_point b, t_al *al);
 
 /*
-** entity mooving function
+** authorization too mooving function
 */
 
-void				mv_entity(t_al *al);
+void	ft_nop(t_al *al, int i, double x, double y);
+void	ft_nop_player(t_al *al, int i, double x, double y);
+
+
 
 
 

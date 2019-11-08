@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/06 15:56:45 by ydemange         ###   ########.fr       */
+/*   Updated: 2019/11/08 15:04:33 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ void    creat_entity(t_al *al)
 	al->ent.vely = 0.1;
 	al->ent.size = PLAYER_SIZE;
 	al->ent.on_ground = 1;
+	al->ent.dir = 1500;
+	al->ent.gd_vel = 2.5;
 	al->ent.power = 400;
 	al->ent.power_mult = 1;
 	al->ent.mass = 67;

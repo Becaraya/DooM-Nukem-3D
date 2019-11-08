@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/06 16:30:08 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/08 16:20:48 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 **a therme l idée est de pouvoir appeller la fonction.
 */
 
-double		d_wall(t_walls w, t_player e, double px, double py)
+double		d_wall(t_walls w, double px, double py)
 {
 	double	a[2];
 	double	b[2];
@@ -24,9 +24,9 @@ double		d_wall(t_walls w, t_player e, double px, double py)
 	double	y;
 
 	if (w.x2 - w.x1 == 0)
-		w.x2 += 0.00001;
+		w.x2 += 0.0000001;
 	if (w.y2 - w.y1 == 0)
-		w.x2 += 0.00001;
+		w.x2 += 0.0001;
 	a[0] = (w.y2 - w.y1) / (w.x2 - w.x1);
 	a[0] += 0.001;
 	b[0] = w.y2 - (a[0] * w.x2);
@@ -37,7 +37,6 @@ double		d_wall(t_walls w, t_player e, double px, double py)
 	b[1] += 0.0001;
 	x = ((b[0] / a[1]) - (b[1] / a[1])) / (a[1] / a[1] - (a[0] / a[1]));
 	y = (a[0] * x) + b[0];
-	printf("%f,\n",sqrt((x - px) * (x - px) + (y - py) * (y - py)));
 	return (sqrt((x - px) * (x - px) + (y - py) * (y - py)));
 }
 
@@ -52,60 +51,54 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 {
 	double m[2];
 	t_walls t;
-	//double x[2];
 
-	m[0] = 1;
+	m[0] = 1;  
 	m[1] = 1;
 	while (i < (int)al->sec[al->play.csec].nb_wal)
 	{
 		t = al->sec[al->play.csec].walls[i];
-		if (x > 0.0 && (t.x1 > al->play.posx || t.x2 > al->play.posx) 
-		&& ((t.y1 < al->play.posy && al->play.posy < t.y2) || (t.y1 > al->play.posy && al->play.posy > t.y2)))
-			(d_wall(t, al->play,al->play.posx + x, al->play.posy) < 0.5) ? m[0] = 0 : 1;	
-		if (x <= 0.0 && (t.x1 < al->play.posx || t.x2 < al->play.posx)
-		&& ((t.y1 < al->play.posy && al->play.posy < t.y2) || (t.y1 > al->play.posy && al->play.posy > t.y2)))
-			(d_wall(t, al->play,al->play.posx + x, al->play.posy) < 0.5) ? m[0] = 0 : 1;
-		if (y > 0.0 && (t.y1 > al->play.posy || t.y2 > al->play.posy)
-		&& ((t.x1 < al->play.posx && al->play.posx < t.x2) || (t.x1 > al->play.posx && al->play.posx > t.x2)))
-			(d_wall(t, al->play,al->play.posx, al->play.posy + y) < 0.5) ? m[1] = 0 : 1;
-		if (y <= 0.0 && (t.y1 < al->play.posy || t.y2 < al->play.posy)
-		&& ((t.x1 < al->play.posx && al->play.posx < t.x2) || (t.x1 > al->play.posx && al->play.posx > t.x2)))
-			(d_wall(t, al->play,al->play.posx, al->play.posy + y) < 0.5) ? m[1] = 0 : 1;
+		if (x > 0.0 && (t.x1 > PPX || t.x2 > PPX) 
+		&& ((t.y1 < PPY && PPY < t.y2) || (t.y1 > PPY && PPY > t.y2)))
+			(d_wall(t, PPX + x, PPY) < 0.5) ? m[0] = 0 : 1;	
+		if (x <= 0.0 && (t.x1 < PPX || t.x2 < PPX)
+		&& ((t.y1 < PPY && PPY < t.y2) || (t.y1 > PPY && PPY > t.y2)))
+			(d_wall(t, PPX + x, PPY) < 0.5) ? m[0] = 0 : 1;
+		if (y > 0.0 && (t.y1 > PPY || t.y2 > PPY)
+		&& ((t.x1 < PPX && PPX < t.x2) || (t.x1 > PPX && PPX > t.x2)))
+			(d_wall(t, PPX, PPY + y) < 0.5) ? m[1] = 0 : 1;
+		if (y <= 0.0 && (t.y1 < PPY || t.y2 < PPY)
+		&& ((t.x1 < PPX && PPX < t.x2) || (t.x1 > PPX && PPX > t.x2)))
+			(d_wall(t, PPX, PPY + y) < 0.5) ? m[1] = 0 : 1;
 		i++;
 	}
-	(m[1] == 1) ? al->play.posy += y : 0;
-	(m[0] == 1) ? al->play.posx += x : 0; 
+	(m[1] == 1) ? PPY += y : 0;
+	(m[0] == 1) ? PPX += x : 0; 
 }
-/*
+
 void	ft_nop(t_al *al, int i, double x, double y)
 {
-	int m[2];
-
-	m[0] = 0;
-	m[1] = 0;
+	double m[2];
 	t_walls t;
+
+	m[0] = 1;
+	m[1] = 1;
 	while (i < (int)al->sec[al->ent.csec].nb_wal)
 	{
 		t = al->sec[al->ent.csec].walls[i];
-		if (x > 0.0 && (t.x1 > al->ent.posx || t.x2 > al->ent.posx)
-			&& ((t.y1 < al->ent.posy && al->ent.posy < t.y2) || (t.y1 > al->ent.posy && al->ent.posy > t.y2)))
-				(d_wall(t, al->ent) > 0.5) ? m[0] = 1 : 0;
-		if (x < 0.0 && (t.x1 < al->ent.posx || t.x2 < al->ent.posx)
-			&& ((t.y1 < al->ent.posy && al->ent.posy < t.y2) || (t.y1 > al->ent.posy && al->ent.posy > t.y2)))
-				(d_wall(t, al->ent) > 0.5) ? m[0] = 1 : 0;
-		if (y > 0.0 && (t.y1 > al->ent.posy || t.y2 > al->ent.posy)
-			&& ((t.x1 < al->ent.posx && al->ent.posx < t.x2) || (t.x1 > al->ent.posx && al->ent.posx > t.x2)))
-				(d_wall(t, al->ent) > 0.5) ? m[1] = 1 : 0;
-		if (y < 0.0 && (t.y1 < al->ent.posy || t.y2 < al->ent.posy)
-			&& ((t.x1 < al->ent.posx && al->ent.posx < t.x2) || (t.x1 > al->ent.posx && al->ent.posx > t.x2)))
-				(d_wall(t, al->ent) > 0.5) ? m[1] = 1 : 0;
+		if (x > 0.0 && (t.x1 > EPX || t.x2 > EPX)
+		&& ((t.y1 < EPY && EPY < t.y2) || (t.y1 > EPY && EPY > t.y2)))
+			(d_wall(t, EPX + x, EPY) < 0.5) ? m[0] = 0 : 1;
+		if (x <= 0.0 && (t.x1 < EPX || t.x2 < EPX)
+		&& ((t.y1 < EPY && EPY < t.y2) || (t.y1 > EPY && EPY > t.y2)))
+			(d_wall(t, EPX + x, EPY) < 0.5) ? m[0] = 0 : 1;
+		if (y > 0.0 && (t.y1 > EPY || t.y2 > EPY)
+		&& ((t.x1 < EPX && EPX < t.x2) || (t.x1 > EPX && EPX > t.x2)))
+			(d_wall(t, EPX, EPY + y) < 0.5) ? m[1] = 0 : 1;
+		if (y <= 0.0 && (t.y1 < EPY || t.y2 < EPY)
+		&& ((t.x1 < EPX && EPX < t.x2) || (t.x1 > EPX && EPX > t.x2)))
+			(d_wall(t, EPX, EPY + y) < 0.5) ? m[1] = 0 : 1;
 		i++;
 	}
-	(m[1]) ? al->ent.posy += y : 0;
-	(m[0]) ? al->ent.posx += x : 0; 
-}
-*/
-void    mv_entity(t_al *al)
-{
-//	ft_nop(al,0,0.05, 0.2);
+	(m[1] == 1) ? EPY += y : 0;
+	(m[0] == 1) ? EPX += x : 0; 
 }

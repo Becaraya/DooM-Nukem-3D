@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/29 15:51:31 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:59:03 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "SDL_ttf.h"
 
 # define WIN_TITLE "100% really slenderman absolutely virus free i swear"
-# define WIN_SIZEX	1366
-# define WIN_SIZEY 	768
+# define WIN_SIZEX 1366
+# define WIN_SIZEY 768
 # define WIN_POSX 100
 # define WIN_POSY 10
 
@@ -74,7 +74,14 @@
 
 # define M_2PI 6.283185307179586476925286766559005768394338798750211641949
 
-# define WHITE 0xffffff
+# define WHITE 0x80ffffff
+# define WHITE_L 0xCDCDCD
+# define BLACK 0x0
+# define LIGHT_GREY 0xb0b0b0
+# define DARK_GREY 0x606060
+
+# define BACK_GROUND LIGHT_GREY
+# define TEXT_EDITOR BLACK
 
 /*
 ** ENUMS, for all status ######################################################
@@ -97,6 +104,9 @@ typedef enum		e_status_ed
 	SELECT,
 	FIRST_CLICK,
 	DRAWING,
+	FIRST_CLICK_REC,
+	DRAWING_REC
+	
 }					t_status_ed;
 
 typedef enum		e_stat_wall
@@ -201,14 +211,14 @@ typedef struct		s_mouse
 	unsigned		click:1;
 }					t_mouse;
 
-typedef struct		s_icon
-{
-	unsigned int	*chest;
-	unsigned int	*click;
-	unsigned int	*path;
-	unsigned int	*portal;
-	unsigned int	*wall;
-}					t_icon;
+// typedef struct		s_icon
+// {
+// 	unsigned int	*chest;
+// 	unsigned int	*click;
+// 	unsigned int	*path;
+// 	unsigned int	*portal;
+// 	unsigned int	*wall;
+// }					t_icon;
 
 typedef struct		s_point
 {
@@ -248,7 +258,6 @@ typedef struct		s_rc_hit
 	double		fl_hei;
 	unsigned	ce_tex;
 	double		ce_hei;
-
 	int			w_toplim;
 	int			w_botlim;
 	t_walls		wall;
@@ -278,6 +287,7 @@ typedef struct		s_rc_ray
 ** horizon: height of the horizon in pixels, indicates if lookup or down
 ** eyez: eye position on z
 */
+
 typedef struct		s_sprite
 {
 	int 			id;
@@ -288,7 +298,7 @@ typedef struct		s_sprite
 	int				angle;
 	double			dist;
 	unsigned int	*tex;
-	struct s_sprite		*next;
+	struct s_sprite	*next;
 }					t_sprite;
 
 typedef struct		s_player
@@ -341,6 +351,23 @@ typedef struct		s_entity
 	unsigned	alive:1;
 }					t_entity;
 
+typedef struct		s_text
+{
+	char			*str;
+	SDL_Color		clr;
+	SDL_Rect		*where;
+}					t_text;
+
+typedef struct		s_text_list
+{
+	t_text			gen_map;
+	t_text			sect_para;
+	t_text			x_start;
+	t_text			y_start;
+	t_text			x_end;
+	t_text			y_end;
+	t_text			cancel;
+}					t_text_list;
 
 /*
 ** Main structure #############################################################
@@ -361,6 +388,7 @@ typedef struct		s_al
 
 	unsigned		ttf_st:1;
 	TTF_Font		*font;
+	t_text_list		text;
 	SDL_Color		color;
 
 	unsigned int	nb_sec;
@@ -389,9 +417,8 @@ typedef struct		s_al
 	SDL_Event		ev;
 	t_mouse			m;
 
-	// t_wall			*wall;
-	// int				c_wall;
 	t_sector		*sect;
+	int				nb_sect;
 
 	double			sin[D_2PI];
 	double			cos[D_2PI];
@@ -427,6 +454,12 @@ t_angle				sub_angle(t_angle a1, t_angle a2);
 void				column(t_al *al, int x, t_rc_ray *ray);
 
 void				refresh(t_al *al);
+
+/*
+** free fonction
+*/
+
+void				free_wall(t_walls *walls);
 void				yeet(t_al *al);
 
 /*
@@ -471,21 +504,29 @@ void 				remove_sprite(t_al *al, t_sprite *cur, t_sprite *next, t_sprite *prev);
 void 				draw_sprite(t_al *al);
 void 				display_sprite(t_al *al, t_sprite *cur);
 
-
 /*
 ** draw function
 */
 
-
-void				ft_put_line(t_point a, t_point b, t_al *al);
-
+void				ft_put_line(t_point a, t_point b, SDL_Surface *surf, int color);
+void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr);
 /*
 ** entity mooving function
 */
 
 void				mv_entity(t_al *al);
 
+/*
+** SDL Tools
+*/
 
+SDL_Rect			get_rect(int x, int y);
+SDL_Color			add_color(int color);
 
+/*
+** Tools
+*/
+
+t_point				itopoint(int x, int y);
 
 #endif

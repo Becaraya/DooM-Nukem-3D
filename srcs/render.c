@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/29 14:14:35 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/12 13:01:33 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void		draw_map(t_al *al)
 			b.x = al->sec[nb_sec].walls[nb_wal].x2 * 10 + (WIN_SIZEX / 2);
 			b.y = al->sec[nb_sec].walls[nb_wal].y2 * 10 + (WIN_SIZEY / 2);
 			//printf("xxxx%d,%d,%d,%dxxxxx",a.x,a.y,b.x,b.y);
-			ft_put_line(a, b, al);
+			ft_put_line(a, b, al->sdlsurf, BLACK);
 			nb_wal--;
 		}
 		nb_sec--;
@@ -223,6 +223,6 @@ void		render(t_al *al)
 	}*/
 	draw_map(al);
 	mv_entity(al);
-	printf("FPS:%2d ", 1000000 / al->dtime); fflush(0);
+	// printf("FPS:%2d ", 1000000 / al->dtime); fflush(0);
 	refresh(al);
 }

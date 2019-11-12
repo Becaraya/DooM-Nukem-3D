@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/29 08:52:12 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:59:08 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,13 +47,10 @@ void		main_loop(t_al *al)
 				key_func(al);
 			if (al->ev.type == SDL_MOUSEBUTTONDOWN)
 				mouse_press(al);
-			// printf("3333\n");
 			if (al->ev.type == SDL_MOUSEMOTION)
 				mouse_mv(al);
-			// printf("4444\n");
 			if (al->ev.type == SDL_MOUSEWHEEL)
 				mouse_weel(al);
-			// printf("5555 \n");
 		}
 		dtime(al);
 		al->stat_fnc[al->status](al);

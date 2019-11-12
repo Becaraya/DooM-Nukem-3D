@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hms_parser_tex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:39:49 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/25 10:45:17 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/11 17:43:00 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		parse_pixels(t_tex *tex, int fd)
 	if (!(tex->pix = ft_memalloc(tex->size_x * tex->size_y * sizeof(int))))
 		exit(pr_err(MERROR_MESS));
 	read(fd, tex->pix, tex->size_x * tex->size_y * sizeof(int));
-	printf("parsing tex:\n[%6x %6x\n%6x %6x\n", tex->pix[0], tex->pix[1], tex->pix[2], tex->pix[3]);
+	// printf("parsing tex:\n[%6x %6x\n%6x %6x\n", tex->pix[0], tex->pix[1], tex->pix[2], tex->pix[3]);
 	return (0);
 }
 
@@ -51,7 +51,7 @@ int		parse_textures(t_al *al, int fd)
 	{
 		if (parse_texture(al->tex + i, fd))
 			return (1);
-		printf("Parsed text %u[%d,%d]]\n\n", i, al->tex[i].size_x, al->tex[i].size_y);
+		// printf("Parsed text %u[%d,%d]]\n\n", i, al->tex[i].size_x, al->tex[i].size_y);
 		i++;
 	}
 	return (0);

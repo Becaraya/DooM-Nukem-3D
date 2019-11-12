@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/29 14:56:52 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 15:59:00 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,6 @@ void			add_wall(t_al *al, t_sector *sect, t_point coo)
 		return ;
 	if (!(new = (t_walls *)ft_memalloc(sizeof(t_walls))))
 		yeet(al);
-	
 	new->x1 = sect->walls->x2;
 	new->y1 = sect->walls->y2;
 	new->x2 = sect->walls->x2;
@@ -124,6 +123,49 @@ static void		print_al(t_sector *sect)
 	}
 }
 
+void			check_can_add(t_al *al, t_sector *sect, t_point coo)
+{
+	t_point tmp;
+
+	tmp.x = coo.x - (coo.x % al->edit.zoom);
+	tmp.y = coo.y - (coo.y % al->edit.zoom);
+	if (sect->walls->next && sect->walls->next->x1 == tmp.x
+		&& sect->walls->next->y1 == tmp.y)
+		return ;
+	add_wall(al, al->sect, coo);
+
+}
+
+void			delonesect(t_sector **sect)
+{
+	t_sector *tmp;
+
+	tmp = NULL;
+	if (!(*sect)->next)
+		ft_memdel(sect);
+	else
+	{
+		tmp = (*sect)->next;
+		free(*sect);
+		*sect = tmp;
+	}
+}
+
+void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
+{
+	// printf("x == %d // y == %d \n", bev.x, bev.y);
+	if (al->edit.stat == DRAWING)
+	{
+		if (bev.x > 590 && bev.x < 685 && bev.y > 15 && bev.y < 48)
+		{
+			al->edit.stat = FIRST_CLICK;
+			free_wall(al->sect->walls);
+			al->nb_sect--;
+			delonesect(&al->sect);
+		}
+	}
+}
+
 void		    mouse_press_edit(t_al *al)
 {
 	SDL_MouseButtonEvent	bev;
@@ -131,20 +173,19 @@ void		    mouse_press_edit(t_al *al)
 	bev = al->ev.button;
 	if (bev.type == SDL_MOUSEBUTTONUP)
 		return ;
-	printf("____________________________________________________________\n");
-	(al->sect) ? print_al(al->sect) : 0;
+	// printf("____________________________________________________________\n");
+	// (al->sect) ? print_al(al->sect) : 0;
 	if (bev.windowID == 1)
 	{
 		if (al->edit.stat == FIRST_CLICK)
 		{
 			al->edit.stat = DRAWING;
+			al->nb_sect++;
 			add_sector(al, itopoint(bev.x, bev.y));
-			// printf("test seg\n");
 		}
 		if (al->edit.stat == DRAWING)
-			add_wall(al, al->sect, itopoint(bev.x, bev.y));
-			// stat_draw(al, bev, SIMPLE);
+			check_can_add(al, al->sect, itopoint(bev.x, bev.y));
 	}
-	// if (bev.windowID == 2)
-	// 	mouse_press_edit_menu(al);
+	if (bev.windowID == 2)
+		mouse_press_edit_menu(al, bev);
 }

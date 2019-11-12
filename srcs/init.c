@@ -6,23 +6,11 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/29 15:51:55 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 16:02:23 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
-
-// static void		init_wall(t_al *al)
-// {
-// 	if (!(al->wall = (t_wall *)ft_memalloc(sizeof(t_wall))))
-// 		yeet(al);
-// 	al->wall->next = NULL;
-// 	al->wall->prev = NULL;
-// 	al->wall->x1 = -1;
-// 	al->wall->x2 = -1;
-// 	al->wall->y1 = -1;
-// 	al->wall->y2 = -1;
-// }
 
 static void		init_status(t_al *al)
 {
@@ -47,7 +35,8 @@ static void		init_player(t_al *al, t_player *pl)
 /*
 ** je sait pas ou ranger cette fonction
 */
-void    creat_entity(t_al *al)
+
+void    		creat_entity(t_al *al)
 {
 	al->ent.posx = 0;
     al->ent.posy = -1;
@@ -85,25 +74,24 @@ static void		init_trigo(t_al *al)
 	}*/
 }
 
-SDL_Color		add_color(int r, int g, int b, int a)
-{
-	SDL_Color c;
-
-	c.r = r;
-	c.g = g;
-	c.b = b;
-	c.a = a;
-	return (c);
-}
-
 void			init_ttf(t_al *al)
 {
 	al->ttf_st = (!TTF_Init()) ? 1 : 0; 
 	if (!(al->font = TTF_OpenFont("/Library/Fonts/Arial.ttf", 20)))
 		yeet(al);
-
-	al->color = add_color(255,255,255, 0);
 	
+}
+
+int				set_text(t_text *text, char *str, SDL_Rect coo, SDL_Color clr) 
+{
+	if (!(text->str = ft_strdup(str)))
+		return (-1);
+	if (!(text->where = (SDL_Rect *)ft_memalloc(sizeof(SDL_Rect))))
+		return (-1);
+	text->where->x = coo.x;
+	text->where->y = coo.y;
+	ft_memcpy(&text->clr, &clr, sizeof(&clr));
+	return (0); 
 }
 
 static void		init_edit(t_al *al)
@@ -115,281 +103,31 @@ static void		init_edit(t_al *al)
 		yeet(al);
 	al->pix_ed = al->sdlsurf->pixels;
 
+	/*
+	** ALL TEXT EDITOR
+	*/
+
+	set_text(&al->text.gen_map, "GENERATION MAP", get_rect(300, 700), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.sect_para, "WHO", get_rect(25, 20), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+
+	set_text(&al->text.x_start, "X1", get_rect(25, 50), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.y_start, "Y1", get_rect(150, 50), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.x_end, "X2", get_rect(25, 100), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.y_end, "Y2", get_rect(150, 100), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+
+	set_text(&al->text.cancel, "CANCEL", get_rect(600, 20), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 }
 
 void			init(t_al *al, char *str)
 {
 	if (hms_parser(al, str))
 		exit(0);
-	//free(al->tex[0].pix);
-	//bmp_to_tex(al->tex + 0, "ressources/wall_tex.bmp", 800, 600);
-	/*free(al->tex[1].pix);
-	bmp_to_tex(al->tex + 1, "ressources/wall_tex.bmp", 800, 600);
-	free(al->tex[2].pix);
-	bmp_to_tex(al->tex + 2, "ressources/floor_tex.bmp", 950, 950);
-	free(al->tex[3].pix);
-	bmp_to_tex(al->tex + 3, "ressources/ceiling_tex.bmp", 512, 512);
-	
-	t_walls *w;
-	free(al->sec[1].walls);
-	//free(al->sec[2].walls);
-	free(al->sec);
-	
-	al->play.posx = 1;
-	al->play.posy = 1;
-	al->play.csec = 1;
-	al->sec = ft_memalloc(3 * sizeof(t_sector));
-	al->rotsec = ft_memalloc(3 * sizeof(t_sector));
-	al->nb_sec = 2;
-	//sec 1
-	al->sec[1].fl_hei = 0;
-	al->sec[1].ce_hei = 5;
-	al->sec[1].fl_tex = 2;
-	al->sec[1].ce_tex = 3;
-	al->sec[1].walls = ft_memalloc(10 * sizeof(t_walls));
-	al->rotsec[1].walls = ft_memalloc(10 * sizeof(t_walls));
-	al->sec[1].nb_wal = 10;
-	w = al->sec[1].walls + 0;
-	w->wall_tex = 1;
-	w->x1 = 0;
-	w->y1 = 0;
-	w->x2 = 0;
-	w->y2 = 15;
-	t_angle an;
-	an = D_PI;
-	w = al->sec[1].walls + 1;
-	w->wall_tex = 1;
-	w->x1 = 0;
-	w->y1 = 15;
-	w->x2 = 4;
-	w->y2 = 15;
-	w = al->sec[1].walls + 2;
-	w->bot_tex = 1;
-	w->wall_tex = 1;
-	w->sec_lnk = 2;
-	w->x1 = 4;
-	w->y1 = 15;
-	w->x2 = 4;
-	w->y2 = 10;
-	w = al->sec[1].walls + 3;
-	w->bot_tex = 1;
-	w->wall_tex = 1;
-	w->sec_lnk = 2;
-	w->x1 = 4;
-	w->y1 = 10;
-	w->x2 = 8;
-	w->y2 = 10;
-	w = al->sec[1].walls + 4;
-	w->bot_tex = 1;
-	w->wall_tex = 1;
-	w->sec_lnk = 2;
-	w->x1 = 8;
-	w->y1 = 10;
-	w->x2 = 10;
-	w->y2 = 10;
-	w = al->sec[1].walls + 5;
-	w->bot_tex = 1;
-	w->wall_tex = 1;
-	w->sec_lnk = 2;
-	w->x1 = 10;
-	w->y1 = 10;
-	w->x2 = 14;
-	w->y2 = 10;
-	w = al->sec[1].walls + 6;
-	w->bot_tex = 1;
-	w->wall_tex = 1;
-	w->sec_lnk = 2;
-	w->x1 = 14;
-	w->y1 = 10;
-	w->x2 = 14;
-	w->y2 = 15;
-	w = al->sec[1].walls + 7;
-	w->bot_tex = 1;
-	w->wall_tex = 1;
-	w->x1 = 14;
-	w->y1 = 15;
-	w->x2 = 20;
-	w->y2 = 15;
-	w = al->sec[1].walls + 8;
-	w->bot_tex = 1;
-	w->wall_tex = 1;
-	w->x1 = 20;
-	w->y1 = 15;
-	w->x2 = 20;
-	w->y2 = 0;
-	w = al->sec[1].walls + 9;
-	w->bot_tex = 1;
-	w->wall_tex = 1;
-	w->x1 = 20;
-	w->y1 = 0;
-	w->x2 = 0;
-	w->y2 = 0;
-
-	//sec 2
-	al->sec[2].fl_hei = 1;
-	al->sec[2].ce_hei = 5;
-	al->sec[2].fl_tex = 2;
-	al->sec[2].ce_tex = 3;
-	al->sec[2].walls = ft_memalloc(6 * sizeof(t_walls));
-	al->rotsec[2].walls = ft_memalloc(6 * sizeof(t_walls));
-	al->sec[2].nb_wal = 6;
-	w = al->sec[2].walls + 0;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 4;
-	w->y1 = 10;
-	w->x2 = 4;
-	w->y2 = 15;
-	w = al->sec[2].walls + 1;
-	w->wall_tex = 1;
-	w->x1 = 4;
-	w->y1 = 15;
-	w->x2 = 14;
-	w->y2 = 15;
-	w = al->sec[2].walls + 2;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 14;
-	w->y1 = 15;
-	w->x2 = 14;
-	w->y2 = 10;
-	w = al->sec[2].walls + 3;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 14;
-	w->y1 = 10;
-	w->x2 = 9.5;
-	w->y2 = 10;
-	w = al->sec[2].walls + 4;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 9.5;
-	w->y1 = 10;
-	w->x2 = 8.5;
-	w->y2 = 10;
-	w = al->sec[2].walls + 5;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 8.5;
-	w->y1 = 10;
-	w->x2 = 4;
-	w->y2 = 10;
-	
-	//sec 3
-	al->sec[3].fl_hei = 0.25;
-	al->sec[3].ce_hei = 5;
-	al->sec[3].fl_tex = 2;
-	al->sec[3].ce_tex = 3;
-	al->sec[3].walls = ft_memalloc(4 * sizeof(t_walls));
-	al->sec[1].nb_wal = 4;
-	w = al->sec[3].walls + 0;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 8.5;
-	w->y1 = 9.25;
-	w->x2 = 8.5;
-	w->y2 = 9.5;
-	w = al->sec[3].walls + 1;
-	w->bot_tex = 1;
-	w->sec_lnk = 4;
-	w->x1 = 8.5;
-	w->y1 = 9.5;
-	w->x2 = 9.5;
-	w->y2 = 9.5;
-	w = al->sec[3].walls + 2;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 9.5;
-	w->y1 = 9.5;
-	w->x2 = 9.5;
-	w->y2 = 9.25;
-	w = al->sec[3].walls + 3;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 9.5;
-	w->y1 = 9.25;
-	w->x2 = 8.5;
-	w->y2 = 9.25;
-
-	//sec 4
-	al->sec[4].fl_hei = 0.5;
-	al->sec[4].ce_hei = 5;
-	al->sec[4].fl_tex = 2;
-	al->sec[4].ce_tex = 3;
-	al->sec[4].walls = ft_memalloc(4 * sizeof(t_walls));
-	al->sec[1].nb_wal = 4;
-	w = al->sec[4].walls + 0;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 8.5;
-	w->y1 = 9.5;
-	w->x2 = 8.5;
-	w->y2 = 9.75;
-	w = al->sec[4].walls + 1;
-	w->bot_tex = 1;
-	w->sec_lnk = 5;
-	w->x1 = 8.5;
-	w->y1 = 9.75;
-	w->x2 = 9.5;
-	w->y2 = 9.75;
-	w = al->sec[4].walls + 2;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 9.5;
-	w->y1 = 9.75;
-	w->x2 = 9.5;
-	w->y2 = 9.5;
-	w = al->sec[4].walls + 3;
-	w->bot_tex = 1;
-	w->sec_lnk = 3;
-	w->x1 = 9.5;
-	w->y1 = 9.5;
-	w->x2 = 8.5;
-	w->y2 = 9.5;
-
-	//sec 5
-	al->sec[5].fl_hei = 0.75;
-	al->sec[5].ce_hei = 5;
-	al->sec[5].fl_tex = 2;
-	al->sec[5].ce_tex = 3;
-	al->sec[5].walls = ft_memalloc(4 * sizeof(t_walls));
-	al->sec[1].nb_wal = 4;
-	w = al->sec[5].walls + 0;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 8.5;
-	w->y1 = 9.75;
-	w->x2 = 8.5;
-	w->y2 = 10;
-	w = al->sec[5].walls + 1;
-	w->bot_tex = 1;
-	w->sec_lnk = 2;
-	w->x1 = 8.5;
-	w->y1 = 10;
-	w->x2 = 9.5;
-	w->y2 = 10;
-	w = al->sec[5].walls + 2;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 9.5;
-	w->y1 = 10;
-	w->x2 = 9.5;
-	w->y2 = 9.75;
-	w = al->sec[5].walls + 3;
-	w->bot_tex = 1;
-	w->sec_lnk = 4;
-	w->x1 = 9.5;
-	w->y1 = 9.75;
-	w->x2 = 8.5;
-	w->y2 = 9.75;*/
-
-
 	init_player(al, &al->play);
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
-	// al->status = GAME;
-	al->status = EDIT;
+	al->status = GAME;
+	// al->status = EDIT;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -402,16 +140,11 @@ void			init(t_al *al, char *str)
 	if (!(al->sdlsurf = SDL_GetWindowSurface(al->sdlwin)))
 		yeet(al);
 	al->pix = al->sdlsurf->pixels;
-	// init_wall(al);
-	printf("test\n");
+	init_ttf(al);
 	if (al->status == EDIT)
 		init_edit(al);
-	// printf("222\n");
-
-	init_ttf(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = FIRST_CLICK;
-	// al->edit.stat = RECTANGLE_SELECT;
 	al->edit.zoom = 15;
-	// al->c_wall = 0; // bzero init everything to 0, this func is for !0 inits ;)
+	al->nb_sect = 0;
 }

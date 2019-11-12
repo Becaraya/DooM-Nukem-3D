@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hms_parser_sec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 11:45:25 by pitriche          #+#    #+#             */
-/*   Updated: 2019/09/26 15:45:30 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/11 17:42:41 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		parse_wall(t_walls *wall, int fd)
 	wall->sec_lnk = *(unsigned int *)(buf + 24);
 	if (wall->sec_lnk)
 		wall->is_cross = *(unsigned short *)(buf + 22);
-printf("Parse wall %5.2f,%-5.2f %5.2f,%-5.2f link>%d solid:%c\n", wall->x1, wall->y1, wall->x2, wall->y2, wall->sec_lnk, wall->is_cross ? 'N' : 'Y');
+// printf("Parse wall %5.2f,%-5.2f %5.2f,%-5.2f link>%d solid:%c\n", wall->x1, wall->y1, wall->x2, wall->y2, wall->sec_lnk, wall->is_cross ? 'N' : 'Y');
 	return (0);
 }
 

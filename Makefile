@@ -48,6 +48,8 @@ SRC_LIST = main.c			\
 		main_loop.c 		\
 		init.c 				\
 		mouse_edit.c		\
+		sdl_tools.c			\
+		refresh.c			\
 		sprite.c			\
 		sprite_chainlist.c	\
 		entity.c			\

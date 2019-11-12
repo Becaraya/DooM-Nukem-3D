@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   sdl_tools.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 15:59:40 by becaraya         ###   ########.fr       */
+/*   Created: 2019/11/06 09:09:36 by becaraya          #+#    #+#             */
+/*   Updated: 2019/11/12 15:59:47 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 
-// __attribute__ ((destructor)) void no_end (void);
-
-int		main(int ac, char **av)
+SDL_Color		add_color(int color)
 {
-	t_al	al;
+	SDL_Color c;
 
-	if(ft_strcmp(av[0], "./doom-nukem"))
-		return (0);
-	ft_bzero(&al, sizeof(t_al)); // ça c'est important
-	if (ac < 2)
-		return (pr_err("No .hms file provided\n"));
-	init(&al, av[1]);
-	//hms_encoder(&al, "house.hms");
-	main_loop(&al);
-	return (0);
+	c.a = color >> 24;
+	c.r = color >> 16;
+	c.g = color >> 8;
+	c.b = color;
+	return (c);
 }
 
-// void	no_end()
-// {
-// 	while (1);
-// }
+SDL_Rect		get_rect(int x, int y)
+{
+	SDL_Rect rect;
+
+	rect.x = x;
+	rect.y = y;
+	return (rect);
+}

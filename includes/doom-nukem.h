@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 18:11:42 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:32:47 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -432,7 +432,7 @@ typedef struct		s_al
 	t_mouse			m;
 
 	t_sector		*sect;
-	int				nb_sect;
+	// int				nb_sect;
 
 	double			sin[D_2PI];
 	double			cos[D_2PI];

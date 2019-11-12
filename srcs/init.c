@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 18:14:42 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:34:18 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	al->status = GAME;
-	// al->status = EDIT;
+	al->status = EDIT;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -154,5 +154,5 @@ void			init(t_al *al, char *str)
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = FIRST_CLICK;
 	al->edit.zoom = 15;
-	al->nb_sect = 0;
+	// al->nb_sect = 0;
 }

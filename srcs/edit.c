@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 18:00:48 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:34:00 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,9 @@ void		set_edit_menu(t_al *al)
 
 	i = 0;
 	ft_memset(al->surf_ed->pixels, LIGHT_GREY, WIN_EDIT_SIZEX * WIN_EDIT_SIZEY * sizeof(int));
-	if (al->nb_sect && al->sect)
+	if (al->sect)
 	{
-		tmp = ft_itoa(al->nb_sect);
+		tmp = ft_itoa(al->nb_sec);
 		ft_strdel(&al->text.sect_para.str);
 		al->text.sect_para.str = ft_strjoin("Sector ", tmp);
 		ft_strdel(&tmp);
@@ -149,7 +149,7 @@ void	editor(t_al *al)
 {
 	set_edit(al);
 	set_edit_menu(al);
-	if (al->nb_sect && al->sect)
+	if (al->sect)
 		draw_sect(al, al->sect);
 
 	refresh(al);

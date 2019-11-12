@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 15:59:00 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:35:05 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,7 +160,7 @@ void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 		{
 			al->edit.stat = FIRST_CLICK;
 			free_wall(al->sect->walls);
-			al->nb_sect--;
+			al->nb_sec--;
 			delonesect(&al->sect);
 		}
 	}
@@ -180,7 +180,7 @@ void		    mouse_press_edit(t_al *al)
 		if (al->edit.stat == FIRST_CLICK)
 		{
 			al->edit.stat = DRAWING;
-			al->nb_sect++;
+			al->nb_sec++;
 			add_sector(al, itopoint(bev.x, bev.y));
 		}
 		if (al->edit.stat == DRAWING)

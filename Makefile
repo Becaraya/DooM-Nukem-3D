@@ -42,6 +42,7 @@ SRC_LIST = main.c			\
 		sdl_tools.c			\
 		refresh.c			\
 		sprite.c			\
+		get_map.c			\
 		entity.c			\
 		yeet.c
 

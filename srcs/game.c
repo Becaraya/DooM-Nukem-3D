@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/12 18:01:01 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:18:38 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,9 +177,9 @@ void		game(t_al *al)
 		acceleration(al);
 //	while (al->ent[x] < al->nb_entity)
 		// if (al->ent.on_ground)
-		// 	acceleration_entities(al);
 	else
 		flyyyy(al);
+	acceleration_entities(al);
 	displacement(al);
 	render(al);
 }

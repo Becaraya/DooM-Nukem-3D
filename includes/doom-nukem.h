@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 17:55:03 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:11:42 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -475,6 +475,14 @@ void				refresh(t_al *al);
 
 void				free_wall(t_walls *walls);
 void				yeet(t_al *al);
+void				get_map(t_al *al);
+t_walls				*get_walls(t_al *al, unsigned int nb_sec);
+t_walls				*create_walls_elem(t_al *al);
+t_sector			*create_sector_elem(t_al *al, unsigned int nb_sec);
+
+
+
+
 
 /*
 ** hms parser

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/08 16:51:48 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/12 16:35:59 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,8 @@ void		game(t_al *al)
 	if (al->play.on_ground)
 		acceleration(al);
 //	while (al->ent[x] < al->nb_entity)
-		if (al->ent.on_ground)
-			acceleration_entities(al);
+		// if (al->ent.on_ground)
+		// 	acceleration_entities(al);
 	else
 		flyyyy(al);
 	displacement(al);

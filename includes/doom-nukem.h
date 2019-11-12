@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 15:59:03 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:55:03 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@
 # include <stdio.h>
 # include <math.h>
 # include <sys/time.h>
-# include "SDL.h"
-# include "SDL_ttf.h"
+# include <SDL2/SDL.h>
+# include <SDL2_ttf/SDL_ttf.h>
+# include <SDL2_image/SDL_image.h>
+# include <SDL2_mixer/SDL_mixer.h>
 
 # define WIN_TITLE "100% really slenderman absolutely virus free i swear"
 # define WIN_SIZEX 1366
@@ -42,6 +44,8 @@
 # define DEFAULT_G 9.81
 # define DEFAULT_FOV D_2PI * 0.20
 
+#define	SPRITE_W 512
+#define	SPRITE_H 512
 /*
 ** TEX_REPEAT is horizontal repeat in m
 ** TEX_REPEAT_V is vertical repeat in m*(1<<16)
@@ -82,6 +86,15 @@
 
 # define BACK_GROUND LIGHT_GREY
 # define TEXT_EDITOR BLACK
+
+/*
+** just too simplify
+*/
+
+# define PPX al->play.posx
+# define PPY al->play.posy
+# define EPX al->ent.posx
+# define EPY al->ent.posy
 
 /*
 ** ENUMS, for all status ######################################################
@@ -181,7 +194,7 @@ typedef struct		s_tex_group
 	unsigned int	size_x;
 	unsigned int	size_y;
 	unsigned int	nb_tex;
-	t_tex_or		or[8];
+	t_tex_or		or[9];
 }					t_tex_group;
 
 /*
@@ -395,6 +408,7 @@ typedef struct		s_al
 	t_sector		*sec;
 	t_sector		*rotsec;
 	unsigned short	nb_tex;
+	unsigned short	nb_texgp;
 	t_tex			*tex;
 	t_tex_group		*texgp;
 
@@ -495,14 +509,8 @@ void				render(t_al *al);
 /*
 ** sprites functions
 */
-
-t_sprite 			*create_sprite_elem(t_al *al, int id, char *name);
-void				add_sprite(t_al *al, char *name);
-void 				remove_sprite_by_id(t_al *al, int id);
-void 				reset_id(t_al *al);
-void 				remove_sprite(t_al *al, t_sprite *cur, t_sprite *next, t_sprite *prev);
-void 				draw_sprite(t_al *al);
-void 				display_sprite(t_al *al, t_sprite *cur);
+void	init_texgrp(t_al *al);
+void	display_texgp(t_al *al, unsigned int *pix);
 
 /*
 ** draw function
@@ -511,10 +519,11 @@ void 				display_sprite(t_al *al, t_sprite *cur);
 void				ft_put_line(t_point a, t_point b, SDL_Surface *surf, int color);
 void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr);
 /*
-** entity mooving function
+** authorization too mooving function
 */
 
-void				mv_entity(t_al *al);
+void				ft_nop(t_al *al, int i, double x, double y);
+void				ft_nop_player(t_al *al, int i, double x, double y);
 
 /*
 ** SDL Tools

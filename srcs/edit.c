@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 16:02:12 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:00:48 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,5 +151,6 @@ void	editor(t_al *al)
 	set_edit_menu(al);
 	if (al->nb_sect && al->sect)
 		draw_sect(al, al->sect);
+
 	refresh(al);
 }

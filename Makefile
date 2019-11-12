@@ -4,22 +4,13 @@ CC = gcc
 CCF = -fsanitize=address
 OPT_FLAGS = -flto -O3
 FLAGS = -Wall -Wextra
-LIBRARIES = -lft -L$(LIBFT_DIR)
-INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_HEAD) $(SDL_HEAD)
+LIBRARIES = -L$(LIBFT_DIR) -lft
+INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_HEAD) -I$(SDL_DIR)/SDL2
 
-SDL_DIR = ./SDL2.framework/lib
-SDL_HEAD = -I ./frameworks/SDL2.framework/Versions/A/Headers \
-		-I ./frameworks/SDL2_ttf.framework/Versions/A/Headers \
-		-I ./frameworks/SDL2_image.framework/Versions/A/Headers \
-		-I ./frameworks/SDL2_mixer.framework/Headers \
-		-I ./frameworks/SDL2_net.framework/Headers \
-		-F ./frameworks
 
-FRAMEWORKS = -F ./frameworks \
-		-rpath ./frameworks \
-		-framework OpenGL -framework AppKit -framework OpenCl \
-		-framework SDL2 -framework SDL2_ttf -framework SDL2_image \
-		-framework SDL2_mixer -framework SDL2_net
+PWD = $(shell pwd)
+SDL_DIR = $(shell pwd)/frameworks
+FRAMEWORKS = -F $(SDL_DIR) -framework SDL2 -framework SDL2_ttf -framework SDL2_image -framework SDL2_mixer -Wl,-rpath $(SDL_DIR)
 
 LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_DIR = ./Libft/
@@ -51,7 +42,6 @@ SRC_LIST = main.c			\
 		sdl_tools.c			\
 		refresh.c			\
 		sprite.c			\
-		sprite_chainlist.c	\
 		entity.c			\
 		yeet.c
 
@@ -73,7 +63,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ_DIR) $(OBJ)
 	@echo "$(YELLOW)Sources compilation $(RESET)[$(GREEN)OK$(RESET)]\n"
-	@$(CC) $(FLAGS) $(OPT_FLAGS) $(LIBRARIES) $(INCLUDES) $(FRAMEWORKS) $(OBJ) -o $(NAME)
+	@$(CC) $(FRAMEWORKS) $(FLAGS) $(OPT_FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJ) -o $(NAME)
 	@echo "[$(BLUE)$(NAME) Compiled$(RESET)]"
 
 $(OBJ_DIR):
@@ -81,7 +71,7 @@ $(OBJ_DIR):
 	@echo "\n$(BLUE)Obj directory...$(RESET)[$(GREEN)created$(RESET)]\n"
 
 $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADERS)
-	@$(CC) $(FLAGS) $(OPT_FLAGS) -c $(INCLUDES) $< -o $@
+	@$(CC) $(FLAGS) $(OPT_FLAGS) -F $(SDL_DIR) -c $(INCLUDES) $< -o $@
 	@echo "$(YELLOW)$(notdir $(basename $@))...$(RESET)[$(GREEN)OK$(RESET)]"
 
 $(LIBFT):

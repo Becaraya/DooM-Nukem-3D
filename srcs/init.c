@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 16:02:23 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:06:34 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,11 +38,14 @@ static void		init_player(t_al *al, t_player *pl)
 
 void    		creat_entity(t_al *al)
 {
-	al->ent.posx = 0;
-    al->ent.posy = -1;
+	al->ent.posx = 2;
+    al->ent.posy = 2;
+	al->ent.csec = 1;
 	al->ent.vely = 0.1;
 	al->ent.size = PLAYER_SIZE;
 	al->ent.on_ground = 1;
+	al->ent.dir = 1500;
+	al->ent.gd_vel = 2.5;
 	al->ent.power = 400;
 	al->ent.power_mult = 1;
 	al->ent.mass = 67;
@@ -76,7 +79,7 @@ static void		init_trigo(t_al *al)
 
 void			init_ttf(t_al *al)
 {
-	al->ttf_st = (!TTF_Init()) ? 1 : 0; 
+	al->ttf_st = (!TTF_Init()) ? 1 : 0;
 	if (!(al->font = TTF_OpenFont("/Library/Fonts/Arial.ttf", 20)))
 		yeet(al);
 	
@@ -127,11 +130,12 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	al->status = GAME;
-	// al->status = EDIT;
+	al->status = EDIT;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
+	al->nb_texgp = 1;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		yeet(al);
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
@@ -143,6 +147,9 @@ void			init(t_al *al, char *str)
 	init_ttf(al);
 	if (al->status == EDIT)
 		init_edit(al);
+	// printf("222\n");
+	// init_texgrp(al);
+	init_ttf(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = FIRST_CLICK;
 	al->edit.zoom = 15;

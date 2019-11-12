@@ -40,6 +40,7 @@ SRC_LIST = main.c			\
 		init.c 				\
 		mouse_edit.c		\
 		sprite.c			\
+		get_map.c			\
 		entity.c			\
 		yeet.c
 

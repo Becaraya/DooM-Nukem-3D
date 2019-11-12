@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/07 19:57:53 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:50:59 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -442,6 +442,14 @@ void				column(t_al *al, int x, t_rc_ray *ray);
 
 void				refresh(t_al *al);
 void				yeet(t_al *al);
+void				get_map(t_al *al);
+t_walls				*get_walls(t_al *al, unsigned int nb_sec);
+t_walls				*create_walls_elem(t_al *al);
+t_sector			*create_sector_elem(t_al *al, unsigned int nb_sec);
+
+
+
+
 
 /*
 ** hms parser

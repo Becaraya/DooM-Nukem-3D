@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/08 15:04:33 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:54:41 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -410,6 +410,7 @@ void			init(t_al *al, char *str)
 	printf("test\n");
 	if (al->status == EDIT)
 		init_edit(al);
+	get_map(al);
 	// printf("222\n");
 	// init_texgrp(al);
 	init_ttf(al);

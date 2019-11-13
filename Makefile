@@ -44,7 +44,8 @@ SRC_LIST = main.c			\
 		sprite.c			\
 		get_map.c			\
 		entity.c			\
-		yeet.c
+		yeet.c				\
+		ia.c
 
 SRC_DIR = ./srcs/
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))

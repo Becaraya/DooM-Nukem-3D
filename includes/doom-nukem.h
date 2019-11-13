@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 18:32:47 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:37:50 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,6 +362,7 @@ typedef struct		s_entity
 //	int			horizon;
 	unsigned	on_ground:1;
 	unsigned	alive:1;
+	int			etat;
 }					t_entity;
 
 typedef struct		s_text
@@ -412,7 +413,7 @@ typedef struct		s_al
 	t_tex			*tex;
 	t_tex_group		*texgp;
 
-	t_entity		ent;
+	t_entity		*ent;
 
 	t_player		play;
 	double			g;
@@ -545,5 +546,11 @@ SDL_Color			add_color(int color);
 */
 
 t_point				itopoint(int x, int y);
+
+
+/*
+** action of entity
+*/
+void		acceleration_entities(t_al *al);
 
 #endif

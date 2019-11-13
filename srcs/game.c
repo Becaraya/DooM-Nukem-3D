@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/12 18:18:38 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:40:42 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,25 +110,25 @@ static void		acceleration(t_al *al)
 	al->play.vely = al->cos[dir_force] * al->play.gd_vel;
 }
 
-static void		acceleration_entities(t_al *al)
-{
-	t_entity *ent;
+// static void		acceleration_entities(t_al *al)
+// {
+// 	t_entity *ent;
 
-	ent = &al->ent;
-	if (ent->posx < al->play.posx)
-		ent->velx = 1;
-	if (ent->posx > al->play.posx)
-		ent->velx = -1;
-	if (ent->posy < al->play.posy)
-		ent->vely = 1;
-	if (ent->posy > al->play.posy)
-		ent->vely = -1;
-	//ent->dir = 8192 / ( + 1)
+// 	ent = &al->ent;
+// 	if (ent->posx < al->play.posx)
+// 		ent->velx = 1;
+// 	if (ent->posx > al->play.posx)
+// 		ent->velx = -1;
+// 	if (ent->posy < al->play.posy)
+// 		ent->vely = 1;
+// 	if (ent->posy > al->play.posy)
+// 		ent->vely = -1;
+// 	//ent->dir = 8192 / ( + 1)
 	 
-	//ent->velx = al->sin[ent->dir] * ent->gd_vel;
-	//ent->vely = al->cos[ent->dir] * ent->gd_vel;
+// 	//ent->velx = al->sin[ent->dir] * ent->gd_vel;
+// 	//ent->vely = al->cos[ent->dir] * ent->gd_vel;
 	
-}
+// }
 
 /*
 **  apply displacment according to velocities and collisions (soon)
@@ -141,7 +141,7 @@ static void		displacement(t_al *al)
 	al->play.posz +=  al->play.velz * al->dtime / 1000000;
 	al->play.eyez += al->play.velz * al->dtime / 1000000;
 	if (al->dtime > 1)
-		ft_nop (al, 0, al->ent.velx * al->dtime / 1000000, al->ent.vely * al->dtime / 1000000);
+		ft_nop (al, 0, al->ent[0].velx * al->dtime / 1000000, al->ent[0].vely * al->dtime / 1000000);
 	if (al->play.posz < al->sec[al->play.csec].fl_hei)
 	{
 		al->play.posz = al->sec[al->play.csec].fl_hei;
@@ -179,7 +179,8 @@ void		game(t_al *al)
 		// if (al->ent.on_ground)
 	else
 		flyyyy(al);
-	acceleration_entities(al);
+	if(al->ent[0].etat == 1) 
+		acceleration_entities(al);
 	displacement(al);
 	render(al);
 }

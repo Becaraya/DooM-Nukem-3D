@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 18:34:18 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/13 13:54:00 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,21 @@ static void		init_player(t_al *al, t_player *pl)
 
 void    		creat_entity(t_al *al)
 {
-	al->ent.posx = 2;
-    al->ent.posy = 2;
-	al->ent.csec = 1;
-	al->ent.vely = 0.1;
-	al->ent.size = PLAYER_SIZE;
-	al->ent.on_ground = 1;
-	al->ent.dir = 1500;
-	al->ent.gd_vel = 2.5;
-	al->ent.power = 400;
-	al->ent.power_mult = 1;
-	al->ent.mass = 67;
-	al->ent.alive = 1;
-	al->ent.posz = al->sec[al->play.csec].fl_hei;
+	al->ent = ft_memalloc(2 * sizeof(t_entity));
+	al->ent[0].etat = 1;
+	al->ent[0].posx = 5;
+    al->ent[0].posy = 5;
+	al->ent[0].csec = 1;
+	al->ent[0].vely = 0.1;
+	al->ent[0].size = PLAYER_SIZE;
+	al->ent[0].on_ground = 1;
+	al->ent[0].dir = 1500;
+	al->ent[0].gd_vel = 2.5;
+	al->ent[0].power = 400;
+	al->ent[0].power_mult = 1;
+	al->ent[0].mass = 67;
+	al->ent[0].alive = 1;
+	al->ent[0].posz = al->sec[al->play.csec].fl_hei;
 }
 
 static void		init_trigo(t_al *al)
@@ -129,8 +131,8 @@ void			init(t_al *al, char *str)
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
-	al->status = GAME;
 	al->status = EDIT;
+	al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

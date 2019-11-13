@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/08 16:20:48 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:32:22 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,30 +75,32 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	(m[0] == 1) ? PPX += x : 0; 
 }
 
-void	ft_nop(t_al *al, int i, double x, double y)
+void	ft_nop(t_al *al, int e, double x, double y)
 {
 	double m[2];
 	t_walls t;
+	int		i;
 
+	i = 0;
 	m[0] = 1;
 	m[1] = 1;
-	while (i < (int)al->sec[al->ent.csec].nb_wal)
+	while (i < (int)al->sec[al->ent[e].csec].nb_wal)
 	{
-		t = al->sec[al->ent.csec].walls[i];
-		if (x > 0.0 && (t.x1 > EPX || t.x2 > EPX)
-		&& ((t.y1 < EPY && EPY < t.y2) || (t.y1 > EPY && EPY > t.y2)))
-			(d_wall(t, EPX + x, EPY) < 0.5) ? m[0] = 0 : 1;
-		if (x <= 0.0 && (t.x1 < EPX || t.x2 < EPX)
-		&& ((t.y1 < EPY && EPY < t.y2) || (t.y1 > EPY && EPY > t.y2)))
-			(d_wall(t, EPX + x, EPY) < 0.5) ? m[0] = 0 : 1;
-		if (y > 0.0 && (t.y1 > EPY || t.y2 > EPY)
-		&& ((t.x1 < EPX && EPX < t.x2) || (t.x1 > EPX && EPX > t.x2)))
-			(d_wall(t, EPX, EPY + y) < 0.5) ? m[1] = 0 : 1;
-		if (y <= 0.0 && (t.y1 < EPY || t.y2 < EPY)
-		&& ((t.x1 < EPX && EPX < t.x2) || (t.x1 > EPX && EPX > t.x2)))
-			(d_wall(t, EPX, EPY + y) < 0.5) ? m[1] = 0 : 1;
+		t = al->sec[al->ent[e].csec].walls[i];
+		if (x > 0.0 && (t.x1 > al->ent[e].posx || t.x2 > al->ent[e].posx)
+		&& ((t.y1 < al->ent[e].posy && al->ent[e].posy < t.y2) || (t.y1 > al->ent[e].posy && al->ent[e].posy > t.y2)))
+			(d_wall(t, al->ent[e].posx + x, al->ent[e].posy) < 0.5) ? m[0] = 0 : 1;
+		if (x <= 0.0 && (t.x1 < al->ent[e].posx || t.x2 < al->ent[e].posx)
+		&& ((t.y1 < al->ent[e].posy && al->ent[e].posy < t.y2) || (t.y1 > al->ent[e].posy && al->ent[e].posy > t.y2)))
+			(d_wall(t, al->ent[e].posx + x, al->ent[e].posy) < 0.5) ? m[0] = 0 : 1;
+		if (y > 0.0 && (t.y1 > al->ent[e].posy || t.y2 > al->ent[e].posy)
+		&& ((t.x1 < al->ent[e].posx && al->ent[e].posx < t.x2) || (t.x1 > al->ent[e].posx && al->ent[e].posx > t.x2)))
+			(d_wall(t, al->ent[e].posx, al->ent[e].posy + y) < 0.5) ? m[1] = 0 : 1;
+		if (y <= 0.0 && (t.y1 < al->ent[e].posy || t.y2 < al->ent[e].posy)
+		&& ((t.x1 < al->ent[e].posx && al->ent[e].posx < t.x2) || (t.x1 > al->ent[e].posx && al->ent[e].posx > t.x2)))
+			(d_wall(t, al->ent[e].posx, al->ent[e].posy + y) < 0.5) ? m[1] = 0 : 1;
 		i++;
 	}
-	(m[1] == 1) ? EPY += y : 0;
-	(m[0] == 1) ? EPX += x : 0; 
+	(m[1] == 1) ? al->ent[e].posy += y : 0;
+	(m[0] == 1) ? al->ent[e].posx += x : 0; 
 }

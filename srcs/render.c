@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/12 18:17:08 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/13 12:24:19 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,13 +116,13 @@ void		draw_map(t_al *al)
 		}
 		nb_sec++;
 	}
-	a.y = -al->ent.posy * 10 + (WIN_SIZEY / 2);
-	a.x = al->ent.posx * 10 + (WIN_SIZEX / 2);
+	a.y = -al->ent[0].posy * 10 + (WIN_SIZEY / 2);
+	a.x = al->ent[0].posx * 10 + (WIN_SIZEX / 2);
 	b.y = a.y + 5;
 	b.x = a.x + 5;
 	while(++a.y < b.y)
 	{
-		a.x = al->ent.posx * 10 + (WIN_SIZEX / 2);
+		a.x = al->ent[0].posx * 10 + (WIN_SIZEX / 2);
 		while(++a.x < b.x)
 			al->pix[(int)(a.x + (a.y * WIN_SIZEX))] = 0x0000ff;
 	}

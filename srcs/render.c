@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/29 14:14:35 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/15 15:18:04 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void		swapd(double *d1, double *d2)
 	*d2 = tmp;
 }
 
-inline double	wall_len(t_walls *wall)
+double		wall_len(t_walls *wall)
 {
 	double	tmp;
 
@@ -116,8 +116,8 @@ void		draw_map(t_al *al)
 		}
 		nb_sec--;
 	}
-	a.x = al->ent.posx * 10 + (WIN_SIZEX / 2);
-	a.y = al->ent.posy * 10 + (WIN_SIZEY / 2);
+	a.x = al->ent.pl.posx * 10 + (WIN_SIZEX / 2);
+	a.y = al->ent.pl.posy * 10 + (WIN_SIZEY / 2);
 	al->pix[(int)(a.x + (a.y * WIN_SIZEX))] = 0xff00ff;
 	al->pix[(int)(a.x + 1 + (a.y * WIN_SIZEX))] = 0xff00ff;
 	al->pix[(int)(a.x + ((a.y + 1) * WIN_SIZEX))] = 0xff00ff;
@@ -145,9 +145,9 @@ void		test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 					ray->min = tmp_dst;
 					ray->hits[ray->nb_hits].wall_length = wall_len(owall);
 					wall->x1 > wall->x2 ? swapd(&wall->x1, &wall->x2) : 0;
-					ray->hits[ray->nb_hits].hit_texx =
-						(unsigned)(wall->x1 / (wall->x1 - wall->x2) * wall_len(owall) *
-						UINT16_MAX) % (unsigned)(TEX_REPEAT * UINT16_MAX) / TEX_REPEAT;
+					ray->hits[ray->nb_hits].hit_texx = (unsigned)(wall->x1 /
+						(wall->x1 - wall->x2) * wall_len(owall) * UINT16_MAX) %
+						(unsigned)(TEX_REPEAT * UINT16_MAX) / TEX_REPEAT;
 					tmp_dst *= al->cos[sub_angle(ray->angle, al->play.dir)];
 					ray->hits[ray->nb_hits].hitdst = tmp_dst;
 					ray->hits[ray->nb_hits].wall = *owall;
@@ -178,8 +178,6 @@ void		cast_sec(t_al *al, t_rc_ray *ray, unsigned secid, t_angle angle)
 		cast_sec(al, ray, ray->hits[ray->nb_hits - 1].wall.sec_lnk, angle);
 }
 
-
-
 void		cast_ray(t_al *al, t_angle an, t_rc_ray *ray)
 {
 	unsigned	i;
@@ -192,26 +190,21 @@ void		cast_ray(t_al *al, t_angle an, t_rc_ray *ray)
 	cast_sec(al, ray, al->play.csec, ray->angle);
 }
 
-
-
 void		render(t_al *al)
 {
 	t_rc_ray	ray;
 	int			x;
 
-	if (al->play.horizon < -HORIZON_LIMIT || al->play.horizon > HORIZON_LIMIT)
-	{
-		pr_err("Off-range horizon\n");
-		return ;
-	}
+	al->wall_scale = 200 * D_2PI / al->fov;
 	ft_bzero(al->pix, WIN_SIZEX * WIN_SIZEY * sizeof(int));
 	x = 0;
 	while (x < WIN_SIZEX)
 	{
 		ray.nb_hits = 0;
+		ray.x = x;
 		cast_ray(al, al->play.dir + ((int)al->fov * (x - (WIN_SIZEX / 2)) /
 				WIN_SIZEX), &ray);
-		column(al, x, &ray);
+		column(al, &ray);
 		x++;
 	}
 	/*ray.nb_hits = 0;
@@ -221,8 +214,9 @@ void		render(t_al *al)
 		column(al, x, &ray);
 		x++;
 	}*/
-	draw_map(al);
-	mv_entity(al);
-	printf("FPS:%2d ", 1000000 / al->dtime); fflush(0);
+	//draw_map(al);
+	//mv_entity(al);
+	ft_putstr(" FPS:");
+	ft_putnbr(1000000 / al->dtime);
 	refresh(al);
 }

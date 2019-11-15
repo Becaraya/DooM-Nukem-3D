@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/29 15:06:29 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/15 15:47:28 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,16 +49,16 @@ static void		init_player(t_al *al, t_player *pl)
 */
 void    creat_entity(t_al *al)
 {
-	al->ent.posx = 0;
-    al->ent.posy = -1;
-	al->ent.vely = 0.1;
-	al->ent.size = PLAYER_SIZE;
-	al->ent.on_ground = 1;
-	al->ent.power = 400;
-	al->ent.power_mult = 1;
-	al->ent.mass = 67;
-	al->ent.alive = 1;
-	al->ent.posz = al->sec[al->play.csec].fl_hei;
+	al->ent.pl.posx = 0;
+    al->ent.pl.posy = -1;
+	al->ent.pl.vely = 0.1;
+	al->ent.pl.size = PLAYER_SIZE;
+	al->ent.pl.on_ground = 1;
+	al->ent.pl.power = 400;
+	al->ent.pl.power_mult = 1;
+	al->ent.pl.mass = 67;
+	al->ent.pl.alive = 1;
+	al->ent.pl.posz = al->sec[al->play.csec].fl_hei;
 }
 
 static void		init_trigo(t_al *al)
@@ -118,105 +118,106 @@ static void		init_edit(t_al *al)
 
 void			init(t_al *al, char *str)
 {
-	if (hms_parser(al, str))
-		exit(0);
-	//free(al->tex[0].pix);
-	//bmp_to_tex(al->tex + 0, "ressources/wall_tex.bmp", 800, 600);
-	/*free(al->tex[1].pix);
-	bmp_to_tex(al->tex + 1, "ressources/wall_tex.bmp", 800, 600);
-	free(al->tex[2].pix);
+	//if (hms_parser(al, str))
+	//	exit(0);
+	al->tex = ft_memalloc(5 * sizeof(t_tex));
+	bmp_to_tex(al->tex + 0, "ressources/wall_tex.bmp", 800, 600);
+	bmp_to_tex(al->tex + 1, "ressources/Untitled-1.bmp", 800, 800);
 	bmp_to_tex(al->tex + 2, "ressources/floor_tex.bmp", 950, 950);
-	free(al->tex[3].pix);
 	bmp_to_tex(al->tex + 3, "ressources/ceiling_tex.bmp", 512, 512);
-	
+	al->tex[4].size_x = 1;
+	al->tex[4].size_y = 1;
+	al->tex[4].pix = ft_memalloc(sizeof(unsigned));
+
 	t_walls *w;
-	free(al->sec[1].walls);
-	//free(al->sec[2].walls);
-	free(al->sec);
-	
+	t_sector *s;
 	al->play.posx = 1;
 	al->play.posy = 1;
 	al->play.csec = 1;
-	al->sec = ft_memalloc(3 * sizeof(t_sector));
-	al->rotsec = ft_memalloc(3 * sizeof(t_sector));
-	al->nb_sec = 2;
+	al->sec = ft_memalloc(4 * sizeof(t_sector));
+	al->rotsec = ft_memalloc(4 * sizeof(t_sector));
+	al->nb_sec = 3;
+
 	//sec 1
-	al->sec[1].fl_hei = 0;
-	al->sec[1].ce_hei = 5;
-	al->sec[1].fl_tex = 2;
-	al->sec[1].ce_tex = 3;
-	al->sec[1].walls = ft_memalloc(10 * sizeof(t_walls));
-	al->rotsec[1].walls = ft_memalloc(10 * sizeof(t_walls));
-	al->sec[1].nb_wal = 10;
-	w = al->sec[1].walls + 0;
+	s = al->sec + 1;
+	s->fl_hei = 0;
+	s->ce_hei = 4;
+	s->fl_tex = 2;
+	s->ce_tex = 3;
+	s->nb_wal = 10; // << check this
+	s->walls = ft_memalloc(al->sec[1].nb_wal * sizeof(t_walls));
+	al->rotsec[1].walls = ft_memalloc(al->sec[1].nb_wal * sizeof(t_walls));
+	// CHECK  ^^^ THIS
+	w = s->walls + 0;
 	w->wall_tex = 1;
 	w->x1 = 0;
 	w->y1 = 0;
 	w->x2 = 0;
 	w->y2 = 15;
-	t_angle an;
-	an = D_PI;
-	w = al->sec[1].walls + 1;
+	w = s->walls + 1;
+	w->bot_tex = 1;
 	w->wall_tex = 1;
 	w->x1 = 0;
 	w->y1 = 15;
 	w->x2 = 4;
 	w->y2 = 15;
-	w = al->sec[1].walls + 2;
+	w = s->walls + 2;
 	w->bot_tex = 1;
-	w->wall_tex = 1;
+	w->top_tex = 2;
+	w->wall_tex = 0;
 	w->sec_lnk = 2;
 	w->x1 = 4;
 	w->y1 = 15;
 	w->x2 = 4;
 	w->y2 = 10;
-	w = al->sec[1].walls + 3;
+	w = s->walls + 3;
 	w->bot_tex = 1;
-	w->wall_tex = 1;
+	w->wall_tex = 0;
 	w->sec_lnk = 2;
 	w->x1 = 4;
 	w->y1 = 10;
-	w->x2 = 8;
+	w->x2 = 7;
 	w->y2 = 10;
-	w = al->sec[1].walls + 4;
+
+	w = s->walls + 4;
 	w->bot_tex = 1;
-	w->wall_tex = 1;
+	w->wall_tex = 0;
 	w->sec_lnk = 2;
-	w->x1 = 8;
+	w->x1 = 7;
 	w->y1 = 10;
 	w->x2 = 10;
 	w->y2 = 10;
-	w = al->sec[1].walls + 5;
+
+	w = s->walls + 5;
 	w->bot_tex = 1;
-	w->wall_tex = 1;
+	w->wall_tex = 0;
 	w->sec_lnk = 2;
 	w->x1 = 10;
 	w->y1 = 10;
 	w->x2 = 14;
 	w->y2 = 10;
-	w = al->sec[1].walls + 6;
+	w = s->walls + 6;
 	w->bot_tex = 1;
-	w->wall_tex = 1;
 	w->sec_lnk = 2;
 	w->x1 = 14;
 	w->y1 = 10;
 	w->x2 = 14;
 	w->y2 = 15;
-	w = al->sec[1].walls + 7;
+	w = s->walls + 7;
 	w->bot_tex = 1;
 	w->wall_tex = 1;
 	w->x1 = 14;
 	w->y1 = 15;
 	w->x2 = 20;
 	w->y2 = 15;
-	w = al->sec[1].walls + 8;
+	w = s->walls + 8;
 	w->bot_tex = 1;
 	w->wall_tex = 1;
 	w->x1 = 20;
 	w->y1 = 15;
 	w->x2 = 20;
 	w->y2 = 0;
-	w = al->sec[1].walls + 9;
+	w = s->walls + 9;
 	w->bot_tex = 1;
 	w->wall_tex = 1;
 	w->x1 = 20;
@@ -224,171 +225,100 @@ void			init(t_al *al, char *str)
 	w->x2 = 0;
 	w->y2 = 0;
 
-	//sec 2
-	al->sec[2].fl_hei = 1;
-	al->sec[2].ce_hei = 5;
-	al->sec[2].fl_tex = 2;
-	al->sec[2].ce_tex = 3;
-	al->sec[2].walls = ft_memalloc(6 * sizeof(t_walls));
-	al->rotsec[2].walls = ft_memalloc(6 * sizeof(t_walls));
-	al->sec[2].nb_wal = 6;
-	w = al->sec[2].walls + 0;
-	w->bot_tex = 1;
+	// sec 2
+	s = al->sec + 2;
+	s->fl_hei = -1;
+	s->ce_hei = 5;
+	s->fl_tex = 2;
+	s->ce_tex = 3;
+	s->nb_wal = 6; // rember this
+	s->walls = ft_memalloc(al->sec[2].nb_wal * sizeof(t_walls));
+	al->rotsec[2].walls = ft_memalloc(al->sec[2].nb_wal * sizeof(t_walls));
+	// CHECK  ^^^ THIS
+	w = s->walls + 0;
 	w->sec_lnk = 1;
 	w->x1 = 4;
 	w->y1 = 10;
-	w->x2 = 4;
+	w->x2 = 7;
+	w->y2 = 10;
+	w = s->walls + 1;
+	w->sec_lnk = 1;
+	w->x1 = 7;
+	w->y1 = 10;
+	w->x2 = 10;
+	w->y2 = 10;
+	w = s->walls + 2;
+	w->sec_lnk = 1;
+	w->x1 = 10;
+	w->y1 = 10;
+	w->x2 = 14;
+	w->y2 = 10;
+	w = s->walls + 3;
+	w->sec_lnk = 1;
+	w->x1 = 14;
+	w->y1 = 10;
+	w->x2 = 14;
 	w->y2 = 15;
-	w = al->sec[2].walls + 1;
+	w = s->walls + 4;
+	w->bot_tex = 1;
+	w->top_tex = 1;
 	w->wall_tex = 1;
+	w->x1 = 14;
+	w->y1 = 15;
+	w->x2 = 4;
+	w->y2 = 15;
+	w = s->walls + 5;
+	w->bot_tex = 1;
+	w->top_tex = 1;
+	w->sec_lnk = 1;
 	w->x1 = 4;
 	w->y1 = 15;
-	w->x2 = 14;
-	w->y2 = 15;
-	w = al->sec[2].walls + 2;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 14;
-	w->y1 = 15;
-	w->x2 = 14;
-	w->y2 = 10;
-	w = al->sec[2].walls + 3;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 14;
-	w->y1 = 10;
-	w->x2 = 9.5;
-	w->y2 = 10;
-	w = al->sec[2].walls + 4;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 9.5;
-	w->y1 = 10;
-	w->x2 = 8.5;
-	w->y2 = 10;
-	w = al->sec[2].walls + 5;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 8.5;
-	w->y1 = 10;
 	w->x2 = 4;
 	w->y2 = 10;
-	
-	//sec 3
-	al->sec[3].fl_hei = 0.25;
-	al->sec[3].ce_hei = 5;
-	al->sec[3].fl_tex = 2;
-	al->sec[3].ce_tex = 3;
-	al->sec[3].walls = ft_memalloc(4 * sizeof(t_walls));
-	al->sec[1].nb_wal = 4;
-	w = al->sec[3].walls + 0;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 8.5;
-	w->y1 = 9.25;
-	w->x2 = 8.5;
-	w->y2 = 9.5;
-	w = al->sec[3].walls + 1;
-	w->bot_tex = 1;
-	w->sec_lnk = 4;
-	w->x1 = 8.5;
-	w->y1 = 9.5;
-	w->x2 = 9.5;
-	w->y2 = 9.5;
-	w = al->sec[3].walls + 2;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 9.5;
-	w->y1 = 9.5;
-	w->x2 = 9.5;
-	w->y2 = 9.25;
-	w = al->sec[3].walls + 3;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 9.5;
-	w->y1 = 9.25;
-	w->x2 = 8.5;
-	w->y2 = 9.25;
 
-	//sec 4
-	al->sec[4].fl_hei = 0.5;
-	al->sec[4].ce_hei = 5;
-	al->sec[4].fl_tex = 2;
-	al->sec[4].ce_tex = 3;
-	al->sec[4].walls = ft_memalloc(4 * sizeof(t_walls));
-	al->sec[1].nb_wal = 4;
-	w = al->sec[4].walls + 0;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 8.5;
-	w->y1 = 9.5;
-	w->x2 = 8.5;
-	w->y2 = 9.75;
-	w = al->sec[4].walls + 1;
-	w->bot_tex = 1;
-	w->sec_lnk = 5;
-	w->x1 = 8.5;
-	w->y1 = 9.75;
-	w->x2 = 9.5;
-	w->y2 = 9.75;
-	w = al->sec[4].walls + 2;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 9.5;
-	w->y1 = 9.75;
-	w->x2 = 9.5;
-	w->y2 = 9.5;
-	w = al->sec[4].walls + 3;
-	w->bot_tex = 1;
-	w->sec_lnk = 3;
-	w->x1 = 9.5;
-	w->y1 = 9.5;
-	w->x2 = 8.5;
-	w->y2 = 9.5;
-
-	//sec 5
-	al->sec[5].fl_hei = 0.75;
-	al->sec[5].ce_hei = 5;
-	al->sec[5].fl_tex = 2;
-	al->sec[5].ce_tex = 3;
-	al->sec[5].walls = ft_memalloc(4 * sizeof(t_walls));
-	al->sec[1].nb_wal = 4;
-	w = al->sec[5].walls + 0;
-	w->bot_tex = 1;
-	w->sec_lnk = 1;
-	w->x1 = 8.5;
-	w->y1 = 9.75;
-	w->x2 = 8.5;
-	w->y2 = 10;
-	w = al->sec[5].walls + 1;
-	w->bot_tex = 1;
+	/*// sec 3
+	s = al->sec + 3;
+	s->fl_hei = 1.2;
+	s->ce_hei = 4;
+	s->fl_tex = 2;
+	s->ce_tex = 2;
+	s->nb_wal = 4; // rember this
+	s->walls = ft_memalloc(al->sec[2].nb_wal * sizeof(t_walls));
+	al->rotsec[3].walls = ft_memalloc(al->sec[2].nb_wal * sizeof(t_walls));
+	// CHECK  ^^^ THIS
+	w = s->walls + 0;
 	w->sec_lnk = 2;
-	w->x1 = 8.5;
+	w->bot_tex = 1;
+	w->x1 = 7;
 	w->y1 = 10;
-	w->x2 = 9.5;
+	w->x2 = 10;
 	w->y2 = 10;
-	w = al->sec[5].walls + 2;
-	w->bot_tex = 1;
+	w = s->walls + 1;
 	w->sec_lnk = 1;
-	w->x1 = 9.5;
-	w->y1 = 10;
-	w->x2 = 9.5;
-	w->y2 = 9.75;
-	w = al->sec[5].walls + 3;
 	w->bot_tex = 1;
-	w->sec_lnk = 4;
-	w->x1 = 9.5;
-	w->y1 = 9.75;
-	w->x2 = 8.5;
-	w->y2 = 9.75;*/
-
+	w->wall_tex = 1;
+	w->x1 = 10;
+	w->y1 = 10;
+	w->x2 = 10;
+	w->y2 = 9.5;
+	w = s->walls + 2;
+	w->sec_lnk = 1;
+	w->x1 = 10;
+	w->y1 = 9.5;
+	w->x2 = 7;
+	w->y2 = 9.5;
+	w = s->walls + 3;
+	w->sec_lnk = 1;
+	w->x1 = 7;
+	w->y1 = 9.5;
+	w->x2 = 7;
+	w->y2 = 10;*/
 
 	init_player(al, &al->play);
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
 	al->status = GAME;
-	//al->status = EDIT;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

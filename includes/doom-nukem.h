@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/29 15:49:10 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/15 13:25:33 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,6 +242,29 @@ typedef struct		s_edit
 }					t_edit;
 
 /*
+** raycast hit limits descripting struct
+** first set of limits are non horizon corrected lims, while the 2nd set is
+** horizon corrected and screen size capped
+*/
+
+typedef struct		s_rc_lim
+{
+	int	toplim;
+	int	topwall;
+	int	topmid;
+	int	botmid;
+	int	botwall;
+	int	botlim;
+
+	int	sc_toplim;
+	int	sc_topwall;
+	int	sc_topmid;
+	int	sc_botmid;
+	int	sc_botwall;
+	int	sc_botlim;
+}					t_rc_lim;
+
+/*
 ** raycast hit descripting struct to add info missing from t_walls
 ** wall_length is length in m
 */
@@ -256,9 +279,9 @@ typedef struct		s_rc_hit
 	unsigned	ce_tex;
 	double		ce_hei;
 
-	int			w_toplim;
-	int			w_botlim;
 	t_walls		wall;
+	t_rc_lim	lim;
+	unsigned	is_entity:1;
 }					t_rc_hit;
 
 /*
@@ -269,6 +292,7 @@ typedef struct		s_rc_hit
 
 typedef struct		s_rc_ray
 {
+	int			x;
 	t_angle		angle;
 	int			xfact;
 	int			yfact;
@@ -285,16 +309,17 @@ typedef struct		s_rc_ray
 ** horizon: height of the horizon in pixels, indicates if lookup or down
 ** eyez: eye position on z
 */
+
 typedef struct		s_sprite
 {
-	int 			id;
-	int 			w;
-	int 			h;
-	int 			x;
-	int 			y;
-	int				angle;
-	double			dist;
-	unsigned int	*tex;
+	int					id;
+	int					w;
+	int					h;
+	int					x;
+	int					y;
+	int					angle;
+	double				dist;
+	unsigned int		*tex;
 	struct s_sprite		*next;
 }					t_sprite;
 
@@ -384,6 +409,7 @@ typedef struct		s_al
 	double			g;
 	t_angle			fov;
 	int				stretch;
+	int				wall_scale;
 
 	unsigned int	fps;
 	long			last_time;
@@ -431,7 +457,7 @@ void				jump(t_al *al);
 t_angle				add_angle(t_angle a1, t_angle a2);
 t_angle				sub_angle(t_angle a1, t_angle a2);
 
-void				column(t_al *al, int x, t_rc_ray *ray);
+void				column(t_al *al, t_rc_ray *ray);
 
 void				refresh(t_al *al);
 void				yeet(t_al *al);

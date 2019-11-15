@@ -34,6 +34,7 @@ SRC_LIST = main.c			\
 		event_func.c		\
 		game.c				\
 		render.c			\
+		entity.c			\
 		column.c			\
 		angles.c			\
 		sport_physics.c		\
@@ -49,7 +50,7 @@ SRC_LIST = main.c			\
 		init.c 				\
 		mouse_edit.c		\
 		sprite.c			\
-		sprite_chainlist.c\
+		sprite_chainlist.c	\
 		yeet.c
 
 SRC_DIR = ./srcs/

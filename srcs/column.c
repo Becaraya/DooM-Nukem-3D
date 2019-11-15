@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 10:46:13 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/24 17:08:10 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/15 16:02:10 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,161 @@ inline int	tex_find(unsigned int *pix, int texx, int texy, t_tex *tex)
 	return (0);
 }
 
+/*
+** #############################################################################
+*/
+
+void		hit_floor(t_al *al, t_rc_ray *ray, int hitnb)
+{
+	int botlim;
+
+	botlim = ray->hits[hitnb].lim.sc_botlim;
+	while (botlim > ray->hits[hitnb].lim.sc_botwall)
+	{
+		if (botlim < 0 || botlim >= WIN_SIZEY)
+			printf("ERR FLOOR YOTE %d\n", botlim);
+		al->pix[(botlim--) * WIN_SIZEX + ray->x] = 0x5050ff + 0x202000 * hitnb;
+	}
+}
+
+void		hit_ceiling(t_al *al, t_rc_ray *ray, int hitnb)
+{
+	int toplim;
+
+	toplim = ray->hits[hitnb].lim.sc_toplim;
+	while (toplim < ray->hits[hitnb].lim.sc_topwall)
+	{
+		if (toplim < 0 || toplim >= WIN_SIZEY)
+			printf("ERR FLOOR YOTE %d\n", toplim);
+		al->pix[(toplim++) * WIN_SIZEX + ray->x] = 0xff5050 + 0x002020 * hitnb;
+	}
+}
+
+void		hit_top_wall(t_al *al, t_rc_ray *ray, int hitnb)
+{
+	int top;
+
+	top = ray->hits[hitnb].lim.sc_topwall;
+	while (top < ray->hits[hitnb].lim.sc_topmid)
+	{
+		if (top < 0 || top >= WIN_SIZEY)
+			printf("ERR FLOOR YOTE %d\n", top);
+		al->pix[(top++) * WIN_SIZEX + ray->x] = 0x30ff60 + 0x100010 * hitnb;
+	}
+}
+
+void		hit_bot_wall(t_al *al, t_rc_ray *ray, int hitnb)
+{
+	int bot;
+
+	bot = ray->hits[hitnb].lim.sc_botwall;
+	while (bot > ray->hits[hitnb].lim.sc_botmid)
+	{
+		al->pix[(bot--) * WIN_SIZEX + ray->x] = 0x60ff30 + 0x100010 * hitnb;
+	}
+}
+
+void		sc_lims(t_rc_lim *lim)
+{
+	lim->sc_toplim = lim->toplim >= 0 ? lim->toplim : 0;
+	lim->sc_toplim = lim->sc_toplim < WIN_SIZEY ? lim->sc_toplim :
+	WIN_SIZEY - 1;
+	lim->sc_topwall = lim->topwall >= 0 ? lim->topwall : 0;
+	lim->sc_topwall = lim->sc_topwall < WIN_SIZEY ? lim->sc_topwall :
+	WIN_SIZEY - 1;
+	lim->sc_topmid = lim->topmid >= 0 ? lim->topmid : 0;
+	lim->sc_topmid = lim->sc_topmid < WIN_SIZEY ? lim->sc_topmid :
+	WIN_SIZEY - 1;
+
+	lim->sc_topwall = lim->sc_topwall >= lim->sc_toplim ? lim->sc_topwall :
+	lim->sc_toplim;
+	lim->sc_topmid = lim->sc_topmid >= lim->sc_toplim ? lim->sc_topmid :
+	lim->sc_toplim;
+
+	lim->sc_botmid = lim->botmid >= 0 ? lim->botmid : 0;
+	lim->sc_botmid = lim->sc_botmid < WIN_SIZEY ? lim->sc_botmid :
+	WIN_SIZEY - 1;
+	lim->sc_botwall = lim->botwall >= 0 ? lim->botwall : 0;
+	lim->sc_botwall = lim->sc_botwall < WIN_SIZEY ? lim->sc_botwall :
+	WIN_SIZEY - 1;
+	lim->sc_botlim = lim->botlim >= 0 ? lim->botlim : 0;
+	lim->sc_botlim = lim->sc_botlim < WIN_SIZEY ? lim->sc_botlim :
+	WIN_SIZEY - 1;
+
+	lim->sc_botwall = lim->sc_botwall <= lim->sc_botlim ? lim->sc_botwall :
+	lim->sc_botlim;
+	lim->sc_botmid = lim->sc_botmid <= lim->sc_botlim ? lim->sc_botmid :
+	lim->sc_botlim;
+}
+
+void		hit_wall(t_al *al, t_rc_ray *ray, int hitnb)
+{
+	int wall;
+
+	wall = ray->hits[hitnb].lim.sc_topmid;
+	if (hitnb != 0)
+	while (wall < ray->hits[hitnb].lim.sc_botmid)
+	{
+		if (!((wall + ray->x * 3) % 10))
+			al->pix[wall * WIN_SIZEX + ray->x] = 0xff6060;
+		wall-=-1;
+	}
+}
+
+void		hit_print(t_al *al, t_rc_ray *ray, int hitnb, t_rc_lim prlim)
+{
+	t_rc_hit	*hit;
+	t_rc_lim	*lim;
+	int			hor;
+
+	hit = ray->hits + hitnb;
+	lim = &hit->lim;
+	hor = WIN_SIZEY / 2 - al->play.horizon;
+	if (!hit->is_entity)
+	{
+		lim->toplim = prlim.topmid;
+		lim->topwall = hor - ((hit->ce_hei - al->play.eyez) *
+			al->wall_scale / hit->hitdst);
+		lim->topmid = lim->topwall;
+		lim->botlim = prlim.botmid;
+		lim->botwall = hor + ((al->play.eyez - hit->fl_hei) *
+			al->wall_scale / hit->hitdst);
+		lim->botmid = lim->botwall;
+		if (hitnb < ray->nb_hits - 1)
+		{
+			lim->topmid = hit->ce_hei > (hit + 1)->ce_hei ? hor -
+			((hit + 1)->ce_hei - al->play.eyez) * al->wall_scale / hit->hitdst
+			: lim->topwall;
+			lim->botmid = hit->fl_hei < (hit + 1)->fl_hei ? hor +
+			(al->play.eyez - (hit + 1)->fl_hei) * al->wall_scale / hit->hitdst
+			: lim->botwall;
+		}
+		sc_lims(lim);
+		if (hitnb < ray->nb_hits - 1)
+		{
+			hit_top_wall(al, ray, hitnb);
+			hit_bot_wall(al, ray, hitnb);
+		}
+		hit_ceiling(al, ray, hitnb);
+		hit_floor(al, ray, hitnb);
+	}
+	if (hitnb < ray->nb_hits - 1)
+		hit_print(al, ray, hitnb + 1, *lim);
+	hit_wall(al, ray, hitnb);
+}
+
+
+
+void		column(t_al *al, t_rc_ray *ray)
+{
+	t_rc_lim lim;
+
+	lim.topmid = 0;
+	lim.botmid = WIN_SIZEY - 1;
+	hit_print(al, ray, 0, lim);
+}
+
+/*
 void		column_wall(t_al *al, int x, int wall_size, int over_hor,
 	int wall_heigth, int mbt, int texx, int tx, t_rc_hit *hit, t_tex *tex)
 {
@@ -53,6 +208,8 @@ void		column_wall(t_al *al, int x, int wall_size, int over_hor,
 	ymax = ymax > WIN_SIZEY ? WIN_SIZEY : ymax;
 	if (mbt == 0 || mbt == 1)
 		hit->w_botlim = ymax;
+	if (!tex)
+		return ;
 	while (y < ymax)
 	{
 	//printf("((y - yor) * wall_heigth / texymax) > %u\n", (y - yor) * wall_heigth / texymax);
@@ -64,11 +221,12 @@ void		column_wall(t_al *al, int x, int wall_size, int over_hor,
 	}
 }
 
-void		column(t_al *al, int x, t_rc_ray *ray)
+void		column(t_al *al, t_rc_ray *ray)
 {
 	int cur_hit;
 	int tx;
 	int y;
+	int x = ray->x;
 	int	wall_size;
 	int	wall_height;
 	int	wall_scale;
@@ -107,25 +265,24 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 	tex = al->tex + hit->fl_tex;
 	y = hit->w_botlim <= 0 ? 0 : hit->w_botlim;
 
-	// number in the end is sliding correction calculation
+	// number in the end is sliding correction
 	posx = al->play.posx * UINT16_MAX * al->fov * 0.0008423;
 	posy = al->play.posy * UINT16_MAX * al->fov * 0.0008423;
 	horizon = al->play.horizon + HORIZON_LIMIT + 1;
 	correct = al->cos[sub_angle(ray->angle, al->play.dir)];
 	initdst = UINT16_MAX * al->stretch / correct * (al->play.eyez -
 		hit->fl_hei);
-	while (y < WIN_SIZEY)
+	while (y < WIN_SIZEY && initdst > 0)
 	{
 		dist = !(tmp = (2 * (y + horizon) - al->stretch)) ? UINT16_MAX :
 		initdst / tmp;
-
 		distx = dist * ray->xfact / UINT16_MAX + posx;
 		distx = ((distx & TEX_REPEAT_F) * tex->size_x) >> 17;
-
 		disty = dist * ray->yfact / UINT16_MAX + posy;
 		disty = ((disty & TEX_REPEAT_F) * tex->size_y) >> 17;
-
-		al->pix[y * WIN_SIZEX + x] = tex->pix[disty * tex->size_x + distx];
+		tmp = disty * tex->size_x + distx;
+		al->pix[y * WIN_SIZEX + x] = (tex->pix[tmp] >> 24) ? tex->pix[tmp] :
+		skybox(al, y, tx);
 		y++;
 	}
 	// ######################## ceilcasting ####################################
@@ -146,7 +303,9 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 		disty = dist * ray->yfact / UINT16_MAX + posy;
 		disty = ((disty & TEX_REPEAT_F) * tex->size_y) >> 17;
 
-		al->pix[y * WIN_SIZEX + x] = tex->pix[disty * tex->size_x + distx];
+		tmp = disty * tex->size_x + distx;
+		al->pix[y * WIN_SIZEX + x] = (tex->pix[tmp] >> 24) ? tex->pix[tmp] :
+		skybox(al, y, tx);
 		y++;
 	}
 
@@ -154,6 +313,21 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 	while (cur_hit--)
 	{
 		hit = ray->hits + cur_hit;
+		//middle walls
+		distx = ray->hits[cur_hit + 1].fl_hei > hit->fl_hei ?
+		ray->hits[cur_hit + 1].fl_hei : hit->fl_hei;
+		disty = ray->hits[cur_hit + 1].ce_hei < hit->ce_hei ?
+		ray->hits[cur_hit + 1].ce_hei : hit->ce_hei;
+		if ((wall_height = (disty - distx) * UINT16_MAX) > 0)
+		{
+			wall_size = (disty - distx) *
+				wall_scale / hit->hitdst;
+			over_hor = (distx - al->play.eyez) * wall_scale / hit->hitdst
+				+ wall_size;
+			tex = hit->wall.wall_tex ? al->tex + hit->wall.wall_tex : 0;
+			texx = tex ? hit->hit_texx * tex->size_x / UINT16_MAX : 0;
+			column_wall(al, x, wall_size, over_hor, wall_height, 0, texx, tx, hit, tex);
+		}
 		// top walls
 		if ((wall_height = (hit->ce_hei - ray->hits[cur_hit + 1].ce_hei) *
 				UINT16_MAX) > 0)
@@ -177,7 +351,7 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 			texx = hit->hit_texx * tex->size_x / UINT16_MAX;
 			column_wall(al, x, wall_size, over_hor, wall_height, 1, texx, tx, hit, tex);
 		}
-
+	
 		// ######################## floorcasting ###################################
 
 		tex = al->tex + hit->fl_tex;
@@ -202,7 +376,9 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 			//!x ? printf("%d x%d y%d\n", distx / UINT16_MAX - disty / UINT16_MAX, distx / UINT16_MAX, disty / UINT16_MAX) : 0;
 			//y < 0 ? printf("A\n") : 0;
 			//distx < 0 || distx >= tex->size_x || disty < 0 || disty >= tex->size_y ? printf("A\n") : 0;
-			al->pix[y * WIN_SIZEX + x] = tex->pix[disty * tex->size_x + distx];
+			tmp = disty * tex->size_x + distx;
+			al->pix[y * WIN_SIZEX + x] = (tex->pix[tmp] >> 24) ? tex->pix[tmp] :
+			skybox(al, y, tx);
 			y++;
 		}
 
@@ -224,9 +400,10 @@ void		column(t_al *al, int x, t_rc_ray *ray)
 			disty = ((disty & TEX_REPEAT_F) * tex->size_y) >> 17;
 
 			y < 0 || y >= WIN_SIZEY ? printf("y%d\n", y) : 0;
-			al->pix[y * WIN_SIZEX + x] = tex->pix[disty * tex->size_x + distx];
+			tmp = disty * tex->size_x + distx;
+			al->pix[y * WIN_SIZEX + x] = (tex->pix[tmp] >> 24) ? tex->pix[tmp] :
+			skybox(al, y, tx);
 			y++;
 		}
-
 	}
-}
+}*/

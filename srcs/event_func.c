@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/25 12:03:44 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/08 14:01:38 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void		mouse_press(t_al *al)
 {
 	if (al->status == MENU)
 		mouse_press_menu(al);
-	else if (al->status == EDIT)
+	if (al->status == EDIT)
 		mouse_press_edit(al);
 }
 /*
@@ -117,10 +117,11 @@ void		mouse_mv(t_al *al)
 	mev = al->ev.motion;
 	if (mev.windowID == 1)
 	{
-		if (al->edit.stat == DRAWING || (al->edit.stat == RECTANGLE_DRAW))
+		if (al->edit.stat == DRAWING)
 		{
-			al->wall->x2 = mev.x - (mev.x % al->edit.zoom);
-			al->wall->y2 = mev.y - (mev.y % al->edit.zoom);
+			al->sect->walls->x2 = mev.x - (mev.x % al->edit.zoom);
+			al->sect->walls->y2 = mev.y - (mev.y % al->edit.zoom);
+			// (void)al;
 		}
 	}
 }
@@ -137,10 +138,9 @@ void		mouse_mv(t_al *al)
 
 void		mouse_weel(t_al *al)
 {
-	t_wall	*tmp;
+	// t_wall	*tmp;
 
 	(void)al;
-	(void)tmp;
 	// if (al->ev.wheel.y > 0) // scroll up
 	// {
 	// 	al->edit.zoom++;

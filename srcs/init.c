@@ -3,26 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/11/15 15:47:28 by pitriche         ###   ########.fr       */
+=======
+/*   Updated: 2019/11/13 13:54:00 by hutricot         ###   ########.fr       */
+>>>>>>> aa170b1e3d4efbe1c933bef15ecafbf99373e1fa
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
-
-static void		init_wall(t_al *al)
-{
-	if (!(al->wall = (t_wall *)ft_memalloc(sizeof(t_wall))))
-		yeet(al);
-	al->wall->next = NULL;
-	al->wall->prev = NULL;
-	al->wall->x1 = -1;
-	al->wall->x2 = -1;
-	al->wall->y1 = -1;
-	al->wall->y2 = -1;
-}
 
 static void		init_status(t_al *al)
 {
@@ -47,8 +39,10 @@ static void		init_player(t_al *al, t_player *pl)
 /*
 ** je sait pas ou ranger cette fonction
 */
-void    creat_entity(t_al *al)
+
+void    		creat_entity(t_al *al)
 {
+<<<<<<< HEAD
 	al->ent.pl.posx = 0;
     al->ent.pl.posy = -1;
 	al->ent.pl.vely = 0.1;
@@ -59,6 +53,23 @@ void    creat_entity(t_al *al)
 	al->ent.pl.mass = 67;
 	al->ent.pl.alive = 1;
 	al->ent.pl.posz = al->sec[al->play.csec].fl_hei;
+=======
+	al->ent = ft_memalloc(2 * sizeof(t_entity));
+	al->ent[0].etat = 1;
+	al->ent[0].posx = 5;
+    al->ent[0].posy = 5;
+	al->ent[0].csec = 1;
+	al->ent[0].vely = 0.1;
+	al->ent[0].size = PLAYER_SIZE;
+	al->ent[0].on_ground = 1;
+	al->ent[0].dir = 1500;
+	al->ent[0].gd_vel = 2.5;
+	al->ent[0].power = 400;
+	al->ent[0].power_mult = 1;
+	al->ent[0].mass = 67;
+	al->ent[0].alive = 1;
+	al->ent[0].posz = al->sec[al->play.csec].fl_hei;
+>>>>>>> aa170b1e3d4efbe1c933bef15ecafbf99373e1fa
 }
 
 static void		init_trigo(t_al *al)
@@ -85,25 +96,24 @@ static void		init_trigo(t_al *al)
 	}*/
 }
 
-SDL_Color		add_color(int r, int g, int b, int a)
-{
-	SDL_Color c;
-
-	c.r = r;
-	c.g = g;
-	c.b = b;
-	c.a = a;
-	return (c);
-}
-
 void			init_ttf(t_al *al)
 {
-	al->ttf_st = (!TTF_Init()) ? 1 : 0; 
+	al->ttf_st = (!TTF_Init()) ? 1 : 0;
 	if (!(al->font = TTF_OpenFont("/Library/Fonts/Arial.ttf", 20)))
 		yeet(al);
-
-	al->color = add_color(255,255,255, 0);
 	
+}
+
+int				set_text(t_text *text, char *str, SDL_Rect coo, SDL_Color clr) 
+{
+	if (!(text->str = ft_strdup(str)))
+		return (-1);
+	if (!(text->where = (SDL_Rect *)ft_memalloc(sizeof(SDL_Rect))))
+		return (-1);
+	text->where->x = coo.x;
+	text->where->y = coo.y;
+	ft_memcpy(&text->clr, &clr, sizeof(&clr));
+	return (0); 
 }
 
 static void		init_edit(t_al *al)
@@ -114,10 +124,25 @@ static void		init_edit(t_al *al)
 	if (!(al->surf_ed = SDL_GetWindowSurface(al->win_ed)))
 		yeet(al);
 	al->pix_ed = al->sdlsurf->pixels;
+
+	/*
+	** ALL TEXT EDITOR
+	*/
+
+	set_text(&al->text.gen_map, "GENERATION MAP", get_rect(300, 700), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.sect_para, "WHO", get_rect(25, 20), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+
+	set_text(&al->text.x_start, "X1", get_rect(25, 50), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.y_start, "Y1", get_rect(150, 50), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.x_end, "X2", get_rect(25, 100), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.y_end, "Y2", get_rect(150, 100), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+
+	set_text(&al->text.cancel, "CANCEL", get_rect(600, 20), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 }
 
 void			init(t_al *al, char *str)
 {
+<<<<<<< HEAD
 	//if (hms_parser(al, str))
 	//	exit(0);
 	al->tex = ft_memalloc(5 * sizeof(t_tex));
@@ -314,15 +339,21 @@ void			init(t_al *al, char *str)
 	w->x2 = 7;
 	w->y2 = 10;*/
 
+=======
+	if (hms_parser(al, str))
+		exit(0);
+>>>>>>> aa170b1e3d4efbe1c933bef15ecafbf99373e1fa
 	init_player(al, &al->play);
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
+	al->status = EDIT;
 	al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
+	al->nb_texgp = 1;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		yeet(al);
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
@@ -331,13 +362,15 @@ void			init(t_al *al, char *str)
 	if (!(al->sdlsurf = SDL_GetWindowSurface(al->sdlwin)))
 		yeet(al);
 	al->pix = al->sdlsurf->pixels;
-	init_wall(al);
+	init_ttf(al);
 	if (al->status == EDIT)
 		init_edit(al);
+	get_map(al);
+	// printf("222\n");
+	// init_texgrp(al);
 	init_ttf(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = FIRST_CLICK;
-	// al->edit.stat = RECTANGLE_SELECT;
 	al->edit.zoom = 15;
-	al->c_wall = 0; // bzero init everything to 0, this func is for !0 inits ;)
+	// al->nb_sect = 0;
 }

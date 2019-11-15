@@ -6,66 +6,52 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:36:21 by becaraya          #+#    #+#             */
-/*   Updated: 2018/11/14 13:34:15 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 17:53:06 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char		*ft_result(char *result, long int nbr, int n)
+static int		count(int n)
 {
-	if (n < 0)
-		result[1] = nbr + '0';
-	else
-		result[0] = nbr + '0';
-	return (result);
-}
+	int		i;
 
-static int		ft_len(int n)
-{
-	long int		nbr;
-	int				i;
-
-	nbr = n;
 	i = 0;
-	if (nbr < 0)
-		nbr = nbr * -1;
-	while (nbr / 10 > 9)
+	if (n < 0)
 	{
 		i++;
-		nbr = nbr / 10;
+		n = n * -1;
 	}
-	if (n < 0)
-		return (i + 2);
-	else
-		return (i + 1);
+	while (n >= 10)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
 }
 
 char			*ft_itoa(int n)
 {
-	long int		nbr;
-	int				neg;
-	int				i;
-	char			*result;
+	char	*result;
+	int		i;
 
-	nbr = n;
-	neg = 0;
-	i = 0;
-	neg = (nbr < 0) ? -1 : 0;
-	if (!(result = (char *)malloc(sizeof(char) * ft_len(n) + 1 - neg)))
+	if (n == -2147483648)
+		return (ft_strdup("-2147483648"));
+	i = count(n);
+	if (!(result = (char *)malloc(sizeof(char) * i + 2)))
 		return (NULL);
-	if (nbr < 0)
+	result[i + 1] = '\0';
+	if (n < 0)
 	{
-		nbr = nbr * -1;
-		result[i] = '-';
-		i++;
+		result[0] = '\0';
+		n = n * -1;
 	}
-	while ((ft_len(n) - i) > 0 && n != 0 && nbr > 9)
+	while (n >= 10)
 	{
-		result[ft_len(n) - i - neg] = (nbr % 10) + '0';
-		nbr = nbr / 10;
-		i++;
+		result[i] = n % 10 + 48;
+		n = n / 10;
+		i--;
 	}
-	result[ft_len(n) + 1] = '\0';
-	return (ft_result(result, nbr, n));
+	result[i] = n + 48;
+	return (result);
 }

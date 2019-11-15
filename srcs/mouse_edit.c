@@ -6,65 +6,164 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/10/25 12:10:42 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/12 18:35:05 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 
-static void		new_wall(t_al *al)
+static void     set_coo(t_al *al, t_point bev, int who, t_walls *wall)
 {
-	t_wall          	*new;
-	
-	if (al->wall->x1 == al->wall->x2 && al->wall->y1 == al->wall->y2)
-		return ;
-	if (!(new = (t_wall *)ft_memalloc(sizeof(t_wall))))
-		yeet(al);
-	
-	new->x1 = al->wall->x2;
-	new->y1 = al->wall->y2;
-	new->x2 = al->wall->x2;
-	new->y2 = al->wall->y2;
-	new->next = al->wall;
-	al->wall->prev = new;
-	al->wall = new;
-}
-
-static void		print_al(t_wall *wall)
-{
-	if (wall->next)
-		print_al(wall->next);
-	printf("x1 == %d\n", wall->x1);
-	printf("y1 == %d\n", wall->y1);
-	printf("x2 == %d\n", wall->x2);
-	printf("y2 == %d\n\n", wall->y2);
-}
-
-static void     set_coo(t_al *al, SDL_MouseButtonEvent bev, int first)
-{
-    if (first == 1)
+    if (who == 1)
     {
-        al->wall->x1 = bev.x - (bev.x % al->edit.zoom);
-        al->wall->y1 = bev.y - (bev.y % al->edit.zoom);
+        wall->x1 = bev.x - (bev.x % al->edit.zoom);
+        wall->y1 = bev.y - (bev.y % al->edit.zoom);
     }
     else
     {
-        al->wall->x2 = bev.x - (bev.x % al->edit.zoom);
-        al->wall->y2 = bev.y - (bev.y % al->edit.zoom);
+        wall->x2 = bev.x - (bev.x % al->edit.zoom);
+        wall->y2 = bev.y - (bev.y % al->edit.zoom);
     }
 }
 
-static void     stat_draw(t_al *al, SDL_MouseButtonEvent bev, int type)
+t_point			itopoint(int x, int y) //se prononce "I TAU POINT"
 {
-	set_coo(al, bev, 2);
-	new_wall(al);
-	set_coo(al, bev, 1);
-	al->wall->type = type;
+	t_point		res;
+
+	res.x = x;
+	res.y = y;
+	return (res);
 }
 
-void			mouse_press_edit_menu(t_al *al)
+void			init_sect(t_al *al, t_sector *sect)
 {
-	(void)al;
+	t_sector	*new;
+
+	new = NULL;
+	if (!sect)
+	{
+		if (!(al->sect = (t_sector *)ft_memalloc(sizeof(t_sector))))
+			yeet(al);
+		if (!(al->sect->walls = (t_walls *)ft_memalloc(sizeof(t_walls))))
+			yeet(al);
+		set_coo(al, itopoint(-1, -1), 1, al->sect->walls);
+		set_coo(al, itopoint(-1, -1), 2, al->sect->walls);
+		al->sect->next = NULL;
+		al->sect->walls->next = NULL;
+	}
+	else
+	{
+		if (!(new = (t_sector *)ft_memalloc(sizeof(t_sector))))
+			yeet(al);
+		if (!(new->walls = (t_walls *)ft_memalloc(sizeof(t_walls))))
+			yeet(al);
+		set_coo(al, itopoint(-1, -1), 1, new->walls);
+		set_coo(al, itopoint(-1, -1), 2, new->walls);
+		new->next = al->sect;
+		al->sect = new;
+	}
+}
+
+void			add_sector(t_al *al, t_point coo)
+{
+	init_sect(al, al->sect);
+	set_coo(al, coo, 1, al->sect->walls);
+	set_coo(al, coo, 2, al->sect->walls);
+}
+
+int				check_end_sector(t_walls *wall, int x, int y)
+{
+	t_walls *tmp;
+
+	tmp = wall;
+	while (tmp->next)
+		tmp = tmp->next;
+	if (tmp->x1 == x && tmp->y1 == y)
+		return (1);
+	return (0);
+}
+
+void			add_wall(t_al *al, t_sector *sect, t_point coo)
+{
+	t_walls          	*new;
+	
+	if (sect->walls->x1 == sect->walls->x2 && sect->walls->y1 == sect->walls->y2)
+		return ;
+	if (!(new = (t_walls *)ft_memalloc(sizeof(t_walls))))
+		yeet(al);
+	new->x1 = sect->walls->x2;
+	new->y1 = sect->walls->y2;
+	new->x2 = sect->walls->x2;
+	new->y2 = sect->walls->y2;
+	new->next = sect->walls;
+	sect->walls = new;
+	if (check_end_sector(sect->walls->next, coo.x - (coo.x % al->edit.zoom),
+		coo.y - (coo.y % al->edit.zoom)) == 1)
+		al->edit.stat = FIRST_CLICK;
+}
+
+static void		print_wall(t_walls *wall)
+{
+	if (wall->next)
+		print_wall(wall->next);
+	printf("x1 == %f\n", wall->x1);
+	printf("y1 == %f\n", wall->y1);
+	printf("x2 == %f\n", wall->x2);
+	printf("y2 == %f\n\n", wall->y2);
+}
+
+static void		print_al(t_sector *sect)
+{
+	printf("_________________SECTOR_____________________________________\n");
+	if (sect)
+	{
+		if (sect->next)
+			print_al(sect->next);
+		print_wall(sect->walls);
+	}
+}
+
+void			check_can_add(t_al *al, t_sector *sect, t_point coo)
+{
+	t_point tmp;
+
+	tmp.x = coo.x - (coo.x % al->edit.zoom);
+	tmp.y = coo.y - (coo.y % al->edit.zoom);
+	if (sect->walls->next && sect->walls->next->x1 == tmp.x
+		&& sect->walls->next->y1 == tmp.y)
+		return ;
+	add_wall(al, al->sect, coo);
+
+}
+
+void			delonesect(t_sector **sect)
+{
+	t_sector *tmp;
+
+	tmp = NULL;
+	if (!(*sect)->next)
+		ft_memdel(sect);
+	else
+	{
+		tmp = (*sect)->next;
+		free(*sect);
+		*sect = tmp;
+	}
+}
+
+void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
+{
+	// printf("x == %d // y == %d \n", bev.x, bev.y);
+	if (al->edit.stat == DRAWING)
+	{
+		if (bev.x > 590 && bev.x < 685 && bev.y > 15 && bev.y < 48)
+		{
+			al->edit.stat = FIRST_CLICK;
+			free_wall(al->sect->walls);
+			al->nb_sec--;
+			delonesect(&al->sect);
+		}
+	}
 }
 
 void		    mouse_press_edit(t_al *al)
@@ -74,23 +173,19 @@ void		    mouse_press_edit(t_al *al)
 	bev = al->ev.button;
 	if (bev.type == SDL_MOUSEBUTTONUP)
 		return ;
-	printf("____________________________________________________________\n");
-	print_al(al->wall);
+	// printf("____________________________________________________________\n");
+	// (al->sect) ? print_al(al->sect) : 0;
 	if (bev.windowID == 1)
 	{
-		if (al->edit.stat == FIRST_CLICK || al->edit.stat == RECTANGLE_SELECT)
+		if (al->edit.stat == FIRST_CLICK)
 		{
-			al->edit.stat = (al->edit.stat == FIRST_CLICK) ? DRAWING
-				: RECTANGLE_DRAW;
-			set_coo(al, bev, 1);
-			set_coo(al, bev, 2);
-			
+			al->edit.stat = DRAWING;
+			al->nb_sec++;
+			add_sector(al, itopoint(bev.x, bev.y));
 		}
 		if (al->edit.stat == DRAWING)
-			stat_draw(al, bev, SIMPLE);
-		if (al->edit.stat == RECTANGLE_DRAW)
-			stat_draw(al, bev, RECT);
+			check_can_add(al, al->sect, itopoint(bev.x, bev.y));
 	}
 	if (bev.windowID == 2)
-		mouse_press_edit_menu(al);
+		mouse_press_edit_menu(al, bev);
 }

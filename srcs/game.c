@@ -6,11 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2019/10/29 15:49:34 by pitriche         ###   ########.fr       */
-=======
 /*   Updated: 2019/11/13 12:40:42 by hutricot         ###   ########.fr       */
->>>>>>> aa170b1e3d4efbe1c933bef15ecafbf99373e1fa
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,17 +140,8 @@ static void		displacement(t_al *al)
 		ft_nop_player(al, 0, al->play.velx * al->dtime / 1000000, al->play.vely * al->dtime / 1000000);
 	al->play.posz +=  al->play.velz * al->dtime / 1000000;
 	al->play.eyez += al->play.velz * al->dtime / 1000000;
-<<<<<<< HEAD
-
-
-
-
-
-	
-=======
-	if (al->dtime > 1)
-		ft_nop (al, 0, al->ent[0].velx * al->dtime / 1000000, al->ent[0].vely * al->dtime / 1000000);
->>>>>>> aa170b1e3d4efbe1c933bef15ecafbf99373e1fa
+	//if (al->dtime > 1)
+	//	ft_nop (al, 0, al->ent[0].velx * al->dtime / 1000000, al->ent[0].vely * al->dtime / 1000000);
 	if (al->play.posz < al->sec[al->play.csec].fl_hei)
 	{
 		al->play.posz = al->sec[al->play.csec].fl_hei;
@@ -188,12 +175,12 @@ void		game(t_al *al)
 	al->k.space ? jump(al) : 0;
 	if (al->play.on_ground)
 		acceleration(al);
-//	while (al->ent[x] < al->nb_entity)
-		// if (al->ent.on_ground)
 	else
 		flyyyy(al);
-	if(al->ent[0].etat == 1) 
-		acceleration_entities(al);
+//	while (al->ent[x] < al->nb_entity)
+		// if (al->ent.on_ground)
+	// if(al->ent[0].etat == 1) 
+	//	acceleration_entities(al);
 	displacement(al);
 	render(al);
 }

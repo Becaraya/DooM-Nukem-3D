@@ -259,8 +259,9 @@ typedef struct		s_edit
 
 /*
 ** raycast hit limits descripting struct
-** first set of limits are non horizon corrected lims, while the 2nd set is
+** first set of limits are horizon corrected lims, while the 2nd set is
 ** horizon corrected and screen size capped
+** mb: mental breakdown. I have given up on remaining sane
 */
 
 typedef struct		s_rc_lim
@@ -278,6 +279,9 @@ typedef struct		s_rc_lim
 	int	sc_botmid;
 	int	sc_botwall;
 	int	sc_botlim;
+
+	int	mb_botlim;
+	int	mb_toplim;
 }					t_rc_lim;
 
 /*
@@ -439,9 +443,9 @@ typedef struct		s_al
 	t_tex_group		*texgp;
 
 	t_entity		*ent;
+	//t_entity		ent;
 
 	t_player		play;
-	t_entity		ent;
 	double			g;
 	t_angle			fov;
 	int				stretch;

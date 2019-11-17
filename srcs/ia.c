@@ -14,7 +14,7 @@
 
 void		acceleration_entities(t_al *al)
 {
-	t_entity *ent;
+/*	t_entity *ent;
 
 	ent = (&al->ent[0]);
 	if (ent->posx < al->play.posx)
@@ -35,5 +35,5 @@ void		acceleration_entities(t_al *al)
 	 
 	//ent->velx = al->sin[ent->dir] * ent->gd_vel;
 	//ent->vely = al->cos[ent->dir] * ent->gd_vel;
-	
+	*/	
 }

@@ -74,7 +74,7 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	(m[1] == 1) ? PPY += y : 0;
 	(m[0] == 1) ? PPX += x : 0; 
 }
-
+/*
 void	ft_nop(t_al *al, int e, double x, double y)
 {
 	double m[2];
@@ -103,4 +103,4 @@ void	ft_nop(t_al *al, int e, double x, double y)
 	}
 	(m[1] == 1) ? al->ent[e].posy += y : 0;
 	(m[0] == 1) ? al->ent[e].posx += x : 0; 
-}
+}*/

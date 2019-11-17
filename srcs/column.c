@@ -40,13 +40,11 @@ void		hit_floor(t_al *al, t_rc_ray *ray, int hitnb)
 {
 	int botlim;
 
-	botlim = ray->hits[hitnb].lim.sc_botlim;
-	while (botlim > ray->hits[hitnb].lim.sc_botwall)
-	{
-		if (botlim < 0 || botlim >= WIN_SIZEY)
-			printf("ERR FLOOR YOTE %d\n", botlim);
-		al->pix[(botlim--) * WIN_SIZEX + ray->x] = 0x5050ff + 0x202000 * hitnb;
-	}
+	botlim = ray->hits[hitnb].lim.sc_botwall;
+	//if (ray->x == WIN_SIZEX / 2 && botlim < ray->hits[hitnb].lim.sc_botlim)
+	//	printf("floor %d > %d\n", botlim, ray->hits[hitnb].lim.sc_botlim);
+	while (botlim < ray->hits[hitnb].lim.sc_botlim)
+		al->pix[(botlim++) * WIN_SIZEX + ray->x] = 0x5050ff;// + 0x202000 * hitnb;
 }
 
 void		hit_ceiling(t_al *al, t_rc_ray *ray, int hitnb)
@@ -54,12 +52,10 @@ void		hit_ceiling(t_al *al, t_rc_ray *ray, int hitnb)
 	int toplim;
 
 	toplim = ray->hits[hitnb].lim.sc_toplim;
+	//if (ray->x == WIN_SIZEX / 2 && toplim < ray->hits[hitnb].lim.sc_topwall)
+	//	printf("ceiling %d > %d\n", toplim, ray->hits[hitnb].lim.sc_topwall);
 	while (toplim < ray->hits[hitnb].lim.sc_topwall)
-	{
-		if (toplim < 0 || toplim >= WIN_SIZEY)
-			printf("ERR FLOOR YOTE %d\n", toplim);
-		al->pix[(toplim++) * WIN_SIZEX + ray->x] = 0xff5050 + 0x002020 * hitnb;
-	}
+		al->pix[(toplim++) * WIN_SIZEX + ray->x] = 0xff5050;// + 0x002020 * hitnb;
 }
 
 void		hit_top_wall(t_al *al, t_rc_ray *ray, int hitnb)
@@ -67,56 +63,56 @@ void		hit_top_wall(t_al *al, t_rc_ray *ray, int hitnb)
 	int top;
 
 	top = ray->hits[hitnb].lim.sc_topwall;
+	//if (ray->x == WIN_SIZEX / 2 && top < ray->hits[hitnb].lim.sc_topmid)
+	//	printf("top wall %d > %d\n", top, ray->hits[hitnb].lim.sc_topmid);
 	while (top < ray->hits[hitnb].lim.sc_topmid)
-	{
-		if (top < 0 || top >= WIN_SIZEY)
-			printf("ERR FLOOR YOTE %d\n", top);
-		al->pix[(top++) * WIN_SIZEX + ray->x] = 0x30ff60 + 0x100010 * hitnb;
-	}
+		al->pix[(top++) * WIN_SIZEX + ray->x] = 0x30ff60;// + 0x100010 * hitnb;
 }
 
 void		hit_bot_wall(t_al *al, t_rc_ray *ray, int hitnb)
 {
 	int bot;
 
-	bot = ray->hits[hitnb].lim.sc_botwall;
-	while (bot > ray->hits[hitnb].lim.sc_botmid)
-	{
-		al->pix[(bot--) * WIN_SIZEX + ray->x] = 0x60ff30 + 0x100010 * hitnb;
-	}
+	bot = ray->hits[hitnb].lim.sc_botmid;
+	//if (ray->x == WIN_SIZEX / 2 && bot < ray->hits[hitnb].lim.sc_botwall)
+	//	printf("bot wall %d > %d\n", bot, ray->hits[hitnb].lim.sc_botwall);
+	while (bot < ray->hits[hitnb].lim.sc_botwall)
+		al->pix[(bot++) * WIN_SIZEX + ray->x] = 0x60ff30;// + 0x100010 * hitnb;
 }
 
-void		sc_lims(t_rc_lim *lim)
+/*
+** je pete des cables putain
+*/
+
+inline	void	cap_int(int *var, int lowcap, int highcap)
 {
-	lim->sc_toplim = lim->toplim >= 0 ? lim->toplim : 0;
-	lim->sc_toplim = lim->sc_toplim < WIN_SIZEY ? lim->sc_toplim :
-	WIN_SIZEY - 1;
-	lim->sc_topwall = lim->topwall >= 0 ? lim->topwall : 0;
-	lim->sc_topwall = lim->sc_topwall < WIN_SIZEY ? lim->sc_topwall :
-	WIN_SIZEY - 1;
-	lim->sc_topmid = lim->topmid >= 0 ? lim->topmid : 0;
-	lim->sc_topmid = lim->sc_topmid < WIN_SIZEY ? lim->sc_topmid :
-	WIN_SIZEY - 1;
+	if (*var < lowcap)
+		*var = lowcap;
+	if (*var > highcap)
+		*var = highcap;
+}
 
-	lim->sc_topwall = lim->sc_topwall >= lim->sc_toplim ? lim->sc_topwall :
-	lim->sc_toplim;
-	lim->sc_topmid = lim->sc_topmid >= lim->sc_toplim ? lim->sc_topmid :
-	lim->sc_toplim;
+/*
+** je noie ma souffrance dans l'alcool
+*/
 
-	lim->sc_botmid = lim->botmid >= 0 ? lim->botmid : 0;
-	lim->sc_botmid = lim->sc_botmid < WIN_SIZEY ? lim->sc_botmid :
-	WIN_SIZEY - 1;
-	lim->sc_botwall = lim->botwall >= 0 ? lim->botwall : 0;
-	lim->sc_botwall = lim->sc_botwall < WIN_SIZEY ? lim->sc_botwall :
-	WIN_SIZEY - 1;
-	lim->sc_botlim = lim->botlim >= 0 ? lim->botlim : 0;
-	lim->sc_botlim = lim->sc_botlim < WIN_SIZEY ? lim->sc_botlim :
-	WIN_SIZEY - 1;
-
-	lim->sc_botwall = lim->sc_botwall <= lim->sc_botlim ? lim->sc_botwall :
-	lim->sc_botlim;
-	lim->sc_botmid = lim->sc_botmid <= lim->sc_botlim ? lim->sc_botmid :
-	lim->sc_botlim;
+void		sc_lims(t_rc_lim *lim, t_rc_lim prlim)
+{
+	lim->sc_toplim = lim->toplim;
+	cap_int(&lim->sc_toplim, prlim.mb_toplim, prlim.mb_botlim);
+	lim->sc_topwall = lim->topwall;
+	cap_int(&lim->sc_topwall, prlim.mb_toplim, prlim.mb_botlim);
+	lim->sc_topmid = lim->topmid;
+	cap_int(&lim->sc_topmid, prlim.mb_toplim, prlim.mb_botlim);
+	
+	lim->sc_botlim = lim->botlim;
+	cap_int(&lim->sc_botlim, prlim.mb_toplim, prlim.mb_botlim);
+	lim->sc_botwall = lim->botwall;
+	cap_int(&lim->sc_botwall, prlim.mb_toplim, prlim.mb_botlim);
+	lim->sc_botmid = lim->botmid;
+	cap_int(&lim->sc_botmid, prlim.mb_toplim, prlim.mb_botlim);
+	lim->mb_toplim = lim->sc_topmid;
+	lim->mb_botlim = lim->sc_botmid;
 }
 
 void		hit_wall(t_al *al, t_rc_ray *ray, int hitnb)
@@ -124,11 +120,14 @@ void		hit_wall(t_al *al, t_rc_ray *ray, int hitnb)
 	int wall;
 
 	wall = ray->hits[hitnb].lim.sc_topmid;
-	if (hitnb != 0)
+	//if (ray->x == WIN_SIZEX / 2 && wall < ray->hits[hitnb].lim.sc_botmid)
+	//	printf("middle wall %d > %d\n", ray->hits[hitnb].lim.sc_topmid, ray->hits[hitnb].lim.sc_botmid);
 	while (wall < ray->hits[hitnb].lim.sc_botmid)
 	{
-		if (!((wall + ray->x * 3) % 10))
-			al->pix[wall * WIN_SIZEX + ray->x] = 0xff6060;
+		//if (!((wall + ray->x * (3 + hitnb)) % 10))
+		//	al->pix[wall * WIN_SIZEX + ray->x] = 0xff6060;
+		if (hitnb == ray->nb_hits - 1)
+			al->pix[wall * WIN_SIZEX + ray->x] = 0x202020;// + 0x000030 * hitnb;;
 		wall-=-1;
 	}
 }
@@ -144,11 +143,11 @@ void		hit_print(t_al *al, t_rc_ray *ray, int hitnb, t_rc_lim prlim)
 	hor = WIN_SIZEY / 2 - al->play.horizon;
 	if (!hit->is_entity)
 	{
-		lim->toplim = prlim.topmid;
+		lim->toplim = prlim.mb_toplim;
 		lim->topwall = hor - ((hit->ce_hei - al->play.eyez) *
 			al->wall_scale / hit->hitdst);
 		lim->topmid = lim->topwall;
-		lim->botlim = prlim.botmid;
+		lim->botlim = prlim.mb_botlim;
 		lim->botwall = hor + ((al->play.eyez - hit->fl_hei) *
 			al->wall_scale / hit->hitdst);
 		lim->botmid = lim->botwall;
@@ -161,14 +160,15 @@ void		hit_print(t_al *al, t_rc_ray *ray, int hitnb, t_rc_lim prlim)
 			(al->play.eyez - (hit + 1)->fl_hei) * al->wall_scale / hit->hitdst
 			: lim->botwall;
 		}
-		sc_lims(lim);
+		sc_lims(lim, prlim);
+
+		hit_ceiling(al, ray, hitnb);
+		hit_floor(al, ray, hitnb);
 		if (hitnb < ray->nb_hits - 1)
 		{
 			hit_top_wall(al, ray, hitnb);
 			hit_bot_wall(al, ray, hitnb);
 		}
-		hit_ceiling(al, ray, hitnb);
-		hit_floor(al, ray, hitnb);
 	}
 	if (hitnb < ray->nb_hits - 1)
 		hit_print(al, ray, hitnb + 1, *lim);
@@ -181,8 +181,8 @@ void		column(t_al *al, t_rc_ray *ray)
 {
 	t_rc_lim lim;
 
-	lim.topmid = 0;
-	lim.botmid = WIN_SIZEY - 1;
+	lim.mb_toplim = 0;
+	lim.mb_botlim = WIN_SIZEY - 1;
 	hit_print(al, ray, 0, lim);
 }
 

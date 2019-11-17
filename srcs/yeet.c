@@ -61,8 +61,8 @@ void	yeet(t_al *al)
 	al->win_ed ? SDL_DestroyWindow(al->win_ed) : 0;
 	if (al->sdlwin)
 	{
-		SDL_DestroyWindow(al->sdlwin);
-		SDL_Quit();
+		//SDL_DestroyWindow(al->sdlwin); // fais un ROOT LEAK, ô saint becaraya
+		//SDL_Quit();					// eclaire nous de ta brillance
 	}
 	exit(0);
 }

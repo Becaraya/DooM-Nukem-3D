@@ -25,7 +25,6 @@ SRC_LIST = main.c			\
 		event_func.c		\
 		game.c				\
 		render.c			\
-		entity.c			\
 		column.c			\
 		angles.c			\
 		sport_physics.c		\

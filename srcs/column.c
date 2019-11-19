@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 10:46:13 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/15 16:02:10 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:20:12 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,20 @@ void		hit_wall(t_al *al, t_rc_ray *ray, int hitnb)
 	}
 }
 
+void		hit_ent(t_al *al, t_rc_ray *ray, int hitnb)
+{
+	int wall;
+
+	wall = 150;
+	//if (ray->x == WIN_SIZEX / 2 && wall < ray->hits[hitnb].lim.sc_botmid)
+	//	printf("middle wall %d > %d\n", ray->hits[hitnb].lim.sc_topmid, ray->hits[hitnb].lim.sc_botmid);
+	while (wall < WIN_SIZEY - 150)
+	{
+		al->pix[wall * WIN_SIZEX + ray->x] = 0xee82ee + 0x020202 * hitnb;
+		wall-=-1;
+	}
+}
+
 void		hit_print(t_al *al, t_rc_ray *ray, int hitnb, t_rc_lim prlim)
 {
 	t_rc_hit	*hit;
@@ -172,7 +186,7 @@ void		hit_print(t_al *al, t_rc_ray *ray, int hitnb, t_rc_lim prlim)
 	}
 	if (hitnb < ray->nb_hits - 1)
 		hit_print(al, ray, hitnb + 1, *lim);
-	hit_wall(al, ray, hitnb);
+	hit->is_entity ? hit_ent(al, ray, hitnb) : hit_wall(al, ray, hitnb);
 }
 
 

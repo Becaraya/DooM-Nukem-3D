@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/19 13:57:30 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:25:41 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define WIN_EDIT_SIZEX	768
 # define WIN_EDIT_SIZEY	768
 
-# define MAX_WALLS_HIT	1000
+# define MAX_HITS	1000
 # define HORIZON_LIMIT	1000
 
 # define D_2PI	8192 // 1<13
@@ -305,8 +305,8 @@ typedef struct		s_rc_hit
 
 /*
 ** raycast ray descripting func to add info missing from t_walls
-** xfact and yfact are 16 bits sin and cos of anglem for floorcasting
-** min is used in test_hit and is unimportant
+** xfact and yfact are 16 bits sin and cos of angle for floorcasting
+** min is used in test_hit
 */
 
 typedef struct		s_rc_ray
@@ -316,7 +316,7 @@ typedef struct		s_rc_ray
 	int			xfact;
 	int			yfact;
 	int			nb_hits;
-	t_rc_hit	hits[MAX_WALLS_HIT];
+	t_rc_hit	hits[MAX_HITS];
 
 	double		min;
 }					t_rc_ray;
@@ -446,11 +446,11 @@ typedef struct		s_al
 	unsigned short	nb_ent;
 	t_mob			*ent;
 	t_mob			*rotent;
-	//t_entity		ent;
 
 	t_player		play;
 	double			g;
 	t_angle			fov;
+	
 	int				stretch;
 	int				wall_scale;
 

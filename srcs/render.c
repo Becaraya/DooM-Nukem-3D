@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/19 14:24:05 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:14:59 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		rot_sec(t_al *al, unsigned int secid, t_angle angle)
 	}
 }
 
-void		rot_ent(t_al *al, t_angle angle)
+void		rot_ents(t_al *al, t_angle angle)
 {
 	/*
 	unsigned	i;
@@ -167,9 +167,44 @@ int			test_aleready_hit(t_rc_ray *ray, t_walls *owall)
 }
 
 
-void		test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
+int			test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 {
 	double		alpha;
+	double		beta;
+	double		tmp_dst;
+
+	if (((wall->x1 >= 0 && wall->x2 <= 0) ||
+		(wall->x2 >= 0 && wall->x1 <= 0)) && wall->x1)
+	{
+		alpha = (wall->x2 - wall->x1) / (double)(wall->y2 - wall->y1);
+		beta = wall->x1 - wall->y1 * alpha;
+		tmp_dst = wall->y2 == wall->y1 ? 0 : -beta / alpha;
+		if (tmp_dst > 0)
+		{
+			if (tmp_dst < ray->min)
+			{
+				if (!test_aleready_hit(ray, owall))
+				{
+					ray->min = tmp_dst;
+					ray->hits[ray->nb_hits].wall_length = wall_len(owall);
+					wall->x1 > wall->x2 ? swapd(&wall->x1, &wall->x2) : 0;
+					ray->hits[ray->nb_hits].hit_texx = (unsigned)(wall->x1 /
+						(wall->x1 - wall->x2) * wall_len(owall) * UINT16_MAX) %
+						(unsigned)(TEX_REPEAT * UINT16_MAX) / TEX_REPEAT;
+					tmp_dst *= al->cos[sub_angle(ray->angle, al->play.dir)];
+					ray->hits[ray->nb_hits].hitdst = tmp_dst;
+					ray->hits[ray->nb_hits].wall = *owall;
+					return (1);
+				}
+			}
+		}
+	}
+	return (0);
+}
+
+int			test_ent_hit(t_al *al, t_rc_ray *ray, t_mob *ent, t_mob *oent)
+{
+/*	double		alpha;
 	double		beta;
 	double		tmp_dst;
 
@@ -197,27 +232,42 @@ void		test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 				}
 			}
 		}
-	}
+	}*/
+	return (0);
 }
+
+/*
+** Also cast entites
+*/
 
 void		cast_sec(t_al *al, t_rc_ray *ray, unsigned secid, t_angle angle)
 {
 	unsigned	i;
+	int			hits;
+	int			enthits;
 	t_sector	*rsec;
 
-	i = -1;
 	ray->hits[ray->nb_hits].fl_tex = al->sec[secid].fl_tex;
 	ray->hits[ray->nb_hits].fl_hei = al->sec[secid].fl_hei;
 	ray->hits[ray->nb_hits].ce_tex = al->sec[secid].ce_tex;
 	ray->hits[ray->nb_hits].ce_hei = al->sec[secid].ce_hei;
 	rot_sec(al, secid, angle);
+	rot_ents(al, angle);
 	rsec = al->rotsec + secid;
 	ray->min = INFINITY;
+	i = -1;
+	enthits = 0;
+	while (++i < al->nb_ent)
+		enthits += test_ent_hit(al, ray, al->rotent + i, al->ent + i);
+	i = -1;
+	hits = 0;
 	while (++i < rsec->nb_wal)
-		test_hit(al, ray, rsec->walls + i, al->sec[secid].walls + i);
-	//printf("hiiit a%3d  %d%+.1fm wallx%4.1f,y%4.1f  x%4.1f,y%4.1f\n", angle * 360 / D_2PI, ray->nb_hits, ray->hits[ray->nb_hits].hitdst, ray->hits[ray->nb_hits].wall.x1, ray->hits[ray->nb_hits].wall.y1, ray->hits[ray->nb_hits].wall.x2, ray->hits[ray->nb_hits].wall.y2);
+		hits += test_hit(al, ray, rsec->walls + i, al->sec[secid].walls + i);
 	ray->nb_hits++;
-	if (ray->hits[ray->nb_hits - 1].wall.sec_lnk)
+	!hits && enthits? printf("ah\n") : 0;
+	if (enthits && !hits)
+		cast_sec(al, ray, secid, angle);
+	else if (ray->hits[ray->nb_hits - 1].wall.sec_lnk)
 		cast_sec(al, ray, ray->hits[ray->nb_hits - 1].wall.sec_lnk, angle);
 }
 

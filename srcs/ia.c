@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ia.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 19:06:05 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/12 20:34:32 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/19 13:09:46 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void		acceleration_entities(t_al *al)
 {
+	(void)al; // pour enlever le warning, a retirer apres
 /*	t_entity *ent;
 
 	ent = (&al->ent[0]);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/13 13:54:00 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/19 14:16:18 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,11 @@ static void		init_player(t_al *al, t_player *pl)
 
 void    		creat_entity(t_al *al)
 {
+	al->nb_ent = 1;
+	al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob));
+	al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob));
 	/*al->ent.pl.posx = 0;
-    al->ent.pl.posy = -1;
+	al->ent.pl.posy = -1;
 	al->ent.pl.vely = 0.1;
 	al->ent.pl.size = PLAYER_SIZE;
 	al->ent.pl.on_ground = 1;
@@ -47,23 +50,22 @@ void    		creat_entity(t_al *al)
 	al->ent.pl.power_mult = 1;
 	al->ent.pl.mass = 67;
 	al->ent.pl.alive = 1;
-	al->ent.pl.posz = al->sec[al->play.csec].fl_hei;
-	
-	al->ent = ft_memalloc(2 * sizeof(t_entity));
-	al->ent[0].etat = 1;
-	al->ent[0].posx = 5;
-    al->ent[0].posy = 5;
+	al->ent.pl.posz = al->sec[al->play.csec].fl_hei;*/
+
 	al->ent[0].csec = 1;
+	al->ent[0].posx = 3;
+    al->ent[0].posy = 2;
+	al->ent[0].posz = al->sec[al->ent[0].csec].fl_hei;
 	al->ent[0].vely = 0.1;
-	al->ent[0].size = PLAYER_SIZE;
+	al->ent[0].gd_vel = 0.1;
 	al->ent[0].on_ground = 1;
-	al->ent[0].dir = 1500;
-	al->ent[0].gd_vel = 2.5;
-	al->ent[0].power = 400;
-	al->ent[0].power_mult = 1;
-	al->ent[0].mass = 67;
 	al->ent[0].alive = 1;
-	al->ent[0].posz = al->sec[al->play.csec].fl_hei;*/
+	al->ent[0].dir = D_PI;
+
+	al->ent[0].size = 1.7;
+	al->ent[0].width = 0.6;
+	al->ent[0].mass = 50;
+	al->ent[0].power = 200;
 }
 
 static void		init_trigo(t_al *al)
@@ -433,7 +435,7 @@ void			init(t_al *al, char *str)
 	w->y2 = s->walls->y1;*/
 
 	init_player(al, &al->play);
-	//creat_entity(al);
+	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
 	al->status = EDIT;

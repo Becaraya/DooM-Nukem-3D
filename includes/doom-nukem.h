@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/15 16:06:24 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/19 13:57:30 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -384,6 +384,7 @@ typedef struct		s_mob
 	t_angle		dir;
 
 	double		size;
+	double		width;
 	double		mass;
 	double		power;
 }					t_mob;
@@ -438,11 +439,13 @@ typedef struct		s_al
 	t_sector		*sec;
 	t_sector		*rotsec;
 	unsigned short	nb_tex;
-	unsigned short	nb_texgp;
 	t_tex			*tex;
+	unsigned short	nb_texgp;
 	t_tex_group		*texgp;
 
-	t_entity		*ent;
+	unsigned short	nb_ent;
+	t_mob			*ent;
+	t_mob			*rotent;
 	//t_entity		ent;
 
 	t_player		play;

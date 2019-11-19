@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/13 12:40:42 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/14 15:23:51 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ static void		displacement(t_al *al)
 	al->play.posz +=  al->play.velz * al->dtime / 1000000;
 	al->play.eyez += al->play.velz * al->dtime / 1000000;
 	if (al->dtime > 1)
-		ft_nop (al, 0, al->ent[0].velx * al->dtime / 1000000, al->ent[0].vely * al->dtime / 1000000);
+		ft_nop (al, &al->ent[0], al->ent[0].velx * al->dtime / 1000000, al->ent[0].vely * al->dtime / 1000000);
 	if (al->play.posz < al->sec[al->play.csec].fl_hei)
 	{
 		al->play.posz = al->sec[al->play.csec].fl_hei;

@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/13 12:24:19 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/19 14:12:41 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,25 @@ int			test_aleready_hit(t_rc_ray *ray, t_walls *owall)
 	return (0);
 }
 
+void		draw_triangle(double x, double y, int i, t_al *al)
+{
+	t_point a;
+	t_point b;
+
+	a.x = x;
+	a.y = y - 5;
+	while (a.y <= y + 5){
+		b.y = a.y;
+		b.x = a.x + i;
+		if (i > 0)
+			i += (a.y >= y) ? -1 : 1;
+		else 
+			i -= (a.y >= y) ? -1 : 1;
+		ft_put_line(a, b, al->sdlsurf, WHITE);
+		a.y++;
+	}
+}
+
 void		draw_map(t_al *al)
 {
 	t_point a;
@@ -116,22 +135,24 @@ void		draw_map(t_al *al)
 		}
 		nb_sec++;
 	}
-	a.y = -al->ent[0].posy * 10 + (WIN_SIZEY / 2);
-	a.x = al->ent[0].posx * 10 + (WIN_SIZEX / 2);
+	a.y = -al->ent[0].py * 10 + (WIN_SIZEY / 2);
+	a.x = al->ent[0].px * 10 + (WIN_SIZEX / 2);
 	b.y = a.y + 5;
 	b.x = a.x + 5;
 	while(++a.y < b.y)
 	{
-		a.x = al->ent[0].posx * 10 + (WIN_SIZEX / 2);
+		a.x = al->ent[0].px * 10 + (WIN_SIZEX / 2);
 		while(++a.x < b.x)
 			al->pix[(int)(a.x + (a.y * WIN_SIZEX))] = 0x0000ff;
 	}
-	
-	a.x = al->play.posx * 10 + (WIN_SIZEX / 2);
-	a.y = -al->play.posy * 10 + (WIN_SIZEY / 2);
-	b.x = a.x + al->sin[al->play.dir] * 10;
-	b.y = a.y - al->cos[al->play.dir] * 10;
-	ft_put_line(a, b, al->sdlsurf, WHITE);
+
+		a.x = al->play.posx * 10 + (WIN_SIZEX / 2);
+		a.y = -al->play.posy * 10 + (WIN_SIZEY / 2);
+		b.x = a.x + al->sin[al->play.dir] * 10;
+		b.y = a.y - al->cos[al->play.dir] * 10;
+		ft_put_line(a, b, al->sdlsurf, WHITE);
+		draw_triangle(a.x ,a.y, -1, al);
+
 	al->pix[(int)(a.x + (a.y * WIN_SIZEX))] = 0xff00ff;
 	al->pix[(int)(a.x + 1 + (a.y * WIN_SIZEX))] = 0xff00ff;
 	al->pix[(int)(a.x + ((a.y + 1) * WIN_SIZEX))] = 0xff00ff;

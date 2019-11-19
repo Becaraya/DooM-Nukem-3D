@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/13 13:54:00 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/18 16:49:49 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void    		creat_entity(t_al *al)
 {
 	al->ent = ft_memalloc(2 * sizeof(t_entity));
 	al->ent[0].etat = 1;
-	al->ent[0].posx = 5;
-    al->ent[0].posy = 5;
+	al->ent[0].px = 1;
+    al->ent[0].py = 1;
 	al->ent[0].csec = 1;
 	al->ent[0].vely = 0.1;
 	al->ent[0].size = PLAYER_SIZE;
@@ -52,7 +52,7 @@ void    		creat_entity(t_al *al)
 	al->ent[0].power_mult = 1;
 	al->ent[0].mass = 67;
 	al->ent[0].alive = 1;
-	al->ent[0].posz = al->sec[al->play.csec].fl_hei;
+	al->ent[0].pz = al->sec[al->play.csec].fl_hei;
 }
 
 static void		init_trigo(t_al *al)

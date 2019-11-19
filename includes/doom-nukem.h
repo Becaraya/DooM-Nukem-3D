@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/18 11:56:21 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:49:21 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # define WIN_EDIT_SIZEX	768
 # define WIN_EDIT_SIZEY	768
 
-# define MAX_WALLS_HIT	1000
+# define MAX_HITS	1000
 # define HORIZON_LIMIT	1000
 
 # define D_2PI	8192 // 1<13
@@ -258,6 +258,33 @@ typedef struct		s_edit
 }					t_edit;
 
 /*
+** raycast hit limits descripting struct
+** first set of limits are horizon corrected lims, while the 2nd set is
+** horizon corrected and screen size capped
+** mb: mental breakdown. I have given up on remaining sane
+*/
+
+typedef struct		s_rc_lim
+{
+	int	toplim;
+	int	topwall;
+	int	topmid;
+	int	botmid;
+	int	botwall;
+	int	botlim;
+
+	int	sc_toplim;
+	int	sc_topwall;
+	int	sc_topmid;
+	int	sc_botmid;
+	int	sc_botwall;
+	int	sc_botlim;
+
+	int	mb_botlim;
+	int	mb_toplim;
+}					t_rc_lim;
+
+/*
 ** raycast hit descripting struct to add info missing from t_walls
 ** wall_length is length in m
 */
@@ -271,24 +298,25 @@ typedef struct		s_rc_hit
 	double		fl_hei;
 	unsigned	ce_tex;
 	double		ce_hei;
-	int			w_toplim;
-	int			w_botlim;
 	t_walls		wall;
+	t_rc_lim	lim;
+	unsigned	is_entity:1;
 }					t_rc_hit;
 
 /*
 ** raycast ray descripting func to add info missing from t_walls
-** xfact and yfact are 16 bits sin and cos of anglem for floorcasting
-** min is used in test_hit and is unimportant
+** xfact and yfact are 16 bits sin and cos of angle for floorcasting
+** min is used in test_hit
 */
 
 typedef struct		s_rc_ray
 {
+	int			x;
 	t_angle		angle;
 	int			xfact;
 	int			yfact;
 	int			nb_hits;
-	t_rc_hit	hits[MAX_WALLS_HIT];
+	t_rc_hit	hits[MAX_HITS];
 
 	double		min;
 }					t_rc_ray;
@@ -324,6 +352,9 @@ typedef struct		s_player
 	double		vely;
 	double		velz;
 	double		gd_vel;
+	unsigned	on_ground:1;
+	unsigned	alive:1;
+	t_angle		dir;
 
 	double		size;
 	double		eyez;
@@ -331,17 +362,14 @@ typedef struct		s_player
 	double		power;
 	double		power_mult;
 
-	t_angle		dir;
 	int			horizon;
-	unsigned	on_ground:1;
-	unsigned	alive:1;
 }					t_player;
 
 /*
-* i think some var are usless on entity.
+** i think some var are usless on entity.
 */
 
-typedef struct		s_entity
+typedef struct		s_mob
 {
 	unsigned	csec;
 	double		px;
@@ -351,18 +379,20 @@ typedef struct		s_entity
 	double		vely;
 	double		velz;
 	double		gd_vel;
-
-	double		size;
-//	double		eyez;
-	double		mass;
-	double		power;
-	double		power_mult;
-
-	t_angle		dir;
-//	int			horizon;
 	unsigned	on_ground:1;
 	unsigned	alive:1;
-	int			etat;
+	t_angle		dir;
+
+	double		size;
+	double		width;
+	double		mass;
+	double		power;
+}					t_mob;
+
+typedef union		u_entity
+{
+	t_player	pl;
+	t_mob		mob;
 }					t_entity;
 
 typedef struct		s_text
@@ -409,16 +439,20 @@ typedef struct		s_al
 	t_sector		*sec;
 	t_sector		*rotsec;
 	unsigned short	nb_tex;
-	unsigned short	nb_texgp;
 	t_tex			*tex;
+	unsigned short	nb_texgp;
 	t_tex_group		*texgp;
 
-	t_entity		*ent;
+	unsigned short	nb_ent;
+	t_mob			*ent;
+	t_mob			*rotent;
 
 	t_player		play;
 	double			g;
 	t_angle			fov;
+	
 	int				stretch;
+	int				wall_scale;
 
 	unsigned int	fps;
 	long			last_time;
@@ -466,7 +500,7 @@ void				jump(t_al *al);
 t_angle				add_angle(t_angle a1, t_angle a2);
 t_angle				sub_angle(t_angle a1, t_angle a2);
 
-void				column(t_al *al, int x, t_rc_ray *ray);
+void				column(t_al *al, t_rc_ray *ray);
 
 void				refresh(t_al *al);
 

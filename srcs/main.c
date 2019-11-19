@@ -31,5 +31,5 @@ int		main(int ac, char **av)
 
 // void	no_end()
 // {
-// 	while (1);
+//	while (42);
 // }

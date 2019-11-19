@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/19 13:12:13 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:46:22 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,7 @@ void	ft_nop(t_al *al,t_entity *e, double x, double y)
 	(m[0] == 1) ? e->px += x : 0; 
 }
 
-// 07/novembre
-// 0145174039
+/*
+** 07/novembre
+** 0145174039
+*/

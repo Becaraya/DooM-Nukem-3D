@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yeet.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/12 15:59:53 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/19 13:07:41 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	free_wall(t_walls *walls)
 {
 	if (walls->next)
 		free_wall(walls->next);
-	ft_memdel(&walls);
+	ft_memdel((void **)(&walls));
 }
 
 void	free_sect(t_sector *sect)
@@ -47,7 +47,7 @@ void	free_sect(t_sector *sect)
 	if (sect->next)
 		free_sect(sect->next);
 	free_wall(sect->walls);
-	ft_memdel(&sect);
+	ft_memdel((void **)(&sect));
 }
 
 void	yeet(t_al *al)
@@ -61,8 +61,8 @@ void	yeet(t_al *al)
 	al->win_ed ? SDL_DestroyWindow(al->win_ed) : 0;
 	if (al->sdlwin)
 	{
-		SDL_DestroyWindow(al->sdlwin);
-		SDL_Quit();
+		//SDL_DestroyWindow(al->sdlwin); // fais un ROOT LEAK, ô saint becaraya
+		//SDL_Quit();					// eclaire nous de ta brillance
 	}
 	exit(0);
 }

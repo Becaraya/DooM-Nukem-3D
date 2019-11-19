@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_edit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 18:35:05 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/19 13:09:06 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void			delonesect(t_sector **sect)
 
 	tmp = NULL;
 	if (!(*sect)->next)
-		ft_memdel(sect);
+		ft_memdel((void **)sect);
 	else
 	{
 		tmp = (*sect)->next;

@@ -85,6 +85,5 @@ entities:
 notes:
 Both textures and sectors tab must start at 1, for utility purposes (sorry).
 Pixels are in y lines of x pixels.
-The first step of rendering will be to fill screen with the skybox, witch will
-be in the texture tab at index 0. nb_tex doesn't count skybox in
+The skybox will be in the texture tab at index 0. nb_tex doesn't count skybox in
 Coordonates and floor heights are in centimeters

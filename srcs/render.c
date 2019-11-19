@@ -6,11 +6,56 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/19 14:12:41 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:43:16 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
+
+void		draw_map(t_al *al)
+{
+	t_point a;
+	t_point b;
+	unsigned int nb_wal;
+	unsigned int nb_sec;
+
+	nb_sec = 1;
+	while (nb_sec <= al->nb_sec)
+	{
+		nb_wal = 0;
+		while (nb_wal < al->sec[nb_sec].nb_wal)
+		{
+			a.x = al->sec[nb_sec].walls[nb_wal].x1 * 10 + (WIN_SIZEX / 2);
+			a.y = -al->sec[nb_sec].walls[nb_wal].y1 * 10 + (WIN_SIZEY / 2);
+			b.x = al->sec[nb_sec].walls[nb_wal].x2 * 10 + (WIN_SIZEX / 2);
+			b.y = -al->sec[nb_sec].walls[nb_wal].y2 * 10 + (WIN_SIZEY / 2);
+			//printf("xxxx%d,%d,%d,%dxxxxx",a.x,a.y,b.x,b.y);
+			ft_put_line(a, b, al->sdlsurf, WHITE);
+			nb_wal++;
+		}
+		nb_sec++;
+	}
+	//a.y = -al->ent[0].posy * 10 + (WIN_SIZEY / 2);
+	//a.x = al->ent[0].posx * 10 + (WIN_SIZEX / 2);
+	b.y = a.y + 5;
+	b.x = a.x + 5;
+	while(++a.y < b.y)
+	{
+		//a.x = al->ent[0].posx * 10 + (WIN_SIZEX / 2);
+		while(++a.x < b.x)
+			al->pix[(int)(a.x + (a.y * WIN_SIZEX))] = 0x0000ff;
+	}
+	
+	a.x = al->play.posx * 10 + (WIN_SIZEX / 2);
+	a.y = -al->play.posy * 10 + (WIN_SIZEY / 2);
+	b.x = a.x + al->sin[al->play.dir] * 10;
+	b.y = a.y - al->cos[al->play.dir] * 10;
+	ft_put_line(a, b, al->sdlsurf, WHITE);
+	al->pix[(int)(a.x + (a.y * WIN_SIZEX))] = 0xff00ff;
+	al->pix[(int)(a.x + 1 + (a.y * WIN_SIZEX))] = 0xff00ff;
+	al->pix[(int)(a.x + ((a.y + 1) * WIN_SIZEX))] = 0xff00ff;
+	al->pix[(int)(a.x + 1 + ((a.y + 1) * WIN_SIZEX))] = 0xff00ff;
+}
 
 void		rot_sec(t_al *al, unsigned int secid, t_angle angle)
 {
@@ -39,6 +84,34 @@ void		rot_sec(t_al *al, unsigned int secid, t_angle angle)
 	}
 }
 
+void		rot_ents(t_al *al, t_angle angle)
+{
+	/*
+	unsigned	i;
+	t_sector	*rotsec;
+	t_walls		*w;
+	t_player	*play;
+
+	rotsec = al->rotsec + secid;
+	rotsec->nb_wal = al->sec[secid].nb_wal;
+	play = &al->play;
+	i = 0;
+	while (i < rotsec->nb_wal)
+	{
+		w = al->sec[secid].walls + i;
+		rotsec->walls[i].x1 = (w->x1 - play->posx) * al->cos[angle] - (w->y1 -
+			play->posy) * al->sin[angle];
+		rotsec->walls[i].y1 = (w->x1 - play->posx) * al->sin[angle] + (w->y1 -
+			play->posy) * al->cos[angle];
+		rotsec->walls[i].x2 = (w->x2 - play->posx) * al->cos[angle] - (w->y2 -
+			play->posy) * al->sin[angle];
+		rotsec->walls[i].y2 = (w->x2 - play->posx) * al->sin[angle] + (w->y2 -
+			play->posy) * al->cos[angle];
+		//printf("%f,%f %f,%f\n", rotsec->walls[i].x1 + play->posx, rotsec->walls[i].y1 + play->posy, rotsec->walls[i].x2 + play->posx, rotsec->walls[i].y2+ + play->posy);
+		i++;
+	}*/
+}
+
 inline t_angle	d_atan2(double d1, double d2)
 {
 	d1 = atan2(d1, d2);
@@ -62,7 +135,7 @@ void		swapd(double *d1, double *d2)
 	*d2 = tmp;
 }
 
-inline double	wall_len(t_walls *wall)
+double		wall_len(t_walls *wall)
 {
 	double	tmp;
 
@@ -93,73 +166,8 @@ int			test_aleready_hit(t_rc_ray *ray, t_walls *owall)
 	return (0);
 }
 
-void		draw_triangle(double x, double y, int i, t_al *al)
-{
-	t_point a;
-	t_point b;
 
-	a.x = x;
-	a.y = y - 5;
-	while (a.y <= y + 5){
-		b.y = a.y;
-		b.x = a.x + i;
-		if (i > 0)
-			i += (a.y >= y) ? -1 : 1;
-		else 
-			i -= (a.y >= y) ? -1 : 1;
-		ft_put_line(a, b, al->sdlsurf, WHITE);
-		a.y++;
-	}
-}
-
-void		draw_map(t_al *al)
-{
-	t_point a;
-	t_point b;
-	unsigned int nb_wal;
-	unsigned int nb_sec;
- 
-	nb_sec = 1;
-	while (nb_sec <= al->nb_sec)
-	{
-		nb_wal = 0;
-		while (nb_wal < al->sec[nb_sec].nb_wal)
-		{
-			a.x = al->sec[nb_sec].walls[nb_wal].x1 * 10 + (WIN_SIZEX / 2);
-			a.y = -al->sec[nb_sec].walls[nb_wal].y1 * 10 + (WIN_SIZEY / 2);
-			b.x = al->sec[nb_sec].walls[nb_wal].x2 * 10 + (WIN_SIZEX / 2);
-			b.y = -al->sec[nb_sec].walls[nb_wal].y2 * 10 + (WIN_SIZEY / 2);
-			//printf("xxxx%d,%d,%d,%dxxxxx",a.x,a.y,b.x,b.y);
-			ft_put_line(a, b, al->sdlsurf, WHITE);
-			nb_wal++;
-		}
-		nb_sec++;
-	}
-	a.y = -al->ent[0].py * 10 + (WIN_SIZEY / 2);
-	a.x = al->ent[0].px * 10 + (WIN_SIZEX / 2);
-	b.y = a.y + 5;
-	b.x = a.x + 5;
-	while(++a.y < b.y)
-	{
-		a.x = al->ent[0].px * 10 + (WIN_SIZEX / 2);
-		while(++a.x < b.x)
-			al->pix[(int)(a.x + (a.y * WIN_SIZEX))] = 0x0000ff;
-	}
-
-		a.x = al->play.posx * 10 + (WIN_SIZEX / 2);
-		a.y = -al->play.posy * 10 + (WIN_SIZEY / 2);
-		b.x = a.x + al->sin[al->play.dir] * 10;
-		b.y = a.y - al->cos[al->play.dir] * 10;
-		ft_put_line(a, b, al->sdlsurf, WHITE);
-		draw_triangle(a.x ,a.y, -1, al);
-
-	al->pix[(int)(a.x + (a.y * WIN_SIZEX))] = 0xff00ff;
-	al->pix[(int)(a.x + 1 + (a.y * WIN_SIZEX))] = 0xff00ff;
-	al->pix[(int)(a.x + ((a.y + 1) * WIN_SIZEX))] = 0xff00ff;
-	al->pix[(int)(a.x + 1 + ((a.y + 1) * WIN_SIZEX))] = 0xff00ff;
-}
-
-void		test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
+int			test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 {
 	double		alpha;
 	double		beta;
@@ -180,40 +188,88 @@ void		test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 					ray->min = tmp_dst;
 					ray->hits[ray->nb_hits].wall_length = wall_len(owall);
 					wall->x1 > wall->x2 ? swapd(&wall->x1, &wall->x2) : 0;
-					ray->hits[ray->nb_hits].hit_texx =
-						(unsigned)(wall->x1 / (wall->x1 - wall->x2) * wall_len(owall) *
-						UINT16_MAX) % (unsigned)(TEX_REPEAT * UINT16_MAX) / TEX_REPEAT;
+					ray->hits[ray->nb_hits].hit_texx = (unsigned)(wall->x1 /
+						(wall->x1 - wall->x2) * wall_len(owall) * UINT16_MAX) %
+						(unsigned)(TEX_REPEAT * UINT16_MAX) / TEX_REPEAT;
+					tmp_dst *= al->cos[sub_angle(ray->angle, al->play.dir)];
+					ray->hits[ray->nb_hits].hitdst = tmp_dst;
+					ray->hits[ray->nb_hits].wall = *owall;
+					return (1);
+				}
+			}
+		}
+	}
+	return (0);
+}
+
+int			test_ent_hit(t_al *al, t_rc_ray *ray, t_mob *ent, t_mob *oent)
+{
+/*	double		alpha;
+	double		beta;
+	double		tmp_dst;
+
+	if (((wall->x1 >= 0 && wall->x2 <= 0) ||
+		(wall->x2 >= 0 && wall->x1 <= 0)) && wall->x1)
+	{
+		alpha = (wall->x2 - wall->x1) / (double)(wall->y2 - wall->y1);
+		beta = wall->x1 - wall->y1 * alpha;
+		tmp_dst = wall->y2 == wall->y1 ? 0 : -beta / alpha;
+		if (tmp_dst > 0)
+		{
+			if (tmp_dst < ray->min)
+			{
+				if (!test_aleready_hit(ray, owall))
+				{
+					ray->min = tmp_dst;
+					ray->hits[ray->nb_hits].wall_length = wall_len(owall);
+					wall->x1 > wall->x2 ? swapd(&wall->x1, &wall->x2) : 0;
+					ray->hits[ray->nb_hits].hit_texx = (unsigned)(wall->x1 /
+						(wall->x1 - wall->x2) * wall_len(owall) * UINT16_MAX) %
+						(unsigned)(TEX_REPEAT * UINT16_MAX) / TEX_REPEAT;
 					tmp_dst *= al->cos[sub_angle(ray->angle, al->play.dir)];
 					ray->hits[ray->nb_hits].hitdst = tmp_dst;
 					ray->hits[ray->nb_hits].wall = *owall;
 				}
 			}
 		}
-	}
+	}*/
+	return (0);
 }
+
+/*
+** Also cast entites
+*/
 
 void		cast_sec(t_al *al, t_rc_ray *ray, unsigned secid, t_angle angle)
 {
 	unsigned	i;
+	int			hits;
+	int			enthits;
 	t_sector	*rsec;
 
-	i = -1;
 	ray->hits[ray->nb_hits].fl_tex = al->sec[secid].fl_tex;
 	ray->hits[ray->nb_hits].fl_hei = al->sec[secid].fl_hei;
 	ray->hits[ray->nb_hits].ce_tex = al->sec[secid].ce_tex;
 	ray->hits[ray->nb_hits].ce_hei = al->sec[secid].ce_hei;
 	rot_sec(al, secid, angle);
+	rot_ents(al, angle);
 	rsec = al->rotsec + secid;
 	ray->min = INFINITY;
+	i = -1;
+	enthits = 0;
+	while (++i < al->nb_ent)
+		enthits += test_ent_hit(al, ray, al->rotent + i, al->ent + i);
+	i = -1;
+	hits = 0;
 	while (++i < rsec->nb_wal)
-		test_hit(al, ray, rsec->walls + i, al->sec[secid].walls + i);
-	//printf("hiiit a%3d  %d%+.1fm wallx%4.1f,y%4.1f  x%4.1f,y%4.1f\n", angle * 360 / D_2PI, ray->nb_hits, ray->hits[ray->nb_hits].hitdst, ray->hits[ray->nb_hits].wall.x1, ray->hits[ray->nb_hits].wall.y1, ray->hits[ray->nb_hits].wall.x2, ray->hits[ray->nb_hits].wall.y2);
+		hits += test_hit(al, ray, rsec->walls + i, al->sec[secid].walls + i);
 	ray->nb_hits++;
-	if (ray->hits[ray->nb_hits - 1].wall.sec_lnk)
+	!hits && enthits? printf("ah\n") : 0;
+	if (enthits && !hits)
+		cast_sec(al, ray, secid, angle);
+	else if (ray->hits[ray->nb_hits - 1].wall.sec_lnk)
 		cast_sec(al, ray, ray->hits[ray->nb_hits - 1].wall.sec_lnk, angle);
 }
-
-
 
 void		cast_ray(t_al *al, t_angle an, t_rc_ray *ray)
 {
@@ -223,32 +279,51 @@ void		cast_ray(t_al *al, t_angle an, t_rc_ray *ray)
 	ray->angle = an & D_2PIM;
 	ray->xfact = al->sin[ray->angle] * UINT16_MAX;
 	ray->yfact = al->cos[ray->angle] * UINT16_MAX;
-	//printf("an>%3ddeg  x%03d%%, y%03d%%\n", ray->angle * 360 / D_2PI, ray->xfact * 100 / UINT16_MAX, ray->yfact * 100 / UINT16_MAX);
 	cast_sec(al, ray, al->play.csec, ray->angle);
 }
 
+void		invert_pix(unsigned int *pix)
+{
+	*pix = ~(*pix);
+}
 
+void		pimp_cross(t_al *al)
+{
+	for (int y = WIN_SIZEY / 2 - 12; y <= WIN_SIZEY / 2 + 12; y++)
+	{
+		invert_pix(al->pix + y * WIN_SIZEX + WIN_SIZEX / 2 - 1);
+		invert_pix(al->pix + y * WIN_SIZEX + WIN_SIZEX / 2);
+		invert_pix(al->pix + y * WIN_SIZEX + WIN_SIZEX / 2 + 1);
+	}
+	for (int x = WIN_SIZEX / 2 - 12; x <= WIN_SIZEX / 2 + 12; x++)
+	{
+		if (x < WIN_SIZEX / 2 - 1 || x > WIN_SIZEX / 2 + 1)
+		{
+			invert_pix(al->pix + WIN_SIZEX * (WIN_SIZEY / 2 - 1) + x);
+			invert_pix(al->pix + WIN_SIZEX * WIN_SIZEY / 2 + x);
+			invert_pix(al->pix + WIN_SIZEX * (WIN_SIZEY / 2 + 1) + x);
+		}
+	}
+}
 
 void		render(t_al *al)
 {
 	t_rc_ray	ray;
 	int			x;
 
-	if (al->play.horizon < -HORIZON_LIMIT || al->play.horizon > HORIZON_LIMIT)
-	{
-		pr_err("Off-range horizon\n");
-		return ;
-	}
+	al->wall_scale = 190 * D_2PI / al->fov;
 	ft_bzero(al->pix, WIN_SIZEX * WIN_SIZEY * sizeof(int));
 	x = 0;
 	while (x < WIN_SIZEX)
 	{
 		ray.nb_hits = 0;
+		ray.x = x;
 		cast_ray(al, al->play.dir + ((int)al->fov * (x - (WIN_SIZEX / 2)) /
 				WIN_SIZEX), &ray);
-		column(al, x, &ray);
+		column(al, &ray);
 		x++;
 	}
+	pimp_cross(al);
 	/*ray.nb_hits = 0;
 	cast_ray(al, WIN_SIZEX / 2, &ray);
 	while (x < WIN_SIZEX)
@@ -256,8 +331,8 @@ void		render(t_al *al)
 		column(al, x, &ray);
 		x++;
 	}*/
-	draw_map(al);
-	// mv_entity(al);
-	// printf("FPS:%2d ", 1000000 / al->dtime); fflush(0);
+	//draw_map(al);
+	ft_putstr(" FPS:");
+	ft_putnbr(1000000 / al->dtime);
 	refresh(al);
 }

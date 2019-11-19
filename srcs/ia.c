@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 19:06:05 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/18 16:54:11 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/19 15:54:57 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 void		acceleration_entities(t_al *al)
 {
-	t_entity *ent;
+	(void)al; // pour enlever le warning, a retirer apres
+/*	t_entity *ent;
 
 	ent = (&al->ent[0]);
 	ent->velx = 0.50;
@@ -38,5 +39,5 @@ void		acceleration_entities(t_al *al)
 	 
 	//ent->velx = al->sin[ent->dir] * ent->gd_vel;
 	//ent->vely = al->cos[ent->dir] * ent->gd_vel;
-	
+	*/	
 }

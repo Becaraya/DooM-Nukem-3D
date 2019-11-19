@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/19 15:49:21 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/19 16:44:01 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -372,9 +372,9 @@ typedef struct		s_player
 typedef struct		s_mob
 {
 	unsigned	csec;
-	double		px;
-	double		py;
-	double		pz;
+	double		posx;
+	double		posy;
+	double		posz;
 	double		velx;
 	double		vely;
 	double		velz;
@@ -565,7 +565,7 @@ void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr);
 ** authorization too mooving function
 */
 
-void				ft_nop(t_al *al, t_entity *e, double x, double y);
+void				ft_nop(t_al *al, t_mob *e, double x, double y);
 void				ft_nop_player(t_al *al, int i, double x, double y);
 
 /*

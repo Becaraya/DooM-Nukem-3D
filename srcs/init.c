@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/19 15:54:19 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/19 16:03:37 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -441,7 +441,7 @@ void			init(t_al *al, char *str)
 	al->status = EDIT;
 	al->status = GAME;
 	al->fps = 60;
-	al->g = DEFAULT_G;
+	al->g = 1;//DEFAULT_G;
 	al->fov = DEFAULT_FOV;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
 	al->nb_texgp = 1;

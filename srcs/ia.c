@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 19:06:05 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/19 15:54:57 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/19 16:44:17 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		acceleration_entities(t_al *al)
 	ent->velx = 0.50;
 	ent->vely = 0.25;
 	//printf("%d\n", ent->csec);
-	/*if (ent->px < al->play.posx)
+	if (ent->px < al->play.posx)
 		ent->velx = 1;
 	if (ent->px > al->play.posx)
 		ent->velx = -1;
@@ -34,7 +34,7 @@ void		acceleration_entities(t_al *al)
 		ent->etat = 0;
 		ent->vely = 0;
 		ent->velx = 0;
-	}*/
+	}
 	//ent->dir = 8192 / ( + 1)
 	 
 	//ent->velx = al->sin[ent->dir] * ent->gd_vel;

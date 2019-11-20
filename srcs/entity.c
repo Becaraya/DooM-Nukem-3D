@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/19 17:35:21 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/20 16:12:50 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,40 @@ int		is_cross(t_player *e, t_walls t, double v, int s)
 	
 	double d;
 
+
+
 	d = (s) ? d_wall(t, e->posx, e->posy + v) : d_wall(t, e->posx + v, e->posy);
 	if (t.is_cross){
-		printf("coucouuuu\n");
+		if (d > d_wall(t, e->posx, e->posy))
+			e->csec = t.sec_lnk;
+		printf(" %f, %d\n",d,e->csec);
 		return(1);
 	}
 	if (d < 0.5)
 		return (0);
-		printf("%f , %f\n",t.x1,t.x2);
 	return (1);
 }
+/*
+int            is_in_sector(t_editor *edit, t_vertex point)
+{
+    int            intersects;
+    t_sector    *sect;
+    t_vertex    *vertex;
+    t_vertex    extreme;
 
+    sect = edit->sector;
+    while (sect)
+    {
+        extreme.x = WHITE;
+        extreme.y = point.y;
+        vertex = sect->vertex;
+        intersects = inters(vertex, point, extreme);
+        if (intersects % 2 == 1)
+            return (sect->sector_number);
+        sect = sect->next;
+    }
+    return (-1);
+}*/
 
 void	ft_nop_player(t_al *al, int i, double x, double y)
 {

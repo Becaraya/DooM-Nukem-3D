@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/22 16:06:13 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/22 16:07:46 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		draw_map(t_al *al)
 	t_point b;
 	unsigned int nb_wal;
 	unsigned int nb_sec;
- 
+
 	nb_sec = 1;
 	while (nb_sec <= al->nb_sec)
 	{

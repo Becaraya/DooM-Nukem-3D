@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/21 16:34:50 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/22 16:08:20 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,7 @@ typedef struct		s_walls
 	unsigned short	wall_tex;
 	unsigned short	top_tex;
 	unsigned short	bot_tex;
-	unsigned short	is_cross;
+	unsigned		is_cross:1;
 	unsigned int	sec_lnk;
 	struct s_walls	*next;
 }					t_walls;
@@ -567,7 +567,7 @@ void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr);
 ** authorization too mooving function
 */
 
-void				ft_nop(t_al *al, int i, double x, double y);
+void				ft_nop(t_al *al, t_mob *e, double x, double y);
 void				ft_nop_player(t_al *al, int i, double x, double y);
 
 /*

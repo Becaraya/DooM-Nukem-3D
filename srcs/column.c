@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 10:46:13 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/19 15:20:12 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/22 16:06:30 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,15 @@ void		hit_ent(t_al *al, t_rc_ray *ray, int hitnb)
 {
 	int wall;
 
-	wall = 150;
+	wall = ray->hits[hitnb].lim.sc_topmid;
 	//if (ray->x == WIN_SIZEX / 2 && wall < ray->hits[hitnb].lim.sc_botmid)
 	//	printf("middle wall %d > %d\n", ray->hits[hitnb].lim.sc_topmid, ray->hits[hitnb].lim.sc_botmid);
-	while (wall < WIN_SIZEY - 150)
+	t_rc_lim *lim = &ray->hits[hitnb].lim;
+	while (wall < ray->hits[hitnb].lim.sc_botmid)
 	{
-		al->pix[wall * WIN_SIZEX + ray->x] = 0xee82ee + 0x020202 * hitnb;
+		//if (!((wall + ray->x * (3 + hitnb)) % 10))
+		//	al->pix[wall * WIN_SIZEX + ray->x] = 0xff6060;
+		al->pix[wall * WIN_SIZEX + ray->x] = 0xee82ee;// + 0x000030 * hitnb;;
 		wall-=-1;
 	}
 }
@@ -175,7 +178,6 @@ void		hit_print(t_al *al, t_rc_ray *ray, int hitnb, t_rc_lim prlim)
 			: lim->botwall;
 		}
 		sc_lims(lim, prlim);
-
 		hit_ceiling(al, ray, hitnb);
 		hit_floor(al, ray, hitnb);
 		if (hitnb < ray->nb_hits - 1)
@@ -184,8 +186,16 @@ void		hit_print(t_al *al, t_rc_ray *ray, int hitnb, t_rc_lim prlim)
 			hit_bot_wall(al, ray, hitnb);
 		}
 	}
+	else
+	{
+		lim->topmid = hor + ((al->play.eyez - (hit->ent.posz + hit->ent.size)) *
+			al->wall_scale / hit->hitdst);
+		lim->botmid = hor - ((hit->ent.posz - al->play.eyez) *
+			al->wall_scale / hit->hitdst);
+		sc_lims(lim, prlim);
+	}
 	if (hitnb < ray->nb_hits - 1)
-		hit_print(al, ray, hitnb + 1, *lim);
+		hit_print(al, ray, hitnb + 1, hit->is_entity ? prlim : *lim);
 	hit->is_entity ? hit_ent(al, ray, hitnb) : hit_wall(al, ray, hitnb);
 }
 

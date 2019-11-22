@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/19 15:25:41 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/21 16:34:50 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -258,70 +258,6 @@ typedef struct		s_edit
 }					t_edit;
 
 /*
-** raycast hit limits descripting struct
-** first set of limits are horizon corrected lims, while the 2nd set is
-** horizon corrected and screen size capped
-** mb: mental breakdown. I have given up on remaining sane
-*/
-
-typedef struct		s_rc_lim
-{
-	int	toplim;
-	int	topwall;
-	int	topmid;
-	int	botmid;
-	int	botwall;
-	int	botlim;
-
-	int	sc_toplim;
-	int	sc_topwall;
-	int	sc_topmid;
-	int	sc_botmid;
-	int	sc_botwall;
-	int	sc_botlim;
-
-	int	mb_botlim;
-	int	mb_toplim;
-}					t_rc_lim;
-
-/*
-** raycast hit descripting struct to add info missing from t_walls
-** wall_length is length in m
-*/
-
-typedef struct		s_rc_hit
-{
-	double		hitdst;
-	unsigned	hit_texx;
-	double		wall_length;
-	unsigned	fl_tex;
-	double		fl_hei;
-	unsigned	ce_tex;
-	double		ce_hei;
-	t_walls		wall;
-	t_rc_lim	lim;
-	unsigned	is_entity:1;
-}					t_rc_hit;
-
-/*
-** raycast ray descripting func to add info missing from t_walls
-** xfact and yfact are 16 bits sin and cos of angle for floorcasting
-** min is used in test_hit
-*/
-
-typedef struct		s_rc_ray
-{
-	int			x;
-	t_angle		angle;
-	int			xfact;
-	int			yfact;
-	int			nb_hits;
-	t_rc_hit	hits[MAX_HITS];
-
-	double		min;
-}					t_rc_ray;
-
-/*
 ** Player info struct
 ** Velocities are in m/s, positions are in m, mass is in kg and power is in watt
 ** csec: index of current sector, must be updated if crossing sectors
@@ -394,6 +330,72 @@ typedef union		u_entity
 	t_player	pl;
 	t_mob		mob;
 }					t_entity;
+
+/*
+** raycast hit limits descripting struct
+** first set of limits are horizon corrected lims, while the 2nd set is
+** horizon corrected and screen size capped
+** mb: mental breakdown. I have given up on remaining sane
+*/
+
+typedef struct		s_rc_lim
+{
+	int	toplim;
+	int	topwall;
+	int	topmid;
+	int	botmid;
+	int	botwall;
+	int	botlim;
+
+	int	sc_toplim;
+	int	sc_topwall;
+	int	sc_topmid;
+	int	sc_botmid;
+	int	sc_botwall;
+	int	sc_botlim;
+
+	int	mb_botlim;
+	int	mb_toplim;
+}					t_rc_lim;
+
+/*
+** raycast hit descripting struct to add info missing from t_walls
+** wall_length is length in m
+*/
+
+typedef struct		s_rc_hit
+{
+	double		hitdst;
+	unsigned	hit_texx;
+	double		wall_length;
+	unsigned	fl_tex;
+	double		fl_hei;
+	unsigned	ce_tex;
+	double		ce_hei;
+	t_walls		wall;
+	t_mob		ent;
+	t_rc_lim	lim;
+	unsigned	is_entity:1;
+}					t_rc_hit;
+
+/*
+** raycast ray descripting func to add info missing from t_walls
+** xfact and yfact are 16 bits sin and cos of angle for floorcasting
+** min is used in test_hit
+*/
+
+typedef struct		s_rc_ray
+{
+	int			x;
+	t_angle		angle;
+	int			xfact;
+	int			yfact;
+	int			nb_hits;
+	t_rc_hit	hits[MAX_HITS];
+
+	double		min;
+	double		minent;
+}					t_rc_ray;
 
 typedef struct		s_text
 {

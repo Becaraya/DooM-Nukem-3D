@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/25 13:02:45 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/25 15:19:37 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,13 +141,17 @@ void			init(t_al *al, char *str)
 {
 	if (hms_parser(al, str))
 		exit(0);
-	for (int x = 1; x <= al->nb_sec; x++)
-	{
-		for (int z = 0; z < al->sec[x].nb_wal; z++)
-		{
-			al->sec[x].walls[z].sec_lnk ? al->sec[x].walls[z].is_cross = 1 : 0;
-		}
-	}
+	
+	// T H E  O P E N A T O R
+	// for (int x = 1; x <= al->nb_sec; x++)
+	// {
+	// 	for (int z = 0; z < al->sec[x].nb_wal; z++)
+	// 	{
+	// 		al->sec[x].walls[z].sec_lnk ? al->sec[x].walls[z].is_cross = 1 : 0;
+	// 	}
+	// }  
+
+
 	/*al->tex = ft_memalloc(5 * sizeof(t_tex));
 	bmp_to_tex(al->tex + 0, "ressources/wall_tex.bmp", 800, 600);
 	bmp_to_tex(al->tex + 1, "ressources/Untitled-1.bmp", 800, 800);

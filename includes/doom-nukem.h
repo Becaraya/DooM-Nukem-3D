@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/22 16:08:20 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/25 10:36:37 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -374,6 +374,7 @@ typedef struct		s_rc_hit
 	double		ce_hei;
 	t_walls		wall;
 	t_mob		ent;
+	t_tex		tex;
 	t_rc_lim	lim;
 	unsigned	is_entity:1;
 }					t_rc_hit;
@@ -452,6 +453,7 @@ typedef struct		s_al
 	t_player		play;
 	double			g;
 	t_angle			fov;
+	double			fovn;
 	
 	int				stretch;
 	int				wall_scale;

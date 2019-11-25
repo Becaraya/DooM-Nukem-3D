@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/22 16:07:46 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/25 11:20:15 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ int			test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 				tmp_dst *= al->cos[sub_angle(ray->angle, al->play.dir)];
 				ray->hits[ray->nb_hits].hitdst = tmp_dst;
 				ray->hits[ray->nb_hits].wall = *owall;
+				ray->hits[ray->nb_hits].tex = al->tex[owall->wall_tex];
 				return (1);
 			}
 	}
@@ -224,9 +225,10 @@ int			test_ent_hit(t_al *al, t_rc_ray *ray, t_mob *rotent, t_mob *oent)
 				//	ray->hits[ray->nb_hits].hit_texx = (unsigned)(wall->x1 /
 				//	(wall->x1 - wall->x2) * wall_len(owall) * UINT16_MAX) %
 				//	(unsigned)(TEX_REPEAT * UINT16_MAX) / TEX_REPEAT;
-				ray->hits[ray->nb_hits].hitdst = rotent->posy /** al->cos[sub_angle(
-						ray->angle, al->play.dir)]*/;
+				ray->hits[ray->nb_hits].hitdst = rotent->posy * al->cos[sub_angle(
+						ray->angle, al->play.dir)];
 				ray->hits[ray->nb_hits].ent = *oent;
+				ray->hits[ray->nb_hits].tex = al->tex[1];
 				return (1);
 			}
 		}
@@ -304,6 +306,18 @@ void		pimp_cross(t_al *al)
 	}
 }
 
+t_angle		calc_angle(t_angle dir, double an_dst)
+{
+	t_angle an;
+
+	an = 0;
+	//if (an_dst > 0)
+		an = atan(an_dst) / M_2PI * D_2PI;
+	//else if (an_dst < 0)
+		//an = acos(an / an_dst) * D_2PI;
+	return (an + dir & D_2PIM);
+}
+
 void		render(t_al *al)
 {
 	t_rc_ray	ray;
@@ -316,8 +330,10 @@ void		render(t_al *al)
 	{
 		ray.nb_hits = 0;
 		ray.x = x;
-		cast_ray(al, al->play.dir + ((int)al->fov * (x - (WIN_SIZEX / 2)) /
-				WIN_SIZEX), &ray);
+		cast_ray(al, calc_angle(al->play.dir, al->fovn * (x - (WIN_SIZEX / 2)) /
+			WIN_SIZEX), &ray);
+		//cast_ray(al, al->play.dir + ((int)al->fov * (x - (WIN_SIZEX / 2)) /
+		// 		WIN_SIZEX), &ray);
 		column(al, &ray);
 		x++;
 	}

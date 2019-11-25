@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/19 16:03:37 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/25 11:21:22 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
+#include <float.h>
 
 static void		init_status(t_al *al)
 {
@@ -56,8 +57,8 @@ void    		creat_entity(t_al *al)
 	al->ent[0].posx = 3;
     al->ent[0].posy = 2;
 	al->ent[0].posz = al->sec[al->ent[0].csec].fl_hei;
-	al->ent[0].velx = 0.1;
-	al->ent[0].gd_vel = 0.1;
+	al->ent[0].velx = 2.0;
+	al->ent[0].gd_vel = 0.5;
 	al->ent[0].on_ground = 1;
 	al->ent[0].alive = 1;
 	al->ent[0].dir = D_PI;
@@ -443,6 +444,7 @@ void			init(t_al *al, char *str)
 	al->fps = 60;
 	al->g = 1;//DEFAULT_G;
 	al->fov = DEFAULT_FOV;
+	al->fovn = 1.4;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
 	al->nb_texgp = 1;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)

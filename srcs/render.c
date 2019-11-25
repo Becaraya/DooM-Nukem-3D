@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/25 11:20:15 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/25 15:16:49 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -289,33 +289,27 @@ void		invert_pix(unsigned int *pix)
 
 void		pimp_cross(t_al *al)
 {
-	for (int y = WIN_SIZEY / 2 - 12; y <= WIN_SIZEY / 2 + 12; y++)
+	int i;
+
+	i = WIN_SIZEY / 2 - 12;
+	while (i <= WIN_SIZEY / 2 + 12)
 	{
-		invert_pix(al->pix + y * WIN_SIZEX + WIN_SIZEX / 2 - 1);
-		invert_pix(al->pix + y * WIN_SIZEX + WIN_SIZEX / 2);
-		invert_pix(al->pix + y * WIN_SIZEX + WIN_SIZEX / 2 + 1);
+		invert_pix(al->pix + i * WIN_SIZEX + WIN_SIZEX / 2 - 1);
+		invert_pix(al->pix + i * WIN_SIZEX + WIN_SIZEX / 2);
+		invert_pix(al->pix + i * WIN_SIZEX + WIN_SIZEX / 2 + 1);
+		i++;
 	}
-	for (int x = WIN_SIZEX / 2 - 12; x <= WIN_SIZEX / 2 + 12; x++)
+	i = WIN_SIZEX / 2 - 12;
+	while (i <= WIN_SIZEX / 2 + 12)
 	{
-		if (x < WIN_SIZEX / 2 - 1 || x > WIN_SIZEX / 2 + 1)
+		if (i < WIN_SIZEX / 2 - 1 || i > WIN_SIZEX / 2 + 1)
 		{
-			invert_pix(al->pix + WIN_SIZEX * (WIN_SIZEY / 2 - 1) + x);
-			invert_pix(al->pix + WIN_SIZEX * WIN_SIZEY / 2 + x);
-			invert_pix(al->pix + WIN_SIZEX * (WIN_SIZEY / 2 + 1) + x);
+			invert_pix(al->pix + WIN_SIZEX * (WIN_SIZEY / 2 - 1) + i);
+			invert_pix(al->pix + WIN_SIZEX * WIN_SIZEY / 2 + i);
+			invert_pix(al->pix + WIN_SIZEX * (WIN_SIZEY / 2 + 1) + i);
 		}
+		i++;
 	}
-}
-
-t_angle		calc_angle(t_angle dir, double an_dst)
-{
-	t_angle an;
-
-	an = 0;
-	//if (an_dst > 0)
-		an = atan(an_dst) / M_2PI * D_2PI;
-	//else if (an_dst < 0)
-		//an = acos(an / an_dst) * D_2PI;
-	return (an + dir & D_2PIM);
 }
 
 void		render(t_al *al)
@@ -323,23 +317,22 @@ void		render(t_al *al)
 	t_rc_ray	ray;
 	int			x;
 
-	al->wall_scale = 190 * D_2PI / al->fov;
+	al->wall_scale = 0.1624 * D_2PI / al->fovn;
 	ft_bzero(al->pix, WIN_SIZEX * WIN_SIZEY * sizeof(int));
 	x = 0;
 	while (x < WIN_SIZEX)
 	{
 		ray.nb_hits = 0;
 		ray.x = x;
-		cast_ray(al, calc_angle(al->play.dir, al->fovn * (x - (WIN_SIZEX / 2)) /
-			WIN_SIZEX), &ray);
-		//cast_ray(al, al->play.dir + ((int)al->fov * (x - (WIN_SIZEX / 2)) /
-		// 		WIN_SIZEX), &ray);
+		cast_ray(al, (t_angle)(atan(al->fovn * (x - (WIN_SIZEX / 2)) /
+					WIN_SIZEX) / M_2PI * D_2PI + al->play.dir) & D_2PIM, &ray);
 		column(al, &ray);
 		x++;
 	}
 	pimp_cross(al);
 	/*ray.nb_hits = 0;
-	cast_ray(al, WIN_SIZEX / 2, &ray);
+	cast_ray(al, (t_angle)(atan(al->fovn * (x - (WIN_SIZEX / 2)) /
+		WIN_SIZEX) / M_2PI * D_2PI + al->play.dir) & D_2PIM, &ray);
 	while (x < WIN_SIZEX)
 	{
 		column(al, x, &ray);

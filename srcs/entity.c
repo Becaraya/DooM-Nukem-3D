@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/20 16:12:50 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/25 13:03:31 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,63 @@ double		d_wall(t_walls w, double px, double py)
 	y = (a[0] * x) + b[0];
 	return (sqrt((x - px) * (x - px) + (y - py) * (y - py)));
 }
-
+/*
+static int	is_left(t_vertex p0, t_vertex p1, t_vertex p2)
+{
+	int		value;	value = (p1.y - p0.y) * (p2.x - p1.x) - (p1.x - p0.x) * (p2.y - p1.y);
+	if (value == 0)
+		return (0);
+	else if (value > 0)
+		return (1);
+	else
+		return (2);
+}int			intersects_count(t_vertex v1, t_vertex v2, t_vertex p1, t_vertex p2)
+{
+	int		tab[4];	tab[0] = is_left(v1, v2, p1);
+	tab[1] = is_left(v1, v2, p2);
+	tab[2] = is_left(p1, p2, v1);
+	tab[3] = is_left(p1, p2, v2);
+	if (tab[0] != tab[1] && tab[2] != tab[3])
+		return (1);
+	return (0);
+}static int	inters(t_wall *prev_vertex, t_wall point, t_wall extreme)
+{
+	int			intersections;
+	t_wall	*vertex;	intersections = 0;
+	vertex = prev_vertex;
+	while (vertex)
+	{
+		if (vertex->next == NULL)
+		{
+			if (intersects_count(*vertex, *(prev_vertex), point, extreme))
+				++intersections;
+		}
+		else if (intersects_count(*vertex, *(vertex->next), point, extreme))
+			++intersections;
+		vertex = vertex->next;
+	}
+	return (intersections);
+}int            is_in_sector(t_al *al, t_point point)
+{
+    int            intersects;
+    t_sector    *sect;
+    t_walls    *vertex; //vertex == wall
+    t_walls    extreme;
+	
+	sect = &(al->sect[1]);
+    while (sect)
+    {
+        extreme.x = EDIT_W;
+        extreme.y = point.y;
+        vertex = sect->walls;
+        intersects = inters(vertex, point, extreme);
+        if (intersects % 2 == 1)
+            return (sect->sector_number);
+        sect = sect->next;
+    }
+    return (-1);
+}
+*/
 /*
 **ft_nop empeche l'entité de passer au travers d un mur il faudrais lui trouver un nom plus paralans
 **0.5 correspond a la moitier de l aipaisseur du joueur (je supose)
@@ -77,16 +133,13 @@ double		d_wall(t_walls w, double px, double py)
 
 int		is_cross(t_player *e, t_walls t, double v, int s)
 {
-	
 	double d;
-
-
 
 	d = (s) ? d_wall(t, e->posx, e->posy + v) : d_wall(t, e->posx + v, e->posy);
 	if (t.is_cross){
-		if (d > d_wall(t, e->posx, e->posy))
+		if (d > d_wall(t, e->posx, e->posy) && t.sec_lnk != e->csec)
 			e->csec = t.sec_lnk;
-		printf(" %f, %d\n",d,e->csec);
+		printf(" %f, %d\n",d,t.sec_lnk);
 		return(1);
 	}
 	if (d < 0.5)

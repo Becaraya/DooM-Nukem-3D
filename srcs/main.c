@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 18:00:28 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/21 17:33:30 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		main(int ac, char **av)
 	if (ac < 2)
 		return (pr_err("No .hms file provided\n"));
 	init(&al, av[1]);
-	//hms_encoder(&al, "house.hms");
+	hms_encoder(&al, "big_IQ_huggo_has.hms");
 	main_loop(&al);
 	return (0);
 }

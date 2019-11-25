@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/22 07:14:12 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/25 13:03:31 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ double		d_wall(t_walls w, double px, double py)
 	y = (a[0] * x) + b[0];
 	return (sqrt((x - px) * (x - px) + (y - py) * (y - py)));
 }
-
+/*
 static int	is_left(t_vertex p0, t_vertex p1, t_vertex p2)
 {
 	int		value;	value = (p1.y - p0.y) * (p2.x - p1.x) - (p1.x - p0.x) * (p2.y - p1.y);
@@ -95,7 +95,7 @@ static int	is_left(t_vertex p0, t_vertex p1, t_vertex p2)
     }
     return (-1);
 }
-
+*/
 /*
 **ft_nop empeche l'entité de passer au travers d un mur il faudrais lui trouver un nom plus paralans
 **0.5 correspond a la moitier de l aipaisseur du joueur (je supose)

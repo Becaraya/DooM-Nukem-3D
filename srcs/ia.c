@@ -6,38 +6,37 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 19:06:05 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/19 16:44:17 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/28 17:17:37 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 
-void		acceleration_entities(t_al *al)
+void		acceleration_entities(t_al *al,t_mob mob)
 {
-	(void)al; // pour enlever le warning, a retirer apres
-/*	t_entity *ent;
+	t_mob *ent;
 
-	ent = (&al->ent[0]);
+	ent = &mob;
 	ent->velx = 0.50;
 	ent->vely = 0.25;
-	//printf("%d\n", ent->csec);
-	if (ent->px < al->play.posx)
+	//printf("%f\n", ent->posx);
+	if (ent->posx < al->play.posx)
 		ent->velx = 1;
-	if (ent->px > al->play.posx)
+	if (ent->posx > al->play.posx)
 		ent->velx = -1;
-	if (ent->py < al->play.posy)
+	if (ent->posy < al->play.posy)
 		ent->vely = 1;
-	if (ent->py > al->play.posy)
+	if (ent->posy > al->play.posy)
 		ent->vely = -1;
-	if (ent->py < al->play.posy + 1 && ent->py > al->play.posy -1 && ent->px < al->play.posx + 1 && ent->px > al->play.posx - 1)
+	if (ent->posy < al->play.posy + 1 && ent->posy > al->play.posy -1 
+	&& ent->posx < al->play.posx + 1 && ent->posx > al->play.posx - 1)
 	{	
-		ent->etat = 0;
+		ent->alive = 0;
 		ent->vely = 0;
 		ent->velx = 0;
 	}
 	//ent->dir = 8192 / ( + 1)
 	 
 	//ent->velx = al->sin[ent->dir] * ent->gd_vel;
-	//ent->vely = al->cos[ent->dir] * ent->gd_vel;
-	*/	
+	//ent->vely = al->cos[ent->dir] * ent->gd_vel;	
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/25 10:36:37 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:17:46 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,6 +239,13 @@ typedef struct		s_point
 	int				y;
 	int				color;
 }					t_point;
+
+typedef struct		s_doint
+{
+	int				x;
+	int				y;
+	int				color;
+}					t_doint;
 
 // typedef struct		s_wall
 // {
@@ -589,6 +596,6 @@ t_point				itopoint(int x, int y);
 /*
 ** action of entity
 */
-void		acceleration_entities(t_al *al);
+void		acceleration_entities(t_al *al, t_mob mob);
 
 #endif

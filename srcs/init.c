@@ -6,7 +6,11 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2019/11/26 09:47:08 by hutricot         ###   ########.fr       */
+=======
+/*   Updated: 2019/11/26 15:30:31 by pitriche         ###   ########.fr       */
+>>>>>>> 3190550f4198833a98486baae75cf2a9161584fc
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +134,7 @@ void			init(t_al *al, char *str)
 	if (hms_parser(al, str))
 		exit(0);
 	
-	// T H E  O P E N A T O R
+	// T H E  O P E N A T O R, can open a path through every walls, even to you're mom's ass
 	// for (int x = 1; x <= al->nb_sec; x++)
 	// {
 	// 	for (int z = 0; z < al->sec[x].nb_wal; z++)

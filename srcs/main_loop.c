@@ -31,6 +31,7 @@ static void	dtime(t_al *al)
 	}
 	al->dtime = al->curr_time - al->last_time;
 	al->dtime > 1000000 ? al->dtime = 1000000 : 0;
+	al->anim += al->dtime * UINT16_MAX / 1000000;
 	al->last_time = al->curr_time;
 	al->tgt_time = al->last_time + 1000000 / al->fps;
 }

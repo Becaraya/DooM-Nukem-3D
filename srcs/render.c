@@ -96,7 +96,8 @@ void		rot_ents(t_al *al, t_angle angle)
 	while (i < al->nb_ent)
 	{
 		rotent[i].angle_to_player = (t_angle)(atan2(al->ent[i].posx - play->posx,
-		al->ent[i].posy - play->posy) * D_2PI / M_2PI)/*angle*/;
+		al->ent[i].posy - play->posy) * D_2PI / M_2PI);
+		al->ent[i].angle_to_player = rotent[i].angle_to_player;
 		rotent[i].posx = (al->ent[i].posx - play->posx) * al->cos[angle] -
 		(al->ent[i].posy - play->posy) * al->sin[angle];
 		rotent[i].posy = (al->ent[i].posx - play->posx) * al->sin[angle] +
@@ -221,7 +222,7 @@ t_tex		find_ent_tex(t_al *al, t_mob *ent)
 
 	tmp.size_x = al->texgp[0].size_x;
 	tmp.size_y = al->texgp[0].size_y;
-	tmp.pix = al->texgp[0].or[0].pix[0];
+	tmp.pix = al->texgp[0].or[sub_angle(ent->angle_to_player + D_PI_4 / 2, ent->dir) / D_PI_4].pix[al->anim >> 14];
 	return (tmp);
 }
 
@@ -317,8 +318,14 @@ void		render(t_al *al)
 	
 	/*for (int y = 0; y < 512; y++)
 		for (int x = 0; x < 512; x++)
-			al->pix[x + WIN_SIZEX * y] = al->texgp[0].or[0].pix[0][x + 512 * y];*/
-	/*ray.nb_hits = 0;
+			al->pix[x + WIN_SIZEX * y] = al->texgp[0].or[0].pix[1][x + 512 * y];
+	for (int y = 0; y < 512; y++)
+		for (int x = 0; x < 512; x++)
+			al->pix[x + 512 + WIN_SIZEX * y] = (al->texgp[0].or[0].pix[1][x + 512 * y] >> 8) & 0xff;
+	for (int y = 0; y < 512; y++)
+		for (int x = 0; x < 512; x++)
+			al->pix[x + 1024 + WIN_SIZEX * y] = (al->texgp[0].or[0].pix[1][x + 512 * y] >> 0) & 0xff;
+	*//*ray.nb_hits = 0;
 	cast_ray(al, (t_angle)(atan(al->fov * (x - (WIN_SIZEX / 2)) /
 		WIN_SIZEX) / M_2PI * D_2PI + al->play.dir) & D_2PIM, &ray);
 	while (x < WIN_SIZEX)

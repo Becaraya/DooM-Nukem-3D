@@ -24,7 +24,7 @@
 # include <SDL2_mixer/SDL_mixer.h>
 
 # define WIN_TITLE "100% really slenderman absolutely virus free i swear"
-# define WIN_SIZEX 1366
+# define WIN_SIZEX 1600//1366
 # define WIN_SIZEY 768
 # define WIN_POSX 100
 # define WIN_POSY 10
@@ -470,6 +470,8 @@ typedef struct		s_al
 	long			curr_time;
 	long			tgt_time;
 	int				dtime;
+
+	unsigned short	anim;
 
 	t_edit			edit;
 

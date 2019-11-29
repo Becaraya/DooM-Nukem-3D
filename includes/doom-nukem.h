@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/25 10:36:37 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/28 14:50:15 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define D_PI_4	1024
 
 # define DEFAULT_G 9.81
-# define DEFAULT_FOV D_2PI * 0.20
+# define DEFAULT_FOV 1.6
 
 #define	SPRITE_W 512
 #define	SPRITE_H 512
@@ -88,7 +88,7 @@
 # define TEXT_EDITOR BLACK
 
 /*
-** just too simplify
+** just too simplify 🤠
 */
 
 # define PPX al->play.posx
@@ -318,6 +318,7 @@ typedef struct		s_mob
 	unsigned	on_ground:1;
 	unsigned	alive:1;
 	t_angle		dir;
+	t_angle		angle_to_player;
 
 	double		size;
 	double		width;
@@ -452,8 +453,7 @@ typedef struct		s_al
 
 	t_player		play;
 	double			g;
-	t_angle			fov;
-	double			fovn;
+	double			fov;
 	
 	int				stretch;
 	int				wall_scale;
@@ -506,6 +506,7 @@ t_angle				sub_angle(t_angle a1, t_angle a2);
 
 void				column(t_al *al, t_rc_ray *ray);
 
+void				pimp_cross(t_al *al);
 void				refresh(t_al *al);
 
 /*

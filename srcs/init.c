@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/26 15:30:31 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:39:34 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,14 +57,14 @@ void    		creat_entity(t_al *al)
 	al->ent[0].posx = 3;
     al->ent[0].posy = 2;
 	al->ent[0].posz = al->sec[al->ent[0].csec].fl_hei;
-	al->ent[0].velx = 2.0;
+	al->ent[0].velx = 1;
 	al->ent[0].gd_vel = 0.5;
 	al->ent[0].on_ground = 1;
 	al->ent[0].alive = 1;
 	al->ent[0].dir = D_PI;
 
-	al->ent[0].size = 1.7;
-	al->ent[0].width = 0.6;
+	al->ent[0].size = 2;
+	al->ent[0].width = 2;
 	al->ent[0].mass = 50;
 	al->ent[0].power = 200;
 }
@@ -137,22 +137,93 @@ static void		init_edit(t_al *al)
 	set_text(&al->text.cancel, "CANCEL", get_rect(600, 20), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 }
 
+// jvous en prie utilisez pas ça c'est de la merde
+void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
+{
+	char	tmp[1000];
+	char	buf[1000];
+	size_t size;
+	int fd;
+
+	size = tgp->size_x * tgp->size_y * sizeof(unsigned *);
+	or->pix = malloc(tgp->nb_tex * sizeof(unsigned **));
+
+	ft_strcpy(tmp, str);
+	fd = open(ft_strcat(tmp, "/1.bmp"), O_RDONLY);
+	read(fd, buf, 14);
+	read(fd, buf, *(unsigned *)(buf + 10) - 14);
+	or->pix[0] = malloc(size);
+	read(fd, or->pix[0], size);
+
+	ft_strcpy(tmp, str);
+	fd = open(ft_strcat(tmp, "/2.bmp"), O_RDONLY);
+	read(fd, buf, 14);
+	read(fd, buf, *(unsigned *)(buf + 10) - 14);
+	or->pix[1] = malloc(size);
+	read(fd, or->pix[1], size);
+
+	ft_strcpy(tmp, str);
+	fd = open(ft_strcat(tmp, "/3.bmp"), O_RDONLY);
+	read(fd, buf, 14);
+	read(fd, buf, *(unsigned *)(buf + 10) - 14);
+	or->pix[2] = malloc(size);
+	read(fd, or->pix[2], size);
+	
+	ft_strcpy(tmp, str);
+	fd = open(ft_strcat(tmp, "/4.bmp"), O_RDONLY);
+	read(fd, buf, 14);
+	read(fd, buf, *(unsigned *)(buf + 10) - 14);
+	or->pix[3] = malloc(size);
+	read(fd, or->pix[3], size);
+	for (int i = 0; i < tgp->size_x * tgp->size_y; i++)
+	{
+		//printf("%#x \n", or->pix[0][i]);
+		//or->pix[0][i] == 0xffff0000 ? or->pix[0][i] = 0 : 0;
+		//da = (or->pix[0][i] >> 24) & 0xff;
+		or->pix[0][i] != 0xffff ? or->pix[0][i] += 0x1000000 : 0;
+		or->pix[1][i] != 0xffff ? or->pix[1][i] += 0x1000000 : 0;
+		or->pix[2][i] != 0xffff ? or->pix[2][i] += 0x1000000 : 0;
+		or->pix[3][i] != 0xffff ? or->pix[3][i] += 0x1000000 : 0;
+	}
+}
+
+/*
+** m'en bat les couilles il s'apelle le goret si vs voulez vous battre jvous
+** attend gare du nord
+*/
+
+void			load_goret(t_al *al)
+{
+	al->nb_texgp = 1;
+	al->texgp = malloc(al->nb_texgp * sizeof(t_tex_group));
+	al->texgp[0].nb_tex = 4;
+	al->texgp[0].size_x = 512;
+	al->texgp[0].size_y = 512;
+	load_imgs(al->texgp, al->texgp->or + 0, "ressources/sprite/or1");
+	load_imgs(al->texgp, al->texgp->or + 1, "ressources/sprite/or2");
+	load_imgs(al->texgp, al->texgp->or + 2, "ressources/sprite/or3");
+	load_imgs(al->texgp, al->texgp->or + 3, "ressources/sprite/or4");
+	load_imgs(al->texgp, al->texgp->or + 4, "ressources/sprite/or5");
+	load_imgs(al->texgp, al->texgp->or + 5, "ressources/sprite/or6");
+	load_imgs(al->texgp, al->texgp->or + 6, "ressources/sprite/or7");
+	load_imgs(al->texgp, al->texgp->or + 7, "ressources/sprite/or8");
+	printf("Goret loaded\n");
+}
+
 void			init(t_al *al, char *str)
 {
 	if (hms_parser(al, str))
 		exit(0);
-	
-	// T H E  O P E N A T O R, can open a path through every walls, even to you're mom's ass
-	// for (int x = 1; x <= al->nb_sec; x++)
-	// {
-	// 	for (int z = 0; z < al->sec[x].nb_wal; z++)
-	// 	{
-	// 		al->sec[x].walls[z].sec_lnk ? al->sec[x].walls[z].is_cross = 1 : 0;
-	// 	}
-	// }  
+
+	load_goret(al);
+	// T H E  O P E N A T O R, can open a path through every walls, even through you're mom
+	//for (int x = 1; x <= al->nb_sec; x++)
+	//	for (int z = 0; z < al->sec[x].nb_wal; z++)
+	//		al->sec[x].walls[z].sec_lnk ? al->sec[x].walls[z].is_cross = 1 : 0;
 
 
-	/*al->tex = ft_memalloc(5 * sizeof(t_tex));
+/*	al->nb_tex = 3;
+	al->tex = ft_memalloc((al->nb_tex + 1) * sizeof(t_tex));
 	bmp_to_tex(al->tex + 0, "ressources/wall_tex.bmp", 800, 600);
 	bmp_to_tex(al->tex + 1, "ressources/Untitled-1.bmp", 800, 800);
 	bmp_to_tex(al->tex + 2, "ressources/floor_tex.bmp", 950, 950);
@@ -455,7 +526,6 @@ void			init(t_al *al, char *str)
 	al->fps = 60;
 	al->g = 1;//DEFAULT_G;
 	al->fov = DEFAULT_FOV;
-	al->fovn = 1.4;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
 	al->nb_texgp = 1;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
@@ -464,7 +534,7 @@ void			init(t_al *al, char *str)
 			WIN_SIZEX, WIN_SIZEY, SDL_WINDOW_SHOWN)))
 		yeet(al);
 	if (!(al->sdlsurf = SDL_GetWindowSurface(al->sdlwin)))
-		yeet(al);
+			yeet(al);
 	al->pix = al->sdlsurf->pixels;
 	init_ttf(al);
 	if (al->status == EDIT)
@@ -476,5 +546,4 @@ void			init(t_al *al, char *str)
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = FIRST_CLICK;
 	al->edit.zoom = 15;
-	// al->nb_sect = 0;
 }

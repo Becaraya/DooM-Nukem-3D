@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 10:46:13 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/22 16:06:30 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/29 14:48:03 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ inline int	tex_find(unsigned int *pix, int texx, int texy, t_tex *tex)
 	if ((color = tex->pix[tex->size_x * texy + texx]) >> 24)
 		*pix = color;
 	else
+	{
+		//printf("%#010x\n", color);
 		return (1);
+	}
 	return (0);
 }
 
@@ -134,18 +137,22 @@ void		hit_wall(t_al *al, t_rc_ray *ray, int hitnb)
 
 void		hit_ent(t_al *al, t_rc_ray *ray, int hitnb)
 {
-	int wall;
+	t_tex		*tex;
+	t_rc_lim	*lim;
+	int			tot_length;
+	int			y;
 
-	wall = ray->hits[hitnb].lim.sc_topmid;
-	//if (ray->x == WIN_SIZEX / 2 && wall < ray->hits[hitnb].lim.sc_botmid)
-	//	printf("middle wall %d > %d\n", ray->hits[hitnb].lim.sc_topmid, ray->hits[hitnb].lim.sc_botmid);
-	t_rc_lim *lim = &ray->hits[hitnb].lim;
-	while (wall < ray->hits[hitnb].lim.sc_botmid)
+	tex = &ray->hits[hitnb].tex;
+	lim = &ray->hits[hitnb].lim;
+	tot_length = lim->botmid - lim->topmid;
+	y = lim->sc_topmid;
+	//if (ray->x == WIN_SIZEX / 2)
+	//	printf("tot %d\n", tot_length);
+	while (y < lim->sc_botmid)
 	{
-		//if (!((wall + ray->x * (3 + hitnb)) % 10))
-		//	al->pix[wall * WIN_SIZEX + ray->x] = 0xff6060;
-		al->pix[wall * WIN_SIZEX + ray->x] = 0xee82ee;// + 0x000030 * hitnb;;
-		wall-=-1;
+		tex_find(al->pix + y * WIN_SIZEX + ray->x, ray->hits[hitnb].hit_texx,
+		(y - lim->topmid) * tex->size_y / tot_length, tex);
+		y-=-1;
 	}
 }
 

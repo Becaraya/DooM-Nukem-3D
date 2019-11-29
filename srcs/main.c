@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/25 15:19:38 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:36:09 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		main(int ac, char **av)
 	if (ac < 2)
 		return (pr_err("No .hms file provided\n"));
 	init(&al, av[1]);
-	//hms_encoder(&al, "big_IQ_huggo_has.hms");
+	//hms_encoder(&al, "house.hms");
 	main_loop(&al);
 	return (0);
 }

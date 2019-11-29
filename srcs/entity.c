@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   entity.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/25 13:03:31 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/28 12:54:39 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ int		is_cross(t_player *e, t_walls t, double v, int s)
 	if (t.is_cross){
 		if (d > d_wall(t, e->posx, e->posy) && t.sec_lnk != e->csec)
 			e->csec = t.sec_lnk;
-		printf(" %f, %d\n",d,t.sec_lnk);
+		//printf(" %f, %d\n",d,t.sec_lnk);
 		return(1);
 	}
 	if (d < 0.5)

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/29 15:39:34 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:45:20 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,19 +42,8 @@ void    		creat_entity(t_al *al)
 	al->nb_ent = 1;
 	al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob));
 	al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob));
-	/*al->ent.pl.posx = 0;
-	al->ent.pl.posy = -1;
-	al->ent.pl.vely = 0.1;
-	al->ent.pl.size = PLAYER_SIZE;
-	al->ent.pl.on_ground = 1;
-	al->ent.pl.power = 400;
-	al->ent.pl.power_mult = 1;
-	al->ent.pl.mass = 67;
-	al->ent.pl.alive = 1;
-	al->ent.pl.posz = al->sec[al->play.csec].fl_hei;*/
-
 	al->ent[0].csec = 1;
-	al->ent[0].posx = 3;
+	al->ent[0].posx = 0;
     al->ent[0].posy = 2;
 	al->ent[0].posz = al->sec[al->ent[0].csec].fl_hei;
 	al->ent[0].velx = 1;

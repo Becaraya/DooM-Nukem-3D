@@ -16,7 +16,7 @@ unsigned int		**load_anim(t_al *al, char *path, int nb_tex)
 		name = ft_strjoin(path,id);
 		name = ft_strjoinfreef(name,".bmp");
 		// printf("path = %s\n",name);
-		pix[i] = parse_tex(al, name, SPRITE_W, SPRITE_H);
+		// pix[i] = parse_tex(al, name, SPRITE_W, SPRITE_H);
 		ft_strdel(&name);
 		ft_strdel(&id);
 	}
@@ -45,12 +45,21 @@ void	set_texgrp(t_al *al, int nb_tex, char *path, int index)
 	init_or(al,&al->texgp[index], path);
 }
 
-
+/*
+**al->nb_texgp a configurer dans init
+**set_texgrp(al, nb d'image par orientation, path, index du groupe)
+*/
 void	init_texgrp(t_al *al)
 {
+	int i;
+
+	i = -1;
 	if (!(al->texgp = ft_memalloc(sizeof(t_tex_group) * al->nb_texgp)))
 		yeet(al);
-	set_texgrp(al,7,"ressources/sprite/",0);
+	while (++i != al->nb_texgp)
+	{
+		set_texgrp(al,7,"ressources/sprite/",i);
+	}
 }
 
 

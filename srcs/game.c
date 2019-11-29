@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/19 15:55:56 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/11/25 13:27:14 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,10 +177,8 @@ void		game(t_al *al)
 		acceleration(al);
 	else
 		flyyyy(al);
-//	while (al->ent[x] < al->nb_entity)
-		// if (al->ent.on_ground)
-	// if(al->ent[0].etat == 1) 
-	//	acceleration_entities(al);
+	if(al->ent[0].alive) 
+		acceleration_entities(al, al->ent[0]);
 	displacement(al);
 	render(al);
 }

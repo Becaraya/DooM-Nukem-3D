@@ -3,15 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   edit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 18:34:00 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/11/27 16:17:24 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 #include <stdlib.h>
+#define TEX_SIZE_MENU 100
 
 static void		set_edit(t_al *al)
 {
@@ -23,7 +24,7 @@ static void		set_edit(t_al *al)
 	y = 0;
 	ft_bzero(al->pix, WIN_SIZEX * WIN_SIZEY * sizeof(int));
 	// ft_memset(al->sdlsurf->pixels, WHITE, WIN_SIZEX * WIN_SIZEY * sizeof(int));
-	
+
 	while (x < WIN_SIZEX)
 	{
 		while (y < WIN_SIZEY)
@@ -125,6 +126,45 @@ void		put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr)
 	ft_put_line(b, c, surf, clr);
 }
 
+void 	display_tex_menu(SDL_Surface *surf, t_tex tex, int i)
+{
+	unsigned int tex_x;
+	unsigned int tex_y;
+	int x;
+	int y;
+
+	y = i;
+	tex_y = 0;
+	while ((y != surf->h) && (tex_y < tex.size_y) && y < (i + TEX_SIZE_MENU))
+	{
+		x = surf->w - TEX_SIZE_MENU;
+		tex_x = x / tex.size_x;
+		while (x != surf->w && tex_x < tex.size_x)
+		{
+			((int *)surf->pixels)[x + y * surf->w] = tex.pix[tex_x + tex_y * tex.size_x];
+			tex_x++;
+			x++;
+		}
+		tex_y++;
+		y++;
+	}
+
+}
+
+void tex_menu(t_al *al)
+{
+	SDL_Surface *surf;
+	int i;
+
+	// printf("nb tex = %d\n",al->nb_tex);
+	surf = al->surf_ed;
+	i = -1;
+	while (++i != al->nb_tex)
+	{
+		display_tex_menu(surf,al->tex[i],(i * TEX_SIZE_MENU));
+	}
+}
+
 void		set_edit_menu(t_al *al)
 {
 	char *tmp;
@@ -145,10 +185,13 @@ void		set_edit_menu(t_al *al)
 		put_rectangle(al->surf_ed, itopoint(590, 15), itopoint(685, 48), BLACK);
 }
 
+
+
 void	editor(t_al *al)
 {
 	set_edit(al);
 	set_edit_menu(al);
+	// tex_menu(al);
 	if (al->sect)
 		draw_sect(al, al->sect);
 

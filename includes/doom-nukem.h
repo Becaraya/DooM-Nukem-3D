@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/02 03:52:27 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:24:56 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,8 +242,8 @@ typedef struct		s_point
 
 typedef struct		s_doint
 {
-	int				x;
-	int				y;
+	double				x;
+	double				y;
 	int				color;
 }					t_doint;
 

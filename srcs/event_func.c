@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/26 15:39:52 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/02 02:17:24 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,7 @@ void		mouse_mv(t_al *al)
 	SDL_MouseMotionEvent	mev;
 
 	mev = al->ev.motion;
-	al->play.dir += mev.xrel * 10;
+	al->play.dir = (al->play.dir + mev.xrel * 10) & D_2PIM;
 	if (mev.windowID == 1)
 	{
 		if (al->edit.stat == DRAWING)

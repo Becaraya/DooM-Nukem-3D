@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 10:46:13 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/29 14:48:03 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/02 02:07:32 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void		hit_floor(t_al *al, t_rc_ray *ray, int hitnb)
 	//if (ray->x == WIN_SIZEX / 2 && botlim < ray->hits[hitnb].lim.sc_botlim)
 	//	printf("floor %d > %d\n", botlim, ray->hits[hitnb].lim.sc_botlim);
 	while (botlim < ray->hits[hitnb].lim.sc_botlim)
-		al->pix[(botlim++) * WIN_SIZEX + ray->x] = 0x5050ff;// + 0x202000 * hitnb;
+		al->pix[(botlim++) * WIN_SIZEX + ray->x] = 0x20a030;// + 0x202000 * hitnb;
 }
 
 void		hit_ceiling(t_al *al, t_rc_ray *ray, int hitnb)
@@ -58,7 +58,7 @@ void		hit_ceiling(t_al *al, t_rc_ray *ray, int hitnb)
 	//if (ray->x == WIN_SIZEX / 2 && toplim < ray->hits[hitnb].lim.sc_topwall)
 	//	printf("ceiling %d > %d\n", toplim, ray->hits[hitnb].lim.sc_topwall);
 	while (toplim < ray->hits[hitnb].lim.sc_topwall)
-		al->pix[(toplim++) * WIN_SIZEX + ray->x] = 0xff5050;// + 0x002020 * hitnb;
+		al->pix[(toplim++) * WIN_SIZEX + ray->x] = 0x4040ff;// + 0x002020 * hitnb;
 }
 
 void		hit_top_wall(t_al *al, t_rc_ray *ray, int hitnb)
@@ -80,7 +80,7 @@ void		hit_bot_wall(t_al *al, t_rc_ray *ray, int hitnb)
 	//if (ray->x == WIN_SIZEX / 2 && bot < ray->hits[hitnb].lim.sc_botwall)
 	//	printf("bot wall %d > %d\n", bot, ray->hits[hitnb].lim.sc_botwall);
 	while (bot < ray->hits[hitnb].lim.sc_botwall)
-		al->pix[(bot++) * WIN_SIZEX + ray->x] = 0x60ff30;// + 0x100010 * hitnb;
+		al->pix[(bot++) * WIN_SIZEX + ray->x] = 0xdab887;// + 0x100010 * hitnb;
 }
 
 /*
@@ -130,7 +130,7 @@ void		hit_wall(t_al *al, t_rc_ray *ray, int hitnb)
 		//if (!((wall + ray->x * (3 + hitnb)) % 10))
 		//	al->pix[wall * WIN_SIZEX + ray->x] = 0xff6060;
 		if (hitnb == ray->nb_hits - 1)
-			al->pix[wall * WIN_SIZEX + ray->x] = 0x202020;// + 0x000030 * hitnb;;
+			al->pix[wall * WIN_SIZEX + ray->x] = 0x202035;// + 0x000030 * hitnb;;
 		wall-=-1;
 	}
 }

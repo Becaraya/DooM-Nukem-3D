@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/29 15:45:20 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/02 03:58:34 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void    		creat_entity(t_al *al)
 	al->ent[0].dir = 0;
 
 	al->ent[0].size = 2;
-	al->ent[0].width = 2;
+	al->ent[0].width = 1.7;
 	al->ent[0].mass = 50;
 	al->ent[0].power = 200;
 }
@@ -138,48 +138,48 @@ void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 	tmp = malloc(tgp->size_x * tgp->size_y * 3);
 	or->pix = malloc(tgp->nb_tex * sizeof(unsigned **));
 
-	ft_strcpy(tmp, str);
-	fd = open(ft_strcat(tmp, "/1.bmp"), O_RDONLY);
+	ft_strcpy((char *)tmp, str);
+	fd = open(ft_strcat((char *)tmp, "/1.bmp"), O_RDONLY);
 	read(fd, buf, 14);
 	read(fd, buf, *(unsigned *)(buf + 10) - 14);
 	or->pix[0] = malloc(size);
 	read(fd, tmp, tgp->size_x * tgp->size_y * 3);
-	for (int i = 0; i < tgp->size_x * tgp->size_y; i++)
+	for (unsigned i = 0; i < tgp->size_x * tgp->size_y; i++)
 		or->pix[0][tgp->size_x * tgp->size_y - i] = tmp[i * 3 + 2] * 0x10000 +
 			tmp[i * 3 + 1] * 0x100 +tmp[i * 3];
 
-	ft_strcpy(tmp, str);
-	fd = open(ft_strcat(tmp, "/2.bmp"), O_RDONLY);
+	ft_strcpy((char *)tmp, str);
+	fd = open(ft_strcat((char *)tmp, "/2.bmp"), O_RDONLY);
 	read(fd, buf, 14);
 	read(fd, buf, *(unsigned *)(buf + 10) - 14);
 	or->pix[1] = malloc(size);
 	read(fd, tmp, tgp->size_x * tgp->size_y * 3);
-	for (int i = 0; i < tgp->size_x * tgp->size_y; i++)
+	for (unsigned i = 0; i < tgp->size_x * tgp->size_y; i++)
 		or->pix[1][tgp->size_x * tgp->size_y - i] = tmp[i * 3 + 2] * 0x10000 +
 			tmp[i * 3 + 1] * 0x100 +tmp[i * 3];
 
-	ft_strcpy(tmp, str);
-	fd = open(ft_strcat(tmp, "/3.bmp"), O_RDONLY);
+	ft_strcpy((char *)tmp, str);
+	fd = open(ft_strcat((char *)tmp, "/3.bmp"), O_RDONLY);
 	read(fd, buf, 14);
 	read(fd, buf, *(unsigned *)(buf + 10) - 14);
 	or->pix[2] = malloc(size);
 	read(fd, tmp, tgp->size_x * tgp->size_y * 3);
-	for (int i = 0; i < tgp->size_x * tgp->size_y; i++)
+	for (unsigned i = 0; i < tgp->size_x * tgp->size_y; i++)
 		or->pix[2][tgp->size_x * tgp->size_y - i] = tmp[i * 3 + 2] * 0x10000 +
 			tmp[i * 3 + 1] * 0x100 +tmp[i * 3];
 	
-	ft_strcpy(tmp, str);
-	fd = open(ft_strcat(tmp, "/4.bmp"), O_RDONLY);
+	ft_strcpy((char *)tmp, str);
+	fd = open(ft_strcat((char *)tmp, "/4.bmp"), O_RDONLY);
 	read(fd, buf, 14);
 	read(fd, buf, *(unsigned *)(buf + 10) - 14);
 	or->pix[3] = malloc(size);
 	read(fd, tmp, tgp->size_x * tgp->size_y * 3);
-	for (int i = 0; i < tgp->size_x * tgp->size_y; i++)
+	for (unsigned i = 0; i < tgp->size_x * tgp->size_y; i++)
 		or->pix[3][tgp->size_x * tgp->size_y - i] = tmp[i * 3 + 2] * 0x10000 +
 			tmp[i * 3 + 1] * 0x100 +tmp[i * 3];
 
 
-	for (int i = 0; i < tgp->size_x * tgp->size_y; i++)
+	for (unsigned i = 0; i < tgp->size_x * tgp->size_y; i++)
 	{
 		//printf("%#x \n", or->pix[0][i]);
 		//or->pix[0][i] == 0xffff0000 ? or->pix[0][i] = 0 : 0;
@@ -189,6 +189,7 @@ void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 		or->pix[2][i] != 0xffff ? or->pix[2][i] += 0x1000000 : 0;
 		or->pix[3][i] != 0xffff ? or->pix[3][i] += 0x1000000 : 0;
 	}
+	free(tmp);
 }
 
 /*
@@ -528,7 +529,7 @@ void			init(t_al *al, char *str)
 	al->status = EDIT;
 	al->status = GAME;
 	al->fps = 60;
-	al->g = 1;//DEFAULT_G;
+	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
 	al->nb_texgp = 1;

@@ -40,6 +40,7 @@ SRC_LIST = main.c			\
 		init.c 				\
 		mouse_edit.c		\
 		sdl_tools.c			\
+		pimp_cross.c		\
 		refresh.c			\
 		sprite.c			\
 		get_map.c			\

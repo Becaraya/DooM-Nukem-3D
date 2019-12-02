@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/25 15:16:49 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/11/29 15:40:46 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,9 @@ void		rot_ents(t_al *al, t_angle angle)
 	i = 0;
 	while (i < al->nb_ent)
 	{
+		rotent[i].angle_to_player = (t_angle)(atan2(al->ent[i].posx - play->posx,
+		al->ent[i].posy - play->posy) * D_2PI / M_2PI);
+		al->ent[i].angle_to_player = rotent[i].angle_to_player;
 		rotent[i].posx = (al->ent[i].posx - play->posx) * al->cos[angle] -
 		(al->ent[i].posy - play->posy) * al->sin[angle];
 		rotent[i].posy = (al->ent[i].posx - play->posx) * al->sin[angle] +
@@ -209,6 +212,20 @@ int			test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 	return (0);
 }
 
+// ############################################################################
+// ##### c'est la que tu bosse connard (note a moi meme faites pas gaffe) #####
+// ############################################################################
+
+t_tex		find_ent_tex(t_al *al, t_mob *ent)
+{
+	t_tex	tmp;
+
+	tmp.size_x = al->texgp[0].size_x;
+	tmp.size_y = al->texgp[0].size_y;
+	tmp.pix = al->texgp[0].or[sub_angle(ent->angle_to_player + D_PI_4 / 2, ent->dir) / D_PI_4].pix[al->anim >> 14];
+	return (tmp);
+}
+
 int			test_ent_hit(t_al *al, t_rc_ray *ray, t_mob *rotent, t_mob *oent)
 {
 	if (rotent->posx < oent->width / 2 && rotent->posx > -oent->width / 2)
@@ -221,14 +238,13 @@ int			test_ent_hit(t_al *al, t_rc_ray *ray, t_mob *rotent, t_mob *oent)
 				ray->min = rotent->posy;
 				ray->hits[ray->nb_hits].is_entity = 1;
 				ray->hits[ray->nb_hits].wall_length = oent->width;
-				//wall->x1 > wall->x2 ? swapd(&wall->x1, &wall->x2) : 0;
-				//	ray->hits[ray->nb_hits].hit_texx = (unsigned)(wall->x1 /
-				//	(wall->x1 - wall->x2) * wall_len(owall) * UINT16_MAX) %
-				//	(unsigned)(TEX_REPEAT * UINT16_MAX) / TEX_REPEAT;
-				ray->hits[ray->nb_hits].hitdst = rotent->posy * al->cos[sub_angle(
-						ray->angle, al->play.dir)];
+				ray->hits[ray->nb_hits].hitdst = rotent->posy * al->cos[
+					sub_angle(rotent->angle_to_player, al->play.dir)];
 				ray->hits[ray->nb_hits].ent = *oent;
-				ray->hits[ray->nb_hits].tex = al->tex[1];
+				ray->hits[ray->nb_hits].tex = find_ent_tex(al, oent);
+				ray->hits[ray->nb_hits].hit_texx = (oent->width / 2 -
+					rotent->posx) * ray->hits[ray->nb_hits].tex.size_x /
+				oent->width;
 				return (1);
 			}
 		}
@@ -282,56 +298,35 @@ void		cast_ray(t_al *al, t_angle an, t_rc_ray *ray)
 	cast_sec(al, ray, al->play.csec, ray->angle);
 }
 
-void		invert_pix(unsigned int *pix)
-{
-	*pix = ~(*pix);
-}
-
-void		pimp_cross(t_al *al)
-{
-	int i;
-
-	i = WIN_SIZEY / 2 - 12;
-	while (i <= WIN_SIZEY / 2 + 12)
-	{
-		invert_pix(al->pix + i * WIN_SIZEX + WIN_SIZEX / 2 - 1);
-		invert_pix(al->pix + i * WIN_SIZEX + WIN_SIZEX / 2);
-		invert_pix(al->pix + i * WIN_SIZEX + WIN_SIZEX / 2 + 1);
-		i++;
-	}
-	i = WIN_SIZEX / 2 - 12;
-	while (i <= WIN_SIZEX / 2 + 12)
-	{
-		if (i < WIN_SIZEX / 2 - 1 || i > WIN_SIZEX / 2 + 1)
-		{
-			invert_pix(al->pix + WIN_SIZEX * (WIN_SIZEY / 2 - 1) + i);
-			invert_pix(al->pix + WIN_SIZEX * WIN_SIZEY / 2 + i);
-			invert_pix(al->pix + WIN_SIZEX * (WIN_SIZEY / 2 + 1) + i);
-		}
-		i++;
-	}
-}
-
 void		render(t_al *al)
 {
 	t_rc_ray	ray;
 	int			x;
 
-	al->wall_scale = 0.1624 * D_2PI / al->fovn;
+	al->wall_scale = 0.1624 * D_2PI / al->fov;
 	ft_bzero(al->pix, WIN_SIZEX * WIN_SIZEY * sizeof(int));
 	x = 0;
 	while (x < WIN_SIZEX)
 	{
 		ray.nb_hits = 0;
 		ray.x = x;
-		cast_ray(al, (t_angle)(atan(al->fovn * (x - (WIN_SIZEX / 2)) /
+		cast_ray(al, (t_angle)(atan(al->fov * (x - (WIN_SIZEX / 2)) /
 					WIN_SIZEX) / M_2PI * D_2PI + al->play.dir) & D_2PIM, &ray);
 		column(al, &ray);
 		x++;
 	}
-	pimp_cross(al);
-	/*ray.nb_hits = 0;
-	cast_ray(al, (t_angle)(atan(al->fovn * (x - (WIN_SIZEX / 2)) /
+	
+	/*for (int y = 0; y < 512; y++)
+		for (int x = 0; x < 512; x++)
+			al->pix[x + WIN_SIZEX * y] = al->texgp[0].or[0].pix[1][x + 512 * y];
+	for (int y = 0; y < 512; y++)
+		for (int x = 0; x < 512; x++)
+			al->pix[x + 512 + WIN_SIZEX * y] = (al->texgp[0].or[0].pix[1][x + 512 * y] >> 8) & 0xff;
+	for (int y = 0; y < 512; y++)
+		for (int x = 0; x < 512; x++)
+			al->pix[x + 1024 + WIN_SIZEX * y] = (al->texgp[0].or[0].pix[1][x + 512 * y] >> 0) & 0xff;
+	*//*ray.nb_hits = 0;
+	cast_ray(al, (t_angle)(atan(al->fov * (x - (WIN_SIZEX / 2)) /
 		WIN_SIZEX) / M_2PI * D_2PI + al->play.dir) & D_2PIM, &ray);
 	while (x < WIN_SIZEX)
 	{
@@ -339,6 +334,7 @@ void		render(t_al *al)
 		x++;
 	}*/
 	//draw_map(al);
+	pimp_cross(al);
 	ft_putstr(" FPS:");
 	ft_putnbr(1000000 / al->dtime);
 	refresh(al);

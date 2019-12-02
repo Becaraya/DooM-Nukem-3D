@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/28 17:16:56 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/02 12:11:48 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,14 +91,15 @@ static int	inters(t_sector sec, t_doint point, t_doint extreme)
 	return (intersections);
 }
 
-#define MAX_X 10000 //c est temporaire j ai la flemme pour le moment 
+#define MAX_X 100 //c est temporaire j ai la flemme pour le moment 
 int            is_in_sector(t_doint point, unsigned i, t_al *al)
 {
     int            se;
 
     t_doint    extreme; // mur en x le plus loin et y actuel
 		//printf("it's ok bro");
-    while (i - 1 < al->nb_sec)
+	printf(" ptnx: %d\n",point.x);
+	while (i - 1 < al->nb_sec)
     {
 		//printf("sec: %d\n", i);
         extreme.x = MAX_X;
@@ -118,35 +119,6 @@ int            is_in_sector(t_doint point, unsigned i, t_al *al)
 **0.5 correspond a la moitier de l aipaisseur du joueur (je supose)
 **il serais interesant de le fair varier pour en juger
 */
-
-//version fonctionelle du ft_nop-PLAYER
-// void	ft_nop_p`layer(t_al *al, int i, double x, double y)
-// {
-// 	double m[2];
-// 	t_walls t;
-
-// 	m[0] = 1;  
-// 	m[1] = 1;
-// 	while (i < (int)al->sec[al->play.csec].nb_wal)
-// 	{
-// 		t = al->sec[al->play.csec].walls[i];
-// 		if (x > 0.0 && (t.x1 > PPX || t.x2 > PPX) 
-// 		&& ((t.y1 < PPY && PPY < t.y2) || (t.y1 > PPY && PPY > t.y2)))
-// 			(d_wall(t, PPX + x, PPY) < 0.5) ? m[0] = 0 : 1;	
-// 		if (x <= 0.0 && (t.x1 < PPX || t.x2 < PPX)
-// 		&& ((t.y1 < PPY && PPY < t.y2) || (t.y1 > PPY && PPY > t.y2)))
-// 			(d_wall(t, PPX + x, PPY) < 0.5) ? m[0] = 0 : 1;
-// 		if (y > 0.0 && (t.y1 > PPY || t.y2 > PPY)
-// 		&& ((t.x1 < PPX && PPX < t.x2) || (t.x1 > PPX && PPX > t.x2)))
-// 			(d_wall(t, PPX, PPY + y) < 0.5) ? m[1] = 0 : 1;
-// 		if (y <= 0.0 && (t.y1 < PPY || t.y2 < PPY)
-// 		&& ((t.x1 < PPX && PPX < t.x2) || (t.x1 > PPX && PPX > t.x2)))
-// 			(d_wall(t, PPX, PPY + y) < 0.5) ? m[1] = 0 : 1;
-// 		i++;
-// 	}
-// 	(m[1] == 1) ? PPY += y : 0;
-// 	(m[0] == 1) ? PPX += x : 0; 
-// }
 
 int		is_cross(t_player *e, t_walls t, double v, int s, t_al *al)
 {
@@ -173,27 +145,6 @@ int		is_cross(t_player *e, t_walls t, double v, int s, t_al *al)
 		return (0);
 	return (1);
 }
-/*
-int            is_in_sector(t_editor *edit, t_vertex point)
-{
-    int            intersects;
-    t_sector    *sect;
-    t_vertex    *vertex;
-    t_vertex    extreme;
-
-    sect = edit->sector;
-    while (sect)
-    {
-        extreme.x = WHITE;
-        extreme.y = point.y;
-        vertex = sect->vertex;
-        intersects = inters(vertex, point, extreme);
-        if (intersects % 2 == 1)
-            return (sect->sector_number);
-        sect = sect->next;
-    }
-    return (-1);
-}*/
 
 void	ft_nop_player(t_al *al, int i, double x, double y)
 {

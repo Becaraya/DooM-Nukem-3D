@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/02 12:19:32 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:44:32 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,80 +40,6 @@ double		d_wall(t_walls w, double px, double py)
 	return (sqrt((x - px) * (x - px) + (y - py) * (y - py)));
 }
 
-static int	is_left(t_doint p0, t_doint p1, t_doint p2)
-{
-	int		value;	value = (p1.y - p0.y) * (p2.x - p1.x) - (p1.x - p0.x) * (p2.y - p1.y);
-	if (value == 0)
-		return (0);
-	else if (value > 0)
-		return (1);
-	else
-		return (2);
-}
-
-int			intersects_count(t_doint v1, t_doint v2, t_doint p1, t_doint p2)
-{
-	int		tab[4];	tab[0] = is_left(v1, v2, p1);
-	tab[1] = is_left(v1, v2, p2);
-	tab[2] = is_left(p1, p2, v1);
-	tab[3] = is_left(p1, p2, v2);
-	if (tab[0] != tab[1] && tab[2] != tab[3])
-		return (1);
-	return (0);
-}
-
-static int	inters(t_sector sec, t_doint point, t_doint extreme)
-{
-	int		intersections;
-	t_doint a;
-	t_doint b;
-	unsigned i;
-
-	i = 0;
-	intersections = 0;
-	//printf("its ok bro\n");
-	while (i < sec.nb_wal)
-	{
-	//	printf("i:%d\n", i);
-		a.x = sec.walls[i].x1;
-		a.y = sec.walls[i].y1;
-		b.x = sec.walls[i].x2;
-		b.y = sec.walls[i].y2;
-		if (i + 1 == sec.nb_wal)
-		{
-			if (intersects_count(a, b, point, extreme))
-				++intersections;
-		}
-		else if (intersects_count(a, b, point, extreme))
-			++intersections;
-		i++;
-	}
-	return (intersections);
-}
-
-#define MAX_X 100 //c est temporaire j ai la flemme pour le moment 
-int            is_in_sector(t_doint point, unsigned i, t_al *al)
-{
-    int            se;
-
-    t_doint    extreme; // mur en x le plus loin et y actuel
-		//printf("it's ok bro");
-	printf(" ptnx: %d\n",point.x);
-	while (i - 1 < al->nb_sec)
-    {
-		//printf("sec: %d\n", i);
-        extreme.x = MAX_X;
-        extreme.y = point.y;
-        se = inters(al->sec[i], point, extreme );
-	//	printf("inter %d\n", se % 2);
-        if (se % 2 == 1)
-            return (i);
-        i++;
-    }
-	printf("YASUNE COUILLLLLLLLLLLLLLLL\n");
-    return (1);
-}
-
 /*
 **ft_nop empeche l'entité de passer au travers d un mur il faudrais lui trouver un nom plus paralans
 **0.5 correspond a la moitier de l aipaisseur du joueur (je supose)
@@ -127,7 +53,7 @@ int		is_cross(t_player *e, t_walls t, double v, int s, t_al *al)
 	 
 	j.x = e->posx;
 	j.y = e->posy;
-	printf("sector : %d\n", is_in_sector(j, 1, al));
+	//printf("1x%f : y%f\n", j.x , j.y);
 	d = (s) ? d_wall(t, e->posx, e->posy + v) : d_wall(t, e->posx + v, e->posy);
 	if (t.is_cross)
 		return(1);
@@ -220,8 +146,8 @@ void	ft_nop(t_al *al,t_mob *e, double x, double y)
 			m[1] = is_cross_x(e, t, y, 1);
 	//	printf("ex: %f , t.x1: %f, t.x2: %f\n", e->posx, );
 		if(e->csec != s){
-		printf("coucou\n");
-		printf("%d\n",e->csec);
+	//	printf("coucou\n");
+	//	printf("%d\n",e->csec);
 			break;
 		}
 		i++;

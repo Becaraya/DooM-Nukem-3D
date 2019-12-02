@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/02 17:24:56 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/02 17:37:37 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -594,11 +594,12 @@ SDL_Color			add_color(int color);
 */
 
 t_point				itopoint(int x, int y);
+int					is_in_sector(t_doint point, unsigned i, t_al *al);
 
 
 /*
 ** action of entity
 */
-void		acceleration_entities(t_al *al, t_mob mob);
+void				acceleration_entities(t_al *al, t_mob mob);
 
 #endif

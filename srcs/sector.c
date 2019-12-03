@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:36:27 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/02 17:44:47 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/03 14:40:54 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ static int	inters(t_sector sec, t_doint point, t_doint extreme)
 	unsigned i;
 
 	i = 0;
-	//printf("3x%f : y%f\n", point.x , point.y);
 	intersections = 0;
 	//printf("its ok bro\n");
 	while (i < sec.nb_wal)
@@ -69,25 +68,25 @@ static int	inters(t_sector sec, t_doint point, t_doint extreme)
 }
 
 #define MAX_X 100 //c est temporaire j ai la flemme pour le moment il faudrais mettre une variable x max deffinicant le point x le plus eloigner
-int            is_in_sector(t_doint point, unsigned i, t_al *al)
+int            is_in_sector(t_al *al, double x, double y)
 {
-    int            se;
+	unsigned	i;
+    t_doint		extreme; // mur en x le plus loin et y actuel
+	t_doint		point;
 
-	//printf("2x%f : y%f\n", point.x , point.y);
-    t_doint    extreme; // mur en x le plus loin et y actuel
-		//printf("it's ok bro");
-	//printf(" ptnx: %f\n",point.x);
+	point.x = x;
+	point.y = y;
+	i = 1;
 	while (i - 1 < al->nb_sec)
     {
-		//printf("sec: %d\n", i);
         extreme.x = MAX_X;
         extreme.y = point.y;
-        se = inters(al->sec[i], point, extreme );
-	//	printf("inter %d\n", se % 2);
-        if (se % 2 == 1)
+        if (inters(al->sec[i], point, extreme) % 2 == 1)
+		{
             return (i);
-        i++;
+		}
+		i++;
     }
-	//printf("YASUNE COUILLLLLLLLLLLLLLLL\n");
+	printf("YASUNE COUILLLLLLLLLLLLLLLL\n");
     return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/02 17:44:32 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/03 14:46:40 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,54 +46,46 @@ double		d_wall(t_walls w, double px, double py)
 **il serais interesant de le fair varier pour en juger
 */
 
-int		is_cross(t_player *e, t_walls t, double v, int s, t_al *al)
+int		is_cross(t_player *e, t_walls t, double v, int s)
 {
 	double d;
 	t_doint j;
 	 
 	j.x = e->posx;
 	j.y = e->posy;
-	//printf("1x%f : y%f\n", j.x , j.y);
 	d = (s) ? d_wall(t, e->posx, e->posy + v) : d_wall(t, e->posx + v, e->posy);
 	if (t.is_cross)
 		return(1);
-	if(s)
-	{
-		j.y += v;
-		e->csec =  is_in_sector(j, 1, al);
-	}
-	else
-	{
-		j.x += v;
-		e->csec =  is_in_sector(j, 1, al);
-	}
 	if (d < 0.5)
 		return (0);
 	return (1);
 }
+
 
 void	ft_nop_player(t_al *al, int i, double x, double y)
 {
 	double m[2];
 	t_walls t;
 
-	m[0] = 1;  
+	m[0] = 1; 
 	m[1] = 1;
+	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
+	printf("\n\nsector : %d\n",al->play.csec);
 	while (i < (int)al->sec[al->play.csec].nb_wal)
 	{
 		t = al->sec[al->play.csec].walls[i];
 		if (x > 0.0 && (t.x1 >= PPX || t.x2 >= PPX) 
 		&& ((t.y1 <= PPY && PPY <= t.y2) || (t.y1 >= PPY && PPY >= t.y2)))
-			m[0] = is_cross(&al->play, t, x, 0, al);
+			m[0] = is_cross(&al->play, t, x, 0);
 		if (x <= 0.0 && (t.x1 <= PPX || t.x2 <= PPX)
 		&& ((t.y1 <= PPY && PPY <= t.y2) || (t.y1 >= PPY && PPY >= t.y2)))
-			m[0] = is_cross(&al->play, t, x, 0, al);	
+			m[0] = is_cross(&al->play, t, x, 0);	
 		if (y > 0.0 && (t.y1 >= PPY || t.y2 >= PPY)
 		&& ((t.x1 <= PPX && PPX <= t.x2) || (t.x1 >= PPX && PPX >= t.x2)))
-			m[1] = is_cross(&al->play, t, y, 1, al);	
+			m[1] = is_cross(&al->play, t, y, 1);	
 		if (y <= 0.0 && (t.y1 <= PPY || t.y2 <= PPY)
 		&& ((t.x1 <= PPX && PPX <= t.x2) || (t.x1 >= PPX && PPX >= t.x2)))
-			m[1] = is_cross(&al->play, t, y, 1, al);	
+			m[1] = is_cross(&al->play, t, y, 1);	
 		i++;
 	}
 	(m[1] == 1) ? PPY += y : 0;
@@ -137,6 +129,7 @@ void	ft_nop(t_al *al,t_mob *e, double x, double y)
 		&& ((t.y1 <= e->posy && e->posy <= t.y2) || (t.y1 >= e->posy && e->posy >= t.y2)))
 			m[0] = is_cross_x(e, t, x, 0);
 
+
 		if (y > 0.0 && (t.y1 > e->posy || t.y2 > e->posy)
 		&& ((t.x1 <= e->posx && e->posx <= t.x2) || (t.x1 >= e->posx && e->posx >= t.x2)))
 			m[1] = is_cross_x(e, t, y, 1);
@@ -144,10 +137,7 @@ void	ft_nop(t_al *al,t_mob *e, double x, double y)
 		if (y < 0.00000 && (t.y1 < e->posy || t.y2 < e->posy)
 		&& ((t.x1 <= e->posx && e->posx <= t.x2) || (t.x1 >= e->posx && e->posx >= t.x2)))
 			m[1] = is_cross_x(e, t, y, 1);
-	//	printf("ex: %f , t.x1: %f, t.x2: %f\n", e->posx, );
 		if(e->csec != s){
-	//	printf("coucou\n");
-	//	printf("%d\n",e->csec);
 			break;
 		}
 		i++;

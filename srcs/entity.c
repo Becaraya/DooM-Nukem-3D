@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/03 14:46:40 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/03 17:51:46 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,25 @@ double		d_wall(t_walls w, double px, double py)
 **il serais interesant de le fair varier pour en juger
 */
 
+int		is_cross_x(t_player *e, t_walls t, double v, t_al *al)
+{
+	double d;
+
+	d = d_wall(t, e->posx + v, e->posy);
+	if (t.is_cross)
+	{
+		if ( d < 0.5 && al->sec[e->csec].fl_hei < al->sec[t.sec_lnk].fl_hei)
+		{
+			printf("texture trops haute vous : %f , le mure :%f\n",al->sec[e->csec].fl_hei, al->sec[t.sec_lnk].fl_hei );
+			return(0);
+		}
+		return(1);
+	}
+	if (d < 0.5)
+		return (0);
+	return (1);
+}
+
 int		is_cross(t_player *e, t_walls t, double v, int s)
 {
 	double d;
@@ -61,7 +80,6 @@ int		is_cross(t_player *e, t_walls t, double v, int s)
 	return (1);
 }
 
-
 void	ft_nop_player(t_al *al, int i, double x, double y)
 {
 	double m[2];
@@ -76,10 +94,10 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 		t = al->sec[al->play.csec].walls[i];
 		if (x > 0.0 && (t.x1 >= PPX || t.x2 >= PPX) 
 		&& ((t.y1 <= PPY && PPY <= t.y2) || (t.y1 >= PPY && PPY >= t.y2)))
-			m[0] = is_cross(&al->play, t, x, 0);
+			m[0] = is_cross_x(&al->play, t, x, al);
 		if (x <= 0.0 && (t.x1 <= PPX || t.x2 <= PPX)
 		&& ((t.y1 <= PPY && PPY <= t.y2) || (t.y1 >= PPY && PPY >= t.y2)))
-			m[0] = is_cross(&al->play, t, x, 0);	
+			m[0] = is_cross_x(&al->play, t, x, al);	
 		if (y > 0.0 && (t.y1 >= PPY || t.y2 >= PPY)
 		&& ((t.x1 <= PPX && PPX <= t.x2) || (t.x1 >= PPX && PPX >= t.x2)))
 			m[1] = is_cross(&al->play, t, y, 1);	
@@ -92,7 +110,7 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	(m[0] == 1) ? PPX += x : 0;
 }
 
-int		is_cross_x(t_mob *e, t_walls t, double v, int s)
+int		is_cr(t_mob *e, t_walls t, double v, int s)
 {
 	(void)e;
 	(void)t;
@@ -123,20 +141,20 @@ void	ft_nop(t_al *al,t_mob *e, double x, double y)
 		t = al->sec[e->csec].walls[i];
 		if (x > 0.0 && (t.x1 > e->posx || t.x2 > e->posx)
 		&& ((t.y1 <= e->posy && e->posy <= t.y2) || (t.y1 >= e->posy && e->posy >= t.y2)))
-			m[0] = is_cross_x(e, t ,x ,0);
+			m[0] = is_cr(e, t ,x ,0);
 
 		if (x < 0.00000 && (t.x1 < e->posx || t.x2 < e->posx)
 		&& ((t.y1 <= e->posy && e->posy <= t.y2) || (t.y1 >= e->posy && e->posy >= t.y2)))
-			m[0] = is_cross_x(e, t, x, 0);
+			m[0] = is_cr(e, t, x, 0);
 
 
 		if (y > 0.0 && (t.y1 > e->posy || t.y2 > e->posy)
 		&& ((t.x1 <= e->posx && e->posx <= t.x2) || (t.x1 >= e->posx && e->posx >= t.x2)))
-			m[1] = is_cross_x(e, t, y, 1);
+			m[1] = is_cr(e, t, y, 1);
 
 		if (y < 0.00000 && (t.y1 < e->posy || t.y2 < e->posy)
 		&& ((t.x1 <= e->posx && e->posx <= t.x2) || (t.x1 >= e->posx && e->posx >= t.x2)))
-			m[1] = is_cross_x(e, t, y, 1);
+			m[1] = is_cr(e, t, y, 1);
 		if(e->csec != s){
 			break;
 		}

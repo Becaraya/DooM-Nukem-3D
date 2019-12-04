@@ -119,7 +119,7 @@ typedef enum		e_status_ed
 	DRAWING,
 	FIRST_CLICK_REC,
 	DRAWING_REC
-	
+
 }					t_status_ed;
 
 typedef enum		e_stat_wall
@@ -461,7 +461,7 @@ typedef struct		s_al
 	t_player		play;
 	double			g;
 	double			fov;
-	
+
 	int				stretch;
 	int				wall_scale;
 
@@ -474,6 +474,7 @@ typedef struct		s_al
 	unsigned short	anim;
 
 	t_edit			edit;
+	int 				tex_choice;
 
 	t_keys			k;
 	SDL_Event		ev;

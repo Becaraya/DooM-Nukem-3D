@@ -87,10 +87,10 @@ void			init_ttf(t_al *al)
 	al->ttf_st = (!TTF_Init()) ? 1 : 0;
 	if (!(al->font = TTF_OpenFont("/Library/Fonts/Arial.ttf", 20)))
 		yeet(al);
-	
+
 }
 
-int				set_text(t_text *text, char *str, SDL_Rect coo, SDL_Color clr) 
+int				set_text(t_text *text, char *str, SDL_Rect coo, SDL_Color clr)
 {
 	if (!(text->str = ft_strdup(str)))
 		return (-1);
@@ -99,7 +99,7 @@ int				set_text(t_text *text, char *str, SDL_Rect coo, SDL_Color clr)
 	text->where->x = coo.x;
 	text->where->y = coo.y;
 	ft_memcpy(&text->clr, &clr, sizeof(&clr));
-	return (0); 
+	return (0);
 }
 
 static void		init_edit(t_al *al)
@@ -167,7 +167,7 @@ void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 	for (unsigned i = 0; i < tgp->size_x * tgp->size_y; i++)
 		or->pix[2][tgp->size_x * tgp->size_y - i] = tmp[i * 3 + 2] * 0x10000 +
 			tmp[i * 3 + 1] * 0x100 +tmp[i * 3];
-	
+
 	ft_strcpy((char *)tmp, str);
 	fd = open(ft_strcat((char *)tmp, "/4.bmp"), O_RDONLY);
 	read(fd, buf, 14);
@@ -542,6 +542,7 @@ void			init(t_al *al, char *str)
 			yeet(al);
 	al->pix = al->sdlsurf->pixels;
 	init_ttf(al);
+	al->tex_choice = 0;
 	if (al->status == EDIT)
 		init_edit(al);
 	//get_map(al);

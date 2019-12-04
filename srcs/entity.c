@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/03 17:51:46 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/04 16:02:53 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,13 @@ int		is_cross_x(t_player *e, t_walls t, double v, t_al *al)
 	d = d_wall(t, e->posx + v, e->posy);
 	if (t.is_cross)
 	{
-		if ( d < 0.5 && al->sec[e->csec].fl_hei < al->sec[t.sec_lnk].fl_hei)
+		if ((d < 0.5 && d > -0.5 )&& e->posz < al->sec[t.sec_lnk].fl_hei)
 		{
 			printf("texture trops haute vous : %f , le mure :%f\n",al->sec[e->csec].fl_hei, al->sec[t.sec_lnk].fl_hei );
 			return(0);
 		}
-		return(1);
+		else
+			return(1);
 	}
 	if (d < 0.5)
 		return (0);

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 10:46:13 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/06 04:42:43 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/06 04:48:16 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void		hit_bot_wall(t_al *al, t_rc_ray *ray, int hitnb)
 	lim = &hit->lim;
 	tot_length = lim->botwall - lim->botmid;
 	y = lim->sc_botmid;
-	if (ray->x == WIN_SIZEX / 2)
-		printf("there %d in [%d>%d]\n", y, lim->botmid, lim->botwall);
+	//if (ray->x == WIN_SIZEX / 2)
+	//	printf("there %d in [%d>%d]\n", y, lim->botmid, lim->botwall);
 	while (y < lim->sc_botwall)
 	{
 		tex_find(al->pix + y * WIN_SIZEX + ray->x, ray->hits[hitnb].hit_texx *

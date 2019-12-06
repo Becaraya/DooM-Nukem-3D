@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/06 04:30:06 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/06 04:46:41 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ typedef enum		e_status_ed
 	DRAWING,
 	FIRST_CLICK_REC,
 	DRAWING_REC
-	
+
 }					t_status_ed;
 
 typedef enum		e_stat_wall
@@ -242,8 +242,8 @@ typedef struct		s_point
 
 typedef struct		s_doint
 {
-	int				x;
-	int				y;
+	double				x;
+	double				y;
 	int				color;
 }					t_doint;
 
@@ -463,7 +463,7 @@ typedef struct		s_al
 	t_player		play;
 	double			g;
 	double			fov;
-	
+
 	int				stretch;
 	int				wall_scale;
 
@@ -476,6 +476,7 @@ typedef struct		s_al
 	unsigned short	anim;
 
 	t_edit			edit;
+	int 				tex_choice;
 
 	t_keys			k;
 	SDL_Event		ev;
@@ -596,11 +597,12 @@ SDL_Color			add_color(int color);
 */
 
 t_point				itopoint(int x, int y);
+int					is_in_sector(t_al *al, double x, double y);
 
 
 /*
 ** action of entity
 */
-void		acceleration_entities(t_al *al, t_mob mob);
+void				acceleration_entities(t_al *al, t_mob mob);
 
 #endif

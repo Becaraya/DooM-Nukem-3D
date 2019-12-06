@@ -46,6 +46,7 @@ SRC_LIST = main.c			\
 		get_map.c			\
 		entity.c			\
 		yeet.c				\
+		sector.c			\
 		ia.c
 
 SRC_DIR = ./srcs/

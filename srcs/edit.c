@@ -151,6 +151,20 @@ void 	display_tex_menu(SDL_Surface *surf, t_tex tex, int i)
 
 }
 
+void 	click_on_menu(t_al *al, SDL_Surface *surf)
+{
+	if (al->ev.type == SDL_MOUSEBUTTONDOWN && al->ev.motion.windowID == 2)
+	{
+		if (al->ev.button.x >= surf->w - TEX_SIZE_MENU && al->ev.button.y <= al->nb_tex * TEX_SIZE_MENU)
+		{
+			al->tex_choice = al->ev.button.y / TEX_SIZE_MENU;
+			// printf("tex = %d\n",al->tex_choice);
+			// printf("mouse (%d,%d)\n",al->ev.button.x,al->ev.button.y);
+			// printf("id = %d\n",al->ev.motion.windowID);
+		}
+	}
+}
+
 void tex_menu(t_al *al)
 {
 	SDL_Surface *surf;
@@ -163,6 +177,7 @@ void tex_menu(t_al *al)
 	{
 		display_tex_menu(surf,al->tex[i],(i * TEX_SIZE_MENU));
 	}
+	click_on_menu(al, surf);
 }
 
 void		set_edit_menu(t_al *al)
@@ -191,7 +206,7 @@ void	editor(t_al *al)
 {
 	set_edit(al);
 	set_edit_menu(al);
-	// tex_menu(al);
+	tex_menu(al);
 	if (al->sect)
 		draw_sect(al, al->sect);
 

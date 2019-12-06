@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/02 03:52:27 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/06 04:30:06 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -376,6 +376,8 @@ typedef struct		s_rc_hit
 	double		hitdst;
 	unsigned	hit_texx;
 	double		wall_length;
+	unsigned	botwall_he; // brooooooo
+	unsigned	topwall_he; // ici
 	unsigned	fl_tex;
 	double		fl_hei;
 	unsigned	ce_tex;

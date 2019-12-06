@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/02 03:58:34 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:51:43 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -221,6 +221,7 @@ void			init(t_al *al, char *str)
 		exit(0);
 
 	load_goret(al);
+	//bmp_to_tex(al->tex + 3, "ressources/menu_3.bmp", 1280, 720);
 	// T H E  O P E N A T O R, can open a path through every walls, even through you're mom
 	//for (int x = 1; x <= al->nb_sec; x++)
 	//	for (int z = 0; z < al->sec[x].nb_wal; z++)

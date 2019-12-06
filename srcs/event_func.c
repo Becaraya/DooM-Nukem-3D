@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/02 02:17:24 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/03 15:58:49 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ void		mouse_mv(t_al *al)
 
 	mev = al->ev.motion;
 	al->play.dir = (al->play.dir + mev.xrel * 10) & D_2PIM;
+	al->play.horizon = al->play.horizon + mev.yrel * 3;
 	if (mev.windowID == 1)
 	{
 		if (al->edit.stat == DRAWING)

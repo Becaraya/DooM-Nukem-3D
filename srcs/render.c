@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/29 15:40:46 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/06 03:50:01 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,10 +212,6 @@ int			test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 	return (0);
 }
 
-// ############################################################################
-// ##### c'est la que tu bosse connard (note a moi meme faites pas gaffe) #####
-// ############################################################################
-
 t_tex		find_ent_tex(t_al *al, t_mob *ent)
 {
 	t_tex	tmp;
@@ -316,9 +312,9 @@ void		render(t_al *al)
 		x++;
 	}
 	
-	/*for (int y = 0; y < 512; y++)
-		for (int x = 0; x < 512; x++)
-			al->pix[x + WIN_SIZEX * y] = al->texgp[0].or[0].pix[1][x + 512 * y];
+	/*for (int y = 0; y < al->tex[1].size_y; y++)
+		for (int x = 0; x < al->tex[1].size_x; x++)
+			al->pix[x + WIN_SIZEX * y] = al->tex[1].pix[x + al->tex[1].size_x * y];
 	for (int y = 0; y < 512; y++)
 		for (int x = 0; x < 512; x++)
 			al->pix[x + 512 + WIN_SIZEX * y] = (al->texgp[0].or[0].pix[1][x + 512 * y] >> 8) & 0xff;

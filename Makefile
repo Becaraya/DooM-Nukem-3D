@@ -44,9 +44,10 @@ SRC_LIST = main.c			\
 		refresh.c			\
 		sprite.c			\
 		get_map.c			\
-		entity.c			\
+		player_moov.c		\
 		yeet.c				\
 		sector.c			\
+		mob_moov.c			\
 		ia.c
 
 SRC_DIR = ./srcs/

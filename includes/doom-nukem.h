@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/06 04:46:41 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/10 18:45:28 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -529,7 +529,8 @@ void				free_wall(t_walls *walls);
 void				yeet(t_al *al);
 void				get_map(t_al *al);
 t_walls				*get_walls(t_al *al, unsigned int nb_sec);
-t_walls				*create_walls_elem(t_al *al);
+t_walls		*create_walls_elem(t_al *al, unsigned int nb_sec, unsigned int nb_wal);
+
 t_sector			*create_sector_elem(t_al *al, unsigned int nb_sec);
 
 
@@ -604,5 +605,16 @@ int					is_in_sector(t_al *al, double x, double y);
 ** action of entity
 */
 void				acceleration_entities(t_al *al, t_mob mob);
+
+/*
+** TRUC
+*/
+void		get_sec_tab(t_al *al);
+void	free_sect(t_sector *sect);
+void	init_sec_tex(t_al *al);
+void	free_text(t_al *al);
+void display_tab(t_al *al);
+void display(t_al *al);
+
 
 #endif

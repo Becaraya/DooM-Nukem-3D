@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/11 03:17:12 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/11 03:34:00 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -545,9 +545,11 @@ void			init(t_al *al, char *str)
 	al->tex_choice = 0;
 	if (al->status == EDIT)
 		init_edit(al);
-	//get_map(al);
-	// printf("222\n");
-	// init_texgrp(al);
+
+	// get_map(al);
+	// get_sec_tab(al);
+	// get_map(al);
+
 	//init_ttf(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = FIRST_CLICK;

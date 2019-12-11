@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/06 04:46:41 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/11 03:29:43 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <SDL2_mixer/SDL_mixer.h>
 
 # define WIN_TITLE "100% really slenderman absolutely virus free i swear"
-# define WIN_SIZEX 1600//1366
+# define WIN_SIZEX 1366
 # define WIN_SIZEY 768
 # define WIN_POSX 100
 # define WIN_POSY 10
@@ -137,11 +137,23 @@ typedef enum		e_ai
 ** TYPEDEF ####################################################################
 */
 
-typedef	unsigned int	t_angle;
+typedef	unsigned	t_angle;
 
 /*
 ** STRUCTURES #################################################################
 */
+
+typedef struct	s_floorcast		
+{
+	long posx;
+	long posy;
+	long dstx;
+	long dsty;
+	long dst;
+	int hor;
+	int indst;
+}				t_floorcast;
+
 
 /*
 ** .hms parser and the main game data
@@ -376,8 +388,9 @@ typedef struct		s_rc_hit
 	double		hitdst;
 	unsigned	hit_texx;
 	double		wall_length;
-	unsigned	botwall_he; // brooooooo
-	unsigned	topwall_he; // ici
+	unsigned	botwall_he;
+	unsigned	topwall_he;
+	unsigned	wall_he;
 	unsigned	fl_tex;
 	double		fl_hei;
 	unsigned	ce_tex;
@@ -386,6 +399,7 @@ typedef struct		s_rc_hit
 	t_mob		ent;
 	t_tex		tex;
 	t_rc_lim	lim;
+	unsigned	transparent:1;
 	unsigned	is_entity:1;
 }					t_rc_hit;
 

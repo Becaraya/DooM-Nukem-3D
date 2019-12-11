@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/06 03:50:01 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/06 13:06:47 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ int			test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls *owall)
 				tmp_dst *= al->cos[sub_angle(ray->angle, al->play.dir)];
 				ray->hits[ray->nb_hits].hitdst = tmp_dst;
 				ray->hits[ray->nb_hits].wall = *owall;
+				ray->hits[ray->nb_hits].transparent = owall->wall_tex ? 0 : 1;
 				ray->hits[ray->nb_hits].tex = al->tex[owall->wall_tex];
 				return (1);
 			}

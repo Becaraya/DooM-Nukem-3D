@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/06 04:46:27 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/11 03:17:12 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,7 +226,6 @@ void			init(t_al *al, char *str)
 	//for (int x = 1; x <= al->nb_sec; x++)
 	//	for (int z = 0; z < al->sec[x].nb_wal; z++)
 	//		al->sec[x].walls[z].sec_lnk ? al->sec[x].walls[z].is_cross = 1 : 0;
-
 
 /*	al->nb_tex = 3;
 	al->tex = ft_memalloc((al->nb_tex + 1) * sizeof(t_tex));

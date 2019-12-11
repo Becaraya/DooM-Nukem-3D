@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 10:46:13 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/06 04:48:16 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/11 03:31:18 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,40 +41,86 @@ inline int	tex_find(unsigned int *pix, int texx, int texy, t_tex *tex)
 
 void		hit_floor(t_al *al, t_rc_ray *ray, int hitnb)
 {
-	int botlim;
+	t_floorcast	f;
+	t_tex		*tex;
+	int			y;
+	long		tmp;
 
-	botlim = ray->hits[hitnb].lim.sc_botwall;
-	//if (ray->x == WIN_SIZEX / 2 && botlim < ray->hits[hitnb].lim.sc_botlim)
-	//	printf("floor %d > %d\n", botlim, ray->hits[hitnb].lim.sc_botlim);
-	while (botlim < ray->hits[hitnb].lim.sc_botlim)
-		al->pix[(botlim++) * WIN_SIZEX + ray->x] = 0x20a030;// + 0x202000 * hitnb;
+	tex = al->tex + ray->hits[hitnb].fl_tex;
+	y = ray->hits[hitnb].lim.sc_botwall;
+	f.posx = al->play.posx * UINT16_MAX * al->fov;
+	f.posy = al->play.posy * UINT16_MAX * al->fov;
+	f.hor = al->play.horizon + HORIZON_LIMIT;
+	f.indst = UINT16_MAX * (al->play.eyez - ray->hits[hitnb].fl_hei) *
+	al->stretch / al->cos[sub_angle(ray->angle, al->play.dir)];
+	while (y < ray->hits[hitnb].lim.sc_botlim)
+	{
+		tmp = (2 * (y + f.hor) - al->stretch);
+		tmp = tmp ? f.indst / tmp : UINT16_MAX;
+		f.dstx = tmp * ray->xfact / UINT16_MAX + f.posx * 1.04;
+		f.dsty = tmp * ray->yfact / UINT16_MAX + f.posy * 1.04;
+		f.dstx = ((f.dstx & TEX_REPEAT_F) * tex->size_x) >> TEX_REPEAT_F_DIV;
+		f.dsty = ((f.dsty & TEX_REPEAT_F) * tex->size_y) >> TEX_REPEAT_F_DIV;
+		tmp = f.dsty * tex->size_x + f.dstx;
+		al->pix[y * WIN_SIZEX + ray->x] = (tex->pix[tmp] >> 24) ? tex->pix[tmp]
+		: skybox(al, y, 0);
+		y-=-1;
+	}
 }
 
 void		hit_ceiling(t_al *al, t_rc_ray *ray, int hitnb)
 {
-	int toplim;
+	t_floorcast	f;
+	t_tex		*tex;
+	int			y;
+	long		tmp;
 
-	toplim = ray->hits[hitnb].lim.sc_toplim;
-	//if (ray->x == WIN_SIZEX / 2 && toplim < ray->hits[hitnb].lim.sc_topwall)
-	//	printf("ceiling %d > %d\n", toplim, ray->hits[hitnb].lim.sc_topwall);
-	while (toplim < ray->hits[hitnb].lim.sc_topwall)
-		al->pix[(toplim++) * WIN_SIZEX + ray->x] = 0x4040ff;// + 0x002020 * hitnb;
+	tex = al->tex + ray->hits[hitnb].ce_tex;
+	y = ray->hits[hitnb].lim.sc_toplim;
+	f.posx = al->play.posx * UINT16_MAX * al->fov;
+	f.posy = al->play.posy * UINT16_MAX * al->fov;
+	f.hor = al->play.horizon + HORIZON_LIMIT;
+	f.indst = UINT16_MAX * (ray->hits[hitnb].ce_hei - al->play.eyez) *
+	al->stretch / al->cos[sub_angle(ray->angle, al->play.dir)];
+	while (y < ray->hits[hitnb].lim.sc_topwall)
+	{
+		tmp = al->stretch - 2 * (y + f.hor);
+		tmp = tmp ? f.indst / tmp : UINT16_MAX;
+		f.dstx = tmp * ray->xfact / UINT16_MAX + f.posx * 1.04;
+		f.dsty = tmp * ray->yfact / UINT16_MAX + f.posy * 1.04;
+		f.dstx = ((f.dstx & TEX_REPEAT_F) * tex->size_x) >> TEX_REPEAT_F_DIV;
+		f.dsty = ((f.dsty & TEX_REPEAT_F) * tex->size_y) >> TEX_REPEAT_F_DIV;
+		tmp = f.dsty * tex->size_x + f.dstx;
+		al->pix[y * WIN_SIZEX + ray->x] = (tex->pix[tmp] >> 24) ? tex->pix[tmp]
+		: skybox(al, y, 0);
+		y-=-1;
+	}
 }
 
 void		hit_top_wall(t_al *al, t_rc_ray *ray, int hitnb)
 {
-	int top;
+	t_rc_hit	*hit;
+	t_tex		*tex;
+	t_rc_lim	*lim;
+	int			tot_length;
+	int			y;
 
-	top = ray->hits[hitnb].lim.sc_topwall;
-	//if (ray->x == WIN_SIZEX / 2 && top < ray->hits[hitnb].lim.sc_topmid)
-	//	printf("top wall %d > %d\n", top, ray->hits[hitnb].lim.sc_topmid);
-	while (top < ray->hits[hitnb].lim.sc_topmid)
-		al->pix[(top++) * WIN_SIZEX + ray->x] = 0x30ff60;// + 0x100010 * hitnb;
+	hit = ray->hits + hitnb;
+	tex = &hit->tex;
+	lim = &hit->lim;
+	tot_length = lim->topmid - lim->topwall;
+	y = lim->sc_topwall;
+	//if (ray->x == WIN_SIZEX / 2)
+	//	printf("there %d in [%d>%d]\n", y, lim->botmid, lim->botwall);
+	while (y < lim->sc_topmid)
+	{
+		tex_find(al->pix + y * WIN_SIZEX + ray->x, ray->hits[hitnb].hit_texx *
+			tex->size_x / UINT16_MAX, (((y - lim->topwall) * hit->topwall_he /
+						tot_length) % TEX_REPEAT_F) * tex->size_y /
+				TEX_REPEAT_F, tex);
+		y-=-1;
+	}
 }
-
-// ############################################################################
-// ##### c'est la que tu bosse connard (note a moi meme faites pas gaffe) #####
-// ############################################################################
 
 void		hit_bot_wall(t_al *al, t_rc_ray *ray, int hitnb)
 {
@@ -100,6 +146,37 @@ void		hit_bot_wall(t_al *al, t_rc_ray *ray, int hitnb)
 		y-=-1;
 	}
 }
+
+void		hit_wall(t_al *al, t_rc_ray *ray, int hitnb)
+{
+	t_rc_hit	*hit;
+	t_tex		*tex;
+	t_rc_lim	*lim;
+	int			tot_length;
+	int			y;
+
+	hit = ray->hits + hitnb;
+	if (hit->transparent)
+		return ;
+	tex = &hit->tex;
+	lim = &hit->lim;
+	tot_length = lim->botmid - lim->topmid;
+	y = lim->sc_topmid;
+	//if (ray->x == WIN_SIZEX / 2)
+	//	printf("there %d in [%d>%d]\n", y, lim->botmid, lim->botwall);
+	while (y < lim->sc_botmid)
+	{
+		tex_find(al->pix + y * WIN_SIZEX + ray->x, ray->hits[hitnb].hit_texx *
+			tex->size_x / UINT16_MAX, (((y - lim->topmid) * hit->wall_he /
+						tot_length) % TEX_REPEAT_F) * tex->size_y /
+				TEX_REPEAT_F, tex);
+		y-=-1;
+	}
+}
+
+/*
+** #############################################################################
+*/
 
 /*
 ** je pete des cables putain
@@ -136,23 +213,6 @@ void		sc_lims(t_rc_lim *lim, t_rc_lim prlim)
 	lim->mb_botlim = lim->sc_botmid;
 }
 
-void		hit_wall(t_al *al, t_rc_ray *ray, int hitnb)
-{
-	int wall;
-
-	wall = ray->hits[hitnb].lim.sc_topmid;
-	//if (ray->x == WIN_SIZEX / 2 && wall < ray->hits[hitnb].lim.sc_botmid)
-	//	printf("middle wall %d > %d\n", ray->hits[hitnb].lim.sc_topmid, ray->hits[hitnb].lim.sc_botmid);
-	while (wall < ray->hits[hitnb].lim.sc_botmid)
-	{
-		//if (!((wall + ray->x * (3 + hitnb)) % 10))
-		//	al->pix[wall * WIN_SIZEX + ray->x] = 0xff6060;
-		if (hitnb == ray->nb_hits - 1)
-			al->pix[wall * WIN_SIZEX + ray->x] = 0x202035;// + 0x000030 * hitnb;;
-		wall-=-1;
-	}
-}
-
 void		hit_ent(t_al *al, t_rc_ray *ray, int hitnb)
 {
 	t_tex		*tex;
@@ -174,6 +234,16 @@ void		hit_ent(t_al *al, t_rc_ray *ray, int hitnb)
 	}
 }
 
+unsigned	new_wall_he(t_al *al, t_rc_hit *hit, t_rc_hit *nhit)
+{
+	double ceil;
+	double floor;
+
+	ceil = hit->ce_hei > nhit->ce_hei ? nhit->ce_hei : hit->ce_hei;
+	floor = hit->fl_hei < nhit->fl_hei ? nhit->fl_hei : hit->fl_hei;
+	return ((unsigned)((ceil - floor) * UINT16_MAX));
+}
+
 void		hit_print(t_al *al, t_rc_ray *ray, int hitnb, t_rc_lim prlim)
 {
 	t_rc_hit	*hit;
@@ -185,6 +255,7 @@ void		hit_print(t_al *al, t_rc_ray *ray, int hitnb, t_rc_lim prlim)
 	hor = WIN_SIZEY / 2 - al->play.horizon;
 	if (!hit->is_entity)
 	{
+		hit->wall_he = (hit->ce_hei - hit->fl_hei) * UINT16_MAX;
 		lim->toplim = prlim.mb_toplim;
 		lim->topwall = hor - ((hit->ce_hei - al->play.eyez) *
 			al->wall_scale / hit->hitdst);
@@ -195,6 +266,7 @@ void		hit_print(t_al *al, t_rc_ray *ray, int hitnb, t_rc_lim prlim)
 		lim->botmid = lim->botwall;
 		if (hitnb < ray->nb_hits - 1)
 		{
+			hit->wall_he = new_wall_he(al, hit, hit + 1);
 			lim->topmid = hit->ce_hei > (hit + 1)->ce_hei ? hor -
 			((hit + 1)->ce_hei - al->play.eyez) * al->wall_scale / hit->hitdst
 			: lim->topwall;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom-nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/11 03:33:21 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/11 22:37:18 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,11 @@ typedef enum		e_status
 typedef enum		e_status_ed
 {
 	SELECT,
-	FIRST_CLICK,
 	DRAWING,
 	FIRST_CLICK_REC,
-	DRAWING_REC
-
+	DRAWING_REC,
+	EDIT_WALL,
+	EDIT_SECT
 }					t_status_ed;
 
 typedef enum		e_stat_wall
@@ -254,8 +254,8 @@ typedef struct		s_point
 
 typedef struct		s_doint
 {
-	double				x;
-	double				y;
+	double			x;
+	double			y;
 	int				color;
 }					t_doint;
 
@@ -274,6 +274,8 @@ typedef struct		s_edit
 {
 	t_status_ed		stat;
 	int				zoom;
+	unsigned int	index_wall;
+	unsigned int	index_sect;
 }					t_edit;
 
 /*
@@ -432,12 +434,38 @@ typedef struct		s_text
 typedef struct		s_text_list
 {
 	t_text			gen_map;
+	t_text			sect_index;
+	t_text			wall_index;
+	t_text			settings;
+	t_text			wall_para;
 	t_text			sect_para;
 	t_text			x_start;
 	t_text			y_start;
 	t_text			x_end;
 	t_text			y_end;
+	t_text			wall;
+	t_text			sector;
+	t_text			tools;
 	t_text			cancel;
+
+	//add
+	// wall
+	t_text			wall_tex;
+	// t_text			top_tex;
+	// t_text			bot_tex;
+
+	//sect
+	t_text			fl_hei;
+	t_text			ce_hei;
+	t_text			fl_tex;
+	t_text			ce_tex;
+
+	//tools
+	t_text			set_spawn;
+	t_text			set_bad_pig;
+	t_text			draw;
+	t_text			del_sect;
+
 }					t_text_list;
 
 /*
@@ -607,11 +635,29 @@ void				ft_nop_player(t_al *al, int i, double x, double y);
 SDL_Rect			get_rect(int x, int y);
 SDL_Color			add_color(int color);
 
+
 /*
-** Tools
+**	Draw Tools
+*/
+void		        draw_triangle(t_point p, int i, SDL_Surface *surf, int color);
+void				ft_put_line(t_point a, t_point b, SDL_Surface *surf, int color);
+void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr);
+
+/*
+**	Draw edit Tools
 */
 
-t_point				itopoint(int x, int y);
+void				draw_sect(t_al *al, t_sector *sect);
+void				draw_wall(t_al *al, t_walls *wall);
+
+/*
+** Generic Tools
+*/
+
+t_point				itop(int x, int y);
+unsigned int		nb_wall(t_al *al);
+int					inr(t_point src_a, t_point src_b, t_point cmp);
+t_point				itop(int x, int y);
 int					is_in_sector(t_al *al, double x, double y);
 
 

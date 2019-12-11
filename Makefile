@@ -40,7 +40,8 @@ SRC_LIST = main.c			\
 		init.c 				\
 		mouse_edit.c		\
 		sdl_tools.c			\
-		pimp_cross.c		\
+		draw_edit_tools.c	\
+		draw_tools.c		\
 		refresh.c			\
 		sprite.c			\
 		get_map.c			\
@@ -48,6 +49,8 @@ SRC_LIST = main.c			\
 		yeet.c				\
 		sector.c			\
 		mob_moov.c			\
+		pimp_cross.c		\
+		tools.c				\
 		ia.c
 
 SRC_DIR = ./srcs/

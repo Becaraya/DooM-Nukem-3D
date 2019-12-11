@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/11 03:34:00 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/11 22:48:43 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ static void		init_trigo(t_al *al)
 
 void			init_ttf(t_al *al)
 {
-	al->ttf_st = (!TTF_Init()) ? 1 : 0;
+	(!TTF_Init()) ? al->ttf_st = 1 : yeet(al);
 	if (!(al->font = TTF_OpenFont("/Library/Fonts/Arial.ttf", 20)))
 		yeet(al);
 
@@ -115,15 +115,29 @@ static void		init_edit(t_al *al)
 	** ALL TEXT EDITOR
 	*/
 
-	set_text(&al->text.gen_map, "GENERATION MAP", get_rect(300, 700), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.sect_para, "WHO", get_rect(25, 20), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-
-	set_text(&al->text.x_start, "X1", get_rect(25, 50), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.y_start, "Y1", get_rect(150, 50), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.x_end, "X2", get_rect(25, 100), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.y_end, "Y2", get_rect(150, 100), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.gen_map, "GENERATION MAP", get_rect(295, 700), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.sect_index, "WHO", get_rect(25, 20), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.wall_index, "WHO WALL", get_rect(25, 58), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.x_start, "X1", get_rect(25, 100), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.y_start, "Y1", get_rect(150, 100), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.x_end, "X2", get_rect(25, 150), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.y_end, "Y2", get_rect(150, 150), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 
 	set_text(&al->text.cancel, "CANCEL", get_rect(600, 20), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+
+	set_text(&al->text.settings, "Settings", get_rect(25, 200), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+
+	set_text(&al->text.sector, "Sector", get_rect(70, 250), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.fl_tex, "Floor Texture", get_rect(70, 330), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.ce_tex, "Ceiling Texture", get_rect(300, 330), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+
+	set_text(&al->text.wall, "Wall", get_rect(300, 250), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.wall_tex, "Wall Texture", get_rect(70, 330), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	
+	set_text(&al->text.tools, "Tools", get_rect(25, 420), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.set_spawn, "Set Spawn", get_rect(70, 470), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.set_bad_pig, "Set Goret", get_rect(300, 470), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.draw, "Draw", get_rect(520, 470), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 }
 
 // jvous en prie utilisez pas ça c'est de la merde
@@ -527,7 +541,7 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	al->status = EDIT;
-	al->status = GAME;
+	// al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -544,14 +558,15 @@ void			init(t_al *al, char *str)
 	init_ttf(al);
 	al->tex_choice = 0;
 	if (al->status == EDIT)
+	{
 		init_edit(al);
-
-	// get_map(al);
+		get_map(al);
+	}
 	// get_sec_tab(al);
 	// get_map(al);
 
 	//init_ttf(al);
 	ft_bzero(&al->k, sizeof(t_keys));
-	al->edit.stat = FIRST_CLICK;
+	al->edit.stat = SELECT;
 	al->edit.zoom = 15;
 }

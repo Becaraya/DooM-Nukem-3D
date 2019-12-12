@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 15:08:58 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/12 15:10:26 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -563,6 +563,7 @@ void				refresh(t_al *al);
 
 /*
 ** free fonction
+** becaraya se con lololo
 */
 
 void				free_wall(t_walls *walls);

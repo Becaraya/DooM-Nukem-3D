@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/12 15:01:49 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/12 16:35:41 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,18 @@ int		is_cross_x(t_player *e, t_walls t, double v, t_al *al)
 	return (1);
 }
 
-int		is_cross_y(t_player *e, t_walls t, double v, int s)
+int		is_cross_y(t_player *e, t_walls t, double v, t_al *al)
 {
 	double d;
-	t_doint j;
-	 
-	j.x = e->posx;
-	j.y = e->posy;
-	d = (s) ? d_wall(t, e->posx, e->posy + v) : d_wall(t, e->posx + v, e->posy);
+
+	d = d_wall(t, e->posx, e->posy + v);
 	if (t.is_cross)
-		return(1);
+	{
+		if ((d < 0.5)&& e->posz < al->sec[t.sec_lnk].fl_hei)
+			return(0);
+		else
+			return(1);
+	}
 	if (d < 0.5)
 		return (0);
 	return (1);
@@ -84,27 +86,26 @@ void	wall_ok(t_al *al, t_walls t, t_doint p, t_point *m)
 
 	j = al->play;
 	if (p.x > 0.0 && (t.x1 >= j.posx || t.x2 >= j.posx) 
-			&& ((t.y1 <= j.posy && j.posy <= t.y2)
-				|| (t.y1 >= j.posy && j.posy >= t.y2)))
-		(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
-	if (p.x <= 0.0 && (t.x1 <= j.posx || t.x2 <= j.posx)
 		&& ((t.y1 <= j.posy && j.posy <= t.y2)
 			|| (t.y1 >= j.posy && j.posy >= t.y2)))
 		(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
+	if (p.x <= 0.0 && (t.x1 <= j.posx || t.x2 <= j.posx)
+		&& ((t.y1 <= j.posy && j.posy <= t.y2)
+				|| (t.y1 >= j.posy && j.posy >= t.y2)))
+			(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
 	if (p.y > 0.0 && (t.y1 >= j.posy || t.y2 >= j.posy)
 		&& ((t.x1 <= j.posx && j.posx <= t.x2)
-			|| (t.x1 >= j.posx && j.posx >= t.x2)))
-		m->y = is_cross_y(&al->play, t, p.y, 1);
+				|| (t.x1 >= j.posx && j.posx >= t.x2)))
+			(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;	
 	if (p.y <= 0.0 && (t.y1 <= j.posy || t.y2 <= j.posy)
-		&& ((t.x1 <= j.posx && j.posx <= t.x2) || (t.x1 >= j.posx && j.posx >= t.x2)))
-			m->y = is_cross_y(&al->play, t, p.y, 1);
+		&& ((t.x1 <= j.posx && j.posx <= t.x2)
+				|| (t.x1 >= j.posx && j.posx >= t.x2)))
+			(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;
 }
 
 void	ft_nop_player(t_al *al, int i, double x, double y)
 {
-	//int m[2];
 	t_point m;
-	//t_walls t;
 	t_doint p;
 
 	m.x = 1; 

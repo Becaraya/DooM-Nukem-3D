@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/11 23:14:44 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/12 02:06:05 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,17 @@ typedef enum		e_status_ed
 {
 	SELECT,
 	DRAWING,
-	FIRST_CLICK_REC,
-	DRAWING_REC,
+	SET_SPAWN,
+	SET_BAD_PIG,
+	SET_FLO_TEXT,
+	SET_FLO_HEI,
+	SET_CEL_TEXT,
+	SET_CEL_HEI,
+	SET_WALL_TEXT,
+	LINK_MOD,
 	EDIT_WALL,
 	EDIT_SECT
 }					t_status_ed;
-
-typedef enum		e_stat_wall
-{
-	SIMPLE,
-	RECT
-}					t_stat_wall;
 
 typedef enum		e_ai
 {
@@ -465,6 +465,8 @@ typedef struct		s_text_list
 	t_text			set_bad_pig;
 	t_text			draw;
 	t_text			del_sect;
+
+	t_text			link; // need to be implement
 
 }					t_text_list;
 

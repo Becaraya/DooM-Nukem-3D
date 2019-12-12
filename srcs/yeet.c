@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/11 21:22:15 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/12 02:21:14 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,14 @@ void	free_text(t_al *al)
 	al->text.fl_tex.where ? ft_rectdel(&al->text.fl_tex.where) : 0;
 	al->text.ce_tex.str ? ft_strdel(&al->text.ce_tex.str) : 0;
 	al->text.ce_tex.where ? ft_rectdel(&al->text.ce_tex.where) : 0;
+	al->text.fl_hei.str ? ft_strdel(&al->text.fl_hei.str) : 0;
+	al->text.fl_hei.where ? ft_rectdel(&al->text.fl_hei.where) : 0;
+	al->text.ce_hei.str ? ft_strdel(&al->text.ce_hei.str) : 0;
+	al->text.ce_hei.where ? ft_rectdel(&al->text.ce_hei.where) : 0;
 	al->text.draw.str ? ft_strdel(&al->text.draw.str) : 0;
 	al->text.draw.where ? ft_rectdel(&al->text.draw.where) : 0;
+	al->text.link.str ? ft_strdel(&al->text.link.str) : 0;
+	al->text.link.where ? ft_rectdel(&al->text.link.where) : 0;
 }
 
 

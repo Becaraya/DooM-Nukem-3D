@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 01:05:55 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/12 02:22:27 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,15 +129,19 @@ static void		init_edit(t_al *al)
 
 	set_text(&al->text.sector, "Sector", get_rect(70, 250), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.fl_tex, "Floor Texture", get_rect(70, 330), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.fl_hei, "Floor Height", get_rect(70, 410), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.ce_tex, "Ceiling Texture", get_rect(300, 330), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.ce_hei, "Ceiling Height", get_rect(300, 410), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 
 	set_text(&al->text.wall, "Wall", get_rect(300, 250), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.wall_tex, "Wall Texture", get_rect(70, 330), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	
-	set_text(&al->text.tools, "Tools", get_rect(25, 420), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.set_spawn, "Set Spawn", get_rect(70, 470), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.set_bad_pig, "Set Goret", get_rect(300, 470), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.draw, "Draw", get_rect(520, 470), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.tools, "Tools", get_rect(25, 500), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.set_spawn, "Set Spawn", get_rect(70, 550), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.set_bad_pig, "Set Goret", get_rect(300, 550), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.draw, "Draw", get_rect(520, 550), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.link, "Sector Link", get_rect(70, 615), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+
 }
 
 // jvous en prie utilisez pas ça c'est de la merde
@@ -568,6 +572,7 @@ void			init(t_al *al, char *str)
 	//init_ttf(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = SELECT;
+	// al->edit.stat = EDIT_WALL;
 	al->edit.zoom = 15;
 	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal : 0;

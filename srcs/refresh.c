@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:15:33 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/11 21:20:17 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/12 02:19:50 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,9 @@ void	text(t_al *al)
 	if (al->sect)
 	{
 		(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ? print_text(al, al->text.fl_tex, al->surf_ed) : 0;
-		(al->edit.stat <= DRAWING) ? print_text(al, al->text.ce_tex, al->surf_ed) : 0;
+		(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ? print_text(al, al->text.ce_tex, al->surf_ed) : 0;
+		(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ? print_text(al, al->text.fl_hei, al->surf_ed) : 0;
+		(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ? print_text(al, al->text.ce_hei, al->surf_ed) : 0;
 		print_text(al, al->text.x_start, al->surf_ed);
 		print_text(al, al->text.y_start, al->surf_ed);
 		print_text(al, al->text.x_end, al->surf_ed);
@@ -73,6 +75,8 @@ void	text(t_al *al)
 			print_text(al, al->text.set_spawn, al->surf_ed);
 			print_text(al, al->text.set_bad_pig, al->surf_ed);
 			print_text(al, al->text.wall_index, al->surf_ed);
+			print_text(al, al->text.link, al->surf_ed);
+
 		}
 	}
 }

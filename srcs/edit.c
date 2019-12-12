@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 01:00:19 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/12 02:26:37 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,26 @@ void		set_edit_menu(t_al *al)
 		put_rectangle(al->surf_ed, itop(45, 240), itop(220, 285), BLACK);
 	if ((al->ev.motion.windowID == 2 && inr(itop(280, 240), itop(460, 285), itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == EDIT_WALL)
 		put_rectangle(al->surf_ed, itop(280, 240), itop(460, 285), BLACK);
-	if ((al->ev.motion.windowID == 2 && (inr(itop(495, 460), itop(645, 500), itop(al->ev.motion.x, al->ev.motion.y)))) || al->edit.stat == SELECT || al->edit.stat == DRAWING)
-		put_rectangle(al->surf_ed, itop(495, 460), itop(645, 500), BLACK);
-	if ((al->ev.motion.windowID == 2 && inr(itop(280, 320), itop(460, 365), itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == EDIT_WALL)
+	if ((al->ev.motion.windowID == 2 && inr(itop(45, 320), itop(220, 365), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_FLO_TEXT)
+		put_rectangle(al->surf_ed, itop(45, 320), itop(220, 365), BLACK);
+	if (al->edit.stat != EDIT_WALL && ((al->ev.motion.windowID == 2 && inr(itop(280, 320), itop(460, 365), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_CEL_TEXT || al->edit.stat == SET_WALL_TEXT))
 		put_rectangle(al->surf_ed, itop(280, 320), itop(460, 365), BLACK);
+
+	if (al->edit.stat != EDIT_WALL && ((al->ev.motion.windowID == 2 && inr(itop(45, 400), itop(220, 445), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_FLO_HEI))
+		put_rectangle(al->surf_ed, itop(45, 400), itop(220, 445), BLACK);
+	if (al->edit.stat != EDIT_WALL && ((al->ev.motion.windowID == 2 && inr(itop(280, 400), itop(460, 445), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_CEL_HEI))
+		put_rectangle(al->surf_ed, itop(280, 400), itop(460, 445), BLACK);
+
+	
+	if ((al->ev.motion.windowID == 2 && inr(itop(45, 540), itop(220, 585), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_SPAWN)
+		put_rectangle(al->surf_ed, itop(45, 540), itop(220, 585), BLACK);
+	if ((al->ev.motion.windowID == 2 && inr(itop(280, 540), itop(460, 585), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_BAD_PIG)
+		put_rectangle(al->surf_ed, itop(280, 540), itop(460, 585), BLACK);
+	
+	if ((al->ev.motion.windowID == 2 && (inr(itop(495, 540), itop(645, 585), itop(al->ev.motion.x, al->ev.motion.y)))) || al->edit.stat == SELECT || al->edit.stat == DRAWING)
+		put_rectangle(al->surf_ed, itop(495, 540), itop(645, 585), BLACK);
+	if ((al->ev.motion.windowID == 2 && inr(itop(45, 605), itop(220, 650), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == LINK_MOD)
+		put_rectangle(al->surf_ed, itop(45, 605), itop(220, 650), BLACK);
 }
 
 
@@ -187,14 +203,10 @@ void	interactive_arrow(t_al *al)
 			draw_triangle(itop(160, 30), -1, al->surf_ed, inr(itop(145, 15), itop(175, 47), itop(mev.x, mev.y)) ? BLACK : WHITE);
 		if (al->edit.index_sect < al->nb_sec)
 			draw_triangle(itop(180, 30), 1, al->surf_ed, inr(itop(176, 15), itop(195, 47), itop(mev.x, mev.y)) ? BLACK : WHITE);
-		// if (al->sect->nb_wal > 0)
-		// {
-			// printf("%i\n", al->sect->nb_wal);
 		if (al->edit.index_wall > 0)
 			draw_triangle(itop(160, 69), -1, al->surf_ed, inr(itop(145, 58), itop(175, 88), itop(mev.x, mev.y)) ? BLACK : WHITE);
 		if (al->edit.index_wall < nb_wall(al))
 			draw_triangle(itop(180, 69), 1, al->surf_ed, inr(itop(176, 58), itop(195, 88), itop(mev.x, mev.y)) ? BLACK : WHITE);
-		// }
 	}
 }
 

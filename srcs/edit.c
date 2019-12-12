@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/27 16:17:24 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/12 02:26:37 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,93 +38,105 @@ static void		set_edit(t_al *al)
 	}
 }
 
-void			ft_put_line(t_point a, t_point b, SDL_Surface *surf, int color)
+
+void		assign_edit_co(t_al *al, t_walls *walls)
 {
-	t_point		delta;
-	t_point		sign;
-	t_point		cur;
-	int			tab[2];
-
-	delta.x = ft_abs(b.x - a.x);
-	delta.y = ft_abs(b.y - a.y);
-	sign.x = a.x < b.x ? 1 : -1;
-	sign.y = a.y < b.y ? 1 : -1;
-	tab[0] = delta.x - delta.y;
-	cur = a;
-	while (cur.x != b.x || cur.y != b.y)
-	{
-		((int *)surf->pixels)[cur.x + cur.y * surf->w] = color;
-		if ((tab[1] = tab[0] * 2) > -delta.y)
-		{
-			tab[0] -= delta.y;
-			cur.x += sign.x;
-		}
-		if (tab[1] < delta.x)
-		{
-			tab[0] += delta.x;
-			cur.y += sign.y;
-		}
-	}
-}
-
-void		draw_wall(t_al *al, t_walls *wall)
-{
-	t_point		a;
-	t_point		b;
-
-	a.x = wall->x1;
-	a.y = wall->y1;
-	b.x = wall->x2;
-	b.y = wall->y2;
-	(wall->x1 != -1) ? ft_put_line(a, b, al->sdlsurf, WHITE) : 0;
-	if (wall->next)
-		draw_wall(al, wall->next);
-}
-
-void		draw_sect(t_al *al, t_sector *sect)
-{
-	if (sect->walls->x1 != -1)
-		draw_wall(al, sect->walls);
-	if (sect->next)
-		draw_sect(al, sect->next);
-}
-
-void		assign_edit_co(t_al *al)
-{
-	char *tmp;
+	char	*tmp;
 
 	ft_strdel(&al->text.x_start.str);
 	ft_strdel(&al->text.y_start.str);
 	ft_strdel(&al->text.x_end.str);
 	ft_strdel(&al->text.y_end.str);
-	tmp = ft_itoa(al->sect->walls->x1);
+	tmp = ft_itoa(walls->x1 / 10);
 	al->text.x_start.str = ft_strjoin("X1 = ", tmp);
 	ft_strdel(&tmp);
-	tmp = ft_itoa(al->sect->walls->x2);
+	tmp = ft_itoa(walls->x2 / 10);
 	al->text.x_end.str = ft_strjoin("X2 = ", tmp);
 	ft_strdel(&tmp);
-	tmp = ft_itoa(al->sect->walls->y1);
+	tmp = ft_itoa(walls->y1 / 10);
 	al->text.y_start.str = ft_strjoin("Y1 = ", tmp);
 	ft_strdel(&tmp);
-	tmp = ft_itoa(al->sect->walls->y2);
+	tmp = ft_itoa(walls->y2 / 10);
 	al->text.y_end.str = ft_strjoin("Y2 = ", tmp);
 	ft_strdel(&tmp);
 }
 
-void		put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr)
+t_walls		*get_co_wal(t_al *al)
 {
-	t_point	c;
-	t_point	d;
+	t_sector	*tmp_s;
+	t_walls		*tmp_w;
+	int			i;
+	int			j;
 
-	c.x = a.x;
-	c.y = b.y;
-	d.x = b.x;
-	d.y = a.y;
-	ft_put_line(a, d, surf, clr);
-	ft_put_line(a, c, surf, clr);
-	ft_put_line(d, b, surf, clr);
-	ft_put_line(b, c, surf, clr);
+	i = 0;
+	j = 0;
+	tmp_s = al->sect;
+	while ((al->nb_sec - i) > al->edit.index_sect + 1)
+	{
+		tmp_s = tmp_s->next;
+		i++;
+	}
+	tmp_w = tmp_s->walls;
+	while (tmp_s->nb_wal - j > al->edit.index_wall + 1)
+	{
+		tmp_w = tmp_w->next;
+		j++;
+	} 
+	return (tmp_w);
 }
+
+void		print_co(t_al *al)
+{
+	char *tmp;
+
+	tmp = ft_itoa(al->edit.index_sect);
+	ft_strdel(&al->text.sect_index.str);
+	al->text.sect_index.str = ft_strjoin("Sector ", tmp);
+	ft_strdel(&tmp);
+	// (al->sect->walls) ? assign_edit_co(al, index_wall(al)) : 0;
+	(al->sect->walls) ? assign_edit_co(al, get_co_wal(al)) : 0;
+	tmp = ft_itoa(al->edit.index_wall);
+	ft_strdel(&al->text.wall_index.str);
+	al->text.wall_index.str = ft_strjoin("Wall ", tmp);
+	ft_strdel(&tmp);
+}
+
+void		set_edit_menu(t_al *al)
+{
+
+	ft_memset(al->surf_ed->pixels, LIGHT_GREY, WIN_EDIT_SIZEX * WIN_EDIT_SIZEY * sizeof(int));
+	if (al->sect)
+	{
+		print_co(al);
+	}
+	if (al->edit.stat == DRAWING)
+		put_rectangle(al->surf_ed, itop(590, 15), itop(699, 48), BLACK);
+	if ((al->ev.motion.windowID == 2 && inr(itop(45, 240), itop(220, 285), itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == EDIT_SECT)
+		put_rectangle(al->surf_ed, itop(45, 240), itop(220, 285), BLACK);
+	if ((al->ev.motion.windowID == 2 && inr(itop(280, 240), itop(460, 285), itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == EDIT_WALL)
+		put_rectangle(al->surf_ed, itop(280, 240), itop(460, 285), BLACK);
+	if ((al->ev.motion.windowID == 2 && inr(itop(45, 320), itop(220, 365), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_FLO_TEXT)
+		put_rectangle(al->surf_ed, itop(45, 320), itop(220, 365), BLACK);
+	if (al->edit.stat != EDIT_WALL && ((al->ev.motion.windowID == 2 && inr(itop(280, 320), itop(460, 365), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_CEL_TEXT || al->edit.stat == SET_WALL_TEXT))
+		put_rectangle(al->surf_ed, itop(280, 320), itop(460, 365), BLACK);
+
+	if (al->edit.stat != EDIT_WALL && ((al->ev.motion.windowID == 2 && inr(itop(45, 400), itop(220, 445), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_FLO_HEI))
+		put_rectangle(al->surf_ed, itop(45, 400), itop(220, 445), BLACK);
+	if (al->edit.stat != EDIT_WALL && ((al->ev.motion.windowID == 2 && inr(itop(280, 400), itop(460, 445), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_CEL_HEI))
+		put_rectangle(al->surf_ed, itop(280, 400), itop(460, 445), BLACK);
+
+	
+	if ((al->ev.motion.windowID == 2 && inr(itop(45, 540), itop(220, 585), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_SPAWN)
+		put_rectangle(al->surf_ed, itop(45, 540), itop(220, 585), BLACK);
+	if ((al->ev.motion.windowID == 2 && inr(itop(280, 540), itop(460, 585), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == SET_BAD_PIG)
+		put_rectangle(al->surf_ed, itop(280, 540), itop(460, 585), BLACK);
+	
+	if ((al->ev.motion.windowID == 2 && (inr(itop(495, 540), itop(645, 585), itop(al->ev.motion.x, al->ev.motion.y)))) || al->edit.stat == SELECT || al->edit.stat == DRAWING)
+		put_rectangle(al->surf_ed, itop(495, 540), itop(645, 585), BLACK);
+	if ((al->ev.motion.windowID == 2 && inr(itop(45, 605), itop(220, 650), itop(al->ev.motion.x, al->ev.motion.y))) ||  al->edit.stat == LINK_MOD)
+		put_rectangle(al->surf_ed, itop(45, 605), itop(220, 650), BLACK);
+}
+
 
 void 	display_tex_menu(SDL_Surface *surf, t_tex tex, int i)
 {
@@ -180,33 +192,34 @@ void tex_menu(t_al *al)
 	click_on_menu(al, surf);
 }
 
-void		set_edit_menu(t_al *al)
+void	interactive_arrow(t_al *al)
 {
-	char *tmp;
-	int i;
+	SDL_MouseMotionEvent	mev;
 
-	i = 0;
-	ft_memset(al->surf_ed->pixels, LIGHT_GREY, WIN_EDIT_SIZEX * WIN_EDIT_SIZEY * sizeof(int));
+	mev = al->ev.motion;
 	if (al->sect)
 	{
-		tmp = ft_itoa(al->nb_sec);
-		ft_strdel(&al->text.sect_para.str);
-		al->text.sect_para.str = ft_strjoin("Sector ", tmp);
-		ft_strdel(&tmp);
-		if (al->sect->walls)
-			assign_edit_co(al);
+		if (al->edit.index_sect > 1)
+			draw_triangle(itop(160, 30), -1, al->surf_ed, inr(itop(145, 15), itop(175, 47), itop(mev.x, mev.y)) ? BLACK : WHITE);
+		if (al->edit.index_sect < al->nb_sec)
+			draw_triangle(itop(180, 30), 1, al->surf_ed, inr(itop(176, 15), itop(195, 47), itop(mev.x, mev.y)) ? BLACK : WHITE);
+		if (al->edit.index_wall > 0)
+			draw_triangle(itop(160, 69), -1, al->surf_ed, inr(itop(145, 58), itop(175, 88), itop(mev.x, mev.y)) ? BLACK : WHITE);
+		if (al->edit.index_wall < nb_wall(al))
+			draw_triangle(itop(180, 69), 1, al->surf_ed, inr(itop(176, 58), itop(195, 88), itop(mev.x, mev.y)) ? BLACK : WHITE);
 	}
-	if (al->edit.stat == DRAWING)
-		put_rectangle(al->surf_ed, itopoint(590, 15), itopoint(685, 48), BLACK);
 }
 
-
+void	draw_interactive_buttons(t_al *al)
+{
+	interactive_arrow(al);
+}
 
 void	editor(t_al *al)
 {
 	set_edit(al);
 	set_edit_menu(al);
-	tex_menu(al);
+	// tex_menu(al);
 	if (al->sect)
 		draw_sect(al, al->sect);
 

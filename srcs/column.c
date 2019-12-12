@@ -6,13 +6,13 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/11 10:46:13 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/11 03:31:18 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 02:42:08 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom-nukem.h"
 
-inline int	skybox(t_al *al, int y, int tx)
+int	skybox(t_al *al, int y, int tx)
 {
 	int ty;
 
@@ -21,7 +21,7 @@ inline int	skybox(t_al *al, int y, int tx)
 	return (al->tex[0].pix[ty * al->tex[0].size_x + tx]);
 }
 
-inline int	tex_find(unsigned int *pix, int texx, int texy, t_tex *tex)
+int	tex_find(unsigned int *pix, int texx, int texy, t_tex *tex)
 {
 	int color;
 
@@ -182,7 +182,7 @@ void		hit_wall(t_al *al, t_rc_ray *ray, int hitnb)
 ** je pete des cables putain
 */
 
-inline	void	cap_int(int *var, int lowcap, int highcap)
+void	cap_int(int *var, int lowcap, int highcap)
 {
 	if (*var < lowcap)
 		*var = lowcap;

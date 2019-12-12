@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/28 12:36:09 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 02:43:40 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@ int		main(int ac, char **av)
 {
 	t_al	al;
 
-	if(ft_strcmp(av[0], "./doom-nukem"))
-		return (0);
 	ft_bzero(&al, sizeof(t_al)); // ça c'est important
 	if (ac < 2)
 		return (pr_err("No .hms file provided\n"));

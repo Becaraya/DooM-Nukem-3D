@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 02:22:27 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/12 02:36:05 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -566,8 +566,8 @@ void			init(t_al *al, char *str)
 		init_edit(al);
 		get_map(al);
 	}
-	// get_sec_tab(al);
-	// get_map(al);
+	get_sec_tab(al);
+	get_map(al);
 
 	//init_ttf(al);
 	ft_bzero(&al->k, sizeof(t_keys));

@@ -2,8 +2,8 @@ NAME = doom-nukem
 
 CC = gcc
 CCF = -fsanitize=address
-OPT_FLAGS = -flto -O3
-FLAGS = -Wall -Wextra
+OPT_FLAGS = -g #-flto -O3
+FLAGS =  -Wall -Wextra
 LIBRARIES = -L$(LIBFT_DIR) -lft
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_HEAD) -I$(SDL_DIR)/SDL2
 

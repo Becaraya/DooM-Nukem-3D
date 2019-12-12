@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/11 03:34:00 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/11 16:08:11 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -526,7 +526,7 @@ void			init(t_al *al, char *str)
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
-	al->status = EDIT;
+	//al->status = EDIT;
 	al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
@@ -546,8 +546,8 @@ void			init(t_al *al, char *str)
 	if (al->status == EDIT)
 		init_edit(al);
 
-	// get_map(al);
-	// get_sec_tab(al);
+	//get_map(al);
+	//get_sec_tab(al);
 	// get_map(al);
 
 	//init_ttf(al);

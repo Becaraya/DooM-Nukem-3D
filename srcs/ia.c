@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 19:06:05 by hutricot          #+#    #+#             */
-/*   Updated: 2019/11/28 17:17:37 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/11 16:34:11 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void		acceleration_entities(t_al *al,t_mob mob)
 	}
 	//ent->dir = 8192 / ( + 1)
 	 
-	//ent->velx = al->sin[ent->dir] * ent->gd_vel;
-	//ent->vely = al->cos[ent->dir] * ent->gd_vel;	
+	ent->velx = al->sin[ent->dir] * ent->gd_vel;
+	ent->vely = al->cos[ent->dir] * ent->gd_vel;	
 }

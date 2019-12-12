@@ -2,7 +2,8 @@ NAME = doom-nukem
 
 CC = gcc
 CCF = -fsanitize=address
-OPT_FLAGS = -g #-flto -O3
+OPT_FLAGS = -flto -O3
+BUG_FLAGS = -g
 FLAGS =  -Wall -Wextra
 LIBRARIES = -L$(LIBFT_DIR) -lft
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_HEAD) -I$(SDL_DIR)/SDL2
@@ -85,6 +86,13 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADERS)
 $(LIBFT):
 	@$(MAKE) -sC $(LIBFT_DIR)
 
+run: all
+	@read -p "Enter map name: " map;
+	./doom-nukem map
+
+fast: all
+	./doom-nukem house.hms
+
 clean:
 	@$(MAKE) -sC $(LIBFT_DIR) clean
 	@rm -rf $(OBJ_DIR)
@@ -96,11 +104,18 @@ fclean: clean
 	@rm -f $(NAME)
 	@echo "$(RED)$(NAME)...$(RESET)[$(PURPLE)deleted$(RESET)]\n"
 
-sani :  $(LIBFT) $(OBJ_DIR) $(OBJ)
+sani:  $(LIBFT) $(OBJ_DIR) $(OBJ)
 	@echo "$(YELLOW)Sources compilation $(RESET)[$(GREEN)OK$(RESET)]\n"
 	@$(CC) $(CCF) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJ) -o $(NAME)
 	@echo "[$(BLUE)$(NAME) Compiled$(RESET)]"
 
+bug: $(LIBFT) $(OBJ_DIR) $(OBJ)
+	@echo "$(YELLOW)Sources compilation $(RESET)[$(GREEN)OK$(RESET)]\n"
+	@$(CC) $(FRAMEWORKS) $(FLAGS) $(OPT_FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJ) -o $(NAME)
+	@echo "[$(BLUE)$(NAME) Compiled$(RESET)]"
+	@read -p "Enter map name: " map;
+	lldb ./doom-nukem map
+
 re: fclean all
 
-.PHONY: all clean fclean re sani
+.PHONY: all clean fclean re sani bug run

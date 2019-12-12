@@ -86,10 +86,6 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADERS)
 $(LIBFT):
 	@$(MAKE) -sC $(LIBFT_DIR)
 
-run: all
-	@read -p "Enter map name: " map;
-	./doom-nukem map
-
 fast: all
 	./doom-nukem house.hms
 
@@ -113,8 +109,7 @@ bug: $(LIBFT) $(OBJ_DIR) $(OBJ)
 	@echo "$(YELLOW)Sources compilation $(RESET)[$(GREEN)OK$(RESET)]\n"
 	@$(CC) $(FRAMEWORKS) $(FLAGS) $(OPT_FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJ) -o $(NAME)
 	@echo "[$(BLUE)$(NAME) Compiled$(RESET)]"
-	@read -p "Enter map name: " map;
-	lldb ./doom-nukem map
+	lldb ./doom-nukem house.hms
 
 re: fclean all
 

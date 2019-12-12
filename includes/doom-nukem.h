@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/11 22:37:18 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/11 23:14:44 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@
 # define TEXT_EDITOR BLACK
 
 /*
-** just too simplify 🤠
+** just too simplify 🤠 C est plus a la norme...
 */
 
 # define PPX al->play.posx
@@ -145,13 +145,13 @@ typedef	unsigned	t_angle;
 
 typedef struct	s_floorcast		
 {
-	long posx;
-	long posy;
-	long dstx;
-	long dsty;
-	long dst;
-	int hor;
-	int indst;
+	long		posx;
+	long		posy;
+	long		dstx;
+	long		dsty;
+	long		dst;
+	int			hor;
+	int			indst;
 }				t_floorcast;
 
 

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/11 22:40:37 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/12 01:04:05 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ void			delonesect(t_sector **sect)
 
 void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 {
-		// printf("x == %d // y == %d \n", bev.x, bev.y);
+		printf("x == %d // y == %d \n", bev.x, bev.y);
 	if (al->edit.stat == DRAWING)
 	{
 		if (bev.x > 590 && bev.x < 685 && bev.y > 15 && bev.y < 48)
@@ -177,21 +177,24 @@ void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 	// {
 	// 	if (inr())
 	// }
-	if (al->edit.index_sect > 1 && bev.x > 145 && bev.x < 175 && bev.y > 15 && bev.y < 47)
+	if (al->sect)
 	{
-		!(al->edit.index_wall = 0) ? al->edit.index_sect-- : 0;
-		(al->edit.stat != DRAWING) ? al->edit.stat = SELECT : 0;
+		if (al->edit.index_sect > 1 && bev.x > 145 && bev.x < 175 && bev.y > 15 && bev.y < 47)
+		{
+			!(al->edit.index_wall = 0) ? al->edit.index_sect-- : 0;
+			(al->edit.stat != DRAWING) ? al->edit.stat = SELECT : 0;
+		}
+		if (al->edit.index_sect < al->nb_sec && bev.x > 176 && bev.x < 195 && bev.y > 15 && bev.y < 47)
+		{	
+			!(al->edit.index_wall = 0) ? al->edit.index_sect++ : 0;
+			(al->edit.stat != DRAWING) ? al->edit.stat = SELECT : 0;
+		}
+		if (al->edit.index_wall > 0 && bev.x > 145 && bev.x < 175 && bev.y > 59 && bev.y < 86)
+			al->edit.index_wall--;
+		if (al->edit.index_wall < nb_wall(al)
+			&& bev.x > 176 && bev.x < 195 && bev.y > 59 && bev.y < 86)
+			al->edit.index_wall++;
 	}
-	if (al->edit.index_sect < al->nb_sec && bev.x > 176 && bev.x < 195 && bev.y > 15 && bev.y < 47)
-	{	
-		!(al->edit.index_wall = 0) ? al->edit.index_sect++ : 0;
-		(al->edit.stat != DRAWING) ? al->edit.stat = SELECT : 0;
-	}
-	if (al->edit.index_wall > 0 && bev.x > 145 && bev.x < 175 && bev.y > 59 && bev.y < 86)
-		al->edit.index_wall--;
-	if (al->edit.index_wall < nb_wall(al)
-		&& bev.x > 176 && bev.x < 195 && bev.y > 59 && bev.y < 86)
-		al->edit.index_wall++;
 }
 
 void		    mouse_press_edit(t_al *al)

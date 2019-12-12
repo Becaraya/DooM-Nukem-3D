@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   draw_edit_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 15:36:45 by pitriche         ###   ########.fr       */
+/*   Created: 2019/11/19 16:12:32 by becaraya          #+#    #+#             */
+/*   Updated: 2019/12/12 15:40:21 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-// __attribute__ ((destructor)) void no_end (void);
-
-int		main(int ac, char **av)
+void		draw_wall(t_al *al, t_walls *wall)
 {
-	t_al	al;
+	t_point		a;
+	t_point		b;
 
-	ft_bzero(&al, sizeof(t_al)); // ça c'est important
-	if (ac < 2)
-		return (pr_err("No .hms file provided\n"));
-	init(&al, av[1]);
-	//hms_encoder(&al, "house.hms");
-	main_loop(&al);
-	return (0);
+	a.x = wall->x1;
+	a.y = wall->y1;
+	b.x = wall->x2;
+	b.y = wall->y2;
+	(wall->x1 != -1) ? ft_put_line(a, b, al->sdlsurf, WHITE) : 0;
+	if (wall->next)
+		draw_wall(al, wall->next);
 }
 
-// void	no_end()
-// {
-//	while (42);
-// }
+void		draw_sect(t_al *al, t_sector *sect)
+{
+	if (sect->walls->x1 != -1)
+		draw_wall(al, sect->walls);
+	if (sect->next)
+		draw_sect(al, sect->next);
+}

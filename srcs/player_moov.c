@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 15:36:14 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,35 +78,60 @@ int		is_cross_y(t_player *e, t_walls t, double v, int s)
 	return (1);
 }
 
+void	wall_ok(t_al *al, t_walls t, t_doint p, t_point *m)
+{
+	t_player j;
+
+	j = al->play;
+	if (p.x > 0.0 && (t.x1 >= j.posx || t.x2 >= j.posx) 
+			&& ((t.y1 <= j.posy && j.posy <= t.y2)
+				|| (t.y1 >= j.posy && j.posy >= t.y2)))
+		(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
+	if (p.x <= 0.0 && (t.x1 <= j.posx || t.x2 <= j.posx)
+		&& ((t.y1 <= j.posy && j.posy <= t.y2)
+			|| (t.y1 >= j.posy && j.posy >= t.y2)))
+		(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
+	if (p.y > 0.0 && (t.y1 >= j.posy || t.y2 >= j.posy)
+		&& ((t.x1 <= j.posx && j.posx <= t.x2)
+			|| (t.x1 >= j.posx && j.posx >= t.x2)))
+		m->y = is_cross_y(&al->play, t, p.y, 1);
+	if (p.y <= 0.0 && (t.y1 <= j.posy || t.y2 <= j.posy)
+		&& ((t.x1 <= j.posx && j.posx <= t.x2) || (t.x1 >= j.posx && j.posx >= t.x2)))
+			m->y = is_cross_y(&al->play, t, p.y, 1);
+}
+
 void	ft_nop_player(t_al *al, int i, double x, double y)
 {
-	double m[2];
-	t_walls t;
+	//int m[2];
+	t_point m;
+	//t_walls t;
+	t_doint p;
 
-	m[0] = 1; 
-	m[1] = 1;
+	m.x = 1; 
+	m.y = 1;
+	p.x = x;
+	p.y = y; 
 	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
-	printf("\n\nsector : %d\n",al->play.csec);
 	while (i < (int)al->sec[al->play.csec].nb_wal)
 	{
-		t = al->sec[al->play.csec].walls[i];
-		if (x > 0.0 && (t.x1 >= PPX || t.x2 >= PPX) 
-		&& ((t.y1 <= PPY && PPY <= t.y2) || (t.y1 >= PPY && PPY >= t.y2)))
+		wall_ok(al, al->sec[al->play.csec].walls[i], p, &m);
+		/*t = al->sec[al->play.csec].walls[i];
+		if (x > 0.0 && (t.x1 >= j.posx || t.x2 >= j.posx) 
+		&& ((t.y1 <= j.posy && j.posy <= t.y2) || (t.y1 >= j.posy && j.posy >= t.y2)))
 			(!(is_cross_x(&al->play, t, x, al))) ? m[0] = 0 : 1;
-		if (x <= 0.0 && (t.x1 <= PPX || t.x2 <= PPX)
-		&& ((t.y1 <= PPY && PPY <= t.y2) || (t.y1 >= PPY && PPY >= t.y2)))
+		if (x <= 0.0 && (t.x1 <= j.posx || t.x2 <= j.posx)
+		&& ((t.y1 <= j.posy && j.posy <= t.y2) || (t.y1 >= j.posy && j.posy >= t.y2)))
 			(!(is_cross_x(&al->play, t, x, al))) ? m[0] = 0 : 1;
-		if (y > 0.0 && (t.y1 >= PPY || t.y2 >= PPY)
-		&& ((t.x1 <= PPX && PPX <= t.x2) || (t.x1 >= PPX && PPX >= t.x2)))
+		if (y > 0.0 && (t.y1 >= j.posy || t.y2 >= j.posy)
+		&& ((t.x1 <= j.posx && j.posx <= t.x2) || (t.x1 >= j.posx && j.posx >= t.x2)))
 			m[1] = is_cross_y(&al->play, t, y, 1);	
-		if (y <= 0.0 && (t.y1 <= PPY || t.y2 <= PPY)
-		&& ((t.x1 <= PPX && PPX <= t.x2) || (t.x1 >= PPX && PPX >= t.x2)))
-			m[1] = is_cross_y(&al->play, t, y, 1);	
+		if (y <= 0.0 && (t.y1 <= j.posy || t.y2 <= j.posy)
+		&& ((t.x1 <= j.posx && j.posx <= t.x2) || (t.x1 >= j.posx && j.posx >= t.x2)))
+			m[1] = is_cross_y(&al->play, t, y, 1);	*/
 		i++;
 	}
-	printf(" %f %f %f %f,", m[0], m[0], m[0], m[0]);
-	(m[1] == 1) ? PPY += y : 0;
-	(m[0] == 1) ? PPX += x : 0;
+	(m.y == 1) ? al->play.posy += y : 0;
+	(m.x == 1) ? al->play.posx += x : 0;
 }
 
 

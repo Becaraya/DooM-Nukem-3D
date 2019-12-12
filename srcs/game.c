@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 15:37:51 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,30 +110,6 @@ static void		acceleration(t_al *al)
 	al->play.vely = al->cos[dir_force] * al->play.gd_vel;
 }
 
-// static void		acceleration_entities(t_al *al)
-// {
-// 	t_entity *ent;
-
-// 	ent = &al->ent;
-// 	if (ent->posx < al->play.posx)
-// 		ent->velx = 1;
-// 	if (ent->posx > al->play.posx)
-// 		ent->velx = -1;
-// 	if (ent->posy < al->play.posy)
-// 		ent->vely = 1;
-// 	if (ent->posy > al->play.posy)
-// 		ent->vely = -1;
-// 	//ent->dir = 8192 / ( + 1)
-	 
-// 	//ent->velx = al->sin[ent->dir] * ent->gd_vel;
-// 	//ent->vely = al->cos[ent->dir] * ent->gd_vel;
-	
-// }
-
-/*
-**  apply displacment according to velocities and collisions (soon)
-*/
-
 static void		displacement(t_al *al)
 {
 	if (al->dtime > 1)
@@ -153,7 +129,8 @@ static void		displacement(t_al *al)
 	if (al->play.posz + al->play.size > al->sec[al->play.csec].ce_hei)
 	{
 		al->play.posz = al->sec[al->play.csec].ce_hei - al->play.size;
-		al->play.eyez = al->sec[al->play.csec].ce_hei - PLAYER_EYE_TOP;
+		al->play.eyez =
+		al->sec[al->play.csec].ce_hei - PLAYER_EYE_TOP;
 		al->play.velz = 0;
 	}
 	if (al->sec[al->play.csec].ce_hei - al->sec[al->play.csec].fl_hei <

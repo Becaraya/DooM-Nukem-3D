@@ -6,13 +6,13 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 19:06:05 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 15:37:37 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-void		acceleration_entities(t_al *al,t_mob mob)
+void		acceleration_entities(t_al *al, t_mob mob)
 {
 	t_mob *ent;
 
@@ -28,15 +28,15 @@ void		acceleration_entities(t_al *al,t_mob mob)
 		ent->vely = 1;
 	if (ent->posy > al->play.posy)
 		ent->vely = -1;
-	if (ent->posy < al->play.posy + 1 && ent->posy > al->play.posy -1 
-	&& ent->posx < al->play.posx + 1 && ent->posx > al->play.posx - 1)
-	{	
+	if (ent->posy < al->play.posy + 1 && ent->posy > al->play.posy - 1
+		&& ent->posx < al->play.posx + 1 && ent->posx > al->play.posx - 1)
+	{
 		ent->alive = 0;
 		ent->vely = 0;
 		ent->velx = 0;
 	}
 	//ent->dir = 8192 / ( + 1)
-	 
-	//ent->velx = al->sin[ent->dir] * ent->gd_vel;
-	//ent->vely = al->cos[ent->dir] * ent->gd_vel;	
+
+	ent->velx = al->sin[ent->dir] * ent->gd_vel;
+	ent->vely = al->cos[ent->dir] * ent->gd_vel;
 }

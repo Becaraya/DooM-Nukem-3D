@@ -1,4 +1,4 @@
-NAME = doom-nukem
+NAME = doom_nukem
 
 CC = gcc
 CCF = -fsanitize=address
@@ -25,7 +25,12 @@ SRC_LIST = main.c			\
 		edit.c				\
 		event_func.c		\
 		game.c				\
+		game_disp.c			\
 		render.c			\
+		render_cast.c		\
+		render_test.c		\
+		render_utils.c		\
+		render_minimap.c	\
 		column.c			\
 		column_hits.c		\
 		column_utils.c		\
@@ -39,7 +44,6 @@ SRC_LIST = main.c			\
 		hms_encoder_sec.c	\
 		hms_encoder_tex.c	\
 		bmp_to_tex.c		\
-		parse_tex.c 		\
 		main_loop.c 		\
 		init.c 				\
 		mouse_edit.c		\
@@ -47,6 +51,7 @@ SRC_LIST = main.c			\
 		draw_edit_tools.c	\
 		draw_tools.c		\
 		refresh.c			\
+		refresh_text.c		\
 		sprite.c			\
 		get_map.c			\
 		player_moov.c		\
@@ -90,11 +95,11 @@ $(LIBFT):
 	@$(MAKE) -sC $(LIBFT_DIR)
 
 run: all
-	@read -p "Enter map name: " map;
-	./doom-nukem map
+	@read -p "Enter map name:" map;
+	./doom_nukem map
 
 fast: all
-	./doom-nukem house.hms
+	./doom_nukem house.hms
 
 clean:
 	@$(MAKE) -sC $(LIBFT_DIR) clean
@@ -116,8 +121,8 @@ bug: $(LIBFT) $(OBJ_DIR) $(OBJ)
 	@echo "$(YELLOW)Sources compilation $(RESET)[$(GREEN)OK$(RESET)]\n"
 	@$(CC) $(FRAMEWORKS) $(FLAGS) $(OPT_FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJ) -o $(NAME)
 	@echo "[$(BLUE)$(NAME) Compiled$(RESET)]"
-	@read -p "Enter map name: " map;
-	lldb ./doom-nukem map
+	@read -p "Enter map name:" map;
+	lldb ./doom_nukem map
 
 re: fclean all
 

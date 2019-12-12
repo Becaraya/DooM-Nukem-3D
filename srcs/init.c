@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 15:44:34 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 17:12:54 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -237,7 +237,6 @@ void			init(t_al *al, char *str)
 {
 	if (hms_parser(al, str))
 		exit(0);
-
 	load_goret(al);
 	init_player(al, &al->play);
 	creat_entity(al);

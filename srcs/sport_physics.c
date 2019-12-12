@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 17:21:04 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/13 00:24:24 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void			jump(t_al *al)
 	if (al->play.on_ground)
 	{
 		al->play.on_ground = 0;
-		al->play.velz += sqrt(al->play.power * al->play.power_mult * 1.5) / (1.41
-				* sqrt(al->play.mass));
+		al->play.velz += sqrt(al->play.power * al->play.power_mult * 1.5) /
+			(1.41 * sqrt(al->play.mass));
 	}
 }

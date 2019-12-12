@@ -6,11 +6,11 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/19 13:09:06 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
 static void     set_coo(t_al *al, t_point bev, int who, t_walls *wall)
 {
@@ -102,7 +102,7 @@ void			add_wall(t_al *al, t_sector *sect, t_point coo)
 		al->edit.stat = FIRST_CLICK;
 }
 
-static void		print_wall(t_walls *wall)
+/*static void		print_wall(t_walls *wall)
 {
 	if (wall->next)
 		print_wall(wall->next);
@@ -121,7 +121,7 @@ static void		print_al(t_sector *sect)
 			print_al(sect->next);
 		print_wall(sect->walls);
 	}
-}
+}*/
 
 void			check_can_add(t_al *al, t_sector *sect, t_point coo)
 {

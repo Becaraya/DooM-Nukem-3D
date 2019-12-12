@@ -1,35 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   bmp_to_tex.c                                       :+:      :+:    :+:   */
+/*   column_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/12 11:39:49 by pitriche          #+#    #+#             */
+/*   Created: 2019/12/12 01:45:57 by pitriche          #+#    #+#             */
 /*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-int		bmp_to_tex(t_tex *tex, char *str, int sizex, int sizey)
+inline int	skybox(t_al *al, int y, int tx)
 {
-	char	buf[1000];
-	int		fd;
-	int		offset;
+	int ty;
 
-	if ((fd = open(str, O_RDONLY)) < 0)
-		return (pr_err("Can't open image\n"));
-	tex->size_x = sizex;
-	tex->size_y = sizey;
-	if (!(tex->pix = malloc(sizex * sizey * 4)))
-		return (pr_err(MERROR_MESS));
-	if (read(fd, buf, 14) != 14)
-		return (1);
-	offset = *(unsigned *)(buf + 10);
-	if (read(fd, buf, offset - 14) != offset - 14)
-		return (1);
-	if (read(fd, tex->pix, sizex * sizey * 4) != sizex * sizey * 4)
+	ty = al->tex[0].size_y * (y + al->play.horizon + HORIZON_LIMIT)
+	/ al->stretch;
+	return (al->tex[0].pix[ty * al->tex[0].size_x + tx]);
+}
+
+inline int	tex_find(unsigned int *pix, int texx, int texy, t_tex *tex)
+{
+	int color;
+
+	if ((color = tex->pix[tex->size_x * texy + texx]) >> 24)
+		*pix = color;
+	else
 		return (1);
 	return (0);
+}
+
+inline void	cap_int(int *var, int lowcap, int highcap)
+{
+	if (*var < lowcap)
+		*var = lowcap;
+	if (*var > highcap)
+		*var = highcap;
 }

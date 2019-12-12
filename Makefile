@@ -16,7 +16,7 @@ LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_DIR = ./Libft/
 LIBFT_HEAD = $(LIBFT_DIR)
 
-HEADERS_LIST = doom-nukem.h
+HEADERS_LIST = doom_nukem.h
 HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
@@ -26,6 +26,9 @@ SRC_LIST = main.c			\
 		game.c				\
 		render.c			\
 		column.c			\
+		column_hits.c		\
+		column_utils.c		\
+		column_linesaver.c	\
 		angles.c			\
 		sport_physics.c		\
 		hms_parser.c		\

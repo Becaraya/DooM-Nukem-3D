@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 00:43:48 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/13 01:12:53 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <SDL2_mixer/SDL_mixer.h>
 
 # define WIN_TITLE "100% really slenderman absolutely virus free i swear"
-# define WIN_SIZEX 1280//1366
-# define WIN_SIZEY 720//768
+# define WIN_SIZEX 1280
+# define WIN_SIZEY 720
 # define WIN_POSX 100
 # define WIN_POSY 10
 
@@ -730,5 +730,33 @@ void				hit_next_walls(t_al *al, t_rc_hit *hit, t_rc_lim *lim, int
 void				hit_linesave_ent(t_al *al, t_rc_hit *hit, t_rc_lim *lim, int
 	hor);
 unsigned			new_wall_he(t_rc_hit *hit, t_rc_hit *nhit);
+
+void				displacement(t_al *al);
+void				acceleration(t_al *al);
+void				deceleration(t_al *al);
+t_angle				angle(t_al *al);
+void				rotate(t_al *al);
+
+void				text(t_al *al);
+
+void				rot_sec(t_al *al, unsigned int secid, t_angle angle);
+void				rot_ents(t_al *al, t_angle angle);
+void				cast_sec(t_al *al, t_rc_ray *ray, unsigned secid, t_angle
+	angle);
+void				cast_ray(t_al *al, t_angle an, t_rc_ray *ray);
+
+int					test_aleready_hit(t_rc_ray *ray, t_walls *owall);
+int					test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls
+	*owall);
+int					test_ent_aleready_hit(t_rc_ray *ray, t_mob *oent);
+int					test_ent_hit(t_al *al, t_rc_ray *ray, t_mob *rotent, t_mob
+	*oent);
+
+t_angle				d_atan2(double d1, double d2);
+t_angle				d_atan(double a);
+void				swapd(double *d1, double *d2);
+double				wall_len(t_walls *wall);
+t_tex				find_ent_tex(t_al *al, t_mob *ent);
+void				draw_map(t_al *al);
 
 #endif

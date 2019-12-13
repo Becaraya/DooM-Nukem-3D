@@ -1,4 +1,4 @@
-NAME = doom-nukem
+NAME = doom_nukem
 
 CC = gcc
 CCF = -fsanitize=address
@@ -33,14 +33,15 @@ SRC_LIST = add_edit.c		\
 		draw_tools.c		\
 		edit.c				\
 		event_func.c		\
+		game_disp.c			\
 		game.c				\
 		get_map.c			\
-		hms_parser.c		\
 		hms_parser_sec.c	\
 		hms_parser_tex.c	\
 		hms_encoder.c		\
 		hms_encoder_sec.c	\
 		hms_encoder_tex.c	\
+		hms_parser.c		\
 		ia.c				\
 		init.c 				\
 		main_loop.c 		\
@@ -48,10 +49,14 @@ SRC_LIST = add_edit.c		\
 		mob_moov.c			\
 		mouse_edit.c		\
 		mouse_event_func.c	\
-		parse_tex.c 		\
 		pimp_cross.c		\
 		player_moov.c		\
+		refresh_text.c		\
 		refresh.c			\
+		render_cast.c		\
+		render_minimap.c	\
+		render_test.c		\
+		render_utils.c		\
 		render.c			\
 		sdl_tools.c			\
 		sector.c			\
@@ -98,7 +103,7 @@ $(LIBFT):
 	@$(MAKE) -sC $(LIBFT_DIR)
 
 fast: all
-	./doom-nukem house.hms
+	./doom_nukem house.hms
 
 clean:
 	@$(MAKE) -sC $(LIBFT_DIR) clean

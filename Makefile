@@ -21,22 +21,21 @@ HEADERS_LIST = doom_nukem.h
 HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
-SRC_LIST = main.c			\
+SRC_LIST = add_edit.c		\
+		angles.c			\
+		bmp_to_tex.c		\
+		choose_tex.c		\
+		column_hits.c		\
+		column_linesaver.c	\
+		column_utils.c		\
+		column.c			\
+		draw_edit_tools.c	\
+		draw_tools.c		\
 		edit.c				\
 		event_func.c		\
-		game.c				\
 		game_disp.c			\
-		render.c			\
-		render_cast.c		\
-		render_test.c		\
-		render_utils.c		\
-		render_minimap.c	\
-		column.c			\
-		column_hits.c		\
-		column_utils.c		\
-		column_linesaver.c	\
-		angles.c			\
-		sport_physics.c		\
+		game.c				\
+		get_map.c			\
 		hms_parser.c		\
 		hms_parser_sec.c	\
 		hms_parser_tex.c	\
@@ -45,24 +44,33 @@ SRC_LIST = main.c			\
 		hms_encoder_sec.c	\
 		hms_encoder_tex.c	\
 		hms_encoder_texgp.c	\
-		bmp_to_tex.c		\
-		main_loop.c 		\
+		ia.c				\
 		init.c 				\
-		mouse_edit.c		\
-		sdl_tools.c			\
-		draw_edit_tools.c	\
-		draw_tools.c		\
-		refresh.c			\
-		refresh_text.c		\
-		sprite.c			\
-		get_map.c			\
-		player_moov.c		\
-		yeet.c				\
-		sector.c			\
+		main_loop.c 		\
+		main.c				\
 		mob_moov.c			\
+		mouse_edit.c		\
+		mouse_event_func.c	\
 		pimp_cross.c		\
+		player_moov.c		\
+		refresh_text.c		\
+		refresh.c			\
+		render_cast.c		\
+		render_minimap.c	\
+		render_test.c		\
+		render_utils.c		\
+		render.c			\
+		sdl_tools.c			\
+		sector.c			\
+		set_edit.c			\
+		sport_physics.c		\
+		sprite.c			\
+		texte.c				\
+		tool_add_edit.c		\
+		tool_text.c			\
 		tools.c				\
-		ia.c
+		yeet_text.c			\
+		yeet.c
 
 SRC_DIR = ./srcs/
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
@@ -96,10 +104,6 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADERS)
 $(LIBFT):
 	@$(MAKE) -sC $(LIBFT_DIR)
 
-run: all
-	@read -p "Enter map name:" map;
-	./doom_nukem map
-
 fast: all
 	./doom_nukem house.hms
 
@@ -123,8 +127,7 @@ bug: $(LIBFT) $(OBJ_DIR) $(OBJ)
 	@echo "$(YELLOW)Sources compilation $(RESET)[$(GREEN)OK$(RESET)]\n"
 	@$(CC) $(FRAMEWORKS) $(FLAGS) $(OPT_FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJ) -o $(NAME)
 	@echo "[$(BLUE)$(NAME) Compiled$(RESET)]"
-	@read -p "Enter map name:" map;
-	lldb ./doom_nukem map
+	lldb ./doom-nukem house.hms
 
 re: fclean all
 

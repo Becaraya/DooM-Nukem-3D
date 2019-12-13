@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 15:21:57 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:42:02 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@
 # define BACK_GROUND LIGHT_GREY
 # define TEXT_EDITOR BLACK
 
+# define TEX_SIZE_MENU 100
 /*
 ** ENUMS, for all status ######################################################
 */
@@ -567,6 +568,7 @@ t_walls				*create_walls_elem(t_al *al, unsigned int nb_sec, unsigned
 	int nb_wal);
 
 t_sector			*create_sector_elem(t_al *al, unsigned int nb_sec);
+void				free_text(t_al *al);
 
 /*
 ** hms parser
@@ -647,6 +649,14 @@ void				draw_sect(t_al *al, t_sector *sect);
 void				draw_wall(t_al *al, t_walls *wall);
 
 /*
+** Struct Edit Tool
+*/
+
+int					check_end_sector(t_walls *wall, int x, int y);
+void				check_can_add(t_al *al, t_sector *sect, t_point coo);
+void				delonesect(t_sector **sect);
+
+/*
 ** Generic Tools
 */
 
@@ -655,6 +665,7 @@ unsigned int		nb_wall(t_al *al);
 int					inr(t_point src_a, t_point src_b, t_point cmp);
 t_point				itop(int x, int y);
 int					is_in_sector(t_al *al, double x, double y);
+int					cocmp(SDL_Rect *p1, SDL_Rect *p2);
 
 /*
 ** action of entity
@@ -663,9 +674,43 @@ int					is_in_sector(t_al *al, double x, double y);
 void				acceleration_entities(t_al *al, t_mob mob);
 
 /*
+** Text
+*/
+
+void				init_ttf(t_al *al);
+int					set_text(t_text *text, char *str, SDL_Rect coo, SDL_Color clr);
+int					titlecmp(t_al *al, t_text text);
+void 				display_tex_menu(SDL_Surface *surf, t_tex tex, int i);
+void 				click_on_menu(t_al *al, SDL_Surface *surf);
+void				tex_menu(t_al *al);
+void				init_text_edit(t_al *al);
+void				init_text_edit_next(t_al *al);
+
+/*
+** Event
+*/
+
+void				mouse_press_menu(t_al *al);
+void				mouse_press(t_al *al);
+void				mouse_mv(t_al *al);
+void				mouse_weel(t_al *al);
+
+/*
+** Editor
+*/
+
+void				set_edit(t_al *al);
+void				set_edit_menu_next(t_al *al);
+void				set_edit_menu(t_al *al);
+
+/*
 ** TRUC
 */
 
+void				add_wall(t_al *al, t_sector *sect, t_point coo);
+void				add_sector(t_al *al, t_point coo);
+void				init_sect(t_al *al, t_sector *sect);
+void    			set_coo(t_al *al, t_point bev, int who, t_walls *wall);
 void				get_sec_tab(t_al *al);
 void				free_sect(t_sector *sect);
 void				init_sec_tex(t_al *al);

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 15:32:49 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:45:08 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,26 +82,6 @@ static void		init_trigo(t_al *al)
 	}*/
 }
 
-void			init_ttf(t_al *al)
-{
-	(!TTF_Init()) ? al->ttf_st = 1 : yeet(al);
-	if (!(al->font = TTF_OpenFont("/Library/Fonts/Arial.ttf", 20)))
-		yeet(al);
-
-}
-
-int				set_text(t_text *text, char *str, SDL_Rect coo, SDL_Color clr)
-{
-	if (!(text->str = ft_strdup(str)))
-		return (-1);
-	if (!(text->where = (SDL_Rect *)ft_memalloc(sizeof(SDL_Rect))))
-		return (-1);
-	text->where->x = coo.x;
-	text->where->y = coo.y;
-	ft_memcpy(&text->clr, &clr, sizeof(&clr));
-	return (0);
-}
-
 static void		init_edit(t_al *al)
 {
 	if (!(al->win_ed = SDL_CreateWindow(WIN_TITLE, WIN_POSX + WIN_SIZEX,
@@ -111,40 +91,9 @@ static void		init_edit(t_al *al)
 		yeet(al);
 	al->pix_ed = al->sdlsurf->pixels;
 
-	/*
-	** ALL TEXT EDITOR
-	*/
-
-	set_text(&al->text.gen_map, "GENERATION MAP", get_rect(295, 700), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.sect_index, "WHO", get_rect(25, 20), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.wall_index, "WHO WALL", get_rect(25, 58), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.x_start, "X1", get_rect(25, 100), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.y_start, "Y1", get_rect(150, 100), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.x_end, "X2", get_rect(25, 150), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.y_end, "Y2", get_rect(150, 150), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-
-	set_text(&al->text.cancel, "CANCEL", get_rect(600, 20), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-
-	set_text(&al->text.settings, "Settings", get_rect(25, 200), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-
-	set_text(&al->text.sector, "Sector", get_rect(70, 250), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.fl_tex, "Floor Texture", get_rect(70, 330), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.fl_hei, "Floor Height", get_rect(70, 410), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.ce_tex, "Ceiling Texture", get_rect(300, 330), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.ce_hei, "Ceiling Height", get_rect(300, 410), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-
-	set_text(&al->text.wall, "Wall", get_rect(300, 250), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.wall_tex, "Wall Texture", get_rect(70, 330), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	
-	set_text(&al->text.tools, "Tools", get_rect(25, 500), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.set_spawn, "Set Spawn", get_rect(70, 550), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.set_bad_pig, "Set Goret", get_rect(300, 550), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.draw, "Draw", get_rect(520, 550), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.link, "Sector Link", get_rect(70, 615), add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-
+	init_text_edit(al);
 }
 
-// jvous en prie utilisez pas ça c'est de la merde
 void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 {
 	unsigned char	*tmp;
@@ -264,10 +213,8 @@ void			init(t_al *al, char *str)
 		init_edit(al);
 		get_map(al);
 	}
-	//get_sec_tab(al);
-	//get_map(al);
-
-	//init_ttf(al);
+	// get_sec_tab(al);
+	// get_map(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = SELECT;
 	// al->edit.stat = EDIT_WALL;

@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   refresh_text.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:15:33 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 16:41:41 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/13 01:19:23 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
-
-int		cocmp(SDL_Rect *p1, SDL_Rect *p2)
-{
-	if (p1->x == p2->x && p1->y == p2->y)
-		return (1);
-	return (0);
-}
-
-int		titlecmp(t_al *al, t_text text)
-{
-	if (!ft_strcmp(text.str, al->text.settings.str) && cocmp(text.where,
-			al->text.settings.where))
-		return (1);
-	if (!ft_strcmp(text.str, al->text.cancel.str) && cocmp(text.where,
-			al->text.cancel.where))
-		return (1);
-	if (!ft_strcmp(text.str, al->text.tools.str) && cocmp(text.where,
-			al->text.tools.where))
-		return (1);
-	return (0);
-}
 
 void	print_text(t_al *al, t_text text, SDL_Surface *surf)
 {

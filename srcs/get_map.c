@@ -1,4 +1,4 @@
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
 void 	free_tab(t_al *al)
 {

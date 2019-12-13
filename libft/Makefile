@@ -1,5 +1,13 @@
 NAME = libft.a
 
+CC = gcc
+
+FLAGS = -Wall -Werror -Wextra
+CFLAGS = -c $(FLAGS)
+
+OBJ_DIR = obj/
+OBJ = $(addprefix $(OBJ_DIR), $(SRC:.c=.o))
+
 SRC = ft_memset.c \
 	ft_bzero.c \
 	ft_abs.c	\
@@ -67,15 +75,22 @@ SRC = ft_memset.c \
 	ft_isblank.c \
 	get_next_line.c
 
-OBJ = $(SRC:.c=.o)
-
-FLAG_OPT = -O3 -flto
+BLUE = \033[36m
+RESET   = \033[0m
 	
-all : $(NAME)
+all : $(OBJ_DIR) $(NAME)
+	@echo "\n$(BLUE)Libft Ready Sir !$(RESET)"
 
-$(NAME) : $(OBJ)
-	@gcc -c $(FLAG_OPT) -Wall -Wextra -Werror $(SRC)
-	@ar rc $(NAME) $(OBJ)
+$(NAME): $(OBJ)
+	@ar rc $@ $^
+	@ranlib $@
+
+$(addprefix $(OBJ_DIR), %.o) : %.c
+	@$(CC) $(CFLAGS) -o $@ $<
+	@echo -n '.'
+
+$(OBJ_DIR) :
+	@mkdir $(OBJ_DIR)
 
 clean :
 	@rm -f $(OBJ)
@@ -85,9 +100,4 @@ fclean : clean
 
 re : fclean all
 
-cp : re
-	@gcc -Wall -Wextra -Werror $(NAME) ~/Desktop/main.c
-	@rm -f $(OBJ)
-	@./a.out
-
-.PHONY : all, clean, fclean, re, cp
+.PHONY : all, clean, fclean, re

@@ -6,11 +6,11 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/06 13:06:47 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
 void		draw_map(t_al *al)
 {
@@ -244,7 +244,7 @@ int			test_ent_hit(t_al *al, t_rc_ray *ray, t_mob *rotent, t_mob *oent)
 				oent->width;
 				return (1);
 			}
-		}
+	}
 	return (0);
 }
 

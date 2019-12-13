@@ -1,4 +1,4 @@
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
 unsigned int		**load_anim(t_al *al, char *path, int nb_tex)
 {

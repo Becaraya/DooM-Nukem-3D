@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   doom-nukem.h                                       :+:      :+:    :+:   */
+/*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 02:06:05 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/13 00:43:48 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <SDL2_mixer/SDL_mixer.h>
 
 # define WIN_TITLE "100% really slenderman absolutely virus free i swear"
-# define WIN_SIZEX 1366
-# define WIN_SIZEY 768
+# define WIN_SIZEX 1280//1366
+# define WIN_SIZEY 720//768
 # define WIN_POSX 100
 # define WIN_POSY 10
 
@@ -35,7 +35,7 @@
 # define MAX_HITS	1000
 # define HORIZON_LIMIT	1000
 
-# define D_2PI	8192 // 1<13
+# define D_2PI	8192
 # define D_2PIM	8191
 # define D_PI	4096
 # define D_PI_2	2048
@@ -44,8 +44,9 @@
 # define DEFAULT_G 9.81
 # define DEFAULT_FOV 1.6
 
-#define	SPRITE_W 512
-#define	SPRITE_H 512
+# define SPRITE_W 512
+# define SPRITE_H 512
+
 /*
 ** TEX_REPEAT is horizontal repeat in m
 ** TEX_REPEAT_V is vertical repeat in m*(1<<16)
@@ -64,13 +65,12 @@
 # define TEX_REPEAT_F		131071
 # define TEX_REPEAT_F_DIV	17
 
-
 # define PLAYER_CROUCH 1.10
 # define PLAYER_SIZE 1.78
 # define PLAYER_EYE_TOP 0.15
 # define PLAYER_MASS 67
 # define PLAYER_AERO_POWER 400
-# define PLAYER_ANA_POWER 1950
+# define PLAYER_ANA_POWER 950
 
 # define LOOK_SENS 1000
 
@@ -87,15 +87,7 @@
 # define BACK_GROUND LIGHT_GREY
 # define TEXT_EDITOR BLACK
 
-/*
-** just too simplify 🤠 C est plus a la norme...
-*/
-
-# define PPX al->play.posx
-# define PPY al->play.posy
-# define EPX al->ent.posx
-# define EPY al->ent.posy
-
+# define TEX_SIZE_MENU 100
 /*
 ** ENUMS, for all status ######################################################
 */
@@ -143,17 +135,16 @@ typedef	unsigned	t_angle;
 ** STRUCTURES #################################################################
 */
 
-typedef struct	s_floorcast		
+typedef struct		s_floorcast
 {
-	long		posx;
-	long		posy;
-	long		dstx;
-	long		dsty;
-	long		dst;
-	int			hor;
-	int			indst;
-}				t_floorcast;
-
+	long	posx;
+	long	posy;
+	long	dstx;
+	long	dsty;
+	long	dst;
+	int		hor;
+	int		indst;
+}					t_floorcast;
 
 /*
 ** .hms parser and the main game data
@@ -200,7 +191,6 @@ typedef struct		s_tex_or
 	unsigned int	**pix;
 }					t_tex_or;
 
-
 typedef struct		s_tex_group
 {
 	unsigned int	size_x;
@@ -215,60 +205,64 @@ typedef struct		s_tex_group
 
 typedef struct		s_keys
 {
-	unsigned		w:1;
-	unsigned		a:1;
-	unsigned		s:1;
-	unsigned		d:1;
-	unsigned		left:1;
-	unsigned		righ:1;
-	unsigned		up:1;
-	unsigned		down:1;
-	unsigned		space:1;
+	unsigned	w:1;
+	unsigned	a:1;
+	unsigned	s:1;
+	unsigned	d:1;
+	unsigned	left:1;
+	unsigned	righ:1;
+	unsigned	up:1;
+	unsigned	down:1;
+	unsigned	space:1;
 }					t_keys;
 
 typedef struct		s_mouse
 {
-	unsigned		left:1;
-	unsigned		righ:1;
-	unsigned		up:1;
-	unsigned		down:1;
-	unsigned		mouve:1;
-	unsigned		click:1;
+	unsigned	left:1;
+	unsigned	righ:1;
+	unsigned	up:1;
+	unsigned	down:1;
+	unsigned	mouve:1;
+	unsigned	click:1;
 }					t_mouse;
 
-// typedef struct		s_icon
-// {
-// 	unsigned int	*chest;
-// 	unsigned int	*click;
-// 	unsigned int	*path;
-// 	unsigned int	*portal;
-// 	unsigned int	*wall;
-// }					t_icon;
+/*
+** typedef struct		s_icon
+** {
+** 	unsigned int	*chest;
+** 	unsigned int	*click;
+** 	unsigned int	*path;
+** 	unsigned int	*portal;
+** 	unsigned int	*wall;
+** }					t_icon;
+*/
 
 typedef struct		s_point
 {
-	int				x;
-	int				y;
-	int				color;
+	int	x;
+	int	y;
+	int	color;
 }					t_point;
 
 typedef struct		s_doint
 {
-	double			x;
-	double			y;
-	int				color;
+	double	x;
+	double	y;
+	int		color;
 }					t_doint;
 
-// typedef struct		s_wall
-// {
-// 	int				x1;
-// 	int				y1;
-// 	int				x2;
-// 	int				y2;
-// 	t_stat_wall		type;
-// 	struct s_wall	*prev;
-// 	struct s_wall	*next;
-// }					t_wall;
+/*
+** typedef struct		s_wall
+** {
+**	int				x1;
+**	int				y1;
+**	int				x2;
+**	int				y2;
+**	t_stat_wall		type;
+**	struct s_wall	*prev;
+**	struct s_wall	*next;
+**}					t_wall;
+*/
 
 typedef struct		s_edit
 {
@@ -288,11 +282,11 @@ typedef struct		s_edit
 
 typedef struct		s_sprite
 {
-	int 			id;
-	int 			w;
-	int 			h;
-	int 			x;
-	int 			y;
+	int				id;
+	int				w;
+	int				h;
+	int				x;
+	int				y;
 	int				angle;
 	double			dist;
 	unsigned int	*tex;
@@ -324,6 +318,10 @@ typedef struct		s_player
 
 /*
 ** i think some var are usless on entity.
+*/
+
+/*
+** perhaps.
 */
 
 typedef struct		s_mob
@@ -426,48 +424,41 @@ typedef struct		s_rc_ray
 
 typedef struct		s_text
 {
-	char			*str;
-	SDL_Color		clr;
-	SDL_Rect		*where;
+	char		*str;
+	SDL_Color	clr;
+	SDL_Rect	*where;
 }					t_text;
 
 typedef struct		s_text_list
 {
-	t_text			gen_map;
-	t_text			sect_index;
-	t_text			wall_index;
-	t_text			settings;
-	t_text			wall_para;
-	t_text			sect_para;
-	t_text			x_start;
-	t_text			y_start;
-	t_text			x_end;
-	t_text			y_end;
-	t_text			wall;
-	t_text			sector;
-	t_text			tools;
-	t_text			cancel;
+	t_text	gen_map;
+	t_text	sect_index;
+	t_text	wall_index;
+	t_text	settings;
+	t_text	wall_para;
+	t_text	sect_para;
+	t_text	x_start;
+	t_text	y_start;
+	t_text	x_end;
+	t_text	y_end;
+	t_text	wall;
+	t_text	sector;
+	t_text	tools;
+	t_text	cancel;
 
-	//add
-	// wall
-	t_text			wall_tex;
-	// t_text			top_tex;
-	// t_text			bot_tex;
+	t_text	wall_tex;
 
-	//sect
-	t_text			fl_hei;
-	t_text			ce_hei;
-	t_text			fl_tex;
-	t_text			ce_tex;
+	t_text	fl_hei;
+	t_text	ce_hei;
+	t_text	fl_tex;
+	t_text	ce_tex;
 
-	//tools
-	t_text			set_spawn;
-	t_text			set_bad_pig;
-	t_text			draw;
-	t_text			del_sect;
+	t_text	set_spawn;
+	t_text	set_bad_pig;
+	t_text	draw;
+	t_text	del_sect;
 
-	t_text			link; // need to be implement
-
+	t_text	link;
 }					t_text_list;
 
 /*
@@ -520,20 +511,18 @@ typedef struct		s_al
 	unsigned short	anim;
 
 	t_edit			edit;
-	int 				tex_choice;
+	int				tex_choice;
 
 	t_keys			k;
 	SDL_Event		ev;
 	t_mouse			m;
 
 	t_sector		*sect;
-	// int				nb_sect;
 
 	double			sin[D_2PI];
 	double			cos[D_2PI];
-	//double			tan[D_2PI];
 
-	t_sprite 		*sprite;
+	t_sprite		*sprite;
 
 	char			v0id[32];
 }					t_al;
@@ -562,6 +551,8 @@ t_angle				sub_angle(t_angle a1, t_angle a2);
 
 void				column(t_al *al, t_rc_ray *ray);
 
+int					skybox(t_al *al, int y, int tx);
+int					tex_find(unsigned int *pix, int texx, int texy, t_tex *tex);
 void				pimp_cross(t_al *al);
 void				refresh(t_al *al);
 
@@ -573,13 +564,11 @@ void				free_wall(t_walls *walls);
 void				yeet(t_al *al);
 void				get_map(t_al *al);
 t_walls				*get_walls(t_al *al, unsigned int nb_sec);
-t_walls		*create_walls_elem(t_al *al, unsigned int nb_sec, unsigned int nb_wal);
+t_walls				*create_walls_elem(t_al *al, unsigned int nb_sec, unsigned
+	int nb_wal);
 
 t_sector			*create_sector_elem(t_al *al, unsigned int nb_sec);
-
-
-
-
+void				free_text(t_al *al);
 
 /*
 ** hms parser
@@ -614,15 +603,17 @@ void				render(t_al *al);
 /*
 ** sprites functions
 */
-void	init_texgrp(t_al *al);
-void	display_texgp(t_al *al, unsigned int *pix);
+void				init_texgrp(t_al *al);
+void				display_texgp(t_al *al, unsigned int *pix);
 
 /*
 ** draw function
 */
 
-void				ft_put_line(t_point a, t_point b, SDL_Surface *surf, int color);
-void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr);
+void				ft_put_line(t_point a, t_point b, SDL_Surface *surf, int
+	color);
+void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int
+	clr);
 /*
 ** authorization too mooving function
 */
@@ -637,13 +628,16 @@ void				ft_nop_player(t_al *al, int i, double x, double y);
 SDL_Rect			get_rect(int x, int y);
 SDL_Color			add_color(int color);
 
-
 /*
 **	Draw Tools
 */
-void		        draw_triangle(t_point p, int i, SDL_Surface *surf, int color);
-void				ft_put_line(t_point a, t_point b, SDL_Surface *surf, int color);
-void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr);
+
+void				draw_triangle(t_point p, int i, SDL_Surface *surf, int
+	color);
+void				ft_put_line(t_point a, t_point b, SDL_Surface *surf, int
+	color);
+void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int
+	clr);
 
 /*
 **	Draw edit Tools
@@ -651,6 +645,14 @@ void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr);
 
 void				draw_sect(t_al *al, t_sector *sect);
 void				draw_wall(t_al *al, t_walls *wall);
+
+/*
+** Struct Edit Tool
+*/
+
+int					check_end_sector(t_walls *wall, int x, int y);
+void				check_can_add(t_al *al, t_sector *sect, t_point coo);
+void				delonesect(t_sector **sect);
 
 /*
 ** Generic Tools
@@ -661,22 +663,72 @@ unsigned int		nb_wall(t_al *al);
 int					inr(t_point src_a, t_point src_b, t_point cmp);
 t_point				itop(int x, int y);
 int					is_in_sector(t_al *al, double x, double y);
-
+int					cocmp(SDL_Rect *p1, SDL_Rect *p2);
 
 /*
 ** action of entity
 */
+
 void				acceleration_entities(t_al *al, t_mob mob);
+
+/*
+** Text
+*/
+
+void				init_ttf(t_al *al);
+int					set_text(t_text *text, char *str, SDL_Rect coo, SDL_Color clr);
+int					titlecmp(t_al *al, t_text text);
+void 				display_tex_menu(SDL_Surface *surf, t_tex tex, int i);
+void 				click_on_menu(t_al *al, SDL_Surface *surf);
+void				tex_menu(t_al *al);
+void				init_text_edit(t_al *al);
+void				init_text_edit_next(t_al *al);
+
+/*
+** Event
+*/
+
+void				mouse_press_menu(t_al *al);
+void				mouse_press(t_al *al);
+void				mouse_mv(t_al *al);
+void				mouse_weel(t_al *al);
+
+/*
+** Editor
+*/
+
+void				set_edit(t_al *al);
+void				set_edit_menu_next(t_al *al);
+void				set_edit_menu(t_al *al);
 
 /*
 ** TRUC
 */
-void		get_sec_tab(t_al *al);
-void	free_sect(t_sector *sect);
-void	init_sec_tex(t_al *al);
-void	free_text(t_al *al);
-void display_tab(t_al *al);
-void display(t_al *al);
 
+void				add_wall(t_al *al, t_sector *sect, t_point coo);
+void				add_sector(t_al *al, t_point coo);
+void				init_sect(t_al *al, t_sector *sect);
+void    			set_coo(t_al *al, t_point bev, int who, t_walls *wall);
+void				get_sec_tab(t_al *al);
+void				free_sect(t_sector *sect);
+void				init_sec_tex(t_al *al);
+void				free_text(t_al *al);
+void				display_tab(t_al *al);
+void				display(t_al *al);
+
+void				cap_int(int *var, int lowcap, int highcap);
+void				hit_floor(t_al *al, t_rc_ray *ray, int hitnb);
+void				hit_ceiling(t_al *al, t_rc_ray *ray, int hitnb);
+void				hit_top_bot_wall(t_al *al, t_rc_ray *ray, int hitnb);
+void				hit_wall(t_al *al, t_rc_ray *ray, int hitnb);
+int					tex_find(unsigned int *pix, int texx, int texy, t_tex *tex);
+int					skybox(t_al *al, int y, int tx);
+void				hit_wall_heights(t_al *al, t_rc_hit *hit, t_rc_lim *lim, int
+	hor);
+void				hit_next_walls(t_al *al, t_rc_hit *hit, t_rc_lim *lim, int
+	hor);
+void				hit_linesave_ent(t_al *al, t_rc_hit *hit, t_rc_lim *lim, int
+	hor);
+unsigned			new_wall_he(t_rc_hit *hit, t_rc_hit *nhit);
 
 #endif

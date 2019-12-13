@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:04:26 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/20 14:26:17 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/12 15:40:25 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
 void			draw_triangle(t_point p, int i, SDL_Surface *surf, int color)
 {

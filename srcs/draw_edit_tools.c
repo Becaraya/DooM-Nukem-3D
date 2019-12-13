@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   draw_edit_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:12:32 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/19 16:13:13 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/12 15:40:21 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
 void		draw_wall(t_al *al, t_walls *wall)
 {

@@ -17,42 +17,53 @@ LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_DIR = ./Libft/
 LIBFT_HEAD = $(LIBFT_DIR)
 
-HEADERS_LIST = doom-nukem.h
+HEADERS_LIST = doom_nukem.h
 HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
-SRC_LIST = main.c			\
+SRC_LIST = add_edit.c		\
+		angles.c			\
+		bmp_to_tex.c		\
+		choose_tex.c		\
+		column_hits.c		\
+		column_linesaver.c	\
+		column_utils.c		\
+		column.c			\
+		draw_edit_tools.c	\
+		draw_tools.c		\
 		edit.c				\
 		event_func.c		\
 		game.c				\
-		render.c			\
-		column.c			\
-		angles.c			\
-		sport_physics.c		\
+		get_map.c			\
 		hms_parser.c		\
 		hms_parser_sec.c	\
 		hms_parser_tex.c	\
 		hms_encoder.c		\
 		hms_encoder_sec.c	\
 		hms_encoder_tex.c	\
-		bmp_to_tex.c		\
-		parse_tex.c 		\
-		main_loop.c 		\
+		ia.c				\
 		init.c 				\
-		mouse_edit.c		\
-		sdl_tools.c			\
-		draw_edit_tools.c	\
-		draw_tools.c		\
-		refresh.c			\
-		sprite.c			\
-		get_map.c			\
-		player_moov.c		\
-		yeet.c				\
-		sector.c			\
+		main_loop.c 		\
+		main.c				\
 		mob_moov.c			\
+		mouse_edit.c		\
+		mouse_event_func.c	\
+		parse_tex.c 		\
 		pimp_cross.c		\
+		player_moov.c		\
+		refresh.c			\
+		render.c			\
+		sdl_tools.c			\
+		sector.c			\
+		set_edit.c			\
+		sport_physics.c		\
+		sprite.c			\
+		texte.c				\
+		tool_add_edit.c		\
+		tool_text.c			\
 		tools.c				\
-		ia.c
+		yeet_text.c			\
+		yeet.c
 
 SRC_DIR = ./srcs/
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))

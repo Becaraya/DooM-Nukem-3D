@@ -6,29 +6,11 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:15:33 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 02:19:50 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/12 23:27:05 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
-
-int		cocmp(SDL_Rect *p1, SDL_Rect *p2)
-{
-	if (p1->x == p2->x && p1->y == p2->y)
-		return (1);
-	return (0);
-}
-
-int		titlecmp(t_al *al, t_text text)
-{
-	if (!ft_strcmp(text.str, al->text.settings.str) && cocmp(text.where, al->text.settings.where))
-		return (1);
-	if (!ft_strcmp(text.str, al->text.cancel.str) && cocmp(text.where, al->text.cancel.where))
-		return (1);
-	if (!ft_strcmp(text.str, al->text.tools.str) && cocmp(text.where, al->text.tools.where))
-		return (1);
-	return (0);
-}
+#include "doom_nukem.h"
 
 void	print_text(t_al *al, t_text text, SDL_Surface *surf)
 {
@@ -49,7 +31,7 @@ void	print_text(t_al *al, t_text text, SDL_Surface *surf)
 		TTF_SetFontStyle(al->font, TTF_STYLE_NORMAL);
 }
 
-void	text(t_al *al)
+void	text_edit_base(t_al *al)
 {
 	print_text(al, al->text.gen_map, al->surf_ed);
 	print_text(al, al->text.draw, al->surf_ed);
@@ -57,34 +39,46 @@ void	text(t_al *al)
 	print_text(al, al->text.wall, al->surf_ed);
 	print_text(al, al->text.tools, al->surf_ed);
 	print_text(al, al->text.settings, al->surf_ed);
-	al->edit.stat == DRAWING ? print_text(al, al->text.cancel, al->surf_ed) : 0;
-	if (al->sect)
-	{
-		(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ? print_text(al, al->text.fl_tex, al->surf_ed) : 0;
-		(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ? print_text(al, al->text.ce_tex, al->surf_ed) : 0;
-		(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ? print_text(al, al->text.fl_hei, al->surf_ed) : 0;
-		(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ? print_text(al, al->text.ce_hei, al->surf_ed) : 0;
-		print_text(al, al->text.x_start, al->surf_ed);
-		print_text(al, al->text.y_start, al->surf_ed);
-		print_text(al, al->text.x_end, al->surf_ed);
-		print_text(al, al->text.sect_index, al->surf_ed);
-		print_text(al, al->text.y_end, al->surf_ed);
-		if (al->sect->walls)
-		{
-			(al->edit.stat == EDIT_WALL) ? print_text(al, al->text.wall_tex, al->surf_ed) : 0;
-			print_text(al, al->text.set_spawn, al->surf_ed);
-			print_text(al, al->text.set_bad_pig, al->surf_ed);
-			print_text(al, al->text.wall_index, al->surf_ed);
-			print_text(al, al->text.link, al->surf_ed);
+}
 
-		}
+void	text_edit_if_sect(t_al *al)
+{
+	if (al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT)
+	{
+		print_text(al, al->text.fl_tex, al->surf_ed);
+		print_text(al, al->text.ce_tex, al->surf_ed);
+		print_text(al, al->text.fl_hei, al->surf_ed);
+		print_text(al, al->text.ce_hei, al->surf_ed);
 	}
+	print_text(al, al->text.x_start, al->surf_ed);
+	print_text(al, al->text.y_start, al->surf_ed);
+	print_text(al, al->text.x_end, al->surf_ed);
+	print_text(al, al->text.sect_index, al->surf_ed);
+	print_text(al, al->text.y_end, al->surf_ed);
+	if (al->sect->walls)
+	{
+		if (al->edit.stat == EDIT_WALL)
+			print_text(al, al->text.wall_tex, al->surf_ed);
+		print_text(al, al->text.set_spawn, al->surf_ed);
+		print_text(al, al->text.set_bad_pig, al->surf_ed);
+		print_text(al, al->text.wall_index, al->surf_ed);
+		print_text(al, al->text.link, al->surf_ed);
+	}
+}
+
+void	text_edit(t_al *al)
+{
+	text_edit_base(al);
+	if (al->edit.stat == DRAWING)
+		print_text(al, al->text.cancel, al->surf_ed);
+	if (al->sect)
+		text_edit_if_sect(al);
 }
 
 void	refresh(t_al *al)
 {
 	if (al->status == EDIT)
-		text(al);
+		text_edit(al);
 	if (SDL_UpdateWindowSurface(al->sdlwin))
 		yeet(al);
 	if (al->status == EDIT && (SDL_UpdateWindowSurface(al->win_ed)))

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/18 14:20:41 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/01 13:57:22 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 ** We currently arent using this file. just sayin
 */
 
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
 void			err_tex(t_al *al)
 {

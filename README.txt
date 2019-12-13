@@ -47,15 +47,13 @@ textures(16 header):
 		1 4- alpha (0 for transparent and !=0 for opaque)
 	}
 }
-texture groups(16 header)
+texture groups(2 header)
 2  0- number of texture groups
-14 2- pad
-texture animation(16 header):
+texture animation(12 header):
 {
 	4 0- texture size x
 	4 4- texture size y
 	4 8- number of textures in animation
-	4 12- pad
 	orientations(8x):
 	{
 		textures:
@@ -69,16 +67,6 @@ texture animation(16 header):
 			}
 		}
 	}
-}
-(16 header)
-2  0- number of entities
-14 2- pad
-entities:
-{
-	4 0- initial x
-	4 4- initial y
-	4 8- initial sector
-	4 12- ai type
 }
 
 

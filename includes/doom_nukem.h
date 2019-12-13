@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 00:23:50 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:21:57 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -576,8 +576,9 @@ int					hms_parser(t_al *al, char *str);
 int					check_links(t_sector *sec, unsigned nb_sec);
 int					parse_pixels(t_tex *tex, int fd);
 int					parse_texture(t_tex *tex, int fd);
-int					parse_textures(t_al *al, int fd);
 int					parse_sectors(t_al *al, int fd);
+int					parse_textures(t_al *al, int fd);
+int					parse_texture_groups(t_al *al, int fd);
 
 int					bmp_to_tex(t_tex *tex, char *str, int sizex, int sizey);
 
@@ -588,6 +589,7 @@ int					bmp_to_tex(t_tex *tex, char *str, int sizex, int sizey);
 int					hms_encoder(t_al *al, char *str);
 int					write_sectors(t_al *al, int fd);
 int					write_textures(t_al *al, int fd);
+int					write_texture_groups(t_al *al, int fd);
 
 /*
 ** status functions

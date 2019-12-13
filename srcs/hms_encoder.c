@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 10:45:30 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:28:24 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int		hms_encoder(t_al *al, char *str)
 		return (pr_err("Invalid Data (problem on sectors)\n"));
 	if (write_textures(al, fd))
 		return (pr_err("Invalid Data (problem on textures)\n"));
+	if (write_texture_groups(al, fd))
+		return (pr_err("Invalid Data (problem on texture groups)\n"));
 	printf("Writing success !\n");
 	close(fd);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 15:42:02 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/13 22:14:31 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define WIN_POSY 10
 
 # define WIN_EDIT_SIZEX	768
-# define WIN_EDIT_SIZEY	768
+# define WIN_EDIT_SIZEY	720
 
 # define MAX_HITS	1000
 # define HORIZON_LIMIT	1000

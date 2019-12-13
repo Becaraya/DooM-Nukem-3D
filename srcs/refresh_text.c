@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:15:33 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 01:19:23 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/14 00:04:25 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,15 @@ void	print_text(t_al *al, t_text text, SDL_Surface *surf)
 
 void	text_sect(t_al *al)
 {
-	(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ?
-	print_text(al, al->text.fl_tex, al->surf_ed) : 0;
-	(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ?
-	print_text(al, al->text.ce_tex, al->surf_ed) : 0;
-	(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ?
-	print_text(al, al->text.fl_hei, al->surf_ed) : 0;
-	(al->edit.stat <= DRAWING || al->edit.stat == EDIT_SECT) ?
-	print_text(al, al->text.ce_hei, al->surf_ed) : 0;
+
+	if (al->edit.stat == EDIT_SECT || al->edit.stat == SET_FLO_TEXT || al->edit.stat == SET_FLO_HEI
+		|| al->edit.stat == SET_CEL_TEXT || al->edit.stat == SET_CEL_HEI)
+	{
+		print_text(al, al->text.fl_tex, al->surf_ed);
+		print_text(al, al->text.ce_tex, al->surf_ed);
+		print_text(al, al->text.fl_hei, al->surf_ed);
+		print_text(al, al->text.ce_hei, al->surf_ed);
+	}
 	print_text(al, al->text.x_start, al->surf_ed);
 	print_text(al, al->text.y_start, al->surf_ed);
 	print_text(al, al->text.x_end, al->surf_ed);
@@ -62,8 +63,8 @@ void	text(t_al *al)
 		text_sect(al);
 		if (al->sect->walls)
 		{
-			(al->edit.stat == EDIT_WALL) ? print_text(al, al->text.wall_tex,
-			al->surf_ed) : 0;
+			if (al->edit.stat == EDIT_WALL || al->edit.stat == SET_WALL_TEXT)
+				print_text(al, al->text.wall_tex, al->surf_ed);
 			print_text(al, al->text.set_spawn, al->surf_ed);
 			print_text(al, al->text.set_bad_pig, al->surf_ed);
 			print_text(al, al->text.wall_index, al->surf_ed);

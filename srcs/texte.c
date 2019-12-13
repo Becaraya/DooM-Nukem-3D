@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:51:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 23:31:54 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/13 21:34:29 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,6 @@ void	init_text_edit_next(t_al *al)
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.link, "Sector Link", get_rect(70, 615),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.gen_map, "GENERATION MAP", get_rect(295, 700),
+	set_text(&al->text.gen_map, "GENERATION MAP", get_rect(295, 665),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 }

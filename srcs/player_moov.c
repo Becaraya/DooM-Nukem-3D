@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/17 11:28:16 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/17 14:52:25 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,19 +115,6 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	while (i < (int)al->sec[al->play.csec].nb_wal)
 	{
 		wall_ok(al, al->sec[al->play.csec].walls[i], p, &m);
-		/*t = al->sec[al->play.csec].walls[i];
-		if (x > 0.0 && (t.x1 >= j.posx || t.x2 >= j.posx) 
-		&& ((t.y1 <= j.posy && j.posy <= t.y2) || (t.y1 >= j.posy && j.posy >= t.y2)))
-			(!(is_cross_x(&al->play, t, x, al))) ? m[0] = 0 : 1;
-		if (x <= 0.0 && (t.x1 <= j.posx || t.x2 <= j.posx)
-		&& ((t.y1 <= j.posy && j.posy <= t.y2) || (t.y1 >= j.posy && j.posy >= t.y2)))
-			(!(is_cross_x(&al->play, t, x, al))) ? m[0] = 0 : 1;
-		if (y > 0.0 && (t.y1 >= j.posy || t.y2 >= j.posy)
-		&& ((t.x1 <= j.posx && j.posx <= t.x2) || (t.x1 >= j.posx && j.posx >= t.x2)))
-			m[1] = is_cross_y(&al->play, t, y, 1);	
-		if (y <= 0.0 && (t.y1 <= j.posy || t.y2 <= j.posy)
-		&& ((t.x1 <= j.posx && j.posx <= t.x2) || (t.x1 >= j.posx && j.posx >= t.x2)))
-			m[1] = is_cross_y(&al->play, t, y, 1);	*/
 		i++;
 	}
 	(m.y == 1) ? al->play.posy += y : 0;

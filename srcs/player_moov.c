@@ -6,11 +6,11 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/12 16:35:41 by hutricot         ###   ########.fr       */
+/*   Updated: 2019/12/17 11:28:16 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
 /*
 **a therme l idée est de pouvoir appeller la fonction.
@@ -112,7 +112,6 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	m.y = 1;
 	p.x = x;
 	p.y = y; 
-	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
 	while (i < (int)al->sec[al->play.csec].nb_wal)
 	{
 		wall_ok(al, al->sec[al->play.csec].walls[i], p, &m);
@@ -133,6 +132,7 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	}
 	(m.y == 1) ? al->play.posy += y : 0;
 	(m.x == 1) ? al->play.posx += x : 0;
+	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
 }
 
 

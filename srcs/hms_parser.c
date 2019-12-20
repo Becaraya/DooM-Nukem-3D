@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:39:49 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/13 15:30:26 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/20 15:04:43 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int		hms_parser(t_al *al, char *str)
 		return (pr_err("Invalid File (problem on texture groups)\n"));
 	if (read(fd, buf, 1))
 		return (pr_err("Invalid File (too long)\n"));
-	printf("Parsing success !\n");
+	ft_putstr("Parsing success !\n");
 	close(fd);
 	return (0);
 }

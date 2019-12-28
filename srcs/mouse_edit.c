@@ -3,106 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_edit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/19 13:09:06 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/14 00:12:16 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
-static void     set_coo(t_al *al, t_point bev, int who, t_walls *wall)
-{
-    if (who == 1)
-    {
-        wall->x1 = bev.x - (bev.x % al->edit.zoom);
-        wall->y1 = bev.y - (bev.y % al->edit.zoom);
-    }
-    else
-    {
-        wall->x2 = bev.x - (bev.x % al->edit.zoom);
-        wall->y2 = bev.y - (bev.y % al->edit.zoom);
-    }
-}
-
-t_point			itopoint(int x, int y) //se prononce "I TAU POINT"
-{
-	t_point		res;
-
-	res.x = x;
-	res.y = y;
-	return (res);
-}
-
-void			init_sect(t_al *al, t_sector *sect)
-{
-	t_sector	*new;
-
-	new = NULL;
-	if (!sect)
-	{
-		if (!(al->sect = (t_sector *)ft_memalloc(sizeof(t_sector))))
-			yeet(al);
-		if (!(al->sect->walls = (t_walls *)ft_memalloc(sizeof(t_walls))))
-			yeet(al);
-		set_coo(al, itopoint(-1, -1), 1, al->sect->walls);
-		set_coo(al, itopoint(-1, -1), 2, al->sect->walls);
-		al->sect->next = NULL;
-		al->sect->walls->next = NULL;
-	}
-	else
-	{
-		if (!(new = (t_sector *)ft_memalloc(sizeof(t_sector))))
-			yeet(al);
-		if (!(new->walls = (t_walls *)ft_memalloc(sizeof(t_walls))))
-			yeet(al);
-		set_coo(al, itopoint(-1, -1), 1, new->walls);
-		set_coo(al, itopoint(-1, -1), 2, new->walls);
-		new->next = al->sect;
-		al->sect = new;
-	}
-}
-
-void			add_sector(t_al *al, t_point coo)
-{
-	init_sect(al, al->sect);
-	set_coo(al, coo, 1, al->sect->walls);
-	set_coo(al, coo, 2, al->sect->walls);
-}
-
-int				check_end_sector(t_walls *wall, int x, int y)
-{
-	t_walls *tmp;
-
-	tmp = wall;
-	while (tmp->next)
-		tmp = tmp->next;
-	if (tmp->x1 == x && tmp->y1 == y)
-		return (1);
-	return (0);
-}
-
-void			add_wall(t_al *al, t_sector *sect, t_point coo)
-{
-	t_walls          	*new;
-	
-	if (sect->walls->x1 == sect->walls->x2 && sect->walls->y1 == sect->walls->y2)
-		return ;
-	if (!(new = (t_walls *)ft_memalloc(sizeof(t_walls))))
-		yeet(al);
-	new->x1 = sect->walls->x2;
-	new->y1 = sect->walls->y2;
-	new->x2 = sect->walls->x2;
-	new->y2 = sect->walls->y2;
-	new->next = sect->walls;
-	sect->walls = new;
-	if (check_end_sector(sect->walls->next, coo.x - (coo.x % al->edit.zoom),
-		coo.y - (coo.y % al->edit.zoom)) == 1)
-		al->edit.stat = FIRST_CLICK;
-}
-
-static void		print_wall(t_walls *wall)
+/*static void		print_wall(t_walls *wall)
 {
 	if (wall->next)
 		print_wall(wall->next);
@@ -112,43 +22,81 @@ static void		print_wall(t_walls *wall)
 	printf("y2 == %f\n\n", wall->y2);
 }
 
-static void		print_al(t_sector *sect)
+static void		print_al(t_al *al) // a tej plus tard
 {
-	printf("_________________SECTOR_____________________________________\n");
-	if (sect)
+	t_sector	*tmp_s;
+	t_walls		*tmp_w;
+	int i = 0;
+	int j = 0;
+
+	tmp_s = al->sect;
+	while (tmp_s)
 	{
-		if (sect->next)
-			print_al(sect->next);
-		print_wall(sect->walls);
+		printf("\nSECTOR %d\n", al->nb_sec - i);
+		tmp_w = tmp_s->walls;
+		j = 0;
+		i++;
+		printf("                       tmp_s->nb_wall = %d\n", tmp_s->nb_wal);
+		while (tmp_w)
+		{
+			printf("WALL %d // x1 = %f // x2 = %f // y1 = %f
+				// y2 = %f\n", tmp_s->nb_wal - j, tmp_w->x1,
+				tmp_w->x2, tmp_w->y1, tmp_w->y2);
+			j++;
+			tmp_w = tmp_w->next;
+		}
+		tmp_s = tmp_s->next;
 	}
+}*/
+
+void			arrow_stat(t_al *al, SDL_MouseButtonEvent bev)
+{
+	if (al->edit.index_sect > 1 && bev.x > 145 && bev.x < 175
+		&& bev.y > 15 && bev.y < 47)
+	{
+		!(al->edit.index_wall = 0) ? al->edit.index_sect-- : 0;
+		al->edit.stat = SELECT;
+	}
+	if (al->edit.index_sect < al->nb_sec && bev.x > 176 && bev.x < 195
+		&& bev.y > 15 && bev.y < 47)
+	{
+		!(al->edit.index_wall = 0) ? al->edit.index_sect++ : 0;
+		al->edit.stat = SELECT;
+	}
+	if (al->edit.index_wall > 0 && bev.x > 145 && bev.x < 175
+		&& bev.y > 59 && bev.y < 86)
+		al->edit.index_wall--;
+	if (al->edit.index_wall < nb_wall(al)
+		&& bev.x > 176 && bev.x < 195 && bev.y > 59 && bev.y < 86)
+		al->edit.index_wall++;
 }
 
-void			check_can_add(t_al *al, t_sector *sect, t_point coo)
+void			mouse_press_edit_mini_menu(t_al *al, SDL_MouseButtonEvent bev)
 {
-	t_point tmp;
-
-	tmp.x = coo.x - (coo.x % al->edit.zoom);
-	tmp.y = coo.y - (coo.y % al->edit.zoom);
-	if (sect->walls->next && sect->walls->next->x1 == tmp.x
-		&& sect->walls->next->y1 == tmp.y)
-		return ;
-	add_wall(al, al->sect, coo);
-
+	if (inr(itop(495, 540), itop(645, 585),	itop(bev.x, bev.y)))
+		al->edit.stat = SELECT;
+	if (inr(itop(45, 605), itop(220, 650), itop(bev.x, bev.y)))
+		al->edit.stat = LINK_MOD;
+	if (inr(itop(45, 540), itop(220, 585), itop(bev.x, bev.y)))
+		al->edit.stat = SET_SPAWN;
+	if (inr(itop(280, 540), itop(460, 585), itop(bev.x, bev.y)))
+		al->edit.stat = SET_BAD_PIG;
+	if (inr(itop(45, 240), itop(220, 285), itop(bev.x, bev.y)))
+		al->edit.stat = EDIT_SECT;
+	if (inr(itop(280, 240), itop(460, 285), itop(bev.x, bev.y)))
+		al->edit.stat = EDIT_WALL;
 }
 
-void			delonesect(t_sector **sect)
+void				mouse_press_edit_setting_sector(t_al *al, SDL_MouseButtonEvent bev)
 {
-	t_sector *tmp;
-
-	tmp = NULL;
-	if (!(*sect)->next)
-		ft_memdel((void **)sect);
-	else
-	{
-		tmp = (*sect)->next;
-		free(*sect);
-		*sect = tmp;
-	}
+	if (inr(itop(45, 400), itop(220, 445), itop(bev.x, bev.y)))
+		al->edit.stat = SET_FLO_HEI;
+	if (inr(itop(45, 320), itop(220, 365), itop(bev.x, bev.y)))
+		al->edit.stat = (al->edit.stat == EDIT_WALL) ? SET_WALL_TEXT : SET_FLO_TEXT;
+	if (inr(itop(280, 400), itop(460, 445), itop(bev.x, bev.y)))
+		al->edit.stat = SET_CEL_HEI;
+	if (inr(itop(280, 320), itop(460, 365), itop(bev.x, bev.y)))
+		al->edit.stat = SET_CEL_TEXT;
 }
 
 void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
@@ -158,33 +106,39 @@ void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 	{
 		if (bev.x > 590 && bev.x < 685 && bev.y > 15 && bev.y < 48)
 		{
-			al->edit.stat = FIRST_CLICK;
+			al->edit.stat = SELECT;
 			free_wall(al->sect->walls);
 			al->nb_sec--;
 			delonesect(&al->sect);
 		}
 	}
+	// else if (al->edit.stat != SET_FLO_TEXT && al->edit.stat != SET_CEL_TEXT)
+	else
+	{ 
+		arrow_stat(al, bev);
+		mouse_press_edit_mini_menu(al, bev);
+		mouse_press_edit_setting_sector(al, bev);
+	}
 }
 
-void		    mouse_press_edit(t_al *al)
+void			mouse_press_edit(t_al *al)
 {
 	SDL_MouseButtonEvent	bev;
 
 	bev = al->ev.button;
 	if (bev.type == SDL_MOUSEBUTTONUP)
 		return ;
-	// printf("____________________________________________________________\n");
-	// (al->sect) ? print_al(al->sect) : 0;
+	// (al->sect) ? print_al(al) : 0;
 	if (bev.windowID == 1)
 	{
-		if (al->edit.stat == FIRST_CLICK)
+		if (al->edit.stat == SELECT)
 		{
 			al->edit.stat = DRAWING;
 			al->nb_sec++;
-			add_sector(al, itopoint(bev.x, bev.y));
+			add_sector(al, itop(bev.x, bev.y));
 		}
 		if (al->edit.stat == DRAWING)
-			check_can_add(al, al->sect, itopoint(bev.x, bev.y));
+			check_can_add(al, al->sect, itop(bev.x, bev.y));
 	}
 	if (bev.windowID == 2)
 		mouse_press_edit_menu(al, bev);

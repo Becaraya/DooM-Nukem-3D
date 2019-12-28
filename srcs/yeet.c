@@ -3,37 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   yeet.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/19 13:07:41 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/13 00:38:43 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
-
-void	ft_rectdel(SDL_Rect **re)
-{
-	ft_memdel((void **)re);
-}
-
-void	free_text(t_al *al)
-{
-	al->text.gen_map.str ? ft_strdel(&al->text.gen_map.str) : 0;
-	al->text.gen_map.where ? ft_rectdel(&al->text.gen_map.where) : 0;
-	al->text.sect_para.str ? ft_strdel(&al->text.sect_para.str) : 0;
-	al->text.sect_para.where ? ft_rectdel(&al->text.sect_para.where) : 0;
-	al->text.x_start.str ? ft_strdel(&al->text.x_start.str) : 0;
-	al->text.x_start.where ? ft_rectdel(&al->text.x_start.where) : 0;
-	al->text.y_start.str ? ft_strdel(&al->text.y_start.str) : 0;
-	al->text.y_start.where ? ft_rectdel(&al->text.y_start.where) : 0;
-	al->text.x_end.str ? ft_strdel(&al->text.x_end.str) : 0;
-	al->text.x_end.where ? ft_rectdel(&al->text.x_end.where) : 0;
-	al->text.y_end.str ? ft_strdel(&al->text.y_end.str) : 0;
-	al->text.y_end.where ? ft_rectdel(&al->text.y_end.where) : 0;
-	al->text.y_end.str ? ft_strdel(&al->text.cancel.str) : 0;
-	al->text.y_end.where ? ft_rectdel(&al->text.cancel.where) : 0;
-}
+#include "doom_nukem.h"
 
 void	free_wall(t_walls *walls)
 {
@@ -59,10 +36,5 @@ void	yeet(t_al *al)
 	al->sdlsurf ? SDL_FreeSurface(al->sdlsurf) : 0;
 	al->surf_ed ? SDL_FreeSurface(al->surf_ed) : 0;
 	al->win_ed ? SDL_DestroyWindow(al->win_ed) : 0;
-	if (al->sdlwin)
-	{
-		//SDL_DestroyWindow(al->sdlwin); // fais un ROOT LEAK, ô saint becaraya
-		//SDL_Quit();					// eclaire nous de ta brillance
-	}
 	exit(0);
 }

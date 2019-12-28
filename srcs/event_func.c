@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   event_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/26 15:39:52 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 23:23:55 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
 static void	z_func(t_al *al)
 {
@@ -68,98 +68,4 @@ void		key_func(t_al *al)
 	}
 	else
 		keyup_func(al, kev);
-}
-
-void		mouse_press_menu(t_al *al)
-{
-	SDL_MouseButtonEvent	bev;
-
-	bev = al->ev.button;
-	if (bev.clicks == 1)
-	{
-		if (bev.button == SDL_BUTTON_LEFT)
-		{
-			//printf("CLICK y =%d = =%d\n", bev.y, bev.x);
-			if (bev.y > 228 && bev.y < 315 && bev.x > 766 && bev.x < 940)
-				printf("GO\n");
-			if (bev.y > 472 && bev.y < 574 && bev.x > 772 && bev.x < 943)
-				printf("QUIT\n");
-			if (bev.y > 347 && bev.y < 444 && bev.x > 720 && bev.x < 1004)
-				printf("SETTING\n");
-		}
-	}
-}
-
-void		mouse_press(t_al *al)
-{
-	if (al->status == MENU)
-		mouse_press_menu(al);
-	if (al->status == EDIT)
-		mouse_press_edit(al);
-}
-/*
-if (al->status == ST_GAME)
-{
-	if ((mev.xrel < 0 && mev.x < WIN_SIZEX / 2)
-		|| (mev.xrel > 0 && mev.x > WIN_SIZEX / 2))
-		printf("peux etre la droite ou la gauche\n");
-	if (mev.yrel < 0 && mev.y < WIN_SIZEY / 2)
-		printf("et ca c est peux etre le haut\n");
-	if (mev.yrel > 0 && mev.y > WIN_SIZEY / 2)
-		printf("ou ca c est le haut...\n");
-}
-*/
-
-void		mouse_mv(t_al *al)
-{
-	SDL_MouseMotionEvent	mev;
-
-	mev = al->ev.motion;
-	al->play.dir = add_angle(al->play.dir, mev.xrel * 10);
-	al->play.horizon += mev.yrel * 10;
-	cap_int(&al->play.horizon, -HORIZON_LIMIT, HORIZON_LIMIT);
-	if (mev.windowID == 1)
-	{
-		if (al->edit.stat == DRAWING)
-		{
-			al->sect->walls->x2 = mev.x - (mev.x % al->edit.zoom);
-			al->sect->walls->y2 = mev.y - (mev.y % al->edit.zoom);
-			// (void)al;
-		}
-	}
-}
-
-// void		convert_wall(t_al *al, t_wall *wall)
-// {
-// 	wall->x1++;
-// 	wall->y1++;
-// 	wall->x2++;
-// 	wall->y2++;
-// 	if (wall->next)
-// 		convert_wall(al, wall->next);
-// }
-
-void		mouse_weel(t_al *al)
-{
-	// t_wall	*tmp;
-
-	(void)al;
-	// if (al->ev.wheel.y > 0) // scroll up
-	// {
-	// 	al->edit.zoom++;
-	// 	if (al->wall->x2 != -1)
-	// 	{
-	// 		convert_wall(al, al->wall);
-	// 	}
-	// }	// printf("test up\n");
-	// else if (al->ev.wheel.y < 0 && al->edit.zoom > 2)
-	// 	al->edit.zoom--;
-	// if (al->wall->x2 != -1)
-		// convert_wall(al, al->wall);
-	// scroll down
-		// printf("test down\n");
-	// if (al->ev.wheel.x > 0) // scroll right
-	// 	printf("test up x\n");
-	// else if (al->ev.wheel.x < 0)
-	// 	printf("test down x\n");
 }

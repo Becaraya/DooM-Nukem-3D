@@ -6,11 +6,11 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 22:56:20 by pitriche          #+#    #+#             */
-/*   Updated: 2019/10/25 22:56:34 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
 int		write_texture(t_tex *tex, int fd)
 {

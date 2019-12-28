@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/12 15:59:08 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:44:46 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
-void		menu(t_al *al)
+void														menu(t_al *al)
 {
 	(void)al;
 	// refresh(al);
 }
 
-static void	dtime(t_al *al)
+static void													dtime(t_al *al)
 {
 	struct timeval	tv;
 
@@ -36,7 +36,7 @@ static void	dtime(t_al *al)
 	al->tgt_time = al->last_time + 1000000 / al->fps;
 }
 
-void		main_loop(t_al *al)
+void														main_loop(t_al *al)
 {
 	while (1)
 	{

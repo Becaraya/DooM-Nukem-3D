@@ -6,11 +6,11 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:39:49 by pitriche          #+#    #+#             */
-/*   Updated: 2019/11/28 14:48:12 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "doom-nukem.h"
+#include "doom_nukem.h"
 
 int		parse_pixels(t_tex *tex, int fd)
 {

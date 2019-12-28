@@ -1,9 +1,10 @@
-NAME = doom-nukem
+NAME = doom_nukem
 
 CC = gcc
 CCF = -fsanitize=address
 OPT_FLAGS = -flto -O3
-FLAGS = -Wall -Wextra
+BUG_FLAGS = -g
+FLAGS =  -Wall -Wextra
 LIBRARIES = -L$(LIBFT_DIR) -lft
 INCLUDES = -I$(HEADERS_DIR) -I$(LIBFT_HEAD) -I$(SDL_DIR)/SDL2
 
@@ -16,37 +17,60 @@ LIBFT = $(LIBFT_DIR)libft.a
 LIBFT_DIR = ./Libft/
 LIBFT_HEAD = $(LIBFT_DIR)
 
-HEADERS_LIST = doom-nukem.h
+HEADERS_LIST = doom_nukem.h
 HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
-SRC_LIST = main.c			\
+SRC_LIST = add_edit.c		\
+		angles.c			\
+		bmp_to_tex.c		\
+		choose_tex.c		\
+		column_hits.c		\
+		column_linesaver.c	\
+		column_utils.c		\
+		column.c			\
+		draw_edit_tools.c	\
+		draw_tools.c		\
 		edit.c				\
 		event_func.c		\
+		game_disp.c			\
 		game.c				\
-		render.c			\
-		column.c			\
-		angles.c			\
-		sport_physics.c		\
+		get_map.c			\
 		hms_parser.c		\
 		hms_parser_sec.c	\
 		hms_parser_tex.c	\
+		hms_parser_texgp.c	\
 		hms_encoder.c		\
 		hms_encoder_sec.c	\
 		hms_encoder_tex.c	\
-		bmp_to_tex.c		\
-		parse_tex.c 		\
-		main_loop.c 		\
+		hms_encoder_texgp.c	\
+		ia.c				\
 		init.c 				\
+		main_loop.c 		\
+		main.c				\
+		mob_moov.c			\
 		mouse_edit.c		\
-		sdl_tools.c			\
+		mouse_event_func.c	\
 		pimp_cross.c		\
+		player_moov.c		\
+		refresh_text.c		\
 		refresh.c			\
+		render_cast.c		\
+		render_minimap.c	\
+		render_test.c		\
+		render_utils.c		\
+		render.c			\
+		sdl_tools.c			\
+		sector.c			\
+		set_edit.c			\
+		sport_physics.c		\
 		sprite.c			\
-		get_map.c			\
-		entity.c			\
-		yeet.c				\
-		ia.c
+		texte.c				\
+		tool_add_edit.c		\
+		tool_text.c			\
+		tools.c				\
+		yeet_text.c			\
+		yeet.c
 
 SRC_DIR = ./srcs/
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))
@@ -80,6 +104,9 @@ $(OBJ_DIR)%.o : $(SRC_DIR)%.c $(HEADERS)
 $(LIBFT):
 	@$(MAKE) -sC $(LIBFT_DIR)
 
+fast: all
+	./doom_nukem house.hms
+
 clean:
 	@$(MAKE) -sC $(LIBFT_DIR) clean
 	@rm -rf $(OBJ_DIR)
@@ -91,11 +118,17 @@ fclean: clean
 	@rm -f $(NAME)
 	@echo "$(RED)$(NAME)...$(RESET)[$(PURPLE)deleted$(RESET)]\n"
 
-sani :  $(LIBFT) $(OBJ_DIR) $(OBJ)
+sani:  $(LIBFT) $(OBJ_DIR) $(OBJ)
 	@echo "$(YELLOW)Sources compilation $(RESET)[$(GREEN)OK$(RESET)]\n"
 	@$(CC) $(CCF) $(FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJ) -o $(NAME)
 	@echo "[$(BLUE)$(NAME) Compiled$(RESET)]"
 
+bug: $(LIBFT) $(OBJ_DIR) $(OBJ)
+	@echo "$(YELLOW)Sources compilation $(RESET)[$(GREEN)OK$(RESET)]\n"
+	@$(CC) $(FRAMEWORKS) $(FLAGS) $(OPT_FLAGS) $(LIBRARIES) $(INCLUDES) $(OBJ) -o $(NAME)
+	@echo "[$(BLUE)$(NAME) Compiled$(RESET)]"
+	lldb ./doom-nukem house.hms
+
 re: fclean all
 
-.PHONY: all clean fclean re sani
+.PHONY: all clean fclean re sani bug run

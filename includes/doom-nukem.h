@@ -517,6 +517,7 @@ void				column(t_al *al, t_rc_ray *ray);
 
 void				pimp_cross(t_al *al);
 void				refresh(t_al *al);
+void				cap_int(int *var, int lowcap, int highcap);
 
 /*
 ** free fonction

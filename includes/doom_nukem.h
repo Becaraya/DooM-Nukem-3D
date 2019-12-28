@@ -673,7 +673,7 @@ int					cocmp(SDL_Rect *p1, SDL_Rect *p2);
 ** action of entity
 */
 
-void				acceleration_entities(t_al *al, t_mob mob);
+void				acceleration_entities(t_al *al, t_mob *mob);
 
 /*
 ** Text

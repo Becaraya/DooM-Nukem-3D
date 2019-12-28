@@ -29,8 +29,8 @@ void															game(t_al *al)
 		acceleration(al);
 	else
 		flyyyy(al);
-	if (al->ent[0].alive)
-		acceleration_entities(al, &al->ent[0]);
+//	if (al->ent[0].alive)
+//		acceleration_entities(al, &al->ent[0]);
 	displacement(al);
 	render(al);
 }

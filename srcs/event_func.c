@@ -115,7 +115,9 @@ void		mouse_mv(t_al *al)
 	SDL_MouseMotionEvent	mev;
 
 	mev = al->ev.motion;
-	al->play.dir += mev.xrel * 10;
+	al->play.dir = add_angle(al->play.dir, mev.xrel * 10);
+	al->play.horizon += mev.yrel * 10;
+	cap_int(&al->play.horizon, -HORIZON_LIMIT, HORIZON_LIMIT);
 	if (mev.windowID == 1)
 	{
 		if (al->edit.stat == DRAWING)

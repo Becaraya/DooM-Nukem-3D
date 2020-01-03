@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/17 11:28:07 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/03 14:57:08 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,6 +181,25 @@ void			load_goret(t_al *al)
 	load_imgs(al->texgp, al->texgp->or + 7, "ressources/sprite/or8");
 	printf("Goret loaded\n");
 }
+/*
+void			init_sound(t_al *al)
+{
+	t_au	au;
+	int audio 
+	
+	
+
+	SDL_memset (&au.want, 0, sizeof(au.want));
+	au.want.freq = 44100;
+	au.want.format = AUDIO_S16;
+	au.want.channels = 1;
+	au.want.samples = 4096;
+	audio = SDL_OpenAudioDevice(NULL, 0, &au.want, &au.have, 0);
+	SDL_PauseAudioDevice(audio, 0);
+		SDL_LoadWAV("2002.wav",&have, &buf, &len);
+		SDL_QueueAudio(audio, buf, len);
+		SDL_FreeWAV(buf);
+}*/
 
 void			init(t_al *al, char *str)
 {
@@ -198,8 +217,9 @@ void			init(t_al *al, char *str)
 	al->fov = DEFAULT_FOV;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
 	al->nb_texgp = 1;
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 		yeet(al);
+//	init_sound(al);
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
 			WIN_SIZEX, WIN_SIZEY, SDL_WINDOW_SHOWN)))
 		yeet(al);

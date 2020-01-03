@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:09:55 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/17 15:31:40 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/03 17:28:56 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static double		d_wall(t_walls w, double px, double py)
 	return (sqrt((x - px) * (x - px) + (y - py) * (y - py)));
 }
 
-static int		is_cross_x(t_player *e, t_walls t, double v, t_al *al)
+static int		is_cross_x(t_mob *e, t_walls t, double v, t_al *al)
 {
 	double d;
 
@@ -72,22 +72,22 @@ static int		is_cross_y(t_mob *e, t_walls t, double v, t_al *al)
 
 static void	wall_ok(t_al *al, t_mob *e,t_walls t, t_doint p, t_point *m)
 {
-/*	if (p.x > 0.0 && (t.x1 >= e.posx || t.x2 >= e.posx) 
-		&& ((t.y1 <= e.posy && e.posy <= t.y2)
-			|| (t.y1 >= e.posy && e.posy >= t.y2)))
-		(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
-	if (p.x <= 0.0 && (t.x1 <= e.posx || t.x2 <= e.posx)
-		&& ((t.y1 <= e.posy && e.posy <= t.y2)
-				|| (t.y1 >= e.posy && e.posy >= t.y2)))
-			(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
-	if (p.y > 0.0 && (t.y1 >= e.posy || t.y2 >= e.posy)
-		&& ((t.x1 <= e.posx && e.posx <= t.x2)
-				|| (t.x1 >= e.posx && e.posx >= t.x2)))
-			(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;	
-	if (p.y <= 0.0 && (t.y1 <= e.posy || t.y2 <= e.posy)
-		&& ((t.x1 <= e.posx && e.posx <= t.x2)
-				|| (t.x1 >= e.posx && e.posx >= t.x2)))
-			(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;*/
+	if (p.x > 0.0 && (t.x1 >= e->posx || t.x2 >= e->posx) 
+		&& ((t.y1 <= e->posy && e->posy <= t.y2)
+			|| (t.y1 >= e->posy && e->posy >= t.y2)))
+		(!(is_cross_x(e, t, p.x, al))) ? m->x = 0 : 1;
+	if (p.x <= 0.0 && (t.x1 <= e->posx || t.x2 <= e->posx)
+		&& ((t.y1 <= e->posy && e->posy <= t.y2)
+				|| (t.y1 >= e->posy && e->posy >= t.y2)))
+		(!(is_cross_x(e, t, p.x, al))) ? m->x = 0 : 1;
+	if (p.y > 0.0 && (t.y1 >= e->posy || t.y2 >= e->posy)
+		&& ((t.x1 <= e->posx && e->posx <= t.x2)
+				|| (t.x1 >= e->posx && e->posx >= t.x2)))
+		(!(is_cross_y(e, t, p.x, al))) ? m->y = 0 : 1;	
+	if (p.y <= 0.0 && (t.y1 <= e->posy || t.y2 <= e->posy)
+		&& ((t.x1 <= e->posx && e->posx <= t.x2)
+				|| (t.x1 >= e->posx && e->posx >= t.x2)))
+		(!(is_cross_y(e, t, p.x, al))) ? m->y = 0 : 1;
 }
 void	ft_nop(t_al *al,t_mob *e, double x, double y)
 {
@@ -95,6 +95,7 @@ void	ft_nop(t_al *al,t_mob *e, double x, double y)
 	t_doint p;
 	int i;
 
+	acceleration_entities(al, e);
 	i = 0;
 	m.x = 1; 
 	m.y = 1;
@@ -102,10 +103,11 @@ void	ft_nop(t_al *al,t_mob *e, double x, double y)
 	p.y = y; 
 	while (i < (int)al->sec[e->csec].nb_wal)
 	{
-	//	wall_ok(al, *e,al->sec[al->play.csec].walls[i], p, &m);
+		wall_ok(al, e,al->sec[e->csec].walls[i], p, &m);
 		i++;
 	}
-	(m.y == 1) ? al->play.posy += y : 0;
-	(m.x == 1) ? al->play.posx += x : 0;
+	(m.y == 1) ? e->posy += y : 0;
+	(m.x == 1) ? e->posx += x : 0;
+	printf("mob: %f %f\n", e->posx, e->velx);
 	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
 }

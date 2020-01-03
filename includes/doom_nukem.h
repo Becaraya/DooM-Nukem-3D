@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/17 11:28:45 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/03 14:09:22 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -461,12 +461,21 @@ typedef struct		s_text_list
 	t_text	link;
 }					t_text_list;
 
+typedef struct		s_audio
+{
+	SDL_AudioSpec want;
+	SDL_AudioSpec have;
+	Uint8 *buf;
+	Uint32 len;
+}					t_au;
+
 /*
 ** Main structure #############################################################
 */
 
 typedef struct		s_al
 {
+	t_au			au;
 	t_status		status;
 	void			(*stat_fnc[4])(struct s_al *);
 

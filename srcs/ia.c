@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 19:06:05 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/05 12:22:10 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/05 16:30:17 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,17 @@ void		acceleration_entities(t_al *al, t_mob *mob)
 		mob->vely = 0.5;
 	if (mob->posy > al->play.posy)
 		mob->vely = -0.5;
-	if (mob->posy < al->play.posy + 1 && mob->posy > al->play.posy - 1
-		&& mob->posx < al->play.posx + 1 && mob->posx > al->play.posx - 1)
+	if (mob->posy < al->play.posy + 3 && mob->posy > al->play.posy - 3
+		&& mob->posx < al->play.posx + 3 && mob->posx > al->play.posx - 3)
 	{
-		mob->alive = 0;
-		mob->vely = 0;
-		mob->velx = 0;
+			if (mob->posx < al->play.posx)
+		mob->velx = -2;
+	if (mob->posx > al->play.posx)
+		mob->velx = 2;
+	if (mob->posy < al->play.posy)
+		mob->vely = -2;
+	if (mob->posy > al->play.posy)
+		mob->vely = 2;
 	}
 	//mob->dir = 8192 / ( + 1)
 

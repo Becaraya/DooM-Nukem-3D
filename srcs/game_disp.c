@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 16:05:51 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/05 16:26:01 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/05 16:28:37 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,8 @@ void		colision(t_al *al)
 		if(2 >= (al->play.posx - al->ent[i].posx) * (al->play.posx - al->ent[i].posx)
 		+ (al->play.posy - al->ent[i].posy) * (al->play.posy - al->ent[i].posy))
 		{
-			al->ent[i].velx = al->play.velx; 
-			al->ent[i].vely = al->play.vely;
+			al->ent[i].velx = +al->play.velx; 
+			al->ent[i].vely = +al->play.vely;
 		}
 	}
 }

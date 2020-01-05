@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/03 14:57:08 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/05 12:38:20 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,28 @@ static void		init_player(t_al *al, t_player *pl)
 
 void    		creat_entity(t_al *al)
 {
-	al->nb_ent = 1;
+	int i;
+
+	al->nb_ent = 3;
 	al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob));
 	al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob));
-	al->ent[0].csec = 1;
-	al->ent[0].posx = 4;
-    al->ent[0].posy = 4;
-	al->ent[0].posz = al->sec[al->ent[0].csec].fl_hei;
-	al->ent[0].velx = 0;
-	al->ent[0].gd_vel = 0;
-	al->ent[0].on_ground = 1;
-	al->ent[0].alive = 1;
-	al->ent[0].dir = 0;
-
-	al->ent[0].size = 2;
-	al->ent[0].width = 1.7;
-	al->ent[0].mass = 50;
-	al->ent[0].power = 200;
+	i = -1;
+	while(++i < al->nb_ent)
+	{
+		al->ent[i].csec = 1;
+		al->ent[i].posx = 4;
+    	al->ent[i].posy = 4 + i;
+		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
+		al->ent[i].velx = 0;
+		al->ent[i].gd_vel = 0;
+		al->ent[i].on_ground = 1;
+		al->ent[i].alive = 1;
+		al->ent[i].dir = 0;
+		al->ent[i].size = 2;
+		al->ent[i].width = 1.7;
+		al->ent[i].mass = 50;
+		al->ent[i].power = 200;
+	}
 }
 
 static void		init_trigo(t_al *al)

@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:09:55 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/03 17:28:56 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/05 14:26:15 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static double		d_wall(t_walls w, double px, double py)
 
 static int		is_cross_x(t_mob *e, t_walls t, double v, t_al *al)
 {
-	double d;
+	double	d;
 
 	d = d_wall(t, e->posx + v, e->posy);
 	if (t.is_cross)
@@ -108,6 +108,5 @@ void	ft_nop(t_al *al,t_mob *e, double x, double y)
 	}
 	(m.y == 1) ? e->posy += y : 0;
 	(m.x == 1) ? e->posx += x : 0;
-	printf("mob: %f %f\n", e->posx, e->velx);
 	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
 }

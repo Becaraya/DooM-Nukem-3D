@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/05 12:38:20 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/07 13:39:56 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,8 @@ void    		creat_entity(t_al *al)
 		al->ent[i].on_ground = 1;
 		al->ent[i].alive = 1;
 		al->ent[i].dir = 0;
-		al->ent[i].size = 2;
-		al->ent[i].width = 1.7;
+		al->ent[i].size = 3;
+		al->ent[i].width = 3.3;
 		al->ent[i].mass = 50;
 		al->ent[i].power = 200;
 	}
@@ -222,9 +222,8 @@ void			init(t_al *al, char *str)
 	al->fov = DEFAULT_FOV;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
 	al->nb_texgp = 1;
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		yeet(al);
-//	init_sound(al);
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
 			WIN_SIZEX, WIN_SIZEY, SDL_WINDOW_SHOWN)))
 		yeet(al);

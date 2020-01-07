@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 15:42:02 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/03 14:09:22 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define WIN_POSY 10
 
 # define WIN_EDIT_SIZEX	768
-# define WIN_EDIT_SIZEY	768
+# define WIN_EDIT_SIZEY	720
 
 # define MAX_HITS	1000
 # define HORIZON_LIMIT	1000
@@ -461,12 +461,21 @@ typedef struct		s_text_list
 	t_text	link;
 }					t_text_list;
 
+typedef struct		s_audio
+{
+	SDL_AudioSpec want;
+	SDL_AudioSpec have;
+	Uint8 *buf;
+	Uint32 len;
+}					t_au;
+
 /*
 ** Main structure #############################################################
 */
 
 typedef struct		s_al
 {
+	t_au			au;
 	t_status		status;
 	void			(*stat_fnc[4])(struct s_al *);
 
@@ -555,9 +564,11 @@ int					skybox(t_al *al, int y, int tx);
 int					tex_find(unsigned int *pix, int texx, int texy, t_tex *tex);
 void				pimp_cross(t_al *al);
 void				refresh(t_al *al);
+void				cap_int(int *var, int lowcap, int highcap);
 
 /*
 ** free fonction
+** becaraya se con lololo
 */
 
 void				free_wall(t_walls *walls);
@@ -671,7 +682,7 @@ int					cocmp(SDL_Rect *p1, SDL_Rect *p2);
 ** action of entity
 */
 
-void				acceleration_entities(t_al *al, t_mob mob);
+void				acceleration_entities(t_al *al, t_mob *mob);
 
 /*
 ** Text

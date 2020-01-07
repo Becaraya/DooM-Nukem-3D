@@ -3,65 +3,110 @@
 /*                                                        :::      ::::::::   */
 /*   mob_moov.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:09:55 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/05 14:26:15 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-int		is_cr(t_mob *e, t_walls t, double v, int s)
+static double		d_wall(t_walls w, double px, double py)
 {
-	(void)e;
-	(void)t;
-	(void)v;
-	(void)s;
-	/*
-	double d;
+	double	a[2];
+	double	b[2];
+	double	x;
+	double	y;
 
-	d = (s) ? d_wall(t, e->posx, e->posy + v) : d_wall(t, e->posx + v, e->posy);
+	if (w.x2 - w.x1 == 0)
+		w.x2 += 0.0000001;
+	if (w.y2 - w.y1 == 0)
+		w.x2 += 0.0001;
+	a[0] = (w.y2 - w.y1) / (w.x2 - w.x1);
+	a[0] += 0.001;
+	b[0] = w.y2 - (a[0] * w.x2);
+	b[0] += 0.0001;
+	a[1] = -1 / a[0];
+	a[1] += 0.0001;
+	b[1] = py - (a[1] * px);
+	b[1] += 0.0001;
+	x = ((b[0] / a[1]) - (b[1] / a[1])) / (a[1] / a[1] - (a[0] / a[1]));
+	y = (a[0] * x) + b[0];
+	return (sqrt((x - px) * (x - px) + (y - py) * (y - py)));
+}
+
+static int		is_cross_x(t_mob *e, t_walls t, double v, t_al *al)
+{
+	double	d;
+
+	d = d_wall(t, e->posx + v, e->posy);
+	if (t.is_cross)
+	{
+		if ((d < 0.5)&& e->posz < al->sec[t.sec_lnk].fl_hei)
+			return(0);
+		else
+			return(1);
+	}
 	if (d < 0.5)
-		return (0);*/
+		return (0);
 	return (1);
 }
 
+static int		is_cross_y(t_mob *e, t_walls t, double v, t_al *al)
+{
+	double d;
+
+	d = d_wall(t, e->posx, e->posy + v);
+	if (t.is_cross)
+	{
+		if ((d < 0.5)&& e->posz < al->sec[t.sec_lnk].fl_hei)
+			return(0);
+		else
+			return(1);
+	}
+	if (d < 0.5)
+		return (0);
+	return (1);
+}
+
+static void	wall_ok(t_al *al, t_mob *e,t_walls t, t_doint p, t_point *m)
+{
+	if (p.x > 0.0 && (t.x1 >= e->posx || t.x2 >= e->posx) 
+		&& ((t.y1 <= e->posy && e->posy <= t.y2)
+			|| (t.y1 >= e->posy && e->posy >= t.y2)))
+		(!(is_cross_x(e, t, p.x, al))) ? m->x = 0 : 1;
+	if (p.x <= 0.0 && (t.x1 <= e->posx || t.x2 <= e->posx)
+		&& ((t.y1 <= e->posy && e->posy <= t.y2)
+				|| (t.y1 >= e->posy && e->posy >= t.y2)))
+		(!(is_cross_x(e, t, p.x, al))) ? m->x = 0 : 1;
+	if (p.y > 0.0 && (t.y1 >= e->posy || t.y2 >= e->posy)
+		&& ((t.x1 <= e->posx && e->posx <= t.x2)
+				|| (t.x1 >= e->posx && e->posx >= t.x2)))
+		(!(is_cross_y(e, t, p.x, al))) ? m->y = 0 : 1;	
+	if (p.y <= 0.0 && (t.y1 <= e->posy || t.y2 <= e->posy)
+		&& ((t.x1 <= e->posx && e->posx <= t.x2)
+				|| (t.x1 >= e->posx && e->posx >= t.x2)))
+		(!(is_cross_y(e, t, p.x, al))) ? m->y = 0 : 1;
+}
 void	ft_nop(t_al *al,t_mob *e, double x, double y)
 {
-	int m[2];
-	t_walls t;
-	int		i;
-	unsigned int s;
+	t_point m;
+	t_doint p;
+	int i;
 
+	acceleration_entities(al, e);
 	i = 0;
-	s = e->csec;
-	m[0] = 1;
-	m[1] = 1;
+	m.x = 1; 
+	m.y = 1;
+	p.x = x;
+	p.y = y; 
 	while (i < (int)al->sec[e->csec].nb_wal)
 	{
-		t = al->sec[e->csec].walls[i];
-		if (x > 0.0 && (t.x1 > e->posx || t.x2 > e->posx)
-		&& ((t.y1 <= e->posy && e->posy <= t.y2) || (t.y1 >= e->posy && e->posy >= t.y2)))
-			m[0] = is_cr(e, t ,x ,0);
-
-		if (x < 0.00000 && (t.x1 < e->posx || t.x2 < e->posx)
-		&& ((t.y1 <= e->posy && e->posy <= t.y2) || (t.y1 >= e->posy && e->posy >= t.y2)))
-			m[0] = is_cr(e, t, x, 0);
-
-
-		if (y > 0.0 && (t.y1 > e->posy || t.y2 > e->posy)
-		&& ((t.x1 <= e->posx && e->posx <= t.x2) || (t.x1 >= e->posx && e->posx >= t.x2)))
-			m[1] = is_cr(e, t, y, 1);
-
-		if (y < 0.00000 && (t.y1 < e->posy || t.y2 < e->posy)
-		&& ((t.x1 <= e->posx && e->posx <= t.x2) || (t.x1 >= e->posx && e->posx >= t.x2)))
-			m[1] = is_cr(e, t, y, 1);
-		if(e->csec != s){
-			break;
-		}
+		wall_ok(al, e,al->sec[e->csec].walls[i], p, &m);
 		i++;
 	}
-	(m[1] == 1) ? e->posy += y : 0;
-	(m[0] == 1) ? e->posx += x : 0;
+	(m.y == 1) ? e->posy += y : 0;
+	(m.x == 1) ? e->posx += x : 0;
+	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/13 13:48:24 by pitriche         ###   ########.fr       */
+/*   Updated: 2019/12/17 11:51:13 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void															game(t_al *al)
 		acceleration(al);
 	else
 		flyyyy(al);
-	if (al->ent[0].alive)
-		acceleration_entities(al, al->ent[0]);
+//	if (al->ent[0].alive)
+//		acceleration_entities(al, &al->ent[0]);
 	displacement(al);
 	render(al);
 }

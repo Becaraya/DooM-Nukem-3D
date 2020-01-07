@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 23:36:45 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 00:43:18 by becaraya         ###   ########.fr       */
+/*   Updated: 2019/12/13 21:33:36 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,5 @@ void			free_text(t_al *al)
 	al->text.settings.where ? ft_rectdel(&al->text.cancel.where) : 0;
 	al->text.wall.str ? ft_strdel(&al->text.wall.str) : 0;
 	al->text.wall.where ? ft_rectdel(&al->text.wall.where) : 0;
+	free_text_next(al);
 }

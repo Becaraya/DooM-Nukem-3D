@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game_disp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 16:05:51 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/13 13:48:30 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/05 16:28:37 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,22 @@ void		deceleration(t_al *al)
 ** catch angle's 69420 return and set the input power to null
 */
 
+void		colision(t_al *al)
+{
+	int i;
+
+	i = -1;
+	while(++i < al->nb_ent)
+	{
+		if(2 >= (al->play.posx - al->ent[i].posx) * (al->play.posx - al->ent[i].posx)
+		+ (al->play.posy - al->ent[i].posy) * (al->play.posy - al->ent[i].posy))
+		{
+			al->ent[i].velx = +al->play.velx; 
+			al->ent[i].vely = +al->play.vely;
+		}
+	}
+}
+
 void		acceleration(t_al *al)
 {
 	double	net_power;
@@ -110,14 +126,19 @@ void		acceleration(t_al *al)
 
 void		displacement(t_al *al)
 {
+	int i;
+
+	colision(al);
 	if (al->dtime > 1)
 		ft_nop_player(al, 0, al->play.velx * al->dtime / 1000000, al->play.vely
 		* al->dtime / 1000000);
 	al->play.posz += al->play.velz * al->dtime / 1000000;
 	al->play.eyez += al->play.velz * al->dtime / 1000000;
-	if (al->dtime > 1)
-		ft_nop(al, &al->ent[0], al->ent[0].velx * al->dtime / 1000000,
-		al->ent[0].vely * al->dtime / 1000000);
+	i = -1;
+	while(++i < al->nb_ent)
+		if (al->dtime > 1)
+			ft_nop(al, &al->ent[i], al->ent[i].velx * al->dtime / 1000000,
+			al->ent[i].vely * al->dtime / 1000000);
 	if (al->play.posz < al->sec[al->play.csec].fl_hei)
 	{
 		al->play.posz = al->sec[al->play.csec].fl_hei;

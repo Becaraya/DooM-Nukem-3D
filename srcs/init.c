@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 15:45:08 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/05 12:38:20 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,28 @@ static void		init_player(t_al *al, t_player *pl)
 
 void    		creat_entity(t_al *al)
 {
-	al->nb_ent = 1;
+	int i;
+
+	al->nb_ent = 3;
 	al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob));
 	al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob));
-	al->ent[0].csec = 1;
-	al->ent[0].posx = 4;
-    al->ent[0].posy = 4;
-	al->ent[0].posz = al->sec[al->ent[0].csec].fl_hei;
-	al->ent[0].velx = 0;
-	al->ent[0].gd_vel = 0;
-	al->ent[0].on_ground = 1;
-	al->ent[0].alive = 1;
-	al->ent[0].dir = 0;
-
-	al->ent[0].size = 2;
-	al->ent[0].width = 1.7;
-	al->ent[0].mass = 50;
-	al->ent[0].power = 200;
+	i = -1;
+	while(++i < al->nb_ent)
+	{
+		al->ent[i].csec = 1;
+		al->ent[i].posx = 4;
+    	al->ent[i].posy = 4 + i;
+		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
+		al->ent[i].velx = 0;
+		al->ent[i].gd_vel = 0;
+		al->ent[i].on_ground = 1;
+		al->ent[i].alive = 1;
+		al->ent[i].dir = 0;
+		al->ent[i].size = 2;
+		al->ent[i].width = 1.7;
+		al->ent[i].mass = 50;
+		al->ent[i].power = 200;
+	}
 }
 
 static void		init_trigo(t_al *al)
@@ -181,6 +186,25 @@ void			load_goret(t_al *al)
 	load_imgs(al->texgp, al->texgp->or + 7, "ressources/sprite/or8");
 	printf("Goret loaded\n");
 }
+/*
+void			init_sound(t_al *al)
+{
+	t_au	au;
+	int audio 
+	
+	
+
+	SDL_memset (&au.want, 0, sizeof(au.want));
+	au.want.freq = 44100;
+	au.want.format = AUDIO_S16;
+	au.want.channels = 1;
+	au.want.samples = 4096;
+	audio = SDL_OpenAudioDevice(NULL, 0, &au.want, &au.have, 0);
+	SDL_PauseAudioDevice(audio, 0);
+		SDL_LoadWAV("2002.wav",&have, &buf, &len);
+		SDL_QueueAudio(audio, buf, len);
+		SDL_FreeWAV(buf);
+}*/
 
 void			init(t_al *al, char *str)
 {
@@ -191,15 +215,16 @@ void			init(t_al *al, char *str)
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
-	//al->status = EDIT;
-	al->status = GAME;
+	al->status = EDIT;
+	 al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
 	al->nb_texgp = 1;
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_AUDIO) < 0)
 		yeet(al);
+//	init_sound(al);
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
 			WIN_SIZEX, WIN_SIZEY, SDL_WINDOW_SHOWN)))
 		yeet(al);

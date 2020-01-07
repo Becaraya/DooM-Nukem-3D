@@ -3,19 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   pimp_cross.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 14:45:55 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/07 16:08:08 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
-
+/*
 void		invert_pix(unsigned int *pix)
 {
-	*pix = ~(*pix);
-}
+	*pix = 0x52fc03;
+	// if (((*pix >> 16) & 0xff) < 108 && 148 > ((*pix >> 16) & 0xff) &&
+	// ((*pix > 8) & 0xff) < 108 && 148 > ((*pix > 8) & 0xff) &&
+	// (*pix & 0xff) && (*pix & 0xff))
+	// 	{
+	// 		*pix = 0xFFFFFF;
+	// 	}
+	// *pix = ~(*pix);
+}*/
 
 void		pimp_cross(t_al *al)
 {
@@ -24,20 +31,24 @@ void		pimp_cross(t_al *al)
 	i = WIN_SIZEY / 2 - 12;
 	while (i <= WIN_SIZEY / 2 + 12)
 	{
-		invert_pix(al->pix + i * WIN_SIZEX + WIN_SIZEX / 2 - 1);
-		invert_pix(al->pix + i * WIN_SIZEX + WIN_SIZEX / 2);
-		invert_pix(al->pix + i * WIN_SIZEX + WIN_SIZEX / 2 + 1);
+		while (i < WIN_SIZEY / 2 + 2 && i > WIN_SIZEY / 2 -2)
+			i++;
+		al->pix [i * WIN_SIZEX + WIN_SIZEX / 2 - 1] = 0x52fc03;
+		al->pix [i * WIN_SIZEX + WIN_SIZEX / 2] = 0x52fc03;
+		al->pix [i * WIN_SIZEX + WIN_SIZEX / 2 + 1] = 0x52fc03;
 		i++;
 	}
 	i = WIN_SIZEX / 2 - 12;
 	while (i <= WIN_SIZEX / 2 + 12)
 	{
-		if (i < WIN_SIZEX / 2 - 1 || i > WIN_SIZEX / 2 + 1)
-		{
-			invert_pix(al->pix + WIN_SIZEX * (WIN_SIZEY / 2 - 1) + i);
-			invert_pix(al->pix + WIN_SIZEX * WIN_SIZEY / 2 + i);
-			invert_pix(al->pix + WIN_SIZEX * (WIN_SIZEY / 2 + 1) + i);
-		}
+		while (i < WIN_SIZEX / 2 + 2 && i > WIN_SIZEX / 2 -2)
+			i++;
+		//if (i < WIN_SIZEX / 2 - 1 || i > WIN_SIZEX / 2 + 1)
+		//{
+			al->pix [WIN_SIZEX * (WIN_SIZEY / 2 - 1) + i]= 0x52fc03;
+			al->pix [WIN_SIZEX * WIN_SIZEY / 2 + i]= 0x52fc03;
+			al->pix [WIN_SIZEX * (WIN_SIZEY / 2 + 1) + i]= 0x52fc03;
+		//}
 		i++;
 	}
 }

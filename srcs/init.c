@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/07 13:39:56 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/09 15:26:49 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 	int				fd;
 
 	size = tgp->size_x * tgp->size_y * sizeof(unsigned *);
-	tmp = malloc(tgp->size_x * tgp->size_y * 3);
+	tmp =  malloc(tgp->size_x * tgp->size_y * 3);
 	or->pix = malloc(tgp->nb_tex * sizeof(unsigned **));
 
 	ft_strcpy((char *)tmp, str);
@@ -168,7 +168,12 @@ void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 ** m'en bat les couilles il s'apelle le goret si vs voulez vous battre jvous
 ** attend gare du nord
 */
-
+void			load_hud(t_al *al)
+{
+	al->heart.size_x = 46;
+	bmp_to_tex(&(al->heart), "ressources/HUD/heart.bmp", 46, 41);
+}
+/*
 void			load_goret(t_al *al)
 {
 	al->nb_texgp = 1;
@@ -185,7 +190,7 @@ void			load_goret(t_al *al)
 	load_imgs(al->texgp, al->texgp->or + 6, "ressources/sprite/or7");
 	load_imgs(al->texgp, al->texgp->or + 7, "ressources/sprite/or8");
 	printf("Goret loaded\n");
-}
+}*/
 /*
 void			init_sound(t_al *al)
 {
@@ -211,6 +216,7 @@ void			init(t_al *al, char *str)
 	if (hms_parser(al, str))
 		exit(0);
 	//load_goret(al);
+	load_hud(al);
 	init_player(al, &al->play);
 	creat_entity(al);
 	init_trigo(al);

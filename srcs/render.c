@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/07 15:40:59 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/09 15:34:00 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,22 @@
 
 void		draw_hud(t_al *al)
 {
+	int i;
+	int y;
 
-	al->pix = 0;
+	i = 0;
+	y = 20;
+	while(y < 41)
+	{
+		while(i < 46)
+		{
+			al->pix[i + (y * WIN_SIZEX)] = al->heart.pix[i + (y * al->heart.size_x)];
+			i++;
+		}
+		y++;
+	}
+
+	
 }
 
 void		render(t_al *al)
@@ -37,7 +51,7 @@ void		render(t_al *al)
 	}
 	draw_map(al);
 	pimp_cross(al);
-	//draw_hud(al);
+	draw_hud(al);
 	ft_putstr(" FPS:");
 	ft_putnbr(1000000 / al->dtime);
 	refresh(al);

@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/09 16:42:25 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/09 18:09:28 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->size = PLAYER_SIZE;
 	pl->eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
 	pl->on_ground = 1;
-	pl->alive = 0;
+	pl->alive = 3;
 	pl->posz = al->sec[pl->csec].fl_hei;
 }
 
@@ -49,7 +49,8 @@ void    		creat_entity(t_al *al)
 	{
 		al->ent[i].csec = 1;
 		al->ent[i].posx = 4;
-    	al->ent[i].posy = 4 + (double)i * 0.25 ;
+
+    	al->ent[i].posy = 4 + (double)i;
 		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
 		al->ent[i].velx = 0;
 		al->ent[i].gd_vel = 0;
@@ -170,7 +171,7 @@ void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 */
 void			load_hud(t_al *al)
 {
-	bmp_to_tex(&(al->heart), "ressources/HUD/heart.bmp", 46, 41);
+	bmp_to_tex(&(al->h), "ressources/HUD/heart.bmp", 46, 41);
 }
 /*
 void			load_goret(t_al *al)

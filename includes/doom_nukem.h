@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/09 16:38:30 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/09 18:08:32 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -475,7 +475,7 @@ typedef struct		s_audio
 
 typedef struct		s_al
 {
-	t_tex			heart;
+	t_tex			h;
 	t_au			au;
 	t_status		status;
 	void			(*stat_fnc[4])(struct s_al *);

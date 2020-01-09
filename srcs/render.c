@@ -6,25 +6,30 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/09 15:34:00 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:39:31 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
+
+
 void		draw_hud(t_al *al)
 {
-	int i;
-	int y;
+	unsigned x;
+	unsigned y;
 
-	i = 0;
-	y = 20;
-	while(y < 41)
+	y = 0;
+	while(y < al->heart.size_y)
 	{
-		while(i < 46)
+		x = 0;
+		while(x < al->heart.size_x)
 		{
-			al->pix[i + (y * WIN_SIZEX)] = al->heart.pix[i + (y * al->heart.size_x)];
-			i++;
+			if (al->heart.pix[x + ((al->heart.size_y - y - 1) *
+				al->heart.size_x)])
+			al->pix[x + 20 + ((y + 20) * WIN_SIZEX)] = al->heart.pix[x +
+				((al->heart.size_y - y - 1) * al->heart.size_x)];
+			x++;
 		}
 		y++;
 	}

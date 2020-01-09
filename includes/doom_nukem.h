@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/09 15:23:40 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/09 16:38:30 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,7 +304,7 @@ typedef struct		s_player
 	double		velz;
 	double		gd_vel;
 	unsigned	on_ground:1;
-	unsigned	alive:1;
+	unsigned	alive;
 	t_angle		dir;
 
 	double		size;

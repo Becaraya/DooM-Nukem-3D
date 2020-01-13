@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 00:23:02 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/07 16:13:52 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/13 18:23:13 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		draw_map(t_al *al)
 			b.x = al->sec[nb_sec].walls[nb_wal].x2 * 10 + (WIN_SIZEX + 10);
 			b.y = -al->sec[nb_sec].walls[nb_wal].y2 * 10 + (WIN_SIZEY - 10);
 			//printf("xxxx%d,%d,%d,%dxxxxx",a.x,a.y,b.x,b.y);
-			ft_put_line(a, b, al->sdlsurf, 0x52fc03);
+			ft_put_line(a, b, al->sdlsurf, 0xBF55EC);
 			nb_wal++;
 		}
 		nb_sec++;

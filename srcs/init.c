@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/09 18:09:28 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/13 16:39:57 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->size = PLAYER_SIZE;
 	pl->eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
 	pl->on_ground = 1;
-	pl->alive = 3;
+	pl->alive = 5;
 	pl->posz = al->sec[pl->csec].fl_hei;
 }
 
@@ -41,7 +41,7 @@ void    		creat_entity(t_al *al)
 {
 	int i;
 
-	al->nb_ent = 5;
+	al->nb_ent = 1;
 	al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob));
 	al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob));
 	i = -1;
@@ -49,7 +49,6 @@ void    		creat_entity(t_al *al)
 	{
 		al->ent[i].csec = 1;
 		al->ent[i].posx = 4;
-
     	al->ent[i].posy = 4 + (double)i;
 		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
 		al->ent[i].velx = 0;
@@ -61,6 +60,7 @@ void    		creat_entity(t_al *al)
 		al->ent[i].width = 3.3;
 		al->ent[i].mass = 50;
 		al->ent[i].power = 200;
+		al->ent[i].hit = 1;
 	}
 }
 
@@ -99,7 +99,7 @@ static void		init_edit(t_al *al)
 
 	init_text_edit(al);
 }
-
+/*
 void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 {
 	unsigned char	*tmp;
@@ -163,7 +163,7 @@ void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 		or->pix[3][i] != 0xffff ? or->pix[3][i] += 0x1000000 : 0;
 	}
 	free(tmp);
-}
+}*/
 
 /*
 ** m'en bat les couilles il s'apelle le goret si vs voulez vous battre jvous
@@ -173,49 +173,11 @@ void			load_hud(t_al *al)
 {
 	bmp_to_tex(&(al->h), "ressources/HUD/heart.bmp", 46, 41);
 }
-/*
-void			load_goret(t_al *al)
-{
-	al->nb_texgp = 1;
-	al->texgp = malloc(al->nb_texgp * sizeof(t_tex_group));
-	al->texgp[0].nb_tex = 4;
-	al->texgp[0].size_x = 512;
-	al->texgp[0].size_y = 512;
-	load_imgs(al->texgp, al->texgp->or + 0, "ressources/sprite/or1");
-	load_imgs(al->texgp, al->texgp->or + 1, "ressources/sprite/or2");
-	load_imgs(al->texgp, al->texgp->or + 2, "ressources/sprite/or3");
-	load_imgs(al->texgp, al->texgp->or + 3, "ressources/sprite/or4");
-	load_imgs(al->texgp, al->texgp->or + 4, "ressources/sprite/or5");
-	load_imgs(al->texgp, al->texgp->or + 5, "ressources/sprite/or6");
-	load_imgs(al->texgp, al->texgp->or + 6, "ressources/sprite/or7");
-	load_imgs(al->texgp, al->texgp->or + 7, "ressources/sprite/or8");
-	printf("Goret loaded\n");
-}*/
-/*
-void			init_sound(t_al *al)
-{
-	t_au	au;
-	int audio 
-	
-	
-
-	SDL_memset (&au.want, 0, sizeof(au.want));
-	au.want.freq = 44100;
-	au.want.format = AUDIO_S16;
-	au.want.channels = 1;
-	au.want.samples = 4096;
-	audio = SDL_OpenAudioDevice(NULL, 0, &au.want, &au.have, 0);
-	SDL_PauseAudioDevice(audio, 0);
-		SDL_LoadWAV("2002.wav",&have, &buf, &len);
-		SDL_QueueAudio(audio, buf, len);
-		SDL_FreeWAV(buf);
-}*/
 
 void			init(t_al *al, char *str)
 {
 	if (hms_parser(al, str))
 		exit(0);
-	//load_goret(al);
 	load_hud(al);
 	init_player(al, &al->play);
 	creat_entity(al);

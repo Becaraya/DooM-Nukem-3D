@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/09 18:08:32 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/13 16:39:14 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -338,6 +338,7 @@ typedef struct		s_mob
 	unsigned	alive:1;
 	t_angle		dir;
 	t_angle		angle_to_player;
+	unsigned	hit;
 
 	double		size;
 	double		width;
@@ -461,14 +462,6 @@ typedef struct		s_text_list
 	t_text	link;
 }					t_text_list;
 
-typedef struct		s_audio
-{
-	SDL_AudioSpec want;
-	SDL_AudioSpec have;
-	Uint8 *buf;
-	Uint32 len;
-}					t_au;
-
 /*
 ** Main structure #############################################################
 */
@@ -476,7 +469,6 @@ typedef struct		s_audio
 typedef struct		s_al
 {
 	t_tex			h;
-	t_au			au;
 	t_status		status;
 	void			(*stat_fnc[4])(struct s_al *);
 

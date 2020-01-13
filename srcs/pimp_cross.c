@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 14:45:55 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/09 15:30:43 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/13 14:05:57 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,9 @@ void		pimp_cross(t_al *al)
 	{
 		while (i < WIN_SIZEX / 2 + 2 && i > WIN_SIZEX / 2 -2)
 			i++;
-		//if (i < WIN_SIZEX / 2 - 1 || i > WIN_SIZEX / 2 + 1)
-		//{
 			al->pix [WIN_SIZEX * (WIN_SIZEY / 2 - 1) + i]= 0x0000000;
 			al->pix [WIN_SIZEX * WIN_SIZEY / 2 + i]= 0x52fc03;
 			al->pix [WIN_SIZEX * (WIN_SIZEY / 2 + 1) + i]= 0x0000000;
-		//}
 		i++;
-	}
+	}  
 }

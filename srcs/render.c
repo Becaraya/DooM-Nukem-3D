@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/09 18:09:41 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/13 16:44:09 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		draw_hud(t_al *al)
 			{
 				if (al->h.pix[x + ((al->h.size_y - y - 1) *
 					al->h.size_x)])
-					al->pix[x + (20 * a) + ((y + 20) * WIN_SIZEX)] =
+					al->pix[x + (70 * a) + ((y + 20) * WIN_SIZEX)] =
 					al->h.pix[x + ((al->h.size_y - y - 1) * al->h.size_x)];
 				x++;
 			}

@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/09 15:38:47 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/13 11:46:44 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,6 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	}
 	(m.y == 1) ? al->play.posy += y : 0;
 	(m.x == 1) ? al->play.posx += x : 0;
-	
 	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
 	al->play.on_ground = 0;
 }

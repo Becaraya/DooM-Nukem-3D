@@ -63,6 +63,7 @@ SRC_LIST = add_edit.c		\
 		sdl_tools.c			\
 		sector.c			\
 		set_edit.c			\
+		cross_wall.c		\
 		sport_physics.c		\
 		sprite.c			\
 		texte.c				\

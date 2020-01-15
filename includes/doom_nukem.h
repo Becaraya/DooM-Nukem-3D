@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/13 16:39:14 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/15 20:26:05 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -706,6 +706,7 @@ void				mouse_weel(t_al *al);
 void				set_edit(t_al *al);
 void				set_edit_menu_next(t_al *al);
 void				set_edit_menu(t_al *al);
+int					cross_wall(t_walls a, t_walls b);
 
 /*
 ** TRUC

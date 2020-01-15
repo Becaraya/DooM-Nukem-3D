@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/15 11:50:25 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/15 20:12:56 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ void    		creat_entity(t_al *al)
 {
 	int i;
 
-	al->nb_ent = 1;
-	al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob));
-	al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob));
+	al->nb_ent = 20;
+/*	if(!*/(al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob)))/*)*/;
+		/*yeet(al);*/
+	/*if(!*/(al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob)))/*)*/;
+		/*yeet(al);*/
 	i = -1;
 	while(++i < al->nb_ent)
 	{

@@ -3,14 +3,45 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/13 00:23:14 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/13 18:24:21 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+
+
+
+void		draw_hud(t_al *al)
+{
+	unsigned	x;
+	unsigned	y;
+	int 		a;
+
+	a = al->play.alive;
+	while (a)
+	{
+		y = 0;
+		while(y < al->h.size_y)
+		{
+			x = 0;
+			while(x < al->h.size_x)
+			{
+				if (al->h.pix[x + ((al->h.size_y - y - 1) *
+					al->h.size_x)])
+					al->pix[x + (70 * a) + ((y + 20) * WIN_SIZEX)] =
+					al->h.pix[x + ((al->h.size_y - y - 1) * al->h.size_x)];
+				x++;
+			}
+			y++;
+		}
+		a--;
+	}
+
+	
+}
 
 void		render(t_al *al)
 {
@@ -31,6 +62,7 @@ void		render(t_al *al)
 	}
 	draw_map(al);
 	pimp_cross(al);
+	draw_hud(al);
 	ft_putstr(" FPS:");
 	ft_putnbr(1000000 / al->dtime);
 	refresh(al);

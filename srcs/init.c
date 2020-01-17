@@ -6,11 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/01/15 11:36:54 by becaraya         ###   ########.fr       */
-=======
-/*   Updated: 2020/01/17 14:50:40 by hutricot         ###   ########.fr       */
->>>>>>> ec0c2330daaf2fded64cb74b71634617abf0fe52
+/*   Updated: 2020/01/17 17:30:03 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,29 +41,18 @@ void			creat_entity(t_al *al)
 {
 	int i;
 
-<<<<<<< HEAD
-	al->nb_ent = 20;
-	al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob));
-	al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob));
-=======
 	al->nb_ent = 1;
 	if (!(al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
 		yeet(al);
 	if (!(al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
 		yeet(al);
->>>>>>> ec0c2330daaf2fded64cb74b71634617abf0fe52
 	i = -1;
 	while (++i < al->nb_ent)
 	{
 		al->ent[i].csec = 1;
 		al->ent[i].posx = 4;
-<<<<<<< HEAD
-    	al->ent[i].posy = 4 + (double)i;
-		al->ent[i].posz = al->sec[al->ent[i].csec].fl_hei;
-=======
 		al->ent[i].posy = 4 + (double)i;
 		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
->>>>>>> ec0c2330daaf2fded64cb74b71634617abf0fe52
 		al->ent[i].velx = 0;
 		al->ent[i].gd_vel = 0;
 		al->ent[i].on_ground = 1;
@@ -191,13 +176,8 @@ void			init(t_al *al, char *str)
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
-<<<<<<< HEAD
 	al->status = EDIT;
 	//  al->status = GAME;
-=======
-	//al->status = EDIT;
-	al->status = GAME;
->>>>>>> ec0c2330daaf2fded64cb74b71634617abf0fe52
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

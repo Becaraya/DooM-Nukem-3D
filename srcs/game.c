@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/17 11:51:13 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:40:41 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 static void														flyyyy(t_al *al)
 {
 	al->play.velz -= al->g * al->dtime / 1000000;
+	al->play.fly ? al->play.velz += (1000 / al->play.mass) * al->dtime / 1000000
+	: 0;
 }
 
 void															game(t_al *al)

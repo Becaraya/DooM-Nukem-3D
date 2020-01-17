@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:50:00 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/14 00:09:43 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/17 12:00:55 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void			set_edit_menu_next(t_al *al)
 
 void			set_edit_menu(t_al *al)
 {
-	ft_memset(al->surf_ed->pixels, LIGHT_GREY,
-		WIN_EDIT_SIZEX * WIN_EDIT_SIZEY * sizeof(int));
+	ft_memset(al->pix_ed, LIGHT_GREY, WIN_EDIT_SIZEX * WIN_EDIT_SIZEY *
+		sizeof(int));
 	if (al->sect && al->sect->walls)
 		print_co(al);
 	if (al->edit.stat == DRAWING)

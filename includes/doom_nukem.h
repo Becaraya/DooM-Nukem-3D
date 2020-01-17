@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/15 20:26:05 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:37:20 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -303,6 +303,7 @@ typedef struct		s_player
 	double		vely;
 	double		velz;
 	double		gd_vel;
+	unsigned	fly:1;
 	unsigned	on_ground:1;
 	unsigned	alive;
 	t_angle		dir;

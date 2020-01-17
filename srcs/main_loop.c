@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/09 12:16:41 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/17 14:28:21 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,9 @@ void														main_loop(t_al *al)
 				mouse_mv(al);
 			if (al->ev.type == SDL_MOUSEWHEEL)
 				mouse_weel(al);
+			if (al->ev.type == SDL_WINDOWEVENT)
+				if (al->ev.window.event == SDL_WINDOWEVENT_CLOSE)
+					yeet(al);
 		}
 		dtime(al);
 		al->stat_fnc[al->status](al);

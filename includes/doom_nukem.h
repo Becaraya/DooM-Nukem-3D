@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
 /*   Updated: 2020/01/15 16:53:41 by becaraya         ###   ########.fr       */
+=======
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
+/*   Updated: 2020/01/17 14:37:20 by pitriche         ###   ########.fr       */
+>>>>>>> ec0c2330daaf2fded64cb74b71634617abf0fe52
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,6 +311,7 @@ typedef struct		s_player
 	double		vely;
 	double		velz;
 	double		gd_vel;
+	unsigned	fly:1;
 	unsigned	on_ground:1;
 	unsigned	alive;
 	t_angle		dir;
@@ -711,6 +719,7 @@ void				mouse_weel(t_al *al);
 void				set_edit(t_al *al);
 void				set_edit_menu_next(t_al *al);
 void				set_edit_menu(t_al *al);
+int					cross_wall(t_walls a, t_walls b);
 
 /*
 ** TRUC

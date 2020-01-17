@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/09 12:18:52 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/15 19:11:56 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ void	yeet(t_al *al)
 	al->sdlsurf ? SDL_FreeSurface(al->sdlsurf) : 0;
 	al->surf_ed ? SDL_FreeSurface(al->surf_ed) : 0;
 	al->win_ed ? SDL_DestroyWindow(al->win_ed) : 0;
+	al->ent ? ft_memdel((void**)&(al->ent)) : 0;
+	al->rotent ? ft_memdel((void**)&(al->rotent)) : 0;
 	exit(0);
 }

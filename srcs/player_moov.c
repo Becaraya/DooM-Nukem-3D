@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/13 11:46:44 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/15 17:29:06 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,5 +126,5 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 
 /*
 ** 07/novembre
-** 0145174039
+** il y avais un numeros de telephone ici 
 */

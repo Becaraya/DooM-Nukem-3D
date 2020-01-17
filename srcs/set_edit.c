@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:50:00 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/14 00:09:43 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/17 16:24:41 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ void			set_edit(t_al *al)
 **	SET_BAD_PIG,
 
 **	SET_FLO_TEXT,
-**	SET_FLO_HEI,
 **	SET_CEL_TEXT,
+
+**	SET_FLO_HEI,
 **	SET_CEL_HEI,
 
 **	SET_WALL_TEXT,
@@ -68,12 +69,46 @@ void			set_edit_menu_next(t_al *al)
 		put_rectangle(al->surf_ed, itop(45, 605), itop(220, 650), BLACK);
 }
 
+void			get_hei(t_al *al)
+{
+	t_sector	*tmp;
+	char		*t;
+	int			i;
+
+	t = NULL;
+	i = al->edit.index_sect - 1;
+	tmp = al->sect;
+	al->text.ce_hei_num.str ? ft_strdel(&al->text.ce_hei_num.str) : 0;
+	al->text.ce_hei_num.where ? ft_rectdel(&al->text.ce_hei_num.where) : 0;
+	al->text.fl_hei_num.str ? ft_strdel(&al->text.fl_hei_num.str) : 0;
+	al->text.fl_hei_num.where ? ft_rectdel(&al->text.fl_hei_num.where) : 0;
+	while (i--)
+		tmp = tmp->next;
+	if (al->edit.stat == SET_FLO_HEI)
+	{
+		t = dtoa_doom(tmp->fl_hei);
+		set_text(&al->text.fl_hei_num, (tmp->fl_hei) ? t : "0", get_rect(570, 410),
+		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	}
+	else
+	{
+		t = dtoa_doom(tmp->ce_hei);
+		set_text(&al->text.ce_hei_num, (tmp->ce_hei) ? t : "0", get_rect(570, 410),
+		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	}
+	free(t);
+}
+
 void			set_edit_menu(t_al *al)
 {
 	ft_memset(al->surf_ed->pixels, LIGHT_GREY,
 		WIN_EDIT_SIZEX * WIN_EDIT_SIZEY * sizeof(int));
 	if (al->sect && al->sect->walls)
+	{
+		if (al->edit.stat == SET_FLO_HEI || al->edit.stat == SET_CEL_HEI)
+			get_hei(al);
 		print_co(al);
+	}
 	if (al->edit.stat == DRAWING)
 		put_rectangle(al->surf_ed, itop(590, 15), itop(699, 48), BLACK);
 	if ((al->ev.motion.windowID == 2 && inr(itop(45, 240), itop(220, 285),

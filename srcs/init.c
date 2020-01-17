@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/13 16:39:57 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/15 11:36:54 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void    		creat_entity(t_al *al)
 {
 	int i;
 
-	al->nb_ent = 1;
+	al->nb_ent = 20;
 	al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob));
 	al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob));
 	i = -1;
@@ -50,7 +50,7 @@ void    		creat_entity(t_al *al)
 		al->ent[i].csec = 1;
 		al->ent[i].posx = 4;
     	al->ent[i].posy = 4 + (double)i;
-		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
+		al->ent[i].posz = al->sec[al->ent[i].csec].fl_hei;
 		al->ent[i].velx = 0;
 		al->ent[i].gd_vel = 0;
 		al->ent[i].on_ground = 1;
@@ -184,7 +184,7 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	al->status = EDIT;
-	 al->status = GAME;
+	//  al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

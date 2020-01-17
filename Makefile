@@ -33,6 +33,7 @@ SRC_LIST = add_edit.c		\
 		draw_tools.c		\
 		edit.c				\
 		event_func.c		\
+		ft_dtoa_doom.c		\
 		game_disp.c			\
 		game.c				\
 		get_map.c			\

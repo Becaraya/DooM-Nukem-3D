@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/13 16:39:14 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/15 16:53:41 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "libft.h"
 # include <stdio.h>
 # include <math.h>
+# include <limits.h>
 # include <sys/time.h>
 # include <SDL2/SDL.h>
 # include <SDL2_ttf/SDL_ttf.h>
@@ -451,8 +452,12 @@ typedef struct		s_text_list
 
 	t_text	fl_hei;
 	t_text	ce_hei;
+	t_text	fl_hei_num;
+	t_text	ce_hei_num; //trouver un moyen de free quand y a le changement de stat a verifier mais je pense que ca creer des leaks
 	t_text	fl_tex;
 	t_text	ce_tex;
+
+
 
 	t_text	set_spawn;
 	t_text	set_bad_pig;
@@ -561,16 +566,16 @@ void				cap_int(int *var, int lowcap, int highcap);
 
 /*
 ** free fonction
-** becaraya se con lololo
+** becaraya is dumb lololo
 */
 
 void				free_wall(t_walls *walls);
+void				ft_rectdel(SDL_Rect **re);
 void				yeet(t_al *al);
 void				get_map(t_al *al);
 t_walls				*get_walls(t_al *al, unsigned int nb_sec);
 t_walls				*create_walls_elem(t_al *al, unsigned int nb_sec, unsigned
 	int nb_wal);
-
 t_sector			*create_sector_elem(t_al *al, unsigned int nb_sec);
 void				free_text(t_al *al);
 
@@ -711,6 +716,7 @@ void				set_edit_menu(t_al *al);
 ** TRUC
 */
 
+char				*dtoa_doom(double n);
 void				add_wall(t_al *al, t_sector *sect, t_point coo);
 void				add_sector(t_al *al, t_point coo);
 void				init_sect(t_al *al, t_sector *sect);

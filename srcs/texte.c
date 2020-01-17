@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:51:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 21:34:29 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/17 16:46:35 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,10 @@ void	init_text_edit(t_al *al)
 void	init_text_edit_next(t_al *al)
 {
 	set_text(&al->text.ce_hei, "Ceiling Height", get_rect(300, 410),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.ce_hei_num, "Ceilinh Hei Num", get_rect(570, 410),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.fl_hei_num, "Floor Hei Num", get_rect(570, 410),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.wall, "Wall", get_rect(300, 250),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;

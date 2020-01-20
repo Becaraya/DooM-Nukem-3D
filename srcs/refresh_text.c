@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:15:33 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/14 00:04:25 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/17 11:52:08 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	print_text(t_al *al, t_text text, SDL_Surface *surf)
 	title = 0;
 	if ((title = titlecmp(al, text)) == 1)
 		TTF_SetFontStyle(al->font, TTF_STYLE_BOLD);
+	// printf("TEST3\n");
 	if (!(tmp = TTF_RenderText_Blended(al->font, text.str, text.clr)))
 		yeet(al);
 	if (SDL_BlitSurface(tmp, 0, surf, text.where))
@@ -37,6 +38,10 @@ void	text_sect(t_al *al)
 	if (al->edit.stat == EDIT_SECT || al->edit.stat == SET_FLO_TEXT || al->edit.stat == SET_FLO_HEI
 		|| al->edit.stat == SET_CEL_TEXT || al->edit.stat == SET_CEL_HEI)
 	{
+		if (al->edit.stat == SET_CEL_HEI)
+			print_text(al, al->text.ce_hei_num, al->surf_ed);
+		if (al->edit.stat == SET_FLO_HEI)
+			print_text(al, al->text.fl_hei_num, al->surf_ed);
 		print_text(al, al->text.fl_tex, al->surf_ed);
 		print_text(al, al->text.ce_tex, al->surf_ed);
 		print_text(al, al->text.fl_hei, al->surf_ed);

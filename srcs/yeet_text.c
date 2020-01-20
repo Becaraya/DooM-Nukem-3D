@@ -6,13 +6,13 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 23:36:45 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 21:33:36 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/17 08:41:17 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-static void		ft_rectdel(SDL_Rect **re)
+void		ft_rectdel(SDL_Rect **re)
 {
 	ft_memdel((void **)re);
 }
@@ -41,6 +41,8 @@ void			free_text_next(t_al *al)
 	al->text.draw.where ? ft_rectdel(&al->text.draw.where) : 0;
 	al->text.link.str ? ft_strdel(&al->text.link.str) : 0;
 	al->text.link.where ? ft_rectdel(&al->text.link.where) : 0;
+	// al->text.ce_hei_num.str ? ft_strdel(&al->text.ce_hei_num.str) : 0;
+	// al->text.ce_hei_num.where ? ft_rectdel(&al->text.ce_hei_num.where) : 0;
 }
 
 void			free_text(t_al *al)

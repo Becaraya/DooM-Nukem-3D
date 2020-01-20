@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/14 00:12:16 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/17 17:23:49 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,31 @@ static void		print_al(t_al *al) // a tej plus tard
 	}
 }*/
 
+void			arrow_stat_hei(t_al *al, SDL_MouseButtonEvent bev)
+{
+	t_sector	*tmp;
+	int			i;
+
+	i = al->edit.index_sect - 1;
+	tmp = al->sect;
+	while (i--)
+		tmp = tmp->next;
+	if (al->edit.stat == SET_CEL_HEI)
+	{
+		if (bev.x > 520 && bev.x < 545 && bev.y > 410 && bev.y < 435 && tmp->ce_hei > tmp->fl_hei && tmp->ce_hei)
+			tmp->ce_hei -= 0.25;
+		if (inr(itop(630, 410), itop(660, 435), itop(bev.x, bev.y)))
+			tmp->ce_hei += 0.25;
+	}
+	if (al->edit.stat == SET_FLO_HEI)
+	{
+		if (bev.x > 520 && bev.x < 545 && bev.y > 410 && bev.y < 435 &&tmp->fl_hei > 0)
+			tmp->fl_hei -= 0.25;
+		if (inr(itop(630, 410), itop(660, 435), itop(bev.x, bev.y)) &&  tmp->ce_hei > tmp->fl_hei)
+			tmp->fl_hei += 0.25;
+	}
+}
+
 void			arrow_stat(t_al *al, SDL_MouseButtonEvent bev)
 {
 	if (al->edit.index_sect > 1 && bev.x > 145 && bev.x < 175
@@ -69,6 +94,8 @@ void			arrow_stat(t_al *al, SDL_MouseButtonEvent bev)
 	if (al->edit.index_wall < nb_wall(al)
 		&& bev.x > 176 && bev.x < 195 && bev.y > 59 && bev.y < 86)
 		al->edit.index_wall++;
+	if (al->edit.stat == SET_CEL_HEI || al->edit.stat == SET_FLO_HEI)
+		arrow_stat_hei(al, bev);
 }
 
 void			mouse_press_edit_mini_menu(t_al *al, SDL_MouseButtonEvent bev)
@@ -101,7 +128,8 @@ void				mouse_press_edit_setting_sector(t_al *al, SDL_MouseButtonEvent bev)
 
 void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 {
-	// printf("x == %d // y == %d \n", bev.x, bev.y);
+	// if (al->edit.stat == SET_CEL_HEI || al->edit.stat == SET_FLO_HEI)
+	// 	printf("x == %d // y == %d \n", bev.x, bev.y);
 	if (al->edit.stat == DRAWING)
 	{
 		if (bev.x > 590 && bev.x < 685 && bev.y > 15 && bev.y < 48)

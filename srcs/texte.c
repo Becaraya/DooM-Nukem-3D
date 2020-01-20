@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:51:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/17 16:46:35 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:30:17 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,14 @@ void	init_text_edit(t_al *al)
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.wall_index, "WHO WALL", get_rect(25, 58),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.x_start, "X1", get_rect(25, 100),
-	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.y_start, "Y1", get_rect(150, 100),
-	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.x_end, "X2", get_rect(25, 150),
-	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	set_text(&al->text.y_end, "Y2", get_rect(150, 150),
-	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	// set_text(&al->text.x_start, "X1", get_rect(25, 100),
+	// add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	// set_text(&al->text.y_start, "Y1", get_rect(150, 100),
+	// add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	// set_text(&al->text.x_end, "X2", get_rect(25, 150),
+	// add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	// set_text(&al->text.y_end, "Y2", get_rect(150, 150),
+	// add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.cancel, "CANCEL", get_rect(600, 20),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.settings, "Settings", get_rect(25, 200),

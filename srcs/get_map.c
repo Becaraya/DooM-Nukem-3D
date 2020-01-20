@@ -87,6 +87,21 @@ t_walls		*create_walls_elem(t_al *al, unsigned int nb_sec, unsigned int nb_wal)
 	return (data);
 }
 
+// int			count_wall(t_walls *wall)
+// {
+// 	t_walls		*tmp;
+// 	int			c;
+
+// 	tmp = wall;
+// 	c = 0;
+// 	while (tmp->next)
+// 	{
+// 		c++;
+// 		tmp = tmp->next;
+// 	}
+// 	return (c);
+// }
+
 t_sector	*create_sector_elem(t_al *al, unsigned int nb_sec)
 {
 	t_sector	*data;
@@ -100,6 +115,7 @@ t_sector	*create_sector_elem(t_al *al, unsigned int nb_sec)
 	data->ce_hei = al->sec[nb_sec].ce_hei;
 	data->fl_tex = al->sec[nb_sec].fl_tex;
 	data->ce_tex = al->sec[nb_sec].ce_tex;
+	data->nb_wal = count_wall(data->walls);
 	return (data);
 }
 

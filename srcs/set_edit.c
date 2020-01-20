@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:50:00 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/17 17:32:00 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:12:45 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,16 @@ void			get_hei(t_al *al)
 	if (al->edit.stat == SET_FLO_HEI)
 	{
 		t = dtoa_doom(tmp->fl_hei);
-		set_text(&al->text.fl_hei_num, (tmp->fl_hei) ? t : "0", get_rect(570, 410),
-		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+		if (set_text(&al->text.fl_hei_num, (tmp->fl_hei) ? t : "0", get_rect(570, 410),
+		add_color(TEXT_EDITOR)) == -1)
+			yeet(al);
 	}
 	else
 	{
 		t = dtoa_doom(tmp->ce_hei);
-		set_text(&al->text.ce_hei_num, (tmp->ce_hei) ? t : "0", get_rect(570, 410),
-		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+		if (set_text(&al->text.ce_hei_num, (tmp->ce_hei) ? t : "0", get_rect(570, 410),
+		add_color(TEXT_EDITOR)) == -1)
+			yeet(al);
 	}
 	free(t);
 }

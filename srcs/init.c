@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 11:03:19 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:07:17 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,7 +177,7 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	al->status = EDIT;
-	al->status = GAME;
+	// al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -204,6 +204,7 @@ void			init(t_al *al, char *str)
 	al->edit.stat = SELECT;
 	// al->edit.stat = EDIT_WALL;
 	al->edit.zoom = 15;
-	al->edit.index_sect = al->nb_sec;
-	(al->sect) ? al->edit.index_wall = al->sect->nb_wal : 0;
+	al->edit.index_sect = al->nb_sec; 
+	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;
+// 	printf("al->edit.index_wall %d\n", al->sect->nb_wal);
 }

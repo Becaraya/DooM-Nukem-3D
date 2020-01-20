@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 23:36:45 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/17 08:41:17 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:30:40 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,16 @@ void			free_text(t_al *al)
 	al->text.sect_index.where ? ft_rectdel(&al->text.sect_index.where) : 0;
 	al->text.wall_index.str ? ft_strdel(&al->text.wall_index.str) : 0;
 	al->text.wall_index.where ? ft_rectdel(&al->text.wall_index.where) : 0;
-	al->text.x_start.str ? ft_strdel(&al->text.x_start.str) : 0;
-	al->text.x_start.where ? ft_rectdel(&al->text.x_start.where) : 0;
-	al->text.y_start.str ? ft_strdel(&al->text.y_start.str) : 0;
-	al->text.y_start.where ? ft_rectdel(&al->text.y_start.where) : 0;
-	al->text.x_end.str ? ft_strdel(&al->text.x_end.str) : 0;
-	al->text.x_end.where ? ft_rectdel(&al->text.x_end.where) : 0;
-	al->text.y_end.str ? ft_strdel(&al->text.y_end.str) : 0;
-	al->text.y_end.where ? ft_rectdel(&al->text.y_end.where) : 0;
-	al->text.y_end.str ? ft_strdel(&al->text.cancel.str) : 0;
-	al->text.y_end.where ? ft_rectdel(&al->text.cancel.where) : 0;
+	// al->text.x_start.str ? ft_strdel(&al->text.x_start.str) : 0;
+	// al->text.x_start.where ? ft_rectdel(&al->text.x_start.where) : 0;
+	// al->text.y_start.str ? ft_strdel(&al->text.y_start.str) : 0;
+	// al->text.y_start.where ? ft_rectdel(&al->text.y_start.where) : 0;
+	// al->text.x_end.str ? ft_strdel(&al->text.x_end.str) : 0;
+	// al->text.x_end.where ? ft_rectdel(&al->text.x_end.where) : 0;
+	// al->text.y_end.str ? ft_strdel(&al->text.y_end.str) : 0;
+	// al->text.y_end.where ? ft_rectdel(&al->text.y_end.where) : 0;
+	// al->text.y_end.str ? ft_strdel(&al->text.cancel.str) : 0;
+	// al->text.y_end.where ? ft_rectdel(&al->text.cancel.where) : 0;
 	al->text.settings.str ? ft_strdel(&al->text.cancel.str) : 0;
 	al->text.settings.where ? ft_rectdel(&al->text.cancel.where) : 0;
 	al->text.wall.str ? ft_strdel(&al->text.wall.str) : 0;

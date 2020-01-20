@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/17 17:03:46 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/20 21:32:59 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,11 @@ void			print_co(t_al *al)
 	ft_strdel(&al->text.sect_index.str);
 	al->text.sect_index.str = ft_strjoin("Sector ", tmp);
 	ft_strdel(&tmp);
-	(al->sect->walls) ? assign_edit_co(al, get_co_wal(al)) : 0;
-	tmp = ft_itoa(al->edit.index_wall);
-	ft_strdel(&al->text.wall_index.str);
+	tmp = ft_itoa(al->edit.index_wall + 1);
 	al->text.wall_index.str = ft_strjoin("Wall ", tmp);
-	ft_strdel(&tmp);
+	// ft_strdel(&tmp);
+	// (al->sect->walls) ? assign_edit_co(al, get_co_wal(al)) : 0;
+	// ft_strdel(&al->text.wall_index.str);
 }
 
 void			interactive_arrow(t_al *al)
@@ -90,7 +90,7 @@ void			interactive_arrow(t_al *al)
 		if (al->edit.index_wall > 0)
 			draw_triangle(itop(160, 69), -1, al->surf_ed, inr(itop(145, 58),
 			itop(175, 88), itop(mev.x, mev.y)) ? BLACK : WHITE);
-		if (al->edit.index_wall < nb_wall(al))
+		if (al->edit.index_wall < nb_wall(al) - 1)
 			draw_triangle(itop(180, 69), 1, al->surf_ed, inr(itop(176, 58),
 			itop(195, 88), itop(mev.x, mev.y)) ? BLACK : WHITE);
 	}
@@ -102,6 +102,14 @@ void			interactive_arrow(t_al *al)
 		itop(660, 435), itop(mev.x, mev.y)) ? BLACK : WHITE);
 	}
 }
+// static void		test(t_sector *se)
+// {
+// 	printf("al->sect->nb_wal = %d\n", se->nb_wal);
+// 	if (se->next)
+// 		test(se->next);
+// }
+
+
 
 void			editor(t_al *al)
 {
@@ -109,9 +117,17 @@ void			editor(t_al *al)
 	set_edit(al);
 	set_edit_menu(al);
 	if (al->sect)
+	{
 		draw_sect(al, al->sect);
+		draw_sect_index(al, al->sect, al->nb_sec);
+	}
+	// if (al->sect)
+	// 	draw_sect(al, al->sect);
 	interactive_arrow(al);
 	refresh(al);
+	// printf("al->sect->nb_wal = %d // al->edit.index_wall = %d \n", al->sect->nb_wal, al->edit.index_wall);
+	// if (al->sect)
+	// 	test(al->sect);
 	// al->text.ce_hei_num.str ? ft_strdel(&al->text.ce_hei_num.str) : 0;
 	// al->text.ce_hei_num.where ? ft_rectdel(&al->text.ce_hei_num.where) : 0;
 	// al->text.fl_hei_num.str ? ft_strdel(&al->text.fl_hei_num.str) : 0;

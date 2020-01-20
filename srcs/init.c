@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/17 14:50:40 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/17 18:24:35 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->size = PLAYER_SIZE;
 	pl->eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
 	pl->on_ground = 1;
-	pl->alive = 5;
+	pl->alive = 50;
 	pl->posz = al->sec[pl->csec].fl_hei;
 }
 
@@ -50,7 +50,7 @@ void			creat_entity(t_al *al)
 	while (++i < al->nb_ent)
 	{
 		al->ent[i].csec = 1;
-		al->ent[i].posx = 4;
+		al->ent[i].posx = 12;
 		al->ent[i].posy = 4 + (double)i;
 		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
 		al->ent[i].velx = 0;
@@ -58,8 +58,8 @@ void			creat_entity(t_al *al)
 		al->ent[i].on_ground = 1;
 		al->ent[i].alive = 1;
 		al->ent[i].dir = 0;
-		al->ent[i].size = 3;
-		al->ent[i].width = 3.3;
+		al->ent[i].size = 2.5;
+		al->ent[i].width = 2.3;
 		al->ent[i].mass = 50;
 		al->ent[i].power = 200;
 		al->ent[i].hit = 1;

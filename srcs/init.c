@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 10:05:37 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/20 11:03:19 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			creat_entity(t_al *al)
 {
 	int i;
 
-	al->nb_ent = 1;
+	al->nb_ent = 0;
 	if (!(al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
 		yeet(al);
 	if (!(al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
@@ -177,7 +177,7 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	al->status = EDIT;
-	//  al->status = GAME;
+	al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

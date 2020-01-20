@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_event_func.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:43:49 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 23:11:38 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/20 12:46:05 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ void		mouse_mv(t_al *al)
 	SDL_MouseMotionEvent	mev;
 
 	mev = al->ev.motion;
-	al->play.dir = (al->play.dir + mev.xrel * 10) & D_2PIM;
-	al->play.horizon = al->play.horizon + mev.yrel * 3;
+	if (mev.x != WIN_SIZEX / 2)
+		al->play.dir = (al->play.dir + mev.xrel * 10) & D_2PIM;
+	if (mev.y != WIN_SIZEY / 2)
+		al->play.horizon = al->play.horizon + mev.yrel * 3;
 	if (mev.windowID == 1)
 	{
 		if (al->edit.stat == DRAWING)

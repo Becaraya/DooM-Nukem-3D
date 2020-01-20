@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/17 14:38:57 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:50:57 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,36 @@ static void	keyup_func(t_al *al, SDL_KeyboardEvent kev)
 	kev.keysym.sym == SDLK_s ? al->k.s = 0 : 0;
 	kev.keysym.sym == SDLK_d ? al->k.d = 0 : 0;
 	kev.keysym.sym == SDLK_f ? al->play.fly = 0 : 0;
+	kev.keysym.sym == SDLK_LEFTBRACKET ? al->k.lbrack = 0 : 0;
+	kev.keysym.sym == SDLK_RIGHTBRACKET ? al->k.rbrack = 0 : 0;
 	kev.keysym.sym == SDLK_LEFT ? al->k.left = 0 : 0;
 	kev.keysym.sym == SDLK_RIGHT ? al->k.righ = 0 : 0;
 	kev.keysym.sym == SDLK_LSHIFT ? al->play.power = PLAYER_AERO_POWER : 0;
 	kev.keysym.sym == SDLK_UP ? al->k.up = 0 : 0;
 	kev.keysym.sym == SDLK_DOWN ? al->k.down = 0 : 0;
 	kev.keysym.sym == SDLK_SPACE ? al->k.space = 0 : 0;
+}
+
+static void	keydown_func(t_al *al, SDL_KeyboardEvent kev)
+{
+	kev.keysym.sym == SDLK_ESCAPE ? yeet(al) : 0;
+	if (kev.keysym.sym == SDLK_F1)
+		al->status = (al->status == GAME) ? PAUSE : GAME;
+	kev.keysym.sym == SDLK_w ? al->k.w = 1 : 0;
+	kev.keysym.sym == SDLK_a ? al->k.a = 1 : 0;
+	kev.keysym.sym == SDLK_s ? al->k.s = 1 : 0;
+	kev.keysym.sym == SDLK_d ? al->k.d = 1 : 0;
+	kev.keysym.sym == SDLK_f ? al->play.fly = 1 : 0;
+	kev.keysym.sym == SDLK_LEFTBRACKET ? al->k.lbrack = 1 : 0;
+	kev.keysym.sym == SDLK_RIGHTBRACKET ? al->k.rbrack = 1 : 0;
+	kev.keysym.sym == SDLK_LEFT ? al->k.left = 1 : 0;
+	kev.keysym.sym == SDLK_RIGHT ? al->k.righ = 1 : 0;
+	kev.keysym.sym == SDLK_UP ? al->k.up = 1 : 0;
+	kev.keysym.sym == SDLK_DOWN ? al->k.down = 1 : 0;
+	kev.keysym.sym == SDLK_LSHIFT ? al->play.power = PLAYER_ANA_POWER : 0;
+	kev.keysym.sym == SDLK_SPACE ? al->k.space = 1 : 0;
+	kev.keysym.sym == SDLK_KP_MINUS ? al->fov *= 1.1 : 0;
+	kev.keysym.sym == SDLK_KP_PLUS ? al->fov /= 1.1 : 0;
 }
 
 void		key_func(t_al *al)
@@ -50,24 +74,7 @@ void		key_func(t_al *al)
 	kev = al->ev.key;
 	kev.keysym.sym == SDLK_z ? z_func(al) : 0;
 	if (al->ev.type == SDL_KEYDOWN)
-	{
-		kev.keysym.sym == SDLK_ESCAPE ? yeet(al) : 0;
-		if (kev.keysym.sym == SDLK_F1)
-			al->status = (al->status == GAME) ? PAUSE : GAME;
-		kev.keysym.sym == SDLK_w ? al->k.w = 1 : 0;
-		kev.keysym.sym == SDLK_a ? al->k.a = 1 : 0;
-		kev.keysym.sym == SDLK_s ? al->k.s = 1 : 0;
-		kev.keysym.sym == SDLK_d ? al->k.d = 1 : 0;
-		kev.keysym.sym == SDLK_f ? al->play.fly = 1 : 0;
-		kev.keysym.sym == SDLK_LEFT ? al->k.left = 1 : 0;
-		kev.keysym.sym == SDLK_RIGHT ? al->k.righ = 1 : 0;
-		kev.keysym.sym == SDLK_UP ? al->k.up = 1 : 0;
-		kev.keysym.sym == SDLK_DOWN ? al->k.down = 1 : 0;
-		kev.keysym.sym == SDLK_LSHIFT ? al->play.power = PLAYER_ANA_POWER : 0;
-		kev.keysym.sym == SDLK_SPACE ? al->k.space = 1 : 0;
-		kev.keysym.sym == SDLK_KP_MINUS ? al->fov *= 1.1 : 0;
-		kev.keysym.sym == SDLK_KP_PLUS ? al->fov /= 1.1 : 0;
-	}
+		keydown_func(al, kev);
 	else
 		keyup_func(al, kev);
 }

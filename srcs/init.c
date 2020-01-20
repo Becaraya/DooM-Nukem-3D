@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 14:17:41 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:11:28 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void			creat_entity(t_al *al)
 	i = -1;
 	while (++i < al->nb_ent)
 	{
-		al->ent[i].csec = 1;
+		al->ent[i].csec = 2;
 		al->ent[i].posx = 12;
 		al->ent[i].posy = 4 + (double)i;
 		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
@@ -165,6 +165,7 @@ void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 void			load_hud(t_al *al)
 {
 	bmp_to_tex(&(al->h), "ressources/HUD/heart.bmp", 46, 41);
+	bmp_to_tex(&(al->f), "ressources/HUD/chop.bmp", 100, 133);
 }
 
 void			init(t_al *al, char *str)

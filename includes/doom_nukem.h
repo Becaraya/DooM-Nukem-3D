@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/17 17:29:52 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:27:33 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@
 # define TEXT_EDITOR BLACK
 
 # define TEX_SIZE_MENU 100
+
 /*
 ** ENUMS, for all status ######################################################
 */
@@ -210,6 +211,8 @@ typedef struct		s_keys
 	unsigned	a:1;
 	unsigned	s:1;
 	unsigned	d:1;
+	unsigned	lbrack:1;
+	unsigned	rbrack:1;
 	unsigned	left:1;
 	unsigned	righ:1;
 	unsigned	up:1;
@@ -475,6 +478,7 @@ typedef struct		s_text_list
 typedef struct		s_al
 {
 	t_tex			h;
+	t_tex			f;
 	t_status		status;
 	void			(*stat_fnc[4])(struct s_al *);
 

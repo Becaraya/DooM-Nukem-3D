@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strcat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 17:12:19 by becaraya          #+#    #+#             */
-/*   Updated: 2018/11/06 17:12:59 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/15 13:48:11 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strcat(char *dest, const char *src)
+char	*ft_strcat(char *dest, char *src)
 {
 	int i;
 	int j;

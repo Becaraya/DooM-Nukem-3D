@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/17 15:10:20 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/20 14:40:09 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,6 @@ void															game(t_al *al)
 //		acceleration_entities(al, &al->ent[0]);
 	displacement(al);
 	render(al);
-	printf(" sector: %d", al->play.csec);
-	fflush(0);
+	SDL_WarpMouseInWindow(al->sdlwin, WIN_SIZEX / 2, WIN_SIZEY / 2);
+	SDL_ShowCursor(SDL_DISABLE);
 }

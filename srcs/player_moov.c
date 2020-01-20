@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/15 17:29:06 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/20 12:02:16 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int		is_cross_y(t_player *e, t_walls t, double v, t_al *al)
 	double d;
 
 	d = d_wall(t, e->posx, e->posy + v);
+	printf("\ndistance = %f\n", d);
 	if (t.is_cross)
 	{
 		if ((d < 0.5)&& e->posz < al->sec[t.sec_lnk].fl_hei)
@@ -75,6 +76,7 @@ int		is_cross_y(t_player *e, t_walls t, double v, t_al *al)
 		else
 			return(1);
 	}
+	printf("mas hauteur %f, tas hauteur %f \n",e->posz , al->sec[t.sec_lnk].fl_hei);
 	if (d < 0.5)
 		return (0);
 	return (1);
@@ -101,6 +103,7 @@ void	wall_ok(t_al *al, t_walls t, t_doint p, t_point *m)
 		&& ((t.x1 <= j.posx && j.posx <= t.x2)
 				|| (t.x1 >= j.posx && j.posx >= t.x2)))
 			(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;
+			
 }
 
 void	ft_nop_player(t_al *al, int i, double x, double y)

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/13 00:41:25 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/17 17:03:46 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ void			print_co(t_al *al)
 	ft_strdel(&al->text.sect_index.str);
 	al->text.sect_index.str = ft_strjoin("Sector ", tmp);
 	ft_strdel(&tmp);
-	// (al->sect->walls) ? assign_edit_co(al, index_wall(al)) : 0;
 	(al->sect->walls) ? assign_edit_co(al, get_co_wal(al)) : 0;
 	tmp = ft_itoa(al->edit.index_wall);
 	ft_strdel(&al->text.wall_index.str);
@@ -95,14 +94,26 @@ void			interactive_arrow(t_al *al)
 			draw_triangle(itop(180, 69), 1, al->surf_ed, inr(itop(176, 58),
 			itop(195, 88), itop(mev.x, mev.y)) ? BLACK : WHITE);
 	}
+	if (al->edit.stat == SET_CEL_HEI || al->edit.stat == SET_FLO_HEI)
+	{
+		draw_triangle(itop(535, 420), -1, al->surf_ed, inr(itop(520, 410),
+		itop(545, 435), itop(mev.x, mev.y)) ? BLACK : WHITE);
+		draw_triangle(itop(640, 420), 1, al->surf_ed, inr(itop(630, 410),
+		itop(660, 435), itop(mev.x, mev.y)) ? BLACK : WHITE);
+	}
 }
 
 void			editor(t_al *al)
 {
+	// printf("test\n");
 	set_edit(al);
 	set_edit_menu(al);
 	if (al->sect)
 		draw_sect(al, al->sect);
 	interactive_arrow(al);
 	refresh(al);
+	// al->text.ce_hei_num.str ? ft_strdel(&al->text.ce_hei_num.str) : 0;
+	// al->text.ce_hei_num.where ? ft_rectdel(&al->text.ce_hei_num.where) : 0;
+	// al->text.fl_hei_num.str ? ft_strdel(&al->text.fl_hei_num.str) : 0;
+	// al->text.fl_hei_num.where ? ft_rectdel(&al->text.fl_hei_num.where) : 0;
 }

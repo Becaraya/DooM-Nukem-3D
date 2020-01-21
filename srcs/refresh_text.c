@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:15:33 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 19:31:52 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:42:17 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,12 +54,25 @@ void	text_sect(t_al *al)
 	print_text(al, al->text.sect_index, al->surf_ed);
 }
 
+void	set_player_text(t_al *al)
+{
+	if (al->edit.stat >= SET_PLAYER && al->edit.stat <= MASS)
+	{
+		print_text(al, al->text.life, al->surf_ed);
+		print_text(al, al->text.power, al->surf_ed);
+		print_text(al, al->text.weapon, al->surf_ed);
+		print_text(al, al->text.size, al->surf_ed);
+		print_text(al, al->text.mass, al->surf_ed);
+	}
+}
+
 void	text(t_al *al)
 {
 	print_text(al, al->text.gen_map, al->surf_ed);
 	print_text(al, al->text.draw, al->surf_ed);
 	print_text(al, al->text.sector, al->surf_ed);
 	print_text(al, al->text.wall, al->surf_ed);
+	print_text(al, al->text.set_player, al->surf_ed);
 	print_text(al, al->text.tools, al->surf_ed);
 	print_text(al, al->text.settings, al->surf_ed);
 	al->edit.stat == DRAWING ? print_text(al, al->text.cancel, al->surf_ed) : 0;
@@ -76,4 +89,5 @@ void	text(t_al *al)
 			print_text(al, al->text.link, al->surf_ed);
 		}
 	}
+	set_player_text(al);
 }

@@ -36,6 +36,7 @@ SRC_LIST = add_edit.c		\
 		ft_dtoa_doom.c		\
 		game_disp.c			\
 		game.c				\
+		dead.c				\
 		get_map.c			\
 		hms_parser.c		\
 		hms_parser_sec.c	\

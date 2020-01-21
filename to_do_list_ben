@@ -1,0 +1,28 @@
+player setting
+-life (alive)
+-size +0.05 (eyes)
+-mass +10
+-power (double		power_mult;)++0.1
+-weapon
+
+sector
+-is a door
+-open/lock
+
+env
+-gravity (default) +-+1 default value (mettre une touche du clavier)
+difficulty
+
+Reset
+
+SET_PLAYER,
+LIFE,
+POW,
+WEAPON,
+SIZE,
+MASS,
+GRAVITY,
+IS_DOOR,
+RESET,
+DIFF_EASY,
+DIFF_HARD

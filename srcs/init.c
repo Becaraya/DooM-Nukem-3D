@@ -6,17 +6,17 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 10:05:52 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 17:02:00 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
-#include <float.h>
 
 static void		init_status(t_al *al)
 {
 	al->stat_fnc[MENU] = menu;
 	al->stat_fnc[GAME] = game;
+	al->stat_fnc[DEAD] = dead;
 	al->stat_fnc[PAUSE] = yeet;
 	al->stat_fnc[EDIT] = editor;
 }
@@ -178,7 +178,7 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	al->status = EDIT;
-	// al->status = GAME;
+	al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -203,9 +203,8 @@ void			init(t_al *al, char *str)
 	// get_map(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = SELECT;
-	// al->edit.stat = EDIT_WALL;
+	al->edit.stat = SET_PLAYER;
 	al->edit.zoom = 15;
 	al->edit.index_sect = al->nb_sec; 
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;
-// 	printf("al->edit.index_wall %d\n", al->sect->nb_wal);
 }

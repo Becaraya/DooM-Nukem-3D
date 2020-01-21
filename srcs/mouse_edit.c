@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 19:07:03 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:40:50 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,24 +112,46 @@ void			mouse_press_edit_mini_menu(t_al *al, SDL_MouseButtonEvent bev)
 		al->edit.stat = EDIT_SECT;
 	if (inr(itop(280, 240), itop(460, 285), itop(bev.x, bev.y)))
 		al->edit.stat = EDIT_WALL;
+	if (inr(itop(495, 240), itop(645, 285), itop(bev.x, bev.y)))
+		al->edit.stat = SET_PLAYER;
 }
 
 void				mouse_press_edit_setting_sector(t_al *al, SDL_MouseButtonEvent bev)
 {
-	if (inr(itop(45, 400), itop(220, 445), itop(bev.x, bev.y)))
-		al->edit.stat = SET_FLO_HEI;
-	if (inr(itop(45, 320), itop(220, 365), itop(bev.x, bev.y)))
-		al->edit.stat = (al->edit.stat == EDIT_WALL) ? SET_WALL_TEXT : SET_FLO_TEXT;
-	if (inr(itop(280, 400), itop(460, 445), itop(bev.x, bev.y)))
-		al->edit.stat = SET_CEL_HEI;
-	if (inr(itop(280, 320), itop(460, 365), itop(bev.x, bev.y)))
-		al->edit.stat = SET_CEL_TEXT;
+	if (al->edit.stat >= SET_FLO_TEXT && al->edit.stat <= EDIT_SECT)
+	{
+		if (inr(itop(45, 400), itop(220, 445), itop(bev.x, bev.y)))
+			al->edit.stat = SET_FLO_HEI;
+		if (inr(itop(45, 320), itop(220, 365), itop(bev.x, bev.y)))
+			al->edit.stat = (al->edit.stat == EDIT_WALL) ? SET_WALL_TEXT : SET_FLO_TEXT;
+		if (inr(itop(280, 400), itop(460, 445), itop(bev.x, bev.y)))
+			al->edit.stat = SET_CEL_HEI;
+		if (inr(itop(280, 320), itop(460, 365), itop(bev.x, bev.y)))
+			al->edit.stat = SET_CEL_TEXT;
+	}
+}
+
+void			mouse_press_edit_player(t_al *al, SDL_MouseButtonEvent bev)
+{
+	if (al->edit.stat >= SET_PLAYER && al->edit.stat <= MASS)
+	{
+		if (inr(itop(45, 320), itop(220, 365), itop(bev.x, bev.y)))
+			al->edit.stat = LIFE;
+		if (inr(itop(280, 320), itop(460, 365), itop(bev.x, bev.y)))
+			al->edit.stat = POW;
+		if (inr(itop(495, 320), itop(645, 365), itop(bev.x, bev.y)))
+			al->edit.stat = WEAPON;
+		if (inr(itop(45, 400), itop(220, 445), itop(bev.x, bev.y)))
+			al->edit.stat = SIZE;
+		if (inr(itop(280, 400), itop(460, 445), itop(bev.x, bev.y)))
+			al->edit.stat = MASS;
+	}
 }
 
 void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 {
 	// if (al->edit.stat == SET_CEL_HEI || al->edit.stat == SET_FLO_HEI)
-	// 	printf("x == %d // y == %d \n", bev.x, bev.y);
+		printf("x == %d // y == %d \n", bev.x, bev.y);
 	if (al->edit.stat == DRAWING)
 	{
 		if (bev.x > 590 && bev.x < 685 && bev.y > 15 && bev.y < 48)
@@ -146,6 +168,7 @@ void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 		arrow_stat(al, bev);
 		mouse_press_edit_mini_menu(al, bev);
 		mouse_press_edit_setting_sector(al, bev);
+		mouse_press_edit_player(al, bev);
 	}
 }
 

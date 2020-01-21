@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:51:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 19:30:17 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:13:29 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,22 @@ void	init_text_edit(t_al *al)
 	init_text_edit_next(al);
 }
 
+void	init_text_edit_next_next(t_al *al)
+{
+	set_text(&al->text.set_player, "Player", get_rect(520, 250),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.life, "Life", get_rect(70, 330),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.power, "Power", get_rect(300, 330),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.weapon, "Weapon", get_rect(520, 330),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.size, "Size", get_rect(70, 410),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.mass, "Mass", get_rect(300, 410),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+}
+
 void	init_text_edit_next(t_al *al)
 {
 	set_text(&al->text.ce_hei, "Ceiling Height", get_rect(300, 410),
@@ -65,4 +81,5 @@ void	init_text_edit_next(t_al *al)
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.gen_map, "GENERATION MAP", get_rect(295, 665),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	init_text_edit_next_next(al);
 }

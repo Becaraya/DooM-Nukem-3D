@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 23:36:45 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 19:30:40 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:12:59 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,22 @@
 void		ft_rectdel(SDL_Rect **re)
 {
 	ft_memdel((void **)re);
+}
+
+void			free_text_next_next(t_al *al)
+{
+	al->text.set_player.str ? ft_strdel(&al->text.set_player.str) : 0;
+	al->text.set_player.where ? ft_rectdel(&al->text.set_player.where) : 0;
+	al->text.life.str ? ft_strdel(&al->text.life.str) : 0;
+	al->text.life.where ? ft_rectdel(&al->text.life.where) : 0;
+	al->text.power.str ? ft_strdel(&al->text.power.str) : 0;
+	al->text.power.where ? ft_rectdel(&al->text.power.where) : 0;
+	al->text.weapon.str ? ft_strdel(&al->text.weapon.str) : 0;
+	al->text.weapon.where ? ft_rectdel(&al->text.weapon.where) : 0;
+	al->text.size.str ? ft_strdel(&al->text.size.str) : 0;
+	al->text.size.where ? ft_rectdel(&al->text.size.where) : 0;
+	al->text.mass.str ? ft_strdel(&al->text.mass.str) : 0;
+	al->text.mass.where ? ft_rectdel(&al->text.mass.where) : 0;
 }
 
 void			free_text_next(t_al *al)
@@ -68,4 +84,5 @@ void			free_text(t_al *al)
 	al->text.wall.str ? ft_strdel(&al->text.wall.str) : 0;
 	al->text.wall.where ? ft_rectdel(&al->text.wall.where) : 0;
 	free_text_next(al);
+	free_text_next_next(al);
 }

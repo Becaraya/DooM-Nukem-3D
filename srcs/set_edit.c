@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:50:00 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 14:12:45 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 16:38:58 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,22 +52,6 @@ void			set_edit(t_al *al)
 **	EDIT_SECT
 */
 
-void			set_edit_menu_next(t_al *al)
-{
-	if ((al->ev.motion.windowID == 2 && inr(itop(45, 540), itop(220, 585),
-	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == SET_SPAWN)
-		put_rectangle(al->surf_ed, itop(45, 540), itop(220, 585), BLACK);
-	if ((al->ev.motion.windowID == 2 && inr(itop(280, 540), itop(460, 585),
-	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == SET_BAD_PIG)
-		put_rectangle(al->surf_ed, itop(280, 540), itop(460, 585), BLACK);
-	if ((al->ev.motion.windowID == 2 && (inr(itop(495, 540), itop(645, 585),
-	itop(al->ev.motion.x, al->ev.motion.y))))
-	|| al->edit.stat == SELECT || al->edit.stat == DRAWING)
-		put_rectangle(al->surf_ed, itop(495, 540), itop(645, 585), BLACK);
-	if ((al->ev.motion.windowID == 2 && inr(itop(45, 605), itop(220, 650),
-	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == LINK_MOD)
-		put_rectangle(al->surf_ed, itop(45, 605), itop(220, 650), BLACK);
-}
 
 void			get_hei(t_al *al)
 {
@@ -99,6 +83,47 @@ void			get_hei(t_al *al)
 			yeet(al);
 	}
 	free(t);
+}
+
+void			set_edit_menu_next_next(t_al *al)
+{
+	t_point mouse;
+
+	mouse = itop(al->ev.motion.x, al->ev.motion.y);
+	if ((al->edit.stat >= SET_PLAYER && al->edit.stat <= MASS )||
+	(al->ev.motion.windowID == 2
+	&& inr(itop(495, 240), itop(645, 285), mouse)))
+	{
+		put_rectangle(al->surf_ed, itop(495, 240), itop(645, 285), BLACK);
+		if (al->edit.stat == LIFE || inr(itop(45, 320), itop(220, 365), mouse))
+			put_rectangle(al->surf_ed, itop(45, 320), itop(220, 365), BLACK);
+		if (al->edit.stat == POW || inr(itop(280, 320), itop(460, 365), mouse))
+			put_rectangle(al->surf_ed, itop(280, 320), itop(460, 365),BLACK);
+		if (al->edit.stat == WEAPON || inr(itop(495, 320), itop(645, 365), mouse))
+			put_rectangle(al->surf_ed, itop(495, 320), itop(645, 365),BLACK);
+		if (al->edit.stat == SIZE || inr(itop(45, 400), itop(220, 445), mouse))
+			put_rectangle(al->surf_ed, itop(45, 400), itop(220, 445), BLACK);
+		if (al->edit.stat == MASS || inr(itop(280, 400), itop(460, 445), mouse))
+			put_rectangle(al->surf_ed, itop(280, 400), itop(460, 445), BLACK);
+	}
+}
+
+void			set_edit_menu_next(t_al *al)
+{
+	if ((al->ev.motion.windowID == 2 && inr(itop(45, 540), itop(220, 585),
+	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == SET_SPAWN)
+		put_rectangle(al->surf_ed, itop(45, 540), itop(220, 585), BLACK);
+	if ((al->ev.motion.windowID == 2 && inr(itop(280, 540), itop(460, 585),
+	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == SET_BAD_PIG)
+		put_rectangle(al->surf_ed, itop(280, 540), itop(460, 585), BLACK);
+	if ((al->ev.motion.windowID == 2 && (inr(itop(495, 540), itop(645, 585),
+	itop(al->ev.motion.x, al->ev.motion.y))))
+	|| al->edit.stat == SELECT || al->edit.stat == DRAWING)
+		put_rectangle(al->surf_ed, itop(495, 540), itop(645, 585), BLACK);
+	if ((al->ev.motion.windowID == 2 && inr(itop(45, 605), itop(220, 650),
+	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == LINK_MOD)
+		put_rectangle(al->surf_ed, itop(45, 605), itop(220, 650), BLACK);
+	set_edit_menu_next_next(al);
 }
 
 void			set_edit_menu(t_al *al)

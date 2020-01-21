@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 21:34:23 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:14:19 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ typedef enum		e_status
 {
 	MENU,
 	GAME,
+	DEAD,
 	PAUSE,
 	EDIT
 }					t_status;
@@ -121,7 +122,18 @@ typedef enum		e_status_ed
 	SET_WALL_TEXT,
 	LINK_MOD,
 	EDIT_WALL,
-	EDIT_SECT
+	EDIT_SECT,
+	SET_PLAYER,
+	LIFE,
+	POW,
+	WEAPON,
+	SIZE,
+	MASS,
+	GRAVITY,
+	IS_DOOR,
+	RESET,
+	DIFF_EASY,
+	DIFF_HARD
 }					t_status_ed;
 
 typedef enum		e_ai
@@ -179,6 +191,7 @@ typedef struct		s_sector
 	unsigned short	fl_tex;
 	unsigned short	ce_tex;
 	unsigned int	nb_wal;
+
 	t_walls			*walls;
 	struct s_sector	*next;
 }					t_sector;
@@ -462,8 +475,12 @@ typedef struct		s_text_list
 	t_text	ce_hei_num; //trouver un moyen de free quand y a le changement de stat a verifier mais je pense que ca creer des leaks
 	t_text	fl_tex;
 	t_text	ce_tex;
-
-
+	t_text	set_player;
+	t_text	life;
+	t_text	power;
+	t_text	weapon;
+	t_text	size;
+	t_text	mass;
 
 	t_text	set_spawn;
 	t_text	set_bad_pig;
@@ -482,11 +499,12 @@ typedef struct		s_al
 	t_tex			h;
 	t_tex			f;
 	t_status		status;
-	void			(*stat_fnc[4])(struct s_al *);
+	void			(*stat_fnc[5])(struct s_al *);
 
 	SDL_Window		*sdlwin;
 	SDL_Surface		*sdlsurf;
 	unsigned		*pix;
+	unsigned		pix_dead[WIN_SIZEX * WIN_SIZEY];
 
 	SDL_Window		*win_ed;
 	SDL_Surface		*surf_ed;
@@ -498,6 +516,7 @@ typedef struct		s_al
 	SDL_Color		color;
 
 	unsigned int	nb_sec;
+	unsigned int	sp_key_sec;
 	t_sector		*sec;
 	t_sector		*rotsec;
 	unsigned short	nb_tex;
@@ -550,6 +569,7 @@ int					pr_err(char *str);
 
 void				init(t_al *al, char *str);
 void				main_loop(t_al *al);
+void				pix_to_pix(unsigned *src, unsigned *dst);
 
 void				key_func(t_al *al);
 void				mouse_press(t_al *al);
@@ -574,6 +594,7 @@ void				cap_int(int *var, int lowcap, int highcap);
 /*
 ** free fonction
 ** becaraya is dumb lololo
+** he sexy tho
 */
 
 void				free_wall(t_walls *walls);
@@ -616,6 +637,7 @@ int					write_texture_groups(t_al *al, int fd);
 void				editor(t_al *al);
 void				menu(t_al *al);
 void				game(t_al *al);
+void				dead(t_al *al);
 void				render(t_al *al);
 
 /*

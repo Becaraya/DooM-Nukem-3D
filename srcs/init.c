@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 10:43:44 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:11:07 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,11 +174,12 @@ void			init(t_al *al, char *str)
 		exit(0);
 	load_hud(al);
 	init_player(al, &al->play);
-	creat_entity(al);
+	//creat_entity(al);
 	init_trigo(al);
 	init_status(al);
+	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
 	al->status = EDIT;
-	// al->status = GAME;
+	al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

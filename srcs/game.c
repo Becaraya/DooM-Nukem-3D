@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/21 10:44:13 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:56:29 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ static void														sp_key(t_al *al)
 	double tmp;
 
 	tmp = 0.000001 * al->dtime; 
-	if (al->k.lbrack && al->nb_sec >= 2)
+	if (al->k.lbrack && al->nb_sec >= 2 && al->play.csec == 2)
 	{
 		al->sec[2].fl_hei + tmp < al->sec[2].ce_hei ? al->sec[2].fl_hei += tmp
 		: 0;
 	}
-	else if (al->k.rbrack && al->nb_sec >= 2)
+	else if (al->k.rbrack && al->nb_sec >= 2 && al->play.csec == 2)
 		al->sec[2].fl_hei -= tmp;
 
 }
@@ -59,7 +59,7 @@ void															game(t_al *al)
 	else
 	{
 		al->status = DEAD;
-		pix_to_pix(al->pix, al->pix_dead);
+		pix_to_pix(al->pix, al->pix_dead, 1);
 		SDL_ShowCursor(SDL_ENABLE);
 	}
 }

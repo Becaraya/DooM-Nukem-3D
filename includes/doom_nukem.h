@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 10:43:52 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/21 15:27:23 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -488,7 +488,9 @@ typedef struct		s_al
 	SDL_Window		*sdlwin;
 	SDL_Surface		*sdlsurf;
 	unsigned		*pix;
+
 	unsigned		pix_dead[WIN_SIZEX * WIN_SIZEY];
+	t_tex			you_died;
 
 	SDL_Window		*win_ed;
 	SDL_Surface		*surf_ed;
@@ -552,7 +554,7 @@ int					pr_err(char *str);
 
 void				init(t_al *al, char *str);
 void				main_loop(t_al *al);
-void				pix_to_pix(unsigned *src, unsigned *dst);
+void				pix_to_pix(unsigned *src, unsigned *dst, double alpha);
 
 void				key_func(t_al *al);
 void				mouse_press(t_al *al);

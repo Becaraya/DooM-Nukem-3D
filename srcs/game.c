@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/20 15:00:09 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/21 10:34:24 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,15 @@ void															game(t_al *al)
 //		acceleration_entities(al, &al->ent[0]);
 	displacement(al);
 	render(al);
-	SDL_WarpMouseInWindow(al->sdlwin, WIN_SIZEX / 2, WIN_SIZEY / 2);
-	SDL_ShowCursor(SDL_DISABLE);
+	if (al->play.alive)
+	{
+		SDL_WarpMouseInWindow(al->sdlwin, WIN_SIZEX / 2, WIN_SIZEY / 2);
+		SDL_ShowCursor(SDL_DISABLE);
+	}
+	else
+	{
+		al->status = DEAD;
+		pix_to_pix(al->pix, al->pix_dead);
+		SDL_ShowCursor(SDL_ENABLE);
+	}
 }

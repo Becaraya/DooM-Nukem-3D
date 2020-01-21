@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 14:48:02 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/21 10:35:54 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ typedef enum		e_status
 {
 	MENU,
 	GAME,
+	DEAD,
 	PAUSE,
 	EDIT
 }					t_status;
@@ -478,11 +479,12 @@ typedef struct		s_al
 {
 	t_tex			h;
 	t_status		status;
-	void			(*stat_fnc[4])(struct s_al *);
+	void			(*stat_fnc[5])(struct s_al *);
 
 	SDL_Window		*sdlwin;
 	SDL_Surface		*sdlsurf;
 	unsigned		*pix;
+	unsigned		pix_dead[WIN_SIZEX * WIN_SIZEY];
 
 	SDL_Window		*win_ed;
 	SDL_Surface		*surf_ed;
@@ -546,6 +548,7 @@ int					pr_err(char *str);
 
 void				init(t_al *al, char *str);
 void				main_loop(t_al *al);
+void				pix_to_pix(unsigned *src, unsigned *dst);
 
 void				key_func(t_al *al);
 void				mouse_press(t_al *al);
@@ -570,6 +573,7 @@ void				cap_int(int *var, int lowcap, int highcap);
 /*
 ** free fonction
 ** becaraya is dumb lololo
+** he sexy tho
 */
 
 void				free_wall(t_walls *walls);
@@ -612,6 +616,7 @@ int					write_texture_groups(t_al *al, int fd);
 void				editor(t_al *al);
 void				menu(t_al *al);
 void				game(t_al *al);
+void				dead(t_al *al);
 void				render(t_al *al);
 
 /*

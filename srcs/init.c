@@ -6,17 +6,17 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 14:40:17 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/21 09:15:03 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
-#include <float.h>
 
 static void		init_status(t_al *al)
 {
 	al->stat_fnc[MENU] = menu;
 	al->stat_fnc[GAME] = game;
+	al->stat_fnc[DEAD] = dead;
 	al->stat_fnc[PAUSE] = yeet;
 	al->stat_fnc[EDIT] = editor;
 }

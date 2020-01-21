@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   dead.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 10:27:22 by pitriche         ###   ########.fr       */
+/*   Created: 2020/01/21 09:13:43 by pitriche          #+#    #+#             */
+/*   Updated: 2020/01/21 10:36:12 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-// __attribute__ ((destructor)) void no_end (void);
-
-int		main(int ac, char **av)
+void	pix_to_pix(unsigned *src, unsigned *dst)
 {
-	t_al	*al;
+	unsigned i;
 
-	if (!(al = ft_memalloc(sizeof(t_al))))
-		exit(0);
-	if (ac < 2)
-		return (pr_err("No .hms file provided\n"));
-	init(al, av[1]);
-	//hms_encoder(&al, "housetexgp.hms");
-	main_loop(al);
-	return (0);
+	i = 0;
+	while (i < WIN_SIZEX * WIN_SIZEY)
+	{
+		dst[i] = src[i];
+		i++;
+	}
 }
 
-// void	no_end()
-// {
-// 	while (42);
-// }
+void	dead(t_al *al)
+{
+	pix_to_pix(al->pix_dead, al->pix);
+}

@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 16:05:51 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/05 16:28:37 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/20 12:55:04 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,14 +129,14 @@ void		displacement(t_al *al)
 	int i;
 
 	colision(al);
-	if (al->dtime > 1)
+	if (al->dtime > 1 && al->dtime < 1000000)
 		ft_nop_player(al, 0, al->play.velx * al->dtime / 1000000, al->play.vely
 		* al->dtime / 1000000);
 	al->play.posz += al->play.velz * al->dtime / 1000000;
 	al->play.eyez += al->play.velz * al->dtime / 1000000;
 	i = -1;
 	while(++i < al->nb_ent)
-		if (al->dtime > 1)
+		if (al->dtime > 1 && al->dtime < 1000000)
 			ft_nop(al, &al->ent[i], al->ent[i].velx * al->dtime / 1000000,
 			al->ent[i].vely * al->dtime / 1000000);
 	if (al->play.posz < al->sec[al->play.csec].fl_hei)

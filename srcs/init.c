@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 09:15:03 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/21 10:43:44 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			creat_entity(t_al *al)
 {
 	int i;
 
-	al->nb_ent = 0;
+	al->nb_ent = 10;
 	if (!(al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
 		yeet(al);
 	if (!(al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
@@ -49,7 +49,7 @@ void			creat_entity(t_al *al)
 	i = -1;
 	while (++i < al->nb_ent)
 	{
-		al->ent[i].csec = 1;
+		al->ent[i].csec = 2;
 		al->ent[i].posx = 12;
 		al->ent[i].posy = 4 + (double)i;
 		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
@@ -165,6 +165,7 @@ void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 void			load_hud(t_al *al)
 {
 	bmp_to_tex(&(al->h), "ressources/HUD/heart.bmp", 46, 41);
+	bmp_to_tex(&(al->f), "ressources/HUD/chop.bmp", 100, 133);
 }
 
 void			init(t_al *al, char *str)
@@ -177,7 +178,7 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	al->status = EDIT;
-	al->status = GAME;
+	// al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -204,6 +205,7 @@ void			init(t_al *al, char *str)
 	al->edit.stat = SELECT;
 	// al->edit.stat = EDIT_WALL;
 	al->edit.zoom = 15;
-	al->edit.index_sect = al->nb_sec;
-	(al->sect) ? al->edit.index_wall = al->sect->nb_wal : 0;
+	al->edit.index_sect = al->nb_sec; 
+	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;
+// 	printf("al->edit.index_wall %d\n", al->sect->nb_wal);
 }

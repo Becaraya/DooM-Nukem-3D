@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:08:39 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/15 20:20:00 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:04:15 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void			add_wall(t_al *al, t_sector *sect, t_point coo)
 		return ;
 	if (!(new = ft_memalloc(sizeof(t_walls))))
 		yeet(al);
+	sect->nb_wal++;
 	new->x1 = sect->walls->x2;
 	new->y1 = sect->walls->y2;
 	new->x2 = sect->walls->x2;

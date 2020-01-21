@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 10:35:54 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/21 10:43:52 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,14 @@
 # define BLACK 0x0
 # define LIGHT_GREY 0xb0b0b0
 # define DARK_GREY 0x606060
+# define RED 0xff0000
+# define YELLOW 0xffff00
 
 # define BACK_GROUND LIGHT_GREY
 # define TEXT_EDITOR BLACK
 
 # define TEX_SIZE_MENU 100
+
 /*
 ** ENUMS, for all status ######################################################
 */
@@ -478,6 +481,7 @@ typedef struct		s_text_list
 typedef struct		s_al
 {
 	t_tex			h;
+	t_tex			f;
 	t_status		status;
 	void			(*stat_fnc[5])(struct s_al *);
 
@@ -663,7 +667,15 @@ void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int
 */
 
 void				draw_sect(t_al *al, t_sector *sect);
-void				draw_wall(t_al *al, t_walls *wall);
+// void				draw_wall(t_al *al, t_walls *wall, int clr);
+
+// void				draw_sect(t_al *al, t_sector *sect);
+void				draw_wall(t_al *al, t_walls *wall, int clr);
+
+void				draw_sect_index(t_al *al, t_sector *sect, unsigned int i_s);
+void				draw_wall_index(t_al *al, t_walls *wall, int index);
+
+
 
 /*
 ** Struct Edit Tool

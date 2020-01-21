@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:15:33 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/17 11:52:08 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:31:52 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@ void	text_sect(t_al *al)
 		print_text(al, al->text.fl_hei, al->surf_ed);
 		print_text(al, al->text.ce_hei, al->surf_ed);
 	}
-	print_text(al, al->text.x_start, al->surf_ed);
-	print_text(al, al->text.y_start, al->surf_ed);
-	print_text(al, al->text.x_end, al->surf_ed);
+	// print_text(al, al->text.x_start, al->surf_ed);
+	// print_text(al, al->text.y_start, al->surf_ed);
+	// print_text(al, al->text.x_end, al->surf_ed);
+	// print_text(al, al->text.y_end, al->surf_ed);
 	print_text(al, al->text.sect_index, al->surf_ed);
-	print_text(al, al->text.y_end, al->surf_ed);
 }
 
 void	text(t_al *al)

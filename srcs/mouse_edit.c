@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/17 17:23:49 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/20 19:07:03 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ void			arrow_stat(t_al *al, SDL_MouseButtonEvent bev)
 	if (al->edit.index_wall > 0 && bev.x > 145 && bev.x < 175
 		&& bev.y > 59 && bev.y < 86)
 		al->edit.index_wall--;
-	if (al->edit.index_wall < nb_wall(al)
+	if (al->edit.index_wall < nb_wall(al) - 1
 		&& bev.x > 176 && bev.x < 195 && bev.y > 59 && bev.y < 86)
 		al->edit.index_wall++;
 	if (al->edit.stat == SET_CEL_HEI || al->edit.stat == SET_FLO_HEI)

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/22 22:31:57 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/23 00:13:48 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			creat_entity(t_al *al)
 {
 	int i;
 
-	al->nb_ent = 10;
+	al->nb_ent = 1;
 	if (!(al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
 		yeet(al);
 	if (!(al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
@@ -49,7 +49,7 @@ void			creat_entity(t_al *al)
 	i = -1;
 	while (++i < al->nb_ent)
 	{
-		al->ent[i].csec = 2;
+		al->ent[i].csec = 1;
 		al->ent[i].posx = 12;
 		al->ent[i].posy = 4 + (double)i;
 		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
@@ -178,7 +178,7 @@ void			init(t_al *al, char *str)
 	init_status(al);
 	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
 	al->status = EDIT;
-	// al->status = GAME;
+	al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

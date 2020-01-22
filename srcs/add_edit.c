@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:08:39 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 22:09:33 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/22 14:37:52 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void			init_sect(t_al *al, t_sector *sect)
 		new->next = al->sect;
 		al->sect = new;
 	}
-	al->sect->nb_wal = 0;
+	al->sect->nb_wal = 1;
 }
 
 void			add_sector(t_al *al, t_point coo)

@@ -6,15 +6,23 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 23:36:45 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 22:33:04 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/22 23:54:41 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-void		ft_rectdel(SDL_Rect **re)
+void			ft_rectdel(SDL_Rect **re)
 {
 	ft_memdel((void **)re);
+}
+
+void			free_text_hei_num(t_al *al)
+{
+	al->text.ce_hei_num.str ? ft_strdel(&al->text.ce_hei_num.str) : 0;
+	al->text.ce_hei_num.where ? ft_rectdel(&al->text.ce_hei_num.where) : 0;
+	al->text.fl_hei_num.str ? ft_strdel(&al->text.fl_hei_num.str) : 0;
+	al->text.fl_hei_num.where ? ft_rectdel(&al->text.fl_hei_num.where) : 0;
 }
 
 void			free_text_next_next(t_al *al)
@@ -33,6 +41,8 @@ void			free_text_next_next(t_al *al)
 	al->text.mass.where ? ft_rectdel(&al->text.mass.where) : 0;
 	al->text.gravity.str ? ft_strdel(&al->text.gravity.str) : 0;
 	al->text.gravity.where ? ft_rectdel(&al->text.gravity.where) : 0;
+	al->text.is_door.str ? ft_strdel(&al->text.is_door.str) : 0;
+	al->text.is_door.where ? ft_rectdel(&al->text.is_door.where) : 0;
 }
 
 void			free_text_next(t_al *al)
@@ -79,6 +89,7 @@ void			free_text(t_al *al)
 	al->text.reset_map.where ? ft_rectdel(&al->text.reset_map.where) : 0;
 	al->text.reset_player.str ? ft_strdel(&al->text.reset_player.str) : 0;
 	al->text.reset_player.where ? ft_rectdel(&al->text.reset_player.where) : 0;
+	free_text_hei_num(al);
 	free_text_next(al);
 	free_text_next_next(al);
 }

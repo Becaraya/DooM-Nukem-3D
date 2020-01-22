@@ -219,7 +219,6 @@ void		get_wall_tab(t_al *al, int nb_sec, t_walls *walls)
 		al->sec[nb_sec].walls[nb_wal].bot_tex = walls->bot_tex;
 		al->sec[nb_sec].walls[nb_wal].sec_lnk = walls->sec_lnk;
 		al->sec[nb_sec].walls[nb_wal].is_cross = walls->is_cross;
-
 		nb_wal++;
 		walls = walls->next;
 	}
@@ -231,7 +230,7 @@ void		get_sec_tab(t_al *al)
 	t_sector		*sect;
 	unsigned int	nb_sec;
 
-	if (!(al->sec = ft_memalloc(sizeof(t_sector) * count_sect(al->sect)+1)))
+	if (!(al->sec = ft_memalloc(sizeof(t_sector) * count_sect(al->sect)+2)))
 		yeet(al);
 	sect = al->sect;
 	nb_sec = 1;

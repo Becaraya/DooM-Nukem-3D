@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 23:04:35 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/22 17:04:09 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,26 +50,29 @@ void			print_co(t_al *al)
 	ft_strdel(&tmp);
 }
 
+void			interactive_arrow_sector(t_al *al, SDL_MouseMotionEvent mev)
+{
+	if (al->edit.index_sect > 1)
+		draw_triangle(itop(160, 30), -1, al->surf_ed, inr(itop(145, 15),
+		itop(175, 47), itop(mev.x, mev.y)) ? BLACK : WHITE);
+	if (al->edit.index_sect < al->nb_sec)
+		draw_triangle(itop(180, 30), 1, al->surf_ed, inr(itop(176, 15),
+		itop(195, 47), itop(mev.x, mev.y)) ? BLACK : WHITE);
+	if (al->edit.index_wall > 0)
+		draw_triangle(itop(160, 69), -1, al->surf_ed, inr(itop(145, 58),
+		itop(175, 88), itop(mev.x, mev.y)) ? BLACK : WHITE);
+	if (al->edit.index_wall < nb_wall(al) - 1)
+		draw_triangle(itop(180, 69), 1, al->surf_ed, inr(itop(176, 58),
+		itop(195, 88), itop(mev.x, mev.y)) ? BLACK : WHITE);
+}
+
 void			interactive_arrow(t_al *al)
 {
 	SDL_MouseMotionEvent	mev;
 
 	mev = al->ev.motion;
 	if (al->sect)
-	{
-		if (al->edit.index_sect > 1)
-			draw_triangle(itop(160, 30), -1, al->surf_ed, inr(itop(145, 15),
-			itop(175, 47), itop(mev.x, mev.y)) ? BLACK : WHITE);
-		if (al->edit.index_sect < al->nb_sec)
-			draw_triangle(itop(180, 30), 1, al->surf_ed, inr(itop(176, 15),
-				itop(195, 47), itop(mev.x, mev.y)) ? BLACK : WHITE);
-		if (al->edit.index_wall > 0)
-			draw_triangle(itop(160, 69), -1, al->surf_ed, inr(itop(145, 58),
-			itop(175, 88), itop(mev.x, mev.y)) ? BLACK : WHITE);
-			if (al->edit.index_wall < nb_wall(al) - 1)
-			draw_triangle(itop(180, 69), 1, al->surf_ed, inr(itop(176, 58),
-			itop(195, 88), itop(mev.x, mev.y)) ? BLACK : WHITE);
-	}
+		interactive_arrow_sector(al, mev);
 	if (al->edit.stat == SET_CEL_HEI || al->edit.stat == SET_FLO_HEI
 		|| (al->edit.stat >= LIFE && al->edit.stat <= MASS))
 	{
@@ -87,6 +90,13 @@ void			interactive_arrow(t_al *al)
 	}
 }
 
+void			free_before_refresh(t_al *al)
+{
+	if (al->edit.stat != GRAVITY && al->text.g_num.str)
+		(al->text.g_num.str) ? ft_strdel(&al->text.g_num.str) : 0;
+		
+}
+
 void			editor(t_al *al)
 {
 	set_edit(al);
@@ -97,5 +107,6 @@ void			editor(t_al *al)
 		draw_sect_index(al, al->sect, al->nb_sec);
 	}
 	interactive_arrow(al);
+	// free_before_refresh(al);
 	refresh(al);
 }

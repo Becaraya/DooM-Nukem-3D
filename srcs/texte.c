@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:51:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 22:55:07 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/22 11:14:10 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	init_text_edit_next_next(t_al *al)
 	set_text(&al->text.gravity, "Gravity", get_rect(300, 615),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.g_num, "9.81", get_rect(570, 625),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.is_door, "Is Door", get_rect(520, 330),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 }
 

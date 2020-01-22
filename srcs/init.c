@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 22:43:05 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/22 22:31:57 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void			init(t_al *al, char *str)
 		exit(0);
 	load_hud(al);
 	init_player(al, &al->play);
-	//creat_entity(al);
+	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
 	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
@@ -203,7 +203,6 @@ void			init(t_al *al, char *str)
 	// get_map(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = SELECT;
-	// al->edit.stat = SET_PLAYER;
 	al->edit.zoom = 15;
 	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;

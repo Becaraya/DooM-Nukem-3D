@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:50:00 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 16:38:58 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 23:04:38 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,6 @@ void			set_edit(t_al *al)
 		x++;
 	}
 }
-
-/*
-**	SELECT,
-**	DRAWING,
-**	SET_SPAWN,
-**	SET_BAD_PIG,
-
-**	SET_FLO_TEXT,
-**	SET_CEL_TEXT,
-
-**	SET_FLO_HEI,
-**	SET_CEL_HEI,
-
-**	SET_WALL_TEXT,
-**	LINK_MOD,
-**	EDIT_WALL,
-**	EDIT_SECT
-*/
-
 
 void			get_hei(t_al *al)
 {
@@ -85,12 +66,37 @@ void			get_hei(t_al *al)
 	free(t);
 }
 
+/*
+ *	POW,
+	WEAPON,
+	SIZE,
+	MASS, 
+*/
+
+void			get_player_stat(t_al *al)
+{
+	if (al->edit.stat >= LIFE && al->edit.stat <= MASS)
+	{
+		al->text.player_value.str ? ft_strdel(&al->text.player_value.str) : 0;
+		if (al->edit.stat == LIFE)
+			al->text.player_value.str = ft_itoa((int)al->play.alive);
+		if (al->edit.stat == POW)
+			al->text.player_value.str = dtoa_doom(al->play.power_mult);
+		if (al->edit.stat == WEAPON)
+			al->text.player_value.str = ft_itoa(0);
+		if (al->edit.stat == SIZE)
+			al->text.player_value.str = dtoa_doom(al->play.size);
+		if (al->edit.stat == MASS)
+			al->text.player_value.str = dtoa_doom(al->play.mass);
+	}
+}
+
 void			set_edit_menu_next_next(t_al *al)
 {
 	t_point mouse;
 
 	mouse = itop(al->ev.motion.x, al->ev.motion.y);
-	if ((al->edit.stat >= SET_PLAYER && al->edit.stat <= MASS )||
+	if ((al->edit.stat >= SET_PLAYER && al->edit.stat <= MASS) ||
 	(al->ev.motion.windowID == 2
 	&& inr(itop(495, 240), itop(645, 285), mouse)))
 	{
@@ -111,7 +117,8 @@ void			set_edit_menu_next_next(t_al *al)
 void			set_edit_menu_next(t_al *al)
 {
 	if ((al->ev.motion.windowID == 2 && inr(itop(45, 540), itop(220, 585),
-	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == SET_SPAWN)
+	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == SET_SPAWN
+	|| al->edit.stat == SET_END)
 		put_rectangle(al->surf_ed, itop(45, 540), itop(220, 585), BLACK);
 	if ((al->ev.motion.windowID == 2 && inr(itop(280, 540), itop(460, 585),
 	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == SET_BAD_PIG)
@@ -123,6 +130,9 @@ void			set_edit_menu_next(t_al *al)
 	if ((al->ev.motion.windowID == 2 && inr(itop(45, 605), itop(220, 650),
 	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == LINK_MOD)
 		put_rectangle(al->surf_ed, itop(45, 605), itop(220, 650), BLACK);
+	if ((al->ev.motion.windowID == 2 && inr(itop(280, 605), itop(460, 650),
+	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == GRAVITY)
+		put_rectangle(al->surf_ed, itop(280, 605), itop(460, 650), BLACK);
 	set_edit_menu_next_next(al);
 }
 
@@ -136,8 +146,18 @@ void			set_edit_menu(t_al *al)
 			get_hei(al);
 		print_co(al);
 	}
+	get_player_stat(al);
 	if (al->edit.stat == DRAWING)
 		put_rectangle(al->surf_ed, itop(590, 15), itop(699, 48), BLACK);
+	if (inr(itop(45, 125), itop(230, 170), itop(al->ev.motion.x,
+		al->ev.motion.y)))
+		put_rectangle(al->surf_ed, itop(45, 125), itop(230, 170), BLACK);
+	if (inr(itop(280, 125), itop(460, 170), itop(al->ev.motion.x,
+		al->ev.motion.y)))
+		put_rectangle(al->surf_ed, itop(280, 125), itop(460, 170), BLACK);
+	if (inr(itop(495, 125), itop(645, 170), itop(al->ev.motion.x,
+		al->ev.motion.y)))
+		put_rectangle(al->surf_ed, itop(495, 125), itop(645, 170), BLACK);		
 	if ((al->ev.motion.windowID == 2 && inr(itop(45, 240), itop(220, 285),
 		itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == EDIT_SECT
 		|| al->edit.stat == SET_FLO_TEXT || al->edit.stat == SET_FLO_HEI

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yeet.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/21 10:27:50 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/21 22:13:23 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@ void	free_wall(t_walls *walls)
 {
 	if (walls->next)
 		free_wall(walls->next);
-	ft_memdel((void **)(&walls));
+	free(walls);
+	walls = NULL;
 }
 
 void	free_sect(t_sector *sect)
@@ -24,7 +25,8 @@ void	free_sect(t_sector *sect)
 	if (sect->next)
 		free_sect(sect->next);
 	free_wall(sect->walls);
-	ft_memdel((void **)(&sect));
+	free(sect);
+	sect = NULL;
 }
 
 void	yeet(t_al *al)

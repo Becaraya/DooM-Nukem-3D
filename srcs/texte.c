@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:51:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 15:13:29 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 22:55:07 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,10 @@ void	init_text_edit(t_al *al)
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.wall_index, "WHO WALL", get_rect(25, 58),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	// set_text(&al->text.x_start, "X1", get_rect(25, 100),
-	// add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	// set_text(&al->text.y_start, "Y1", get_rect(150, 100),
-	// add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	// set_text(&al->text.x_end, "X2", get_rect(25, 150),
-	// add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	// set_text(&al->text.y_end, "Y2", get_rect(150, 150),
-	// add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.dif_ez, "Difficulty : Easy", get_rect(70, 135),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.dif_ha, "Difficulty : Hard", get_rect(70, 135),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.cancel, "CANCEL", get_rect(600, 20),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.settings, "Settings", get_rect(25, 200),
@@ -55,6 +51,16 @@ void	init_text_edit_next_next(t_al *al)
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.mass, "Mass", get_rect(300, 410),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.player_value, "Player num", get_rect(570, 410),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.reset_map, "Reset Map", get_rect(300, 135),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.reset_player, "Reset Player", get_rect(515, 135),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.gravity, "Gravity", get_rect(300, 615),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.g_num, "9.81", get_rect(570, 625),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 }
 
 void	init_text_edit_next(t_al *al)
@@ -72,6 +78,8 @@ void	init_text_edit_next(t_al *al)
 	set_text(&al->text.tools, "Tools", get_rect(25, 500),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.set_spawn, "Set Spawn", get_rect(70, 550),
+	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	set_text(&al->text.set_end, "Set End", get_rect(70, 550),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	set_text(&al->text.set_bad_pig, "Set Goret", get_rect(300, 550),
 	add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;

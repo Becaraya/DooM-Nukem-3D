@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:08:39 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 19:04:15 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 22:09:33 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,5 +83,8 @@ void			add_wall(t_al *al, t_sector *sect, t_point coo)
 	//cross_wall(t_walls w1, t_walls w2);
 	if (check_end_sector(sect->walls->next, coo.x - (coo.x % al->edit.zoom),
 		coo.y - (coo.y % al->edit.zoom)) == 1)
+	{
 		al->edit.stat = SELECT;
+		al->edit.index_sect++;
+	}
 }

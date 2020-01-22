@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:15:33 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 16:42:17 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 22:53:17 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ void	set_player_text(t_al *al)
 		print_text(al, al->text.weapon, al->surf_ed);
 		print_text(al, al->text.size, al->surf_ed);
 		print_text(al, al->text.mass, al->surf_ed);
+		if (al->edit.stat != SET_PLAYER)
+			print_text(al, al->text.player_value, al->surf_ed);
 	}
 }
 
@@ -75,6 +77,12 @@ void	text(t_al *al)
 	print_text(al, al->text.set_player, al->surf_ed);
 	print_text(al, al->text.tools, al->surf_ed);
 	print_text(al, al->text.settings, al->surf_ed);
+	print_text(al, al->text.reset_map, al->surf_ed);
+	print_text(al, al->text.reset_player, al->surf_ed);
+	if (al->diff == 0)
+		print_text(al, al->text.dif_ez, al->surf_ed);
+	else
+		print_text(al, al->text.dif_ha, al->surf_ed);
 	al->edit.stat == DRAWING ? print_text(al, al->text.cancel, al->surf_ed) : 0;
 	if (al->sect)
 	{
@@ -83,10 +91,16 @@ void	text(t_al *al)
 		{
 			if (al->edit.stat == EDIT_WALL || al->edit.stat == SET_WALL_TEXT)
 				print_text(al, al->text.wall_tex, al->surf_ed);
-			print_text(al, al->text.set_spawn, al->surf_ed);
+			if (al->edit.stat == SET_END)
+				print_text(al, al->text.set_end, al->surf_ed);
+			else
+				print_text(al, al->text.set_spawn, al->surf_ed);
+			print_text(al, al->text.gravity, al->surf_ed);
+			if (al->edit.stat == GRAVITY)
+				print_text(al, al->text.g_num, al->surf_ed);
 			print_text(al, al->text.set_bad_pig, al->surf_ed);
-			print_text(al, al->text.wall_index, al->surf_ed);
 			print_text(al, al->text.link, al->surf_ed);
+			print_text(al, al->text.wall_index, al->surf_ed);
 		}
 	}
 	set_player_text(al);

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 15:14:19 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 22:53:12 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@
 ** bit shift
 */
 
-# define TEX_REPEAT_F		131071
-# define TEX_REPEAT_F_DIV	17
+# define TEX_REPEAT_F 131071
+# define TEX_REPEAT_F_DIV 17
 
 # define PLAYER_CROUCH 1.10
 # define PLAYER_SIZE 1.78
@@ -114,6 +114,7 @@ typedef enum		e_status_ed
 	SELECT,
 	DRAWING,
 	SET_SPAWN,
+	SET_END,
 	SET_BAD_PIG,
 	SET_FLO_TEXT,
 	SET_FLO_HEI,
@@ -130,10 +131,7 @@ typedef enum		e_status_ed
 	SIZE,
 	MASS,
 	GRAVITY,
-	IS_DOOR,
-	RESET,
-	DIFF_EASY,
-	DIFF_HARD
+	IS_DOOR
 }					t_status_ed;
 
 typedef enum		e_ai
@@ -458,10 +456,6 @@ typedef struct		s_text_list
 	t_text	settings;
 	t_text	wall_para;
 	t_text	sect_para;
-	t_text	x_start;
-	t_text	y_start;
-	t_text	x_end;
-	t_text	y_end;
 	t_text	wall;
 	t_text	sector;
 	t_text	tools;
@@ -483,9 +477,20 @@ typedef struct		s_text_list
 	t_text	mass;
 
 	t_text	set_spawn;
+	t_text	set_end;
 	t_text	set_bad_pig;
 	t_text	draw;
 	t_text	del_sect;
+
+	t_text	player_value;
+
+	t_text	dif_ez;
+	t_text	dif_ha;
+
+	t_text	gravity;
+	t_text	g_num;
+	t_text	reset_map;
+	t_text	reset_player;
 
 	t_text	link;
 }					t_text_list;
@@ -504,7 +509,9 @@ typedef struct		s_al
 	SDL_Window		*sdlwin;
 	SDL_Surface		*sdlsurf;
 	unsigned		*pix;
+
 	unsigned		pix_dead[WIN_SIZEX * WIN_SIZEY];
+	t_tex			you_died;
 
 	SDL_Window		*win_ed;
 	SDL_Surface		*surf_ed;
@@ -546,6 +553,8 @@ typedef struct		s_al
 	t_edit			edit;
 	int				tex_choice;
 
+	int				diff:1;
+
 	t_keys			k;
 	SDL_Event		ev;
 	t_mouse			m;
@@ -569,7 +578,7 @@ int					pr_err(char *str);
 
 void				init(t_al *al, char *str);
 void				main_loop(t_al *al);
-void				pix_to_pix(unsigned *src, unsigned *dst);
+void				pix_to_pix(unsigned *src, unsigned *dst, double alpha);
 
 void				key_func(t_al *al);
 void				mouse_press(t_al *al);

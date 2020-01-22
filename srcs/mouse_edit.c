@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 16:40:50 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 23:06:30 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,89 @@ void			arrow_stat_hei(t_al *al, SDL_MouseButtonEvent bev)
 	}
 	if (al->edit.stat == SET_FLO_HEI)
 	{
-		if (bev.x > 520 && bev.x < 545 && bev.y > 410 && bev.y < 435 &&tmp->fl_hei > 0)
+		if (bev.x > 520 && bev.x < 545 && bev.y > 410 && bev.y < 435 && tmp->fl_hei > 0)
 			tmp->fl_hei -= 0.25;
 		if (inr(itop(630, 410), itop(660, 435), itop(bev.x, bev.y)) &&  tmp->ce_hei > tmp->fl_hei)
 			tmp->fl_hei += 0.25;
 	}
 }
+
+void			arrow_stat_player(t_al *al, t_point bev)
+{
+	if (bev.x > 520 && bev.x < 545 && bev.y > 410 && bev.y < 435)
+	{
+		if (al->edit.stat == LIFE && al->play.alive > 2)
+			al->play.alive--;
+		if (al->edit.stat == POW && al->play.power_mult > 0.2)
+			al->play.power_mult -= 0.1;
+		if (al->edit.stat == WEAPON)
+			printf("NEED WEAPON PLEAZ\n");
+		if (al->edit.stat == SIZE && al->play.size > 0.3)
+		{
+			if (al->play.size == 1.78)
+			{
+				al->play.size = 1.75;
+				al->play.eyez = 1.60;
+			}
+			else
+			{
+				al->play.size -= 0.5;
+				al->play.eyez -= 0.5;
+			}
+		}
+		if (al->edit.stat == MASS && al->play.mass > 20 && al->play.mass != 67)
+			al->play.mass -= 10;
+		if (al->edit.stat == MASS && al->play.mass == 67)
+			al->play.mass = 60;
+	}
+	if (inr(itop(630, 410), itop(660, 435), bev))
+	{
+		if (al->edit.stat == LIFE)
+			al->play.alive++;
+		if (al->edit.stat == POW)
+			al->play.power_mult += 0.1;
+		if (al->edit.stat == WEAPON)
+			printf("NEED WEAPON PLEAZ\n");
+		if (al->edit.stat == SIZE)
+		{
+			if (al->play.size == 1.78)
+			{
+				al->play.size = 1.80;
+				al->play.eyez = 1.65;
+			}
+			else
+			{
+				al->play.size += 0.5;
+				al->play.eyez += 0.5;
+			}
+		}
+		if (al->edit.stat == MASS && al->play.mass != 67)
+			al->play.mass += 10;
+		if (al->edit.stat == MASS && al->play.mass == 67)
+			al->play.mass = 70;
+	}
+}
+
+void			arrow_gravity(t_al *al, SDL_MouseButtonEvent bev)
+{
+	if (inr(itop(520, 625), itop(545, 660), itop(bev.x, bev.y)) && al->g > 2)
+	{
+		if (al->g == DEFAULT_G)
+			al->g = 9.0;
+		else
+			al->g--;
+	}
+	if (inr(itop(630, 615), itop(660, 660), itop(bev.x, bev.y)))
+	{
+		if (al->g == DEFAULT_G)
+			al->g = 10.0;
+		else
+			al->g++;
+	}
+	ft_strdel(&al->text.g_num.str);
+	al->text.g_num.str = dtoa_doom(al->g);
+}
+
 
 void			arrow_stat(t_al *al, SDL_MouseButtonEvent bev)
 {
@@ -96,24 +173,33 @@ void			arrow_stat(t_al *al, SDL_MouseButtonEvent bev)
 		al->edit.index_wall++;
 	if (al->edit.stat == SET_CEL_HEI || al->edit.stat == SET_FLO_HEI)
 		arrow_stat_hei(al, bev);
+	if (al->edit.stat >= LIFE && al->edit.stat <= MASS)
+		arrow_stat_player(al, itop(bev.x, bev.y));
+	if (al->edit.stat == GRAVITY)
+		arrow_gravity(al, bev);
 }
 
 void			mouse_press_edit_mini_menu(t_al *al, SDL_MouseButtonEvent bev)
 {
 	if (inr(itop(495, 540), itop(645, 585),	itop(bev.x, bev.y)))
 		al->edit.stat = SELECT;
-	if (inr(itop(45, 605), itop(220, 650), itop(bev.x, bev.y)))
-		al->edit.stat = LINK_MOD;
-	if (inr(itop(45, 540), itop(220, 585), itop(bev.x, bev.y)))
-		al->edit.stat = SET_SPAWN;
-	if (inr(itop(280, 540), itop(460, 585), itop(bev.x, bev.y)))
-		al->edit.stat = SET_BAD_PIG;
-	if (inr(itop(45, 240), itop(220, 285), itop(bev.x, bev.y)))
-		al->edit.stat = EDIT_SECT;
-	if (inr(itop(280, 240), itop(460, 285), itop(bev.x, bev.y)))
-		al->edit.stat = EDIT_WALL;
-	if (inr(itop(495, 240), itop(645, 285), itop(bev.x, bev.y)))
-		al->edit.stat = SET_PLAYER;
+	if (al->sect)
+	{
+		if (inr(itop(45, 605), itop(220, 650), itop(bev.x, bev.y)))
+			al->edit.stat = LINK_MOD;
+		if (inr(itop(45, 540), itop(220, 585), itop(bev.x, bev.y)))
+			al->edit.stat = (al->edit.stat != SET_SPAWN) ? SET_SPAWN : SET_END;
+		if (inr(itop(280, 540), itop(460, 585), itop(bev.x, bev.y)))
+			al->edit.stat = SET_BAD_PIG;
+		if (inr(itop(45, 240), itop(220, 285), itop(bev.x, bev.y)))
+			al->edit.stat = EDIT_SECT;
+		if (inr(itop(280, 240), itop(460, 285), itop(bev.x, bev.y)))
+			al->edit.stat = EDIT_WALL;
+		if (inr(itop(495, 240), itop(645, 285), itop(bev.x, bev.y)))
+			al->edit.stat = SET_PLAYER;
+		if (inr(itop(280, 605), itop(460, 650), itop(bev.x, bev.y)))
+			al->edit.stat = GRAVITY;
+	}
 }
 
 void				mouse_press_edit_setting_sector(t_al *al, SDL_MouseButtonEvent bev)
@@ -148,9 +234,18 @@ void			mouse_press_edit_player(t_al *al, SDL_MouseButtonEvent bev)
 	}
 }
 
+void			set_default_player(t_al *al)
+{
+	al->g = DEFAULT_G;
+	al->play.mass = PLAYER_MASS;
+	al->play.power_mult = 1;
+	al->play.size = PLAYER_SIZE;
+	al->play.eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
+	al->play.alive = 10;
+}
+
 void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 {
-	// if (al->edit.stat == SET_CEL_HEI || al->edit.stat == SET_FLO_HEI)
 		printf("x == %d // y == %d \n", bev.x, bev.y);
 	if (al->edit.stat == DRAWING)
 	{
@@ -162,7 +257,6 @@ void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 			delonesect(&al->sect);
 		}
 	}
-	// else if (al->edit.stat != SET_FLO_TEXT && al->edit.stat != SET_CEL_TEXT)
 	else
 	{ 
 		arrow_stat(al, bev);
@@ -170,6 +264,19 @@ void			mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 		mouse_press_edit_setting_sector(al, bev);
 		mouse_press_edit_player(al, bev);
 	}
+	if (inr(itop(45, 125), itop(230, 170), itop(bev.x, bev.y)))
+		al->diff = (al->diff == 0) ? 1 : 0;
+	if (inr(itop(280, 125), itop(460, 170), itop(bev.x, bev.y))
+		&& al->edit.stat != DRAWING && al->sect)
+		{
+			free_sect(al->sect);
+			al->sect = NULL;
+			al->edit.index_sect = 0;
+			al->edit.index_wall = 0;
+			al->nb_sec = 0;
+		}
+	if (inr(itop(495, 125), itop(645, 170), itop(bev.x, bev.y)))
+		set_default_player(al);
 }
 
 void			mouse_press_edit(t_al *al)
@@ -186,6 +293,8 @@ void			mouse_press_edit(t_al *al)
 		{
 			al->edit.stat = DRAWING;
 			al->nb_sec++;
+			// al->edit.index_sect = al->nb_sec;
+			al->edit.index_wall = 0;
 			add_sector(al, itop(bev.x, bev.y));
 		}
 		if (al->edit.stat == DRAWING)

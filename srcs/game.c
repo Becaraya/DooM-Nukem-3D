@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/21 10:58:07 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/21 20:43:47 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,23 +23,21 @@ static void														flyyyy(t_al *al)
 	: 0;
 }
 
+
 static void														sp_key(t_al *al)
 {
 	double tmp;
-	int sec;
 
-	sec = al->sp_key_sec;
 	tmp = 0.000001 * al->dtime; 
-	if (al->k.lbrack && al->nb_sec >= sec)
+	if (al->k.lbrack && al->nb_sec >= 2)
 	{
-		al->sec[sec].fl_hei + tmp < al->sec[sec].ce_hei ?
-		al->sec[sec].fl_hei += tmp : 0;
+		al->sec[2].fl_hei + tmp < al->sec[2].ce_hei ? al->sec[2].fl_hei += tmp
+		: 0;
 	}
-	else if (al->k.rbrack && al->nb_sec >= sec)
-		al->sec[sec].fl_hei -= tmp;
+	else if (al->k.rbrack && al->nb_sec >= 2)
+		al->sec[2].fl_hei -= tmp;
 
 }
-
 void															game(t_al *al)
 {
 	rotate(al);
@@ -49,8 +47,6 @@ void															game(t_al *al)
 		acceleration(al);
 	else
 		flyyyy(al);
-//	if (al->ent[0].alive)
-//		acceleration_entities(al, &al->ent[0]);
 	displacement(al);
 	render(al);
 	if (al->play.alive)
@@ -61,7 +57,7 @@ void															game(t_al *al)
 	else
 	{
 		al->status = DEAD;
-		pix_to_pix(al->pix, al->pix_dead);
+		pix_to_pix(al->pix, al->pix_dead, 1);
 		SDL_ShowCursor(SDL_ENABLE);
 	}
 }

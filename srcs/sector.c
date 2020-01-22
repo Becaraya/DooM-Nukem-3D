@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sector.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:36:27 by hutricot          #+#    #+#             */
-/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/22 15:44:56 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	is_left(t_doint p0, t_doint p1, t_doint p2)
 {
 	int		value;
 	
-	value = (p1.y - p0.y) * (p2.x - p1.x) - (p1.x - p0.x) * (p2.y - p1.y);
+	value = (p1.y - p0.y) * (p2.x - p1.x) - (p1.x - p0.x) * (p2.y - p1.y); 
 	if (value == 0)
 		return (0);
 	else if (value > 0)
@@ -55,13 +55,9 @@ static int	inters(t_sector sec, t_doint point, t_doint extreme)
 		a.y = sec.walls[i].y1;
 		b.x = sec.walls[i].x2;
 		b.y = sec.walls[i].y2;
-		if (i + 1 == sec.nb_wal)
-		{
-			if (intersects_count(a, b, point, extreme))
-				++intersections;
-		}
-		else if (intersects_count(a, b, point, extreme))
+		if (intersects_count(a, b, point, extreme))
 			++intersections;
+	//		printf("%d , %d\n", intersections,i);
 		i++;
 	}
 	return (intersections);
@@ -81,12 +77,13 @@ int            is_in_sector(t_al *al, double x, double y)
     {
         extreme.x = MAX_X;
         extreme.y = point.y;
+	//				printf("sec:%d\n", i);
         if (inters(al->sec[i], point, extreme) % 2 == 1)
 		{
             return (i);
 		}
 		i++;
     }
-	printf("YASUNE COUILLLLLLLLLLLLLLLL\n");
+	write(1,"out of sector\n",14);
     return (1);
 }

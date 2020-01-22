@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/20 12:02:16 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/22 13:21:24 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,10 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	}
 	(m.y == 1) ? al->play.posy += y : 0;
 	(m.x == 1) ? al->play.posx += x : 0;
+	i = -1;
+	while (++i < (int)al->sec[al->play.csec].nb_wal)
+		//printf("thewall : %f to %f \n %f to %f \n\n", al->sec[al->play.csec].walls[i].x1, al->sec[al->play.csec].walls[i].x2, al->sec[al->play.csec].walls[i].y1, al->sec[al->play.csec].walls[i].y2);
+	//printf("my pos : %f %f sector : %d\n", al->play.posx,al->play.posy, al->play.csec);
 	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
 	al->play.on_ground = 0;
 }
@@ -129,5 +133,5 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 
 /*
 ** 07/novembre
-** il y avais un numeros de telephone ici 
+** il y avais un numeros de telephone ici 14.12 10.88
 */

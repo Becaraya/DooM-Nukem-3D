@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 19:06:05 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/23 16:11:54 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:16:07 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,9 @@ void		acceleration_entities(t_al *al, t_mob *mob)
 		mob->vely = (mob->posy < al->play.posy) ? -2.5 : 2.5;
 		mob->velx = (d < 2.5) ? 0 : mob->velx;
 		mob->vely = (d < 2.5) ? 0 : mob->vely;
-		if (mob->hit) 
-		al->play.alive -= (al->play.alive - al->hard < 0) ? al->play.alive : al->hard;
+		if (mob->hit)
+			al->play.alive -= (al->play.alive - al->hard < 0) ?
+			al->play.alive : al->hard;
 		mob->hit = 0;
 	}
 	else

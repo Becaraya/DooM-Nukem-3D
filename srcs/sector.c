@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:36:27 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/22 15:44:56 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 12:18:00 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 static int	is_left(t_doint p0, t_doint p1, t_doint p2)
 {
-	int		value;
+	double		d;
 	
-	value = (p1.y - p0.y) * (p2.x - p1.x) - (p1.x - p0.x) * (p2.y - p1.y); 
-	if (value == 0)
+	d = (p1.y - p0.y) * (p2.x - p1.x) - (p1.x - p0.x) * (p2.y - p1.y); 
+	if (d == 0)
 		return (0);
-	else if (value > 0)
+	else if (d > 0)
 		return (1);
 	else
 		return (2);
@@ -28,8 +28,7 @@ static int	is_left(t_doint p0, t_doint p1, t_doint p2)
 int			intersects_count(t_doint v1, t_doint v2, t_doint p1, t_doint p2)
 {
 	int		tab[4];
-	
-	tab[0] = is_left(v1, v2, p1);
+	tab[0] = is_left(v1, v2, p1); 
 	tab[1] = is_left(v1, v2, p2);
 	tab[2] = is_left(p1, p2, v1);
 	tab[3] = is_left(p1, p2, v2);
@@ -47,23 +46,20 @@ static int	inters(t_sector sec, t_doint point, t_doint extreme)
 
 	i = 0;
 	intersections = 0;
-	//printf("its ok bro\n");
 	while (i < sec.nb_wal)
 	{
-	//	printf("i:%d\n", i);
 		a.x = sec.walls[i].x1;
 		a.y = sec.walls[i].y1;
 		b.x = sec.walls[i].x2;
 		b.y = sec.walls[i].y2;
 		if (intersects_count(a, b, point, extreme))
 			++intersections;
-	//		printf("%d , %d\n", intersections,i);
 		i++;
 	}
 	return (intersections);
 }
 
-#define MAX_X 100 //c est temporaire j ai la flemme pour le moment il faudrais mettre une variable x max deffinicant le point x le plus eloigner
+#define MAX_X 100000 //c est temporaire j ai la flemme pour le moment il faudrais mettre une variable x max deffinicant le point x le plus eloigner
 int            is_in_sector(t_al *al, double x, double y)
 {
 	unsigned	i;
@@ -76,14 +72,12 @@ int            is_in_sector(t_al *al, double x, double y)
 	while (i - 1 < al->nb_sec)
     {
         extreme.x = MAX_X;
-        extreme.y = point.y;
-	//				printf("sec:%d\n", i);
+        extreme.y = y;
         if (inters(al->sec[i], point, extreme) % 2 == 1)
 		{
             return (i);
 		}
 		i++;
     }
-	write(1,"out of sector\n",14);
     return (1);
 }

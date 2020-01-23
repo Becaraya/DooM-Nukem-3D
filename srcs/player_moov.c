@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/22 13:21:24 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 12:18:32 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ int		is_cross_y(t_player *e, t_walls t, double v, t_al *al)
 	double d;
 
 	d = d_wall(t, e->posx, e->posy + v);
-	printf("\ndistance = %f\n", d);
 	if (t.is_cross)
 	{
 		if ((d < 0.5)&& e->posz < al->sec[t.sec_lnk].fl_hei)
@@ -76,7 +75,6 @@ int		is_cross_y(t_player *e, t_walls t, double v, t_al *al)
 		else
 			return(1);
 	}
-	printf("mas hauteur %f, tas hauteur %f \n",e->posz , al->sec[t.sec_lnk].fl_hei);
 	if (d < 0.5)
 		return (0);
 	return (1);
@@ -124,8 +122,6 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	(m.x == 1) ? al->play.posx += x : 0;
 	i = -1;
 	while (++i < (int)al->sec[al->play.csec].nb_wal)
-		//printf("thewall : %f to %f \n %f to %f \n\n", al->sec[al->play.csec].walls[i].x1, al->sec[al->play.csec].walls[i].x2, al->sec[al->play.csec].walls[i].y1, al->sec[al->play.csec].walls[i].y2);
-	//printf("my pos : %f %f sector : %d\n", al->play.posx,al->play.posy, al->play.csec);
 	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
 	al->play.on_ground = 0;
 }

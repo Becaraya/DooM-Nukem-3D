@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 15:21:55 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 15:51:16 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ typedef struct		s_mouse
 
 /*
 ** typedef struct		s_icon
-** {
+** { 
 ** 	unsigned int	*chest;
 ** 	unsigned int	*click;
 ** 	unsigned int	*path;
@@ -560,6 +560,7 @@ typedef struct		s_al
 	unsigned int	dtime;
 
 	unsigned short	anim;
+	unsigned int	fire_anim;
 
 	t_edit			edit;
 	int				tex_choice;

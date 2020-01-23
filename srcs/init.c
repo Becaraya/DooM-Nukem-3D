@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 15:02:34 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 15:52:18 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,9 +135,10 @@ void			init(t_al *al, char *str)
 	}
 	// get_sec_tab(al);
 	// get_map(al);
+	al->fire_anim = 420000000;
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = SELECT;
-	al->edit.zoom = 15;
+	al->edit.zoom = 10;
 	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;
 }

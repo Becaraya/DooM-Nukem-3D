@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 14:48:50 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 15:51:23 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ static void													dtime(t_al *al)
 	al->dtime = al->curr_time - al->last_time;
 	al->dtime > 100000 ? al->dtime = 100000 : 0;
 	al->anim += al->dtime * UINT16_MAX / 1000000;
+	al->fire_anim += al->dtime;
 	al->last_time = al->curr_time;
 	al->tgt_time = al->last_time + 1000000 / al->fps;
 }

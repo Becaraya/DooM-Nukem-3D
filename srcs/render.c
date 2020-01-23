@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/23 18:40:57 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/23 18:43:47 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void		render(t_al *al)
 	draw_hud(al);
 	shoot(al);
 	draw_wapon(al);
-	ft_putstr(" FPS:");
+	ft_putstr(" fps:");
 	ft_putnbr(1000000 / al->dtime);
 	refresh(al);
 }

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 18:11:46 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/23 18:42:55 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 
 # define SPRITE_W 512
 # define SPRITE_H 512
+
+#define MAX_X 100000
 
 /*
 ** TEX_REPEAT is horizontal repeat in m
@@ -268,6 +270,13 @@ typedef struct		s_doint
 	int		color;
 }					t_doint;
 
+typedef struct		s_oint
+{
+	t_doint	d;
+	t_point	p;
+}					t_oint;
+
+
 /*
 ** typedef struct		s_wall
 ** {
@@ -322,7 +331,7 @@ typedef struct		s_player
 	double		gd_vel;
 	unsigned	fly:1;
 	unsigned	on_ground:1;
-	unsigned	alive;
+	int			alive;
 	t_angle		dir;
 
 	double		size;
@@ -357,6 +366,8 @@ typedef struct		s_mob
 	t_angle		dir;
 	t_angle		angle_to_player;
 	unsigned	hit;
+	unsigned	index;
+	unsigned	fly:1;
 
 	double		size;
 	double		width;
@@ -499,10 +510,12 @@ typedef struct		s_text_list
 
 /*
 ** Main structure #############################################################
+** h = heart f = flingue
 */
 
 typedef struct		s_al
 {
+	int				hard;
 	t_tex			h;
 	t_tex			f;
 	t_tex			weapon[7];
@@ -549,7 +562,7 @@ typedef struct		s_al
 	long			last_time;
 	long			curr_time;
 	long			tgt_time;
-	int				dtime;
+	unsigned int	dtime;
 
 	unsigned short	anim;
 	unsigned int	fire_anim;
@@ -839,10 +852,5 @@ double				wall_len(t_walls *wall);
 t_tex				find_ent_tex(t_al *al, t_mob *ent);
 void				draw_map(t_al *al);
 
-void		shoot(t_al *al);
-void		draw_weapon(t_al *al);
-unsigned	alphapix(unsigned pix, double alpha);
-
-
-
+void				pewpew(t_al *al);
 #endif

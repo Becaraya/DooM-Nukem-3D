@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:36:27 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/23 12:18:00 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 14:09:34 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 static int	is_left(t_doint p0, t_doint p1, t_doint p2)
 {
 	double		d;
-	
-	d = (p1.y - p0.y) * (p2.x - p1.x) - (p1.x - p0.x) * (p2.y - p1.y); 
+
+	d = (p1.y - p0.y) * (p2.x - p1.x) - (p1.x - p0.x) * (p2.y - p1.y);
 	if (d == 0)
 		return (0);
 	else if (d > 0)
@@ -28,7 +28,8 @@ static int	is_left(t_doint p0, t_doint p1, t_doint p2)
 int			intersects_count(t_doint v1, t_doint v2, t_doint p1, t_doint p2)
 {
 	int		tab[4];
-	tab[0] = is_left(v1, v2, p1); 
+
+	tab[0] = is_left(v1, v2, p1);
 	tab[1] = is_left(v1, v2, p2);
 	tab[2] = is_left(p1, p2, v1);
 	tab[3] = is_left(p1, p2, v2);
@@ -39,10 +40,10 @@ int			intersects_count(t_doint v1, t_doint v2, t_doint p1, t_doint p2)
 
 static int	inters(t_sector sec, t_doint point, t_doint extreme)
 {
-	int		intersections;
-	t_doint a;
-	t_doint b;
-	unsigned i;
+	int			intersections;
+	t_doint		a;
+	t_doint		b;
+	unsigned	i;
 
 	i = 0;
 	intersections = 0;
@@ -59,25 +60,24 @@ static int	inters(t_sector sec, t_doint point, t_doint extreme)
 	return (intersections);
 }
 
-#define MAX_X 100000 //c est temporaire j ai la flemme pour le moment il faudrais mettre une variable x max deffinicant le point x le plus eloigner
-int            is_in_sector(t_al *al, double x, double y)
+int			is_in_sector(t_al *al, double x, double y)
 {
 	unsigned	i;
-    t_doint		extreme; // mur en x le plus loin et y actuel
+	t_doint		extreme;
 	t_doint		point;
 
 	point.x = x;
 	point.y = y;
 	i = 1;
 	while (i - 1 < al->nb_sec)
-    {
-        extreme.x = MAX_X;
-        extreme.y = y;
-        if (inters(al->sec[i], point, extreme) % 2 == 1)
+	{
+		extreme.x = MAX_X;
+		extreme.y = y;
+		if (inters(al->sec[i], point, extreme) % 2 == 1)
 		{
-            return (i);
+			return (i);
 		}
 		i++;
-    }
-    return (1);
+	}
+	return (1);
 }

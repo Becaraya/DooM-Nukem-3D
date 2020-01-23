@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/23 12:18:32 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 14:14:27 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int		is_cross_x(t_player *e, t_walls t, double v, t_al *al)
 	d = d_wall(t, e->posx + v, e->posy);
 	if (t.is_cross)
 	{
-		if ((d < 0.5)&& e->posz < al->sec[t.sec_lnk].fl_hei)
+		if ((d < 0.5)&& e->posz + 0.5< al->sec[t.sec_lnk].fl_hei)
 			return(0);
 		else
 			return(1);
@@ -70,7 +70,7 @@ int		is_cross_y(t_player *e, t_walls t, double v, t_al *al)
 	d = d_wall(t, e->posx, e->posy + v);
 	if (t.is_cross)
 	{
-		if ((d < 0.5)&& e->posz < al->sec[t.sec_lnk].fl_hei)
+		if ((d < 0.5)&& e->posz + 0.5< al->sec[t.sec_lnk].fl_hei)
 			return(0);
 		else
 			return(1);

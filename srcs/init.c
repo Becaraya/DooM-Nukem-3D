@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 15:14:52 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 18:12:46 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,7 +164,17 @@ void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
 void			load_hud(t_al *al)
 {
 	bmp_to_tex(&(al->h), "ressources/HUD/heart.bmp", 46, 41);
-	bmp_to_tex(&(al->f), "ressources/HUD/chop.bmp", 100, 133);
+	// bmp_to_tex(&(al->f), "ressources/HUD/chop.bmp", 100, 133);
+
+	bmp_to_tex(&(al->weapon[0]), "ressources/weapon/shotgun1.bmp", 102, 85);
+	bmp_to_tex(&(al->weapon[1]), "ressources/weapon/shotgun_fire.bmp", 102, 105);
+	bmp_to_tex(&(al->weapon[2]), "ressources/weapon/shotgun_fire2.bmp", 118, 150);
+	bmp_to_tex(&(al->weapon[3]), "ressources/weapon/shotgun2.bmp", 118, 131);
+	bmp_to_tex(&(al->weapon[4]), "ressources/weapon/shotgun3.bmp", 160, 140);
+	bmp_to_tex(&(al->weapon[5]), "ressources/weapon/shotgun4.bmp", 160, 176);
+	bmp_to_tex(&(al->weapon[6]), "ressources/weapon/shotgun5.bmp", 133, 172);
+	al->f = al->weapon[0];
+
 }
 
 void			init(t_al *al, char *str)
@@ -178,7 +188,7 @@ void			init(t_al *al, char *str)
 	init_status(al);
 	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
 	al->status = EDIT;
-	//al->status = GAME;
+	al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

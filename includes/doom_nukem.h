@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 15:09:58 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 18:11:46 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ typedef struct		s_mouse
 
 /*
 ** typedef struct		s_icon
-** { 
+** {
 ** 	unsigned int	*chest;
 ** 	unsigned int	*click;
 ** 	unsigned int	*path;
@@ -505,6 +505,7 @@ typedef struct		s_al
 {
 	t_tex			h;
 	t_tex			f;
+	t_tex			weapon[7];
 	t_status		status;
 	void			(*stat_fnc[5])(struct s_al *);
 
@@ -837,5 +838,11 @@ void				swapd(double *d1, double *d2);
 double				wall_len(t_walls *wall);
 t_tex				find_ent_tex(t_al *al, t_mob *ent);
 void				draw_map(t_al *al);
+
+void		shoot(t_al *al);
+void		draw_weapon(t_al *al);
+unsigned	alphapix(unsigned pix, double alpha);
+
+
 
 #endif

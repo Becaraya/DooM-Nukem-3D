@@ -6,17 +6,13 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/22 13:21:24 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 14:42:42 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-/*
-**a therme l idée est de pouvoir appeller la fonction.
-*/
-
-double		d_wall(t_walls w, double px, double py)
+double	d_wall(t_walls w, double px, double py)
 {
 	double	a[2];
 	double	b[2];
@@ -40,12 +36,6 @@ double		d_wall(t_walls w, double px, double py)
 	return (sqrt((x - px) * (x - px) + (y - py) * (y - py)));
 }
 
-/*
-**ft_nop empeche l'entité de passer au travers d un mur il faudrais lui trouver un nom plus paralans
-**0.5 correspond a la moitier de l aipaisseur du joueur (je supose)
-**il serais interesant de le fair varier pour en juger
-*/
-
 int		is_cross_x(t_player *e, t_walls t, double v, t_al *al)
 {
 	double d;
@@ -53,10 +43,10 @@ int		is_cross_x(t_player *e, t_walls t, double v, t_al *al)
 	d = d_wall(t, e->posx + v, e->posy);
 	if (t.is_cross)
 	{
-		if ((d < 0.5)&& e->posz < al->sec[t.sec_lnk].fl_hei)
-			return(0);
+		if ((d < 0.5) && e->posz + 0.5 < al->sec[t.sec_lnk].fl_hei)
+			return (0);
 		else
-			return(1);
+			return (1);
 	}
 	if (d < 0.5)
 		return (0);
@@ -68,15 +58,13 @@ int		is_cross_y(t_player *e, t_walls t, double v, t_al *al)
 	double d;
 
 	d = d_wall(t, e->posx, e->posy + v);
-	printf("\ndistance = %f\n", d);
 	if (t.is_cross)
 	{
-		if ((d < 0.5)&& e->posz < al->sec[t.sec_lnk].fl_hei)
-			return(0);
+		if ((d < 0.5) && e->posz + 0.5 < al->sec[t.sec_lnk].fl_hei)
+			return (0);
 		else
-			return(1);
+			return (1);
 	}
-	printf("mas hauteur %f, tas hauteur %f \n",e->posz , al->sec[t.sec_lnk].fl_hei);
 	if (d < 0.5)
 		return (0);
 	return (1);
@@ -87,23 +75,22 @@ void	wall_ok(t_al *al, t_walls t, t_doint p, t_point *m)
 	t_player j;
 
 	j = al->play;
-	if (p.x > 0.0 && (t.x1 >= j.posx || t.x2 >= j.posx) 
+	if (p.x > 0.0 && (t.x1 >= j.posx || t.x2 >= j.posx)
 		&& ((t.y1 <= j.posy && j.posy <= t.y2)
 			|| (t.y1 >= j.posy && j.posy >= t.y2)))
 		(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
 	if (p.x <= 0.0 && (t.x1 <= j.posx || t.x2 <= j.posx)
 		&& ((t.y1 <= j.posy && j.posy <= t.y2)
 				|| (t.y1 >= j.posy && j.posy >= t.y2)))
-			(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
+		(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
 	if (p.y > 0.0 && (t.y1 >= j.posy || t.y2 >= j.posy)
 		&& ((t.x1 <= j.posx && j.posx <= t.x2)
 				|| (t.x1 >= j.posx && j.posx >= t.x2)))
-			(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;	
+		(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;
 	if (p.y <= 0.0 && (t.y1 <= j.posy || t.y2 <= j.posy)
 		&& ((t.x1 <= j.posx && j.posx <= t.x2)
 				|| (t.x1 >= j.posx && j.posx >= t.x2)))
-			(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;
-			
+		(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;
 }
 
 void	ft_nop_player(t_al *al, int i, double x, double y)
@@ -111,10 +98,10 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	t_point m;
 	t_doint p;
 
-	m.x = 1; 
+	m.x = 1;
 	m.y = 1;
 	p.x = x;
-	p.y = y; 
+	p.y = y;
 	while (i < (int)al->sec[al->play.csec].nb_wal)
 	{
 		wall_ok(al, al->sec[al->play.csec].walls[i], p, &m);
@@ -122,14 +109,9 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	}
 	(m.y == 1) ? al->play.posy += y : 0;
 	(m.x == 1) ? al->play.posx += x : 0;
-	i = -1;
-	while (++i < (int)al->sec[al->play.csec].nb_wal)
-		//printf("thewall : %f to %f \n %f to %f \n\n", al->sec[al->play.csec].walls[i].x1, al->sec[al->play.csec].walls[i].x2, al->sec[al->play.csec].walls[i].y1, al->sec[al->play.csec].walls[i].y2);
-	//printf("my pos : %f %f sector : %d\n", al->play.posx,al->play.posy, al->play.csec);
 	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
 	al->play.on_ground = 0;
 }
-
 
 /*
 ** 07/novembre

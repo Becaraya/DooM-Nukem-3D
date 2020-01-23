@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 11:28:04 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 15:02:34 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->size = PLAYER_SIZE;
 	pl->eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
 	pl->on_ground = 1;
-	pl->alive = 50;
+	pl->alive = 5;
 	pl->posz = al->sec[pl->csec].fl_hei;
 }
 
@@ -41,7 +41,7 @@ void			creat_entity(t_al *al)
 {
 	int i;
 
-	al->nb_ent = 0;
+	al->nb_ent = 2;
 	if (!(al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
 		yeet(al);
 	if (!(al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
@@ -94,72 +94,6 @@ static void		init_edit(t_al *al)
 	al->pix_ed = al->surf_ed->pixels;
 	init_text_edit(al);
 }
-
-/*
-void			load_imgs(t_tex_group *tgp, t_tex_or *or, char *str)
-{
-	unsigned char	*tmp;
-	unsigned char	buf[1000];
-	size_t			size;
-	int				fd;
-
-	size = tgp->size_x * tgp->size_y * sizeof(unsigned *);
-	tmp =  malloc(tgp->size_x * tgp->size_y * 3);
-	or->pix = malloc(tgp->nb_tex * sizeof(unsigned **));
-
-	ft_strcpy((char *)tmp, str);
-	fd = open(ft_strcat((char *)tmp, "/1.bmp"), O_RDONLY);
-	read(fd, buf, 14);
-	read(fd, buf, *(unsigned *)(buf + 10) - 14);
-	or->pix[0] = malloc(size);
-	read(fd, tmp, tgp->size_x * tgp->size_y * 3);
-	for (unsigned i = 0; i < tgp->size_x * tgp->size_y; i++)
-		or->pix[0][tgp->size_x * tgp->size_y - i] = tmp[i * 3 + 2] * 0x10000 +
-			tmp[i * 3 + 1] * 0x100 +tmp[i * 3];
-
-	ft_strcpy((char *)tmp, str);
-	fd = open(ft_strcat((char *)tmp, "/2.bmp"), O_RDONLY);
-	read(fd, buf, 14);
-	read(fd, buf, *(unsigned *)(buf + 10) - 14);
-	or->pix[1] = malloc(size);
-	read(fd, tmp, tgp->size_x * tgp->size_y * 3);
-	for (unsigned i = 0; i < tgp->size_x * tgp->size_y; i++)
-		or->pix[1][tgp->size_x * tgp->size_y - i] = tmp[i * 3 + 2] * 0x10000 +
-			tmp[i * 3 + 1] * 0x100 +tmp[i * 3];
-
-	ft_strcpy((char *)tmp, str);
-	fd = open(ft_strcat((char *)tmp, "/3.bmp"), O_RDONLY);
-	read(fd, buf, 14);
-	read(fd, buf, *(unsigned *)(buf + 10) - 14);
-	or->pix[2] = malloc(size);
-	read(fd, tmp, tgp->size_x * tgp->size_y * 3);
-	for (unsigned i = 0; i < tgp->size_x * tgp->size_y; i++)
-		or->pix[2][tgp->size_x * tgp->size_y - i] = tmp[i * 3 + 2] * 0x10000 +
-			tmp[i * 3 + 1] * 0x100 +tmp[i * 3];
-
-	ft_strcpy((char *)tmp, str);
-	fd = open(ft_strcat((char *)tmp, "/4.bmp"), O_RDONLY);
-	read(fd, buf, 14);
-	read(fd, buf, *(unsigned *)(buf + 10) - 14);
-	or->pix[3] = malloc(size);
-	read(fd, tmp, tgp->size_x * tgp->size_y * 3);
-	for (unsigned i = 0; i < tgp->size_x * tgp->size_y; i++)
-		or->pix[3][tgp->size_x * tgp->size_y - i] = tmp[i * 3 + 2] * 0x10000 +
-			tmp[i * 3 + 1] * 0x100 +tmp[i * 3];
-
-
-	for (unsigned i = 0; i < tgp->size_x * tgp->size_y; i++)
-	{
-		//printf("%#x \n", or->pix[0][i]);
-		//or->pix[0][i] == 0xffff0000 ? or->pix[0][i] = 0 : 0;
-		//da = (or->pix[0][i] >> 24) & 0xff;
-		or->pix[0][i] != 0xffff ? or->pix[0][i] += 0x1000000 : 0;
-		or->pix[1][i] != 0xffff ? or->pix[1][i] += 0x1000000 : 0;
-		or->pix[2][i] != 0xffff ? or->pix[2][i] += 0x1000000 : 0;
-		or->pix[3][i] != 0xffff ? or->pix[3][i] += 0x1000000 : 0;
-	}
-	free(tmp);
-}*/
 
 void			load_hud(t_al *al)
 {

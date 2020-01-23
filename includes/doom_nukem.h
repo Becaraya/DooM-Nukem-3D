@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/22 23:39:15 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/23 15:21:55 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 
 # define SPRITE_W 512
 # define SPRITE_H 512
+
+#define MAX_X 100000
 
 /*
 ** TEX_REPEAT is horizontal repeat in m
@@ -267,6 +269,13 @@ typedef struct		s_doint
 	double	y;
 	int		color;
 }					t_doint;
+
+typedef struct		s_oint
+{
+	t_doint	d;
+	t_point	p;
+}					t_oint;
+
 
 /*
 ** typedef struct		s_wall
@@ -548,7 +557,7 @@ typedef struct		s_al
 	long			last_time;
 	long			curr_time;
 	long			tgt_time;
-	int				dtime;
+	unsigned int	dtime;
 
 	unsigned short	anim;
 

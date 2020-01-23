@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/17 14:28:21 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 14:48:50 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void													dtime(t_al *al)
 		al->curr_time = al->tgt_time;
 	}
 	al->dtime = al->curr_time - al->last_time;
-	al->dtime > 1000000 ? al->dtime = 1000000 : 0;
+	al->dtime > 100000 ? al->dtime = 100000 : 0;
 	al->anim += al->dtime * UINT16_MAX / 1000000;
 	al->last_time = al->curr_time;
 	al->tgt_time = al->last_time + 1000000 / al->fps;

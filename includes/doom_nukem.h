@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/22 23:39:15 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/23 15:09:58 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,7 @@ typedef struct		s_mouse
 
 /*
 ** typedef struct		s_icon
-** {
+** { 
 ** 	unsigned int	*chest;
 ** 	unsigned int	*click;
 ** 	unsigned int	*path;
@@ -551,6 +551,7 @@ typedef struct		s_al
 	int				dtime;
 
 	unsigned short	anim;
+	unsigned int	fire_anim;
 
 	t_edit			edit;
 	int				tex_choice;

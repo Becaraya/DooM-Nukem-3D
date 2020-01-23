@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 00:13:48 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/23 15:11:20 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ void			init(t_al *al, char *str)
 	init_status(al);
 	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
 	al->status = EDIT;
-	al->status = GAME;
+	//al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -201,9 +201,10 @@ void			init(t_al *al, char *str)
 	}
 	// get_sec_tab(al);
 	// get_map(al);
+	al->fire_anim = 420000000;
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = SELECT;
-	al->edit.zoom = 15;
+	al->edit.zoom = 10;
 	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;
 }

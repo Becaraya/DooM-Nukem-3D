@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 09:13:43 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/21 15:54:41 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 11:32:51 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,21 +46,21 @@ void		pront_urded(t_al *al, double scale, double alpha)
 	t_tex		yd;
 	unsigned	x;
 	unsigned	y;
-	unsigned	winx;
-	unsigned	winy;
+	t_point		win;
 	unsigned	tmp;
 
 	yd = al->you_died;
 	y = 0;
-	winx = WIN_SIZEX / 2 - yd.size_x / 2;
-	winy = WIN_SIZEY / 2 - yd.size_y / 2;
+	win.x = WIN_SIZEX / 2 - (yd.size_x * scale) / 2;
+	win.y = WIN_SIZEY / 2 - (yd.size_y * scale) / 2;
 	while (y < yd.size_y)
 	{
 		x = 0;
 		while (x < yd.size_x)
 		{
 			tmp = yd.pix[y * yd.size_x + x];
-			tmp != 0xffff ? al->pix[(y + winy) * WIN_SIZEX + x + winx] =
+			tmp != 0xffff ? al->pix[((unsigned)(y * scale) + win.y) * WIN_SIZEX
+				+ (unsigned)(x * scale) + win.x] =
 			alphapix(tmp, alpha) : 0;
 			x++;
 		}
@@ -68,18 +68,20 @@ void		pront_urded(t_al *al, double scale, double alpha)
 	}
 }
 
-void	dead(t_al *al)
+void		dead(t_al *al)
 {
 	static int	stat = 0;
+	double		scale;
 
 	stat += al->dtime;
 	stat == 1000000 ? stat = 1000001 : 0;
+	scale = (stat / 16000000.0) + 0.7;
 	pix_to_pix(al->pix_dead, al->pix, (2000000 - stat) / 2000000.0);
 	if (stat < 1000000)
-		pront_urded(al, 1, stat / 1000000.0);
+		pront_urded(al, scale, stat / 1000000.0);
 	else if (stat < 3000000)
-		pront_urded(al, 1, 1);
+		pront_urded(al, scale, 1);
 	else if (stat < 4000000)
-		pront_urded(al, 1, (4000000 - stat) / 1000000.0);
+		pront_urded(al, scale, (4000000 - stat) / 1000000.0);
 	refresh(al);
 }

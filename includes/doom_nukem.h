@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 17:53:39 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 18:42:55 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ typedef struct		s_mouse
 
 /*
 ** typedef struct		s_icon
-** { 
+** {
 ** 	unsigned int	*chest;
 ** 	unsigned int	*click;
 ** 	unsigned int	*path;
@@ -518,6 +518,7 @@ typedef struct		s_al
 	int				hard;
 	t_tex			h;
 	t_tex			f;
+	t_tex			weapon[7];
 	t_status		status;
 	void			(*stat_fnc[5])(struct s_al *);
 

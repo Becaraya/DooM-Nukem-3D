@@ -3,36 +3,69 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/23 14:57:23 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 18:43:47 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
+void		shoot(t_al *al)
+{
+	int tmp;
+
+	tmp = 60000;
+
+	if (al->fire_anim < 100000)
+		al->f = al->weapon[1];
+	else if (al->fire_anim < 100000 + 1 * tmp)
+		al->f = al->weapon[2];
+	else if (al->fire_anim < 100000 + 2 * tmp)
+		al->f = al->weapon[3];
+	else if (al->fire_anim < 100000 + 3 * tmp)
+		al->f = al->weapon[4];
+	else if (al->fire_anim < 100000 + 5 * tmp)
+		al->f = al->weapon[5];
+	else if (al->fire_anim < 100000 + 7 * tmp)
+		al->f = al->weapon[6];
+	else if (al->fire_anim < 100000 + 9 * tmp)
+		al->f = al->weapon[5];
+	else if (al->fire_anim < 100000 + 11 * tmp)
+		al->f = al->weapon[4];
+	else if (al->fire_anim < 100000 + 13 * tmp)
+		al->f = al->weapon[3];
+	else
+		al->f = al->weapon[0];
+}
+
 void		draw_wapon(t_al *al)
 {
+	t_tex		tex;
 	unsigned	x;
 	unsigned	y;
-	unsigned	b;
+	t_point		win;
+	unsigned	tmp;
+	double		scale;
 
-		y = 0;
-		while(y < al->f.size_y)
+	scale = 2.5;
+	tex = al->f;
+	y = 0;
+	win.x = WIN_SIZEX / 2 + (tex.size_x * scale) / 2 - 100;
+	win.y = WIN_SIZEY - (tex.size_y * scale);
+	while (y < (tex.size_y * scale))
+	{
+		x = 0;
+		while (x < (tex.size_x * scale))
 		{
-			x = 0;
-			while(x < al->f.size_x)
-			{
-				b = x + (WIN_SIZEX / 2)  + ((y  + 650)* WIN_SIZEX);
-				if (al->f.pix[x + ((al->f.size_y - y - 1) *
-					al->f.size_x)] && b < WIN_SIZEY * WIN_SIZEX)
-					al->pix[b] = al->f.pix[x
-					+ ((al->f.size_y - y - 1) * al->f.size_x)];
-				x++;
-			}
-			y++;
+			tmp = tex.pix[(unsigned)(y / scale) * (tex.size_x) + (unsigned)(x / scale)];
+			if (tmp != 41704)
+				al->pix[(y + win.y) * WIN_SIZEX + x + win.x] = tmp;
+			x++;
 		}
+		y++;
+	}
 }
 
 void		draw_hud(t_al *al)
@@ -82,6 +115,7 @@ void		render(t_al *al)
 	draw_map(al);
 	pimp_cross(al);
 	draw_hud(al);
+	shoot(al);
 	draw_wapon(al);
 	ft_putstr(" fps:");
 	ft_putnbr(1000000 / al->dtime);

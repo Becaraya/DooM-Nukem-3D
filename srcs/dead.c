@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 09:13:43 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/23 17:01:15 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:15:22 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void		dead(t_al *al)
 
 	stat += al->dtime;
 	stat == 1000000 ? stat = 1000001 : 0;
-	scale = (stat / 16000000.0) + 0.7;
+	scale = (stat / 16000000.0) + 1.6;
 	pix_to_pix(al->pix_dead, al->pix, (2000000 - stat) / 2000000.0);
 	if (stat < 1000000)
 		pront_urded(al, scale, stat / 1000000.0);

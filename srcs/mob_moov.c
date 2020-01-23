@@ -6,13 +6,13 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:09:55 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/22 16:08:43 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 15:48:19 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-static double		d_wall(t_walls w, double px, double py)
+static double	d_wall(t_walls w, double px, double py)
 {
 	double	a[2];
 	double	b[2];
@@ -43,10 +43,10 @@ static int		is_cross_x(t_mob *e, t_walls t, double v, t_al *al)
 	d = d_wall(t, e->posx + v, e->posy);
 	if (t.is_cross)
 	{
-		if ((d < 0.5)&& e->posz < al->sec[t.sec_lnk].fl_hei)
-			return(0);
+		if ((d < 0.5) && e->posz < al->sec[t.sec_lnk].fl_hei)
+			return (0);
 		else
-			return(1);
+			return (1);
 	}
 	if (d < 0.5)
 		return (0);
@@ -60,53 +60,54 @@ static int		is_cross_y(t_mob *e, t_walls t, double v, t_al *al)
 	d = d_wall(t, e->posx, e->posy + v);
 	if (t.is_cross)
 	{
-		if ((d < 0.5)&& e->posz < al->sec[t.sec_lnk].fl_hei)
-			return(0);
+		if ((d < 0.5) && e->posz + 0.5 < al->sec[t.sec_lnk].fl_hei)
+			return (0);
 		else
-			return(1);
+			return (1);
 	}
 	if (d < 0.5)
 		return (0);
 	return (1);
 }
 
-static void	wall_ok(t_al *al, t_mob *e,t_walls t, t_doint p, t_point *m)
+static void		wall_ok(t_al *al, t_mob *e, t_walls t, t_oint *o)
 {
-	if (p.x > 0.0 && (t.x1 >= e->posx || t.x2 >= e->posx) 
+	if (o->d.x > 0.0 && (t.x1 >= e->posx || t.x2 >= e->posx)
 		&& ((t.y1 <= e->posy && e->posy <= t.y2)
 			|| (t.y1 >= e->posy && e->posy >= t.y2)))
-		(!(is_cross_x(e, t, p.x, al))) ? m->x = 0 : 1;
-	if (p.x < 0.0 && (t.x1 <= e->posx || t.x2 <= e->posx)
+		(!(is_cross_x(e, t, o->d.x, al))) ? o->p.x = 0 : 1;
+	if (o->d.x < 0.0 && (t.x1 <= e->posx || t.x2 <= e->posx)
 		&& ((t.y1 <= e->posy && e->posy <= t.y2)
 				|| (t.y1 >= e->posy && e->posy >= t.y2)))
-		(!(is_cross_x(e, t, p.x, al))) ? m->x = 0 : 1;
-	if (p.y > 0.0 && (t.y1 >= e->posy || t.y2 >= e->posy)
+		(!(is_cross_x(e, t, o->d.x, al))) ? o->p.x = 0 : 1;
+	if (o->d.y > 0.0 && (t.y1 >= e->posy || t.y2 >= e->posy)
 		&& ((t.x1 <= e->posx && e->posx <= t.x2)
 				|| (t.x1 >= e->posx && e->posx >= t.x2)))
-		(!(is_cross_y(e, t, p.x, al))) ? m->y = 0 : 1;	
-	if (p.y < 0.0 && (t.y1 <= e->posy || t.y2 <= e->posy)
+		(!(is_cross_y(e, t, o->d.x, al))) ? o->p.y = 0 : 1;
+	if (o->d.y < 0.0 && (t.y1 <= e->posy || t.y2 <= e->posy)
 		&& ((t.x1 <= e->posx && e->posx <= t.x2)
 				|| (t.x1 >= e->posx && e->posx >= t.x2)))
-		(!(is_cross_y(e, t, p.x, al))) ? m->y = 0 : 1;
+		(!(is_cross_y(e, t, o->d.x, al))) ? o->p.y = 0 : 1;
 }
-void	ft_nop(t_al *al,t_mob *e, double x, double y)
+
+void			ft_nop(t_al *al, t_mob *e, double x, double y)
 {
-	t_point m;
-	t_doint p;
-	int i;
+	t_oint	o;
+	int		i;
 
 	acceleration_entities(al, e);
 	i = 0;
-	m.x = 1; 
-	m.y = 1;
-	p.x = x;
-	p.y = y; 
+	o.p.x = 1;
+	o.p.y = 1;
+	o.d.x = x;
+	o.d.y = y;
 	while (i < (int)al->sec[e->csec].nb_wal)
 	{
-		wall_ok(al, e,al->sec[e->csec].walls[i], p, &m);
+		wall_ok(al, e, al->sec[e->csec].walls[i], &o);
 		i++;
 	}
-	(m.y == 1 && e->vely != 0) ? e->posy += y : 0;
-	(m.x == 1 && e->velx != 0) ? e->posx += x : 0;
-	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
+	(o.p.y == 1 && e->vely != 0) ? e->posy += y : 0;
+	(o.p.x == 1 && e->velx != 0) ? e->posx += x : 0;
+	e->csec = is_in_sector(al, e->posx, e->posy);
+	e->on_ground = 0;
 }

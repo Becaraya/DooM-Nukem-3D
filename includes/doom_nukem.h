@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 15:47:15 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:10:02 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@
 
 # define SPRITE_W 512
 # define SPRITE_H 512
+
+#define MAX_X 100000
 
 /*
 ** TEX_REPEAT is horizontal repeat in m
@@ -268,6 +270,13 @@ typedef struct		s_doint
 	int		color;
 }					t_doint;
 
+typedef struct		s_oint
+{
+	t_doint	d;
+	t_point	p;
+}					t_oint;
+
+
 /*
 ** typedef struct		s_wall
 ** {
@@ -322,7 +331,7 @@ typedef struct		s_player
 	double		gd_vel;
 	unsigned	fly:1;
 	unsigned	on_ground:1;
-	unsigned	alive;
+	int			alive;
 	t_angle		dir;
 
 	double		size;
@@ -503,6 +512,7 @@ typedef struct		s_text_list
 
 typedef struct		s_al
 {
+	int				hard;
 	t_tex			h;
 	t_tex			f;
 	t_status		status;
@@ -548,7 +558,7 @@ typedef struct		s_al
 	long			last_time;
 	long			curr_time;
 	long			tgt_time;
-	int				dtime;
+	unsigned int	dtime;
 
 	unsigned short	anim;
 	unsigned int	fire_anim;

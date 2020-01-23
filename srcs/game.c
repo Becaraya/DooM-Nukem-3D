@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/23 17:05:39 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:20:01 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,4 @@ void															game(t_al *al)
 		pix_to_pix(al->pix, al->pix_dead, 1);
 		SDL_ShowCursor(SDL_ENABLE);
 	}
-	al->play.alive = 0;
 }

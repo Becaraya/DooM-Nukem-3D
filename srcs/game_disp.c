@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 16:05:51 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/23 14:51:59 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 18:13:54 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,22 +86,6 @@ void		deceleration(t_al *al)
 ** catch angle's 69420 return and set the input power to null
 */
 
-void		colision(t_al *al)
-{
-	int i;
-
-	i = -1;
-	while(++i < al->nb_ent)
-	{
-		if(2 >= (al->play.posx - al->ent[i].posx) * (al->play.posx - al->ent[i].posx)
-		+ (al->play.posy - al->ent[i].posy) * (al->play.posy - al->ent[i].posy))
-		{
-			al->ent[i].velx = +al->play.velx; 
-			al->ent[i].vely = +al->play.vely;
-		}
-	}
-}
-
 void		acceleration(t_al *al)
 {
 	double	net_power;
@@ -128,7 +112,6 @@ void		displacement(t_al *al)
 {
 	int i;
 
-	colision(al);
 	if (al->dtime > 1 && al->dtime < 1000000)
 		ft_nop_player(al, 0, al->play.velx * al->dtime / 1000000, al->play.vely
 		* al->dtime / 1000000);

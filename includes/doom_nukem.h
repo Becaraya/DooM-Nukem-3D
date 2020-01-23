@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 16:13:47 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:53:39 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -366,6 +366,8 @@ typedef struct		s_mob
 	t_angle		dir;
 	t_angle		angle_to_player;
 	unsigned	hit;
+	unsigned	index;
+	unsigned	fly:1;
 
 	double		size;
 	double		width;
@@ -508,6 +510,7 @@ typedef struct		s_text_list
 
 /*
 ** Main structure #############################################################
+** h = heart f = flingue
 */
 
 typedef struct		s_al
@@ -848,4 +851,5 @@ double				wall_len(t_walls *wall);
 t_tex				find_ent_tex(t_al *al, t_mob *ent);
 void				draw_map(t_al *al);
 
+void				pewpew(t_al *al);
 #endif

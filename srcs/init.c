@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 16:12:50 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 18:16:36 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		init_player(t_al *al, t_player *pl)
 
 void			creat_entity(t_al *al)
 {
-	int i;
+	unsigned i;
 
 	al->nb_ent = 2;
 	if (!(al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
@@ -51,9 +51,11 @@ void			creat_entity(t_al *al)
 	{
 		al->ent[i].csec = 1;
 		al->ent[i].posx = 12;
-		al->ent[i].posy = 4 + (double)i;
+		al->ent[i].posy = 4 + (double)i * 5;
 		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
 		al->ent[i].velx = 0;
+		al->ent[i].vely = 0;
+		al->ent[i].velz = 20;
 		al->ent[i].gd_vel = 0;
 		al->ent[i].on_ground = 1;
 		al->ent[i].alive = 1;
@@ -63,6 +65,8 @@ void			creat_entity(t_al *al)
 		al->ent[i].mass = 50;
 		al->ent[i].power = 200;
 		al->ent[i].hit = 1;
+		al->ent[i].index = i;
+		al->ent[i].fly = 1;
 	}
 }
 
@@ -107,6 +111,7 @@ void			init(t_al *al, char *str)
 		exit(0);
 	load_hud(al);
 	init_player(al, &al->play);
+		al->play.dir = D_2PI / 4;
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_event_func.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:43:49 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 10:38:29 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:32:13 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void		mouse_press(t_al *al)
 {
 	if (al->status == MENU)
 		mouse_press_menu(al);
+	if (al->status == GAME)
+		pewpew(al);
 	if (al->status == EDIT)
 		mouse_press_edit(al);
 	if (al->status == DEAD)

@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 15:51:16 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:13:47 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -331,7 +331,7 @@ typedef struct		s_player
 	double		gd_vel;
 	unsigned	fly:1;
 	unsigned	on_ground:1;
-	unsigned	alive;
+	int			alive;
 	t_angle		dir;
 
 	double		size;
@@ -512,6 +512,7 @@ typedef struct		s_text_list
 
 typedef struct		s_al
 {
+	int				hard;
 	t_tex			h;
 	t_tex			f;
 	t_status		status;

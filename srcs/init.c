@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 15:52:18 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 16:12:50 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,6 +136,7 @@ void			init(t_al *al, char *str)
 	// get_sec_tab(al);
 	// get_map(al);
 	al->fire_anim = 420000000;
+	al->hard = 2;
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = SELECT;
 	al->edit.zoom = 10;

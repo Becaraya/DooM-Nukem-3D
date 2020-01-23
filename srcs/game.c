@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/23 11:33:32 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 11:34:01 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,21 +23,21 @@ static void														flyyyy(t_al *al)
 	: 0;
 }
 
+
 static void														sp_key(t_al *al)
 {
 	double tmp;
 
 	tmp = 0.000001 * al->dtime; 
-	if (al->k.lbrack && al->nb_sec >= 2 && al->play.csec == 2)
+	if (al->k.lbrack && al->nb_sec >= 2)
 	{
 		al->sec[2].fl_hei + tmp < al->sec[2].ce_hei ? al->sec[2].fl_hei += tmp
 		: 0;
 	}
-	else if (al->k.rbrack && al->nb_sec >= 2 && al->play.csec == 2)
+	else if (al->k.rbrack && al->nb_sec >= 2)
 		al->sec[2].fl_hei -= tmp;
 
 }
-
 void															game(t_al *al)
 {
 	rotate(al);
@@ -47,8 +47,6 @@ void															game(t_al *al)
 		acceleration(al);
 	else
 		flyyyy(al);
-//	if (al->ent[0].alive)
-//		acceleration_entities(al, &al->ent[0]);
 	displacement(al);
 	render(al);
 	if (al->play.alive)

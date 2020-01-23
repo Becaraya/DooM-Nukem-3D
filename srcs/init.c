@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 15:11:07 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 00:13:48 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void			creat_entity(t_al *al)
 {
 	int i;
 
-	al->nb_ent = 10;
+	al->nb_ent = 1;
 	if (!(al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
 		yeet(al);
 	if (!(al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
@@ -49,7 +49,7 @@ void			creat_entity(t_al *al)
 	i = -1;
 	while (++i < al->nb_ent)
 	{
-		al->ent[i].csec = 2;
+		al->ent[i].csec = 1;
 		al->ent[i].posx = 12;
 		al->ent[i].posy = 4 + (double)i;
 		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
@@ -92,7 +92,6 @@ static void		init_edit(t_al *al)
 	if (!(al->surf_ed = SDL_GetWindowSurface(al->win_ed)))
 		yeet(al);
 	al->pix_ed = al->surf_ed->pixels;
-
 	init_text_edit(al);
 }
 
@@ -174,7 +173,7 @@ void			init(t_al *al, char *str)
 		exit(0);
 	load_hud(al);
 	init_player(al, &al->play);
-	//creat_entity(al);
+	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
 	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
@@ -204,9 +203,7 @@ void			init(t_al *al, char *str)
 	// get_map(al);
 	ft_bzero(&al->k, sizeof(t_keys));
 	al->edit.stat = SELECT;
-	// al->edit.stat = EDIT_WALL;
 	al->edit.zoom = 15;
-	al->edit.index_sect = al->nb_sec; 
+	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;
-// 	printf("al->edit.index_wall %d\n", al->sect->nb_wal);
 }

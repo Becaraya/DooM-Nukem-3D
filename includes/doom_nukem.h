@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 15:27:23 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/22 23:39:15 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,8 @@
 ** bit shift
 */
 
-# define TEX_REPEAT_F		131071
-# define TEX_REPEAT_F_DIV	17
+# define TEX_REPEAT_F 131071
+# define TEX_REPEAT_F_DIV 17
 
 # define PLAYER_CROUCH 1.10
 # define PLAYER_SIZE 1.78
@@ -114,6 +114,7 @@ typedef enum		e_status_ed
 	SELECT,
 	DRAWING,
 	SET_SPAWN,
+	SET_END,
 	SET_BAD_PIG,
 	SET_FLO_TEXT,
 	SET_FLO_HEI,
@@ -122,7 +123,15 @@ typedef enum		e_status_ed
 	SET_WALL_TEXT,
 	LINK_MOD,
 	EDIT_WALL,
-	EDIT_SECT
+	EDIT_SECT,
+	SET_PLAYER,
+	LIFE,
+	POW,
+	WEAPON,
+	SIZE,
+	MASS,
+	GRAVITY,
+	IS_DOOR
 }					t_status_ed;
 
 typedef enum		e_ai
@@ -180,6 +189,7 @@ typedef struct		s_sector
 	unsigned short	fl_tex;
 	unsigned short	ce_tex;
 	unsigned int	nb_wal;
+
 	t_walls			*walls;
 	struct s_sector	*next;
 }					t_sector;
@@ -446,10 +456,6 @@ typedef struct		s_text_list
 	t_text	settings;
 	t_text	wall_para;
 	t_text	sect_para;
-	t_text	x_start;
-	t_text	y_start;
-	t_text	x_end;
-	t_text	y_end;
 	t_text	wall;
 	t_text	sector;
 	t_text	tools;
@@ -460,16 +466,33 @@ typedef struct		s_text_list
 	t_text	fl_hei;
 	t_text	ce_hei;
 	t_text	fl_hei_num;
-	t_text	ce_hei_num; //trouver un moyen de free quand y a le changement de stat a verifier mais je pense que ca creer des leaks
+	t_text	ce_hei_num;
 	t_text	fl_tex;
 	t_text	ce_tex;
-
-
+	t_text	set_player;
+	t_text	life;
+	t_text	power;
+	t_text	weapon;
+	t_text	size;
+	t_text	mass;
 
 	t_text	set_spawn;
+	t_text	set_end;
 	t_text	set_bad_pig;
 	t_text	draw;
 	t_text	del_sect;
+
+	t_text	player_value;
+
+	t_text	dif_ez;
+	t_text	dif_ha;
+
+	t_text	gravity;
+	t_text	g_num;
+	t_text	reset_map;
+	t_text	reset_player;
+
+	t_text	is_door;
 
 	t_text	link;
 }					t_text_list;
@@ -502,6 +525,7 @@ typedef struct		s_al
 	SDL_Color		color;
 
 	unsigned int	nb_sec;
+	unsigned int	sp_key_sec;
 	t_sector		*sec;
 	t_sector		*rotsec;
 	unsigned short	nb_tex;
@@ -530,6 +554,8 @@ typedef struct		s_al
 
 	t_edit			edit;
 	int				tex_choice;
+
+	int				diff:1;
 
 	t_keys			k;
 	SDL_Event		ev;
@@ -571,7 +597,8 @@ t_angle				sub_angle(t_angle a1, t_angle a2);
 void				column(t_al *al, t_rc_ray *ray);
 
 int					skybox(t_al *al, int y, int tx);
-int					tex_find(unsigned int *pix, int texx, int texy, t_tex *tex);
+int					tex_find(unsigned int *pix, int texx, int texy,
+	t_tex *tex);
 void				pimp_cross(t_al *al);
 void				refresh(t_al *al);
 void				cap_int(int *var, int lowcap, int highcap);
@@ -585,6 +612,7 @@ void				cap_int(int *var, int lowcap, int highcap);
 void				free_wall(t_walls *walls);
 void				ft_rectdel(SDL_Rect **re);
 void				yeet(t_al *al);
+void				free_text_hei_num(t_al *al);
 void				get_map(t_al *al);
 t_walls				*get_walls(t_al *al, unsigned int nb_sec);
 t_walls				*create_walls_elem(t_al *al, unsigned int nb_sec, unsigned
@@ -674,7 +702,8 @@ void				draw_sect(t_al *al, t_sector *sect);
 // void				draw_sect(t_al *al, t_sector *sect);
 void				draw_wall(t_al *al, t_walls *wall, int clr);
 
-void				draw_sect_index(t_al *al, t_sector *sect, unsigned int i_s);
+void				draw_sect_index(t_al *al, t_sector *sect,
+	unsigned int i_s);
 void				draw_wall_index(t_al *al, t_walls *wall, int index);
 
 
@@ -709,7 +738,8 @@ void				acceleration_entities(t_al *al, t_mob *mob);
 */
 
 void				init_ttf(t_al *al);
-int					set_text(t_text *text, char *str, SDL_Rect coo, SDL_Color clr);
+int					set_text(t_text *text, char *str, SDL_Rect coo,
+	SDL_Color clr);
 int					titlecmp(t_al *al, t_text text);
 void 				display_tex_menu(SDL_Surface *surf, t_tex tex, int i);
 void 				click_on_menu(t_al *al, SDL_Surface *surf);
@@ -734,6 +764,18 @@ void				set_edit(t_al *al);
 void				set_edit_menu_next(t_al *al);
 void				set_edit_menu(t_al *al);
 int					cross_wall(t_walls a, t_walls b);
+void				sect_wall_menu_rectangle(t_al *al);
+void				global_menu_rectangle(t_al *al);
+void				set_edit_menu_next(t_al *al);
+void				arrow_stat(t_al *al, SDL_MouseButtonEvent bev);
+void				arrow_stat_player_minus(t_al *al);
+void				arrow_stat_player_plus(t_al *al);
+void				mouse_press_edit_mini_menu(t_al *al,
+	SDL_MouseButtonEvent bev);
+void				mouse_press_edit_setting_sector(t_al *al,
+	SDL_MouseButtonEvent bev);
+void				mouse_press_edit_player(t_al *al,
+	SDL_MouseButtonEvent bev);
 
 /*
 ** TRUC
@@ -756,14 +798,15 @@ void				hit_floor(t_al *al, t_rc_ray *ray, int hitnb);
 void				hit_ceiling(t_al *al, t_rc_ray *ray, int hitnb);
 void				hit_top_bot_wall(t_al *al, t_rc_ray *ray, int hitnb);
 void				hit_wall(t_al *al, t_rc_ray *ray, int hitnb);
-int					tex_find(unsigned int *pix, int texx, int texy, t_tex *tex);
+int					tex_find(unsigned int *pix, int texx, int texy,
+	t_tex *tex);
 int					skybox(t_al *al, int y, int tx);
-void				hit_wall_heights(t_al *al, t_rc_hit *hit, t_rc_lim *lim, int
-	hor);
-void				hit_next_walls(t_al *al, t_rc_hit *hit, t_rc_lim *lim, int
-	hor);
-void				hit_linesave_ent(t_al *al, t_rc_hit *hit, t_rc_lim *lim, int
-	hor);
+void				hit_wall_heights(t_al *al, t_rc_hit *hit, t_rc_lim *lim,
+	int hor);
+void				hit_next_walls(t_al *al, t_rc_hit *hit, t_rc_lim *lim,
+	int hor);
+void				hit_linesave_ent(t_al *al, t_rc_hit *hit, t_rc_lim *lim,
+int hor);
 unsigned			new_wall_he(t_rc_hit *hit, t_rc_hit *nhit);
 
 void				displacement(t_al *al);

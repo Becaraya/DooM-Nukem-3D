@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:12:32 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 21:32:39 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/22 13:47:51 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		draw_wall(t_al *al, t_walls *wall, int clr)
 	a.y = wall->y1;
 	b.x = wall->x2;
 	b.y = wall->y2;
-	(wall->x1 != -1) ? ft_put_line(a, b,  al->sdlsurf, clr) : 0;
+	(wall->x1 != -1) ? ft_put_line(a, b, al->sdlsurf, clr) : 0;
 	if (wall->next)
 		draw_wall(al, wall->next, clr);
 }
@@ -39,7 +39,7 @@ void		draw_wall_index(t_al *al, t_walls *wall, int index)
 	b.y = wall->y2;
 	if (index == 0)
 		clr = YELLOW;
-	(wall->x1 != -1) ? ft_put_line(a, b,  al->sdlsurf, clr) : 0;
+	(wall->x1 != -1) ? ft_put_line(a, b, al->sdlsurf, clr) : 0;
 	if (wall->next)
 		draw_wall_index(al, wall->next, index - 1);
 }
@@ -50,7 +50,6 @@ void		draw_sect_index(t_al *al, t_sector *sect, unsigned int i_s)
 		draw_wall_index(al, sect->walls, (int)al->edit.index_wall);
 	else if (sect->next)
 		draw_sect_index(al, sect->next, i_s - 1);
-
 }
 
 void		draw_sect(t_al *al, t_sector *sect)

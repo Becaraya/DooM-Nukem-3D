@@ -21,7 +21,8 @@ HEADERS_LIST = doom_nukem.h
 HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
-SRC_LIST = add_edit.c		\
+SRC_LIST = arrow_edit.c		\
+		add_edit.c			\
 		angles.c			\
 		bmp_to_tex.c		\
 		choose_tex.c		\
@@ -51,11 +52,13 @@ SRC_LIST = add_edit.c		\
 		main_loop.c 		\
 		main.c				\
 		mob_moov.c			\
+		mouse_edit_stat.c	\
 		mouse_edit.c		\
 		mouse_event_func.c	\
 		pimp_cross.c		\
 		player_moov.c		\
 		refresh_text.c		\
+		rectanle_menu.c		\
 		refresh.c			\
 		render_cast.c		\
 		render_minimap.c	\
@@ -70,6 +73,7 @@ SRC_LIST = add_edit.c		\
 		sprite.c			\
 		texte.c				\
 		tool_add_edit.c		\
+		tool_arrow.c		\
 		tool_text.c			\
 		tools.c				\
 		yeet_text.c			\

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/23 18:43:47 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:11:44 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,23 @@ void		shoot(t_al *al)
 
 	tmp = 60000;
 
-	if (al->fire_anim < 100000)
+	if (al->fire_anim < (unsigned)100000)
 		al->f = al->weapon[1];
-	else if (al->fire_anim < 100000 + 1 * tmp)
+	else if (al->fire_anim < (unsigned)100000 + 1 * tmp)
 		al->f = al->weapon[2];
-	else if (al->fire_anim < 100000 + 2 * tmp)
+	else if (al->fire_anim < (unsigned)100000 + 2 * tmp)
 		al->f = al->weapon[3];
-	else if (al->fire_anim < 100000 + 3 * tmp)
+	else if (al->fire_anim < (unsigned)100000 + 3 * tmp)
 		al->f = al->weapon[4];
-	else if (al->fire_anim < 100000 + 5 * tmp)
+	else if (al->fire_anim < (unsigned)100000 + 5 * tmp)
 		al->f = al->weapon[5];
-	else if (al->fire_anim < 100000 + 7 * tmp)
+	else if (al->fire_anim < (unsigned)100000 + 7 * tmp)
 		al->f = al->weapon[6];
-	else if (al->fire_anim < 100000 + 9 * tmp)
+	else if (al->fire_anim < (unsigned)100000 + 9 * tmp)
 		al->f = al->weapon[5];
-	else if (al->fire_anim < 100000 + 11 * tmp)
+	else if (al->fire_anim < (unsigned)100000 + 11 * tmp)
 		al->f = al->weapon[4];
-	else if (al->fire_anim < 100000 + 13 * tmp)
+	else if (al->fire_anim < (unsigned)100000 + 13 * tmp)
 		al->f = al->weapon[3];
 	else
 		al->f = al->weapon[0];

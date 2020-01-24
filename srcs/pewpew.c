@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/24 13:34:13 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:14:27 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		pewpew(t_al *al)
 	ft_bzero(&ray, sizeof(t_rc_hit));
 	cast_ray(al, al->play.dir, &ray);
 	i = 0;
-	while (i < ray.nb_hits)
+	while ((int)i < ray.nb_hits)
 	{
 		if (ray.hits[i].ent.alive && ray.hits[i].is_entity)
 		{

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 17:05:36 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:09:48 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,30 +22,30 @@
 // 	printf("y2 == %f\n\n", wall->y2);
 // }
 
-static void		print_al(t_al *al) // a tej plus tard
-{
-	t_sector	*tmp_s;
-	t_walls		*tmp_w;
-	int i = 0;
-	int j = 0;
+// static void		print_al(t_al *al) // a tej plus tard
+// {
+// 	t_sector	*tmp_s;
+// 	t_walls		*tmp_w;
+// 	int i = 0;
+// 	int j = 0;
 
-	tmp_s = al->sect;
-	while (tmp_s)
-	{
-		printf("\nSECTOR %d\n", al->nb_sec - i);
-		tmp_w = tmp_s->walls;
-		j = 0;
-		i++;
-		printf("                       tmp_s->nb_wall = %d\n", tmp_s->nb_wal);
-		while (tmp_w)
-		{
-			printf("WALL %d // x1 = %f // x2 = %f // y1 = %f // y2 = %f\n", tmp_s->nb_wal - j, tmp_w->x1, tmp_w->x2, tmp_w->y1, tmp_w->y2);
-			j++;
-			tmp_w = tmp_w->next;
-		}
-		tmp_s = tmp_s->next;
-	}
-}
+// 	tmp_s = al->sect;
+// 	while (tmp_s)
+// 	{
+// 		printf("\nSECTOR %d\n", al->nb_sec - i);
+// 		tmp_w = tmp_s->walls;
+// 		j = 0;
+// 		i++;
+// 		printf("                       tmp_s->nb_wall = %d\n", tmp_s->nb_wal);
+// 		while (tmp_w)
+// 		{
+// 			printf("WALL %d // x1 = %f // x2 = %f // y1 = %f // y2 = %f\n", tmp_s->nb_wal - j, tmp_w->x1, tmp_w->x2, tmp_w->y1, tmp_w->y2);
+// 			j++;
+// 			tmp_w = tmp_w->next;
+// 		}
+// 		tmp_s = tmp_s->next;
+// 	}
+// }
 
 void	set_default_player(t_al *al)
 {
@@ -107,7 +107,7 @@ void	mouse_press_edit(t_al *al)
 		return ;
 	if (bev.windowID == 1)
 	{
-		print_al(al);
+		// print_al(al);
 		if (al->edit.stat == SELECT)
 		{
 			al->edit.stat = DRAWING;

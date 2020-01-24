@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 12:18:35 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 12:31:07 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void			creat_entity(t_al *al)
 		al->ent[i].velz = 20;
 		al->ent[i].gd_vel = 0;
 		al->ent[i].on_ground = 1;
-		al->ent[i].alive = 1;
+		al->ent[i].alive = 10;
 		al->ent[i].dir = 0;
 		al->ent[i].size = 2.5;
 		al->ent[i].width = 2.3;

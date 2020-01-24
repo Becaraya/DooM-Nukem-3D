@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 11:42:59 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 12:31:20 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,7 +362,7 @@ typedef struct		s_mob
 	double		velz;
 	double		gd_vel;
 	unsigned	on_ground:1;
-	unsigned	alive:1;
+	unsigned	alive;
 	t_angle		dir;
 	t_angle		angle_to_player;
 	unsigned	hit;

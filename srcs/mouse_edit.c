@@ -3,24 +3,24 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_edit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 14:35:32 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:02:27 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-/*static void		print_wall(t_walls *wall)
-{
-	if (wall->next)
-		print_wall(wall->next);
-	printf("x1 == %f\n", wall->x1);
-	printf("y1 == %f\n", wall->y1);
-	printf("x2 == %f\n", wall->x2);
-	printf("y2 == %f\n\n", wall->y2);
-}
+// static void		print_wall(t_walls *wall)
+// {
+// 	if (wall->next)
+// 		print_wall(wall->next);
+// 	printf("x1 == %f\n", wall->x1);
+// 	printf("y1 == %f\n", wall->y1);
+// 	printf("x2 == %f\n", wall->x2);
+// 	printf("y2 == %f\n\n", wall->y2);
+// }
 
 static void		print_al(t_al *al) // a tej plus tard
 {
@@ -39,15 +39,13 @@ static void		print_al(t_al *al) // a tej plus tard
 		printf("                       tmp_s->nb_wall = %d\n", tmp_s->nb_wal);
 		while (tmp_w)
 		{
-			printf("WALL %d // x1 = %f // x2 = %f // y1 = %f
-				// y2 = %f\n", tmp_s->nb_wal - j, tmp_w->x1,
-				tmp_w->x2, tmp_w->y1, tmp_w->y2);
+			printf("WALL %d // x1 = %f // x2 = %f // y1 = %f // y2 = %f\n", tmp_s->nb_wal - j, tmp_w->x1, tmp_w->x2, tmp_w->y1, tmp_w->y2);
 			j++;
 			tmp_w = tmp_w->next;
 		}
 		tmp_s = tmp_s->next;
 	}
-}*/
+}
 
 void	set_default_player(t_al *al)
 {
@@ -115,6 +113,7 @@ void	mouse_press_edit(t_al *al)
 		return ;
 	if (bev.windowID == 1)
 	{
+		print_al(al);
 		if (al->edit.stat == SELECT)
 		{
 			al->edit.stat = DRAWING;
@@ -122,7 +121,7 @@ void	mouse_press_edit(t_al *al)
 			al->edit.index_wall = 1;
 			add_sector(al, itop(bev.x, bev.y));
 		}
-		if (al->edit.stat == DRAWING)
+		else if (al->edit.stat == DRAWING)
 			check_can_add(al, al->sect, itop(bev.x, bev.y));
 		if (al->edit.stat == LINK_MOD)
 			lnk_edit(al, bev);

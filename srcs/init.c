@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 14:26:30 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:28:46 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
 	pl->on_ground = 1;
 	pl->alive = 5;
+	pl->dmg = 6;
 	pl->posz = al->sec[pl->csec].fl_hei;
 }
 

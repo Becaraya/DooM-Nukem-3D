@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:22:57 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/24 16:49:26 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:36:42 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static void	link_wall(t_sector *cur, t_walls *set, int id)
 
 static void	link_sector(t_sector *root, t_sector *cur, unsigned id)
 {
-	t_walls	*wall;
-	int		i;
+	t_walls		*wall;
+	unsigned	i;
 
 	//printf("sec %d > fl_hei:%.2f\n", id, cur->fl_hei);
 	i = 0;
@@ -52,7 +52,7 @@ static void	link_sector(t_sector *root, t_sector *cur, unsigned id)
 		root = root->next;
 		i++;
 	}
-//	printf("\n");
+	//	printf("\n");
 }
 
 void		link_sectors(t_al *al)

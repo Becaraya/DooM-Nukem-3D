@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/01/24 15:58:45 by hutricot         ###   ########.fr       */
+=======
+/*   Updated: 2020/01/24 17:05:24 by becaraya         ###   ########.fr       */
+>>>>>>> e01770d8a5b45faf1bedd33ae171df1cda1a0556
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +146,7 @@ void			init(t_al *al, char *str)
 	init_status(al);
 	load_some_imgs(al);
 	al->status = EDIT;
-	// al->status = GAME;
+	//  al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

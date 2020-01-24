@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:12:32 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 14:17:33 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:49:50 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,14 @@ void		draw_wall(t_al *al, t_walls *wall, int clr)
 {
 	t_point		a;
 	t_point		b;
+	int clr_tmp;
 
 	a.x = wall->x1;
 	a.y = wall->y1;
 	b.x = wall->x2;
 	b.y = wall->y2;
-	(wall->x1 != -1) ? ft_put_line(a, b, al->sdlsurf, clr) : 0;
+	clr_tmp = (clr == WHITE && wall->sec_lnk) ? LIGHT_GREY : clr;
+	(wall->x1 != -1) ? ft_put_line(a, b, al->sdlsurf, clr_tmp) : 0;
 	if (wall->next)
 		draw_wall(al, wall->next, clr);
 }
@@ -32,13 +34,13 @@ void		draw_wall_index(t_al *al, t_walls *wall, int index)
 	t_point		b;
 	int			clr;
 
-	clr = RED;
+	clr = wall->sec_lnk ? DARK_RED : RED;
 	a.x = wall->x1;
 	a.y = wall->y1;
 	b.x = wall->x2;
 	b.y = wall->y2;
 	if (index == 0)
-		clr = YELLOW;
+		clr = wall->sec_lnk ? DARK_YELLOW : YELLOW;
 	(wall->x1 != -1) ? ft_put_line(a, b, al->sdlsurf, clr) : 0;
 	if (wall->next)
 		draw_wall_index(al, wall->next, index - 1);
@@ -54,8 +56,7 @@ void		draw_sect_index(t_al *al, t_sector *sect, unsigned int i_s)
 
 void		draw_sect(t_al *al, t_sector *sect)
 {
-	if (sect->walls->x1 != -1)
-		draw_wall(al, sect->walls, WHITE);
+	draw_wall(al, sect->walls, WHITE);
 	if (sect->next)
 		draw_sect(al, sect->next);
 }

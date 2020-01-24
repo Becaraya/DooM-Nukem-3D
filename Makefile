@@ -32,6 +32,7 @@ SRC_LIST = arrow_edit.c		\
 		column.c			\
 		draw_edit_tools.c	\
 		draw_tools.c		\
+		edit_link_sectors.c	\
 		edit.c				\
 		event_func.c		\
 		ft_dtoa_doom.c		\

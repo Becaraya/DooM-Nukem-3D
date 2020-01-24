@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 14:58:05 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:53:47 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,17 @@
 
 # define M_2PI 6.283185307179586476925286766559005768394338798750211641949
 
-# define WHITE 0x80ffffff
-# define WHITE_L 0xCDCDCD
-# define BLACK 0x0
-# define LIGHT_GREY 0xb0b0b0
-# define DARK_GREY 0x606060
-# define RED 0xff0000
-# define YELLOW 0xffff00
+# define BLACK			0x0
+# define WHITE			0x80ffffff
+# define WHITE_L		0xCDCDCD
+# define LIGHT_GREY		0xb0b0b0
+# define DARK_GREY		0x606060
+# define RED			0xff0000
+# define DARK_RED		0xa50029
+# define YELLOW			0xffff00
+# define DARK_YELLOW	0xdec111
+# define GREEN			0x00ff00
+# define DARK_GREEN		0x108010
 
 # define BACK_GROUND LIGHT_GREY
 # define TEXT_EDITOR BLACK
@@ -136,11 +140,6 @@ typedef enum		e_status_ed
 	GRAVITY,
 	IS_DOOR
 }					t_status_ed;
-
-typedef enum		e_ai
-{
-	NONE
-}					t_ai;
 
 /*
 ** TYPEDEF ####################################################################
@@ -853,5 +852,6 @@ void				print_co(t_al *al);
 int					count_wall(t_walls *walls);
 void				mob_on_z(t_al *al, t_mob *e);
 
+void				link_sectors(t_al *al);
 void				pewpew(t_al *al);
 #endif

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 17:02:27 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:05:36 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,6 @@ void	mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 		set_default_player(al);
 }
 
-void	lnk_edit(t_al *al, SDL_MouseButtonEvent bev)
-{
-	printf("sec %d\n", is_in_sector(al, bev.x - (bev.x % al->edit.zoom),
-				bev.y - (bev.y % al->edit.zoom)));
-}
-
 void	mouse_press_edit(t_al *al)
 {
 	SDL_MouseButtonEvent	bev;
@@ -123,8 +117,6 @@ void	mouse_press_edit(t_al *al)
 		}
 		else if (al->edit.stat == DRAWING)
 			check_can_add(al, al->sect, itop(bev.x, bev.y));
-		if (al->edit.stat == LINK_MOD)
-			lnk_edit(al, bev);
 	}
 	if (bev.windowID == 2)
 		mouse_press_edit_menu(al, bev);

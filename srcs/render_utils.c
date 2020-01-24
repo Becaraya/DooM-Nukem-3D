@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 17:09:27 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/12 17:14:31 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 12:13:55 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,14 @@ t_tex			find_ent_tex(t_al *al, t_mob *ent)
 {
 	t_tex	tmp;
 
-	tmp.size_x = al->texgp[0].size_x;
-	tmp.size_y = al->texgp[0].size_y;
-	tmp.pix = al->texgp[0].or[sub_angle(ent->angle_to_player + D_PI_4 / 2,
-		ent->dir) / D_PI_4].pix[al->anim >> 14];
+	if (ent->alive)
+	{
+		tmp.size_x = al->texgp[0].size_x;
+		tmp.size_y = al->texgp[0].size_y;
+		tmp.pix = al->texgp[0].or[sub_angle(ent->angle_to_player + D_PI_4 / 2,
+				ent->dir) / D_PI_4].pix[al->anim >> 14];
+	}
+	else
+		tmp = al->hes_ded;
 	return (tmp);
 }

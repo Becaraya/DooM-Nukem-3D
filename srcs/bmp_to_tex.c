@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_to_tex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:39:49 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/09 15:25:03 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/24 12:03:24 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+
+int		you_must_install_cs_source_textures(t_tex *tex)
+{
+	tex->size_x = 2;
+	tex->size_y = 2;
+	if (!(tex->pix = ft_memalloc(16)))
+		return (pr_err(MERROR_MESS));
+	tex->pix[0] = 0xffff00ff;
+	tex->pix[1] = 0xff000000;
+	tex->pix[2] = 0xff000000;
+	tex->pix[3] = 0xffff00ff;
+}
 
 int		bmp_to_tex(t_tex *tex, char *str, int sizex, int sizey)
 {
@@ -19,7 +31,7 @@ int		bmp_to_tex(t_tex *tex, char *str, int sizex, int sizey)
 	int		offset;
 
 	if ((fd = open(str, O_RDONLY)) < 0)
-		return (pr_err("Can't open image\n"));
+		return (you_must_install_cs_source_textures(tex));
 	tex->size_x = sizex;
 	tex->size_y = sizey;
 	if (!(tex->pix = malloc(sizex * sizey * 4)))

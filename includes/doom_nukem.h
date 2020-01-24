@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 18:55:03 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 11:42:59 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -519,6 +519,7 @@ typedef struct		s_al
 	t_tex			h;
 	t_tex			f;
 	t_tex			weapon[7];
+	t_tex			hes_ded;
 	t_status		status;
 	void			(*stat_fnc[5])(struct s_al *);
 

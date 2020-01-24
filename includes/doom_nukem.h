@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 17:10:02 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 18:55:03 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ typedef struct		s_mouse
 
 /*
 ** typedef struct		s_icon
-** { 
+** {
 ** 	unsigned int	*chest;
 ** 	unsigned int	*click;
 ** 	unsigned int	*path;
@@ -366,6 +366,8 @@ typedef struct		s_mob
 	t_angle		dir;
 	t_angle		angle_to_player;
 	unsigned	hit;
+	unsigned	index;
+	unsigned	fly:1;
 
 	double		size;
 	double		width;
@@ -508,6 +510,7 @@ typedef struct		s_text_list
 
 /*
 ** Main structure #############################################################
+** h = heart f = flingue
 */
 
 typedef struct		s_al
@@ -515,6 +518,7 @@ typedef struct		s_al
 	int				hard;
 	t_tex			h;
 	t_tex			f;
+	t_tex			weapon[7];
 	t_status		status;
 	void			(*stat_fnc[5])(struct s_al *);
 
@@ -848,4 +852,5 @@ double				wall_len(t_walls *wall);
 t_tex				find_ent_tex(t_al *al, t_mob *ent);
 void				draw_map(t_al *al);
 
+void				pewpew(t_al *al);
 #endif

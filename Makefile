@@ -55,6 +55,7 @@ SRC_LIST = arrow_edit.c		\
 		mouse_edit_stat.c	\
 		mouse_edit.c		\
 		mouse_event_func.c	\
+		pewpew.c			\
 		pimp_cross.c		\
 		player_moov.c		\
 		refresh_text.c		\

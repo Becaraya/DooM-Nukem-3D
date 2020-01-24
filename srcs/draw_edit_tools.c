@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:12:32 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 16:49:50 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:30:11 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void		draw_wall(t_al *al, t_walls *wall, int clr)
 	a.y = wall->y1;
 	b.x = wall->x2;
 	b.y = wall->y2;
-	clr_tmp = (clr == WHITE && wall->sec_lnk) ? LIGHT_GREY : clr;
+	clr_tmp = ((unsigned)clr == WHITE && wall->sec_lnk) ? LIGHT_GREY : clr;
 	(wall->x1 != -1) ? ft_put_line(a, b, al->sdlsurf, clr_tmp) : 0;
 	if (wall->next)
 		draw_wall(al, wall->next, clr);

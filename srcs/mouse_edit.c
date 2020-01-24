@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 17:09:48 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:22:48 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,6 +108,8 @@ void	mouse_press_edit(t_al *al)
 	if (bev.windowID == 1)
 	{
 		// print_al(al);
+		if (al->edit.stat == SET_SPAWN)
+			set_spawn(al, bev);
 		if (al->edit.stat == SELECT)
 		{
 			al->edit.stat = DRAWING;

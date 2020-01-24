@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:09:55 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/23 18:29:26 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/23 18:38:28 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,30 +106,8 @@ void			ft_nop(t_al *al, t_mob *e, double x, double y)
 		wall_ok(al, e, al->sec[e->csec].walls[i], &o);
 		i++;
 	}
-	
 	(o.p.y == 1 && e->vely != 0 && e->alive) ? e->posy += y : 0;
 	(o.p.x == 1 && e->velx != 0 && e->alive) ? e->posx += x : 0;
-	e->posz += e->velz * al->dtime / 1000000;
-	e->velz || e->posz != al->sec[e->csec].fl_hei ? e->on_ground = 0 : 0;
-
-	if (!e->on_ground)
-	{
-		e->velz -= al->g * al->dtime / 1000000;
-		if (e->posz < al->sec[e->csec].fl_hei)
-		{
-			e->posz = al->sec[e->csec].fl_hei;
-			e->velz = 0;
-			e->on_ground = 1;
-		}
-		if (e->posz + e->size > al->sec[e->csec].ce_hei)
-		{
-			e->posz = al->sec[e->csec].ce_hei - e->size;
-			e->velz = 0;
-		}
-		if (al->sec[e->csec].ce_hei - al->sec[e->csec].fl_hei <
-			e->size)
-			e->alive = 0;
-	}
-	
+	mob_on_z(al, e);
 	e->csec = is_in_sector(al, e->posx, e->posy);
 }

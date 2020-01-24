@@ -51,6 +51,7 @@ SRC_LIST = arrow_edit.c		\
 		init.c 				\
 		main_loop.c 		\
 		main.c				\
+		mob_disp.c			\
 		mob_moov.c			\
 		mouse_edit_stat.c	\
 		mouse_edit.c		\

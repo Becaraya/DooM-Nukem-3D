@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 12:31:07 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:26:30 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,7 @@ void			load_some_imgs(t_al *al)
 	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
 	bmp_to_tex(&al->hes_ded, "ressources/hes_ded.bmp", 512, 512);
 	i = 0;
-	while (i < 262144)
+	while (i < 262144 && al->hes_ded.size_x == 512)
 	{
 		if (al->hes_ded.pix[i] != 0xffff)
 			al->hes_ded.pix[i] |= 0xff000000;
@@ -136,13 +136,12 @@ void			init(t_al *al, char *str)
 		exit(0);
 	load_hud(al);
 	init_player(al, &al->play);
-		al->play.dir = D_2PI / 4;
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
 	load_some_imgs(al);
 	al->status = EDIT;
-	al->status = GAME;
+	// al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

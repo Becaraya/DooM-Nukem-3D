@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 18:43:47 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/24 12:26:38 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void			creat_entity(t_al *al)
 		al->ent[i].velz = 20;
 		al->ent[i].gd_vel = 0;
 		al->ent[i].on_ground = 1;
-		al->ent[i].alive = 1;
+		al->ent[i].alive = 10;
 		al->ent[i].dir = 0;
 		al->ent[i].size = 2.5;
 		al->ent[i].width = 2.3;

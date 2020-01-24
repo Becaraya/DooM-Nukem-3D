@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 18:42:55 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/24 11:39:06 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -362,7 +362,7 @@ typedef struct		s_mob
 	double		velz;
 	double		gd_vel;
 	unsigned	on_ground:1;
-	unsigned	alive:1;
+	unsigned	alive;
 	t_angle		dir;
 	t_angle		angle_to_player;
 	unsigned	hit;

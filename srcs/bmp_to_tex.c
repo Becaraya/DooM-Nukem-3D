@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bmp_to_tex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:39:49 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/24 12:03:24 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:26:41 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int		you_must_install_cs_source_textures(t_tex *tex)
 	tex->pix[1] = 0xff000000;
 	tex->pix[2] = 0xff000000;
 	tex->pix[3] = 0xffff00ff;
+	return(0);
 }
 
 int		bmp_to_tex(t_tex *tex, char *str, int sizex, int sizey)

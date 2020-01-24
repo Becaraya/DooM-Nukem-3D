@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 14:07:22 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:58:05 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 
 # define MAX_HITS	1000
 # define HORIZON_LIMIT	1000
+# define F19 1073741934
 
 # define D_2PI	8192
 # define D_2PIM	8191
@@ -848,6 +849,9 @@ void				swapd(double *d1, double *d2);
 double				wall_len(t_walls *wall);
 t_tex				find_ent_tex(t_al *al, t_mob *ent);
 void				draw_map(t_al *al);
+void				print_co(t_al *al);
+int					count_wall(t_walls *walls);
+void				mob_on_z(t_al *al, t_mob *e);
 
 void				pewpew(t_al *al);
 #endif

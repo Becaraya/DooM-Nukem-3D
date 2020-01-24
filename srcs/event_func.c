@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/20 14:50:57 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:45:33 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void		key_func(t_al *al)
 	SDL_KeyboardEvent kev;
 
 	kev = al->ev.key;
+	/*al->status = (kev.keysym.sym = F19 && al->status == GAME) ? EDIT : GAME;*/
 	kev.keysym.sym == SDLK_z ? z_func(al) : 0;
 	if (al->ev.type == SDL_KEYDOWN)
 		keydown_func(al, kev);

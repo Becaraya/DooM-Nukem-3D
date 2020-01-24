@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 11:39:06 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/24 13:20:05 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -333,13 +333,14 @@ typedef struct		s_player
 	unsigned	on_ground:1;
 	int			alive;
 	t_angle		dir;
-
+	
 	double		size;
 	double		eyez;
 	double		mass;
 	double		power;
 	double		power_mult;
 
+	unsigned	dmg;
 	int			horizon;
 }					t_player;
 
@@ -519,6 +520,7 @@ typedef struct		s_al
 	t_tex			h;
 	t_tex			f;
 	t_tex			weapon[7];
+	t_tex			hes_ded;
 	t_status		status;
 	void			(*stat_fnc[5])(struct s_al *);
 

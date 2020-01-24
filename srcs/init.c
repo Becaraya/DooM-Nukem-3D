@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 12:26:38 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/24 13:20:36 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
 	pl->on_ground = 1;
 	pl->alive = 5;
+	pl->dmg = 6;
 	pl->posz = al->sec[pl->csec].fl_hei;
 }
 
@@ -115,6 +116,21 @@ void			load_hud(t_al *al)
 
 }
 
+void			load_some_imgs(t_al *al)
+{
+	unsigned i;
+
+	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
+	bmp_to_tex(&al->hes_ded, "ressources/hes_ded.bmp", 512, 512);
+	i = 0;
+	while (i < 262144)
+	{
+		if (al->hes_ded.pix[i] != 0xffff)
+			al->hes_ded.pix[i] |= 0xff000000;
+		i++;
+	}
+}
+
 void			init(t_al *al, char *str)
 {
 	if (hms_parser(al, str))
@@ -125,7 +141,7 @@ void			init(t_al *al, char *str)
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
-	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
+	load_some_imgs(al);
 	al->status = EDIT;
 	al->status = GAME;
 	al->fps = 60;

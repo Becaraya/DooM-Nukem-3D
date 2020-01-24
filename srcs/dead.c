@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 09:13:43 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/23 15:10:06 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/23 17:15:22 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,14 @@ void		pront_urded(t_al *al, double scale, double alpha)
 	y = 0;
 	win.x = WIN_SIZEX / 2 - (yd.size_x * scale) / 2;
 	win.y = WIN_SIZEY / 2 - (yd.size_y * scale) / 2;
-	while (y < yd.size_y)
+	while (y < yd.size_y * scale)
 	{
 		x = 0;
-		while (x < yd.size_x)
+		while (x < yd.size_x * scale)
 		{
-			tmp = yd.pix[y * yd.size_x + x];
-			tmp != 0xffff ? al->pix[((unsigned)(y * scale) + win.y) * WIN_SIZEX
-				+ (unsigned)(x * scale) + win.x] =
+			tmp = yd.pix[(unsigned)(y / scale) * yd.size_x + (unsigned)(x /
+					scale)];
+			tmp != 0xffff ? al->pix[(y + win.y) * WIN_SIZEX + x + win.x] =
 			alphapix(tmp, alpha) : 0;
 			x++;
 		}
@@ -75,7 +75,7 @@ void		dead(t_al *al)
 
 	stat += al->dtime;
 	stat == 1000000 ? stat = 1000001 : 0;
-	scale = (stat / 16000000.0) + 0.7;
+	scale = (stat / 16000000.0) + 1.6;
 	pix_to_pix(al->pix_dead, al->pix, (2000000 - stat) / 2000000.0);
 	if (stat < 1000000)
 		pront_urded(al, scale, stat / 1000000.0);

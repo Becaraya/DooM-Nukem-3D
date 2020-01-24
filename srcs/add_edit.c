@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:08:39 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/22 14:37:52 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:05:59 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,12 @@ void			add_sector(t_al *al, t_point coo)
 void			add_wall(t_al *al, t_sector *sect, t_point coo)
 {
 	t_walls		*new;
-	
+	t_sector	*stmp = NULL;
+	t_walls		*wtmp = NULL;
+
 	if (sect->walls->x1 == sect->walls->x2 && sect->walls->y1 == sect->walls->y2)
 		return ;
+	//cross_wall(w1, w2);
 	if (!(new = ft_memalloc(sizeof(t_walls))))
 		yeet(al);
 	sect->nb_wal++;
@@ -80,7 +83,19 @@ void			add_wall(t_al *al, t_sector *sect, t_point coo)
 	new->y2 = sect->walls->y2;
 	new->next = sect->walls;
 	sect->walls = new;
-	//cross_wall(t_walls w1, t_walls w2);
+	stmp = al->sect;
+	while (stmp != NULL)
+	{
+		wtmp = stmp->walls;
+		while (wtmp != NULL)
+		{
+	printf("\n\n%f,%f,%f,%f\n%f,%f,%f,%f\n",sect->walls->x1,sect->walls->x2,sect->walls->y1,sect->walls->y2,wtmp->x1,wtmp->x2,wtmp->y1,wtmp->y2);
+			cross_wall(*(sect->walls),*wtmp);
+			wtmp = wtmp->next;
+		}
+		stmp = stmp->next;
+	}
+	printf("...........................................................\n");
 	if (check_end_sector(sect->walls->next, coo.x - (coo.x % al->edit.zoom),
 		coo.y - (coo.y % al->edit.zoom)) == 1)
 	{

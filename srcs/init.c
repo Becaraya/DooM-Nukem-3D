@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 14:32:39 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:58:45 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,8 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	load_some_imgs(al);
-	//al->status = EDIT;
-	 al->status = GAME;
+	al->status = EDIT;
+	// al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

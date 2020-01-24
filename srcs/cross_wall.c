@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/15 18:24:15 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/15 20:25:21 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/24 16:32:00 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,24 @@ int cross_wall(t_walls a, t_walls b)
 		if (a.x1 == com && a.y1 == te)
 		{
 			printf("dans le mille\n");
-			//return(0);
+			return(0);
 		}
 		if (a.x2 == com && a.y2 == te)
 		{
 			printf("dans le mille\n");
-			//return(0);
+			return(0);
 		}
 		if (b.x1 == com && b.y1 == te)
 		{
 			printf("dans le mille\n");
-			//return(0);
+			return(0);
 		}
 		if (b.x2 == com && b.y2 == te)
 		{
 			printf("dans le mille\n");
-			//return(0);
+			return(0);
 		}
 		printf("sa traversse !!\n");	
-		printf("c.x = %f c.y = %f d.x = %f d.y = %f com = %f te = %f\n", c.x, c.y, d.x, d.y, com,te);
+		//	printf("c.x = %f c.y = %f d.x = %f d.y = %f com = %f te = %f\n", c.x, c.y, d.x, d.y, com,te);
 return(1);
 } 

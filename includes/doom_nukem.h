@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 16:53:47 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:21:08 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -854,4 +854,6 @@ void				mob_on_z(t_al *al, t_mob *e);
 
 void				link_sectors(t_al *al);
 void				pewpew(t_al *al);
+void				set_spawn(t_al *al, SDL_MouseButtonEvent spw);
+
 #endif

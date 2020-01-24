@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 16:53:47 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:45:34 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,7 @@ typedef struct		s_keys
 	unsigned	a:1;
 	unsigned	s:1;
 	unsigned	d:1;
+	unsigned	t:1;
 	unsigned	lbrack:1;
 	unsigned	rbrack:1;
 	unsigned	left:1;
@@ -461,6 +462,7 @@ typedef struct		s_text
 
 typedef struct		s_text_list
 {
+	t_text	t;
 	t_text	gen_map;
 	t_text	sect_index;
 	t_text	wall_index;

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:15:33 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/22 23:50:31 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/24 18:06:28 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_text(t_al *al, t_text text, SDL_Surface *surf)
 
 	tmp = NULL;
 	title = 0;
-	if ((title = titlecmp(al, text)) == 1)
+	if (al->status == EDIT && (title = titlecmp(al, text)) == 1)
 		TTF_SetFontStyle(al->font, TTF_STYLE_BOLD);
 	if (!(tmp = TTF_RenderText_Blended(al->font, text.str, text.clr)))
 		yeet(al);

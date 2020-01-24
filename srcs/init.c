@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 17:05:24 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:47:53 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void			init(t_al *al, char *str)
 	init_status(al);
 	load_some_imgs(al);
 	al->status = EDIT;
-	//  al->status = GAME;
+	 al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -162,6 +162,11 @@ void			init(t_al *al, char *str)
 	{
 		init_edit(al);
 		get_map(al);
+	}
+	if (al->status == GAME)
+	{
+		set_text(&al->text.t, "TEXT", get_rect(300, 330),
+		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	}
 	// get_sec_tab(al);
 	// get_map(al);

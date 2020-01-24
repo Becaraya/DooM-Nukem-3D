@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_edit_stat.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:31:24 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/22 23:39:23 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/24 15:24:37 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,11 @@ void	mouse_press_edit_mini_menu(t_al *al, SDL_MouseButtonEvent bev)
 	if (al->sect)
 	{
 		if (inr(itop(45, 605), itop(220, 650), itop(bev.x, bev.y)))
-			al->edit.stat = LINK_MOD;
+		{
+			link_sectors(al);
+			ft_putstr("Sector linked !\n");
+			al->edit.stat = SELECT;
+		}
 		if (inr(itop(45, 540), itop(220, 585), itop(bev.x, bev.y)))
 			al->edit.stat = (al->edit.stat != SET_SPAWN) ? SET_SPAWN : SET_END;
 		if (inr(itop(280, 540), itop(460, 585), itop(bev.x, bev.y)))

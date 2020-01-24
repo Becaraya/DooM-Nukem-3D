@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tool_add_edit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:10:14 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 23:32:32 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:43:40 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,12 @@ int				check_end_sector(t_walls *wall, int x, int y)
 void			check_can_add(t_al *al, t_sector *sect, t_point coo)
 {
 	t_point		tmp;
-
+	t_sector	*stmp = NULL;
+	t_walls		*wtmp = NULL;
+	
 	tmp.x = coo.x - (coo.x % al->edit.zoom);
 	tmp.y = coo.y - (coo.y % al->edit.zoom);
+	stmp = al->sect;
 	if (sect->walls->next && sect->walls->next->x1 == tmp.x
 		&& sect->walls->next->y1 == tmp.y)
 		return ;

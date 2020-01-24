@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 13:20:05 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/24 14:07:22 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 # define SPRITE_W 512
 # define SPRITE_H 512
 
-#define MAX_X 100000
+# define MAX_X 100000
 
 /*
 ** TEX_REPEAT is horizontal repeat in m
@@ -276,7 +276,6 @@ typedef struct		s_oint
 	t_point	p;
 }					t_oint;
 
-
 /*
 ** typedef struct		s_wall
 ** {
@@ -333,7 +332,7 @@ typedef struct		s_player
 	unsigned	on_ground:1;
 	int			alive;
 	t_angle		dir;
-	
+
 	double		size;
 	double		eyez;
 	double		mass;
@@ -714,16 +713,12 @@ void				put_rectangle(SDL_Surface *surf, t_point a, t_point b, int
 */
 
 void				draw_sect(t_al *al, t_sector *sect);
-// void				draw_wall(t_al *al, t_walls *wall, int clr);
 
-// void				draw_sect(t_al *al, t_sector *sect);
 void				draw_wall(t_al *al, t_walls *wall, int clr);
 
 void				draw_sect_index(t_al *al, t_sector *sect,
 	unsigned int i_s);
 void				draw_wall_index(t_al *al, t_walls *wall, int index);
-
-
 
 /*
 ** Struct Edit Tool
@@ -758,8 +753,8 @@ void				init_ttf(t_al *al);
 int					set_text(t_text *text, char *str, SDL_Rect coo,
 	SDL_Color clr);
 int					titlecmp(t_al *al, t_text text);
-void 				display_tex_menu(SDL_Surface *surf, t_tex tex, int i);
-void 				click_on_menu(t_al *al, SDL_Surface *surf);
+void				display_tex_menu(SDL_Surface *surf, t_tex tex, int i);
+void				click_on_menu(t_al *al, SDL_Surface *surf);
 void				tex_menu(t_al *al);
 void				init_text_edit(t_al *al);
 void				init_text_edit_next(t_al *al);
@@ -802,7 +797,7 @@ char				*dtoa_doom(double n);
 void				add_wall(t_al *al, t_sector *sect, t_point coo);
 void				add_sector(t_al *al, t_point coo);
 void				init_sect(t_al *al, t_sector *sect);
-void    			set_coo(t_al *al, t_point bev, int who, t_walls *wall);
+void				set_coo(t_al *al, t_point bev, int who, t_walls *wall);
 void				get_sec_tab(t_al *al);
 void				free_sect(t_sector *sect);
 void				init_sec_tex(t_al *al);

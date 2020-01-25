@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/25 10:42:51 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/25 11:24:35 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,7 @@ typedef struct		s_keys
 	unsigned	a:1;
 	unsigned	s:1;
 	unsigned	d:1;
+	unsigned	t:1;
 	unsigned	lbrack:1;
 	unsigned	rbrack:1;
 	unsigned	left:1;
@@ -461,6 +462,7 @@ typedef struct		s_text
 
 typedef struct		s_text_list
 {
+	t_text	t;
 	t_text	gen_map;
 	t_text	sect_index;
 	t_text	wall_index;
@@ -585,6 +587,9 @@ typedef struct		s_al
 	t_sprite		*sprite;
 
 	char			v0id[32];
+
+	t_point			end_sect;
+
 }					t_al;
 
 /*
@@ -856,5 +861,7 @@ void				edit_to_game(t_al *al);
 void				link_sectors(t_al *al);
 void				pewpew(t_al *al);
 void				set_spawn(t_al *al, SDL_MouseButtonEvent spw);
+void				set_end(t_al *al, SDL_MouseButtonEvent bev);
+
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/25 10:42:31 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/25 11:24:46 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,6 +112,8 @@ void	mouse_press_edit(t_al *al)
 		// print_al(al);
 		if (al->edit.stat == SET_SPAWN)
 			set_spawn(al, bev);
+		if (al->edit.stat == SET_END)
+			set_end(al, bev);
 		if (al->edit.stat == SELECT)
 		{
 			al->edit.stat = DRAWING;

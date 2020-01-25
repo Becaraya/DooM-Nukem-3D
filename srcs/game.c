@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/23 17:20:01 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:44:15 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void															game(t_al *al)
 {
 	rotate(al);
 	sp_key(al);
+	// if (al->k.t)
+	// 	printf("test\n");
 	al->k.space ? jump(al) : 0;
 	if (al->play.on_ground)
 		acceleration(al);

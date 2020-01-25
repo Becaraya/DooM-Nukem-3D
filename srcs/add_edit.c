@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:08:39 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/22 14:37:52 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:43:46 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ void			add_sector(t_al *al, t_point coo)
 void			add_wall(t_al *al, t_sector *sect, t_point coo)
 {
 	t_walls		*new;
-	
+
 	if (sect->walls->x1 == sect->walls->x2 && sect->walls->y1 == sect->walls->y2)
 		return ;
 	if (!(new = ft_memalloc(sizeof(t_walls))))
@@ -80,7 +80,6 @@ void			add_wall(t_al *al, t_sector *sect, t_point coo)
 	new->y2 = sect->walls->y2;
 	new->next = sect->walls;
 	sect->walls = new;
-	//cross_wall(t_walls w1, t_walls w2);
 	if (check_end_sector(sect->walls->next, coo.x - (coo.x % al->edit.zoom),
 		coo.y - (coo.y % al->edit.zoom)) == 1)
 	{

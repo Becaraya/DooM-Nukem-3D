@@ -33,6 +33,7 @@ SRC_LIST = arrow_edit.c		\
 		draw_edit_tools.c	\
 		draw_tools.c		\
 		edit_link_sectors.c	\
+		edit_to_game.c		\
 		edit.c				\
 		event_func.c		\
 		ft_dtoa_doom.c		\
@@ -70,7 +71,7 @@ SRC_LIST = arrow_edit.c		\
 		render.c			\
 		sdl_tools.c			\
 		sector.c			\
-		spawn.c			\
+		spawn.c				\
 		set_edit.c			\
 		cross_wall.c		\
 		sport_physics.c		\

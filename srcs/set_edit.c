@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:50:00 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 13:48:40 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/25 11:49:20 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void			set_edit(t_al *al)
 		y = 0;
 		x++;
 	}
+	put_rectangle(al->sdlsurf, itop(WIN_SIZEX / 2 - 2, WIN_SIZEY / 2 - 2),
+	itop(WIN_SIZEX / 2 + 2, WIN_SIZEY / 2 + 2), GREEN);
 }
 
 void			get_hei(t_al *al)

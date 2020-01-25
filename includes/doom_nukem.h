@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 17:21:08 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/25 10:42:51 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -852,6 +852,7 @@ void				print_co(t_al *al);
 int					count_wall(t_walls *walls);
 void				mob_on_z(t_al *al, t_mob *e);
 
+void				edit_to_game(t_al *al);
 void				link_sectors(t_al *al);
 void				pewpew(t_al *al);
 void				set_spawn(t_al *al, SDL_MouseButtonEvent spw);

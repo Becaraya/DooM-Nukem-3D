@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_edit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 17:22:48 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/25 10:42:31 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ void	mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 		reset_map(al);
 	if (inr(itop(495, 125), itop(645, 170), itop(bev.x, bev.y)))
 		set_default_player(al);
+	if (inr(itop(280, 655), itop(493, 698), itop(bev.x, bev.y)))
+		edit_to_game(al);
 }
 
 void	mouse_press_edit(t_al *al)

@@ -3,19 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 15:51:23 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/26 10:48:30 by pierre42         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
+/*
+** wonderfully empty function
+*/
+
 void														menu(t_al *al)
 {
 	(void)al;
-	// refresh(al);
+}
+
+static void													anims(t_al *al)
+{
+	unsigned i;
+	al->anim += al->dtime * UINT16_MAX / 1000000;
+	al->fire_anim += al->dtime;
+
+	i = 0;
+	while (i < al->nb_ent)
+		al->ent[i++].anim += al->dtime;
 }
 
 static void													dtime(t_al *al)
@@ -31,10 +45,9 @@ static void													dtime(t_al *al)
 	}
 	al->dtime = al->curr_time - al->last_time;
 	al->dtime > 100000 ? al->dtime = 100000 : 0;
-	al->anim += al->dtime * UINT16_MAX / 1000000;
-	al->fire_anim += al->dtime;
 	al->last_time = al->curr_time;
 	al->tgt_time = al->last_time + 1000000 / al->fps;
+	anims(al);
 }
 
 void														main_loop(t_al *al)

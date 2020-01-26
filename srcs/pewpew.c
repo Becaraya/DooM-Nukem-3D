@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pewpew.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/24 14:14:27 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/26 10:50:45 by pierre42         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void		pewpew(t_al *al)
 		{
 			al->ent[ray.hits[i].ent.index].alive -= al->play.dmg;
 			if ((int)al->ent[ray.hits[i].ent.index].alive < 0)
+			{
 				al->ent[ray.hits[i].ent.index].alive = 0;
+				al->ent[ray.hits[i].ent.index].anim = 0;
+			}
 			printf("%d , %d\n", al->play.dmg,al->ent[ray.hits[i].ent.index].alive);
 			if (al->ent[ray.hits[i].ent.index].alive)
 			{

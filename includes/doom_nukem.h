@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/26 10:59:22 by pierre42         ###   ########.fr       */
+/*   Updated: 2020/01/27 10:55:30 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -865,6 +865,7 @@ void				link_sectors(t_al *al);
 void				pewpew(t_al *al);
 void				set_spawn(t_al *al, SDL_MouseButtonEvent spw);
 void				set_end(t_al *al, SDL_MouseButtonEvent bev);
+void				print_text(t_al *al, t_text text, SDL_Surface *surf);
 
 
 #endif

@@ -73,7 +73,6 @@ SRC_LIST = arrow_edit.c		\
 		sector.c			\
 		spawn.c				\
 		set_edit.c			\
-		cross_wall.c		\
 		sport_physics.c		\
 		sprite.c			\
 		texte.c				\

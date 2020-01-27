@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:10:14 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 17:43:40 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/27 10:56:05 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ void			check_can_add(t_al *al, t_sector *sect, t_point coo)
 {
 	t_point		tmp;
 	t_sector	*stmp = NULL;
-	t_walls		*wtmp = NULL;
 	
 	tmp.x = coo.x - (coo.x % al->edit.zoom);
 	tmp.y = coo.y - (coo.y % al->edit.zoom);

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:00:13 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 13:48:39 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/25 10:36:20 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,10 @@ void			set_edit_menu_next(t_al *al)
 	if ((al->ev.motion.windowID == 2 && inr(itop(280, 605), itop(460, 650),
 	itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == GRAVITY)
 		put_rectangle(al->surf_ed, itop(280, 605), itop(460, 650), BLACK);
+	if ((al->ev.motion.windowID == 2 && inr(itop(280, 655), itop(493, 698),
+				itop(al->ev.motion.x, al->ev.motion.y))))
+		put_rectangle(al->surf_ed, itop(280, 655), itop(490, 695), BLACK);
+
 	set_edit_menu_next_next(al);
 }
 

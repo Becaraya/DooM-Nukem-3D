@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:04:26 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 15:40:25 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/25 11:49:07 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,9 @@ void			put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr)
 	d.x = b.x;
 	d.y = a.y;
 	ft_put_line(a, d, surf, clr);
+	c.y++;
 	ft_put_line(a, c, surf, clr);
+	c.y--;
 	ft_put_line(d, b, surf, clr);
 	ft_put_line(b, c, surf, clr);
 }

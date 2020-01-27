@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 17:21:08 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/26 10:59:22 by pierre42         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,6 +226,7 @@ typedef struct		s_keys
 	unsigned	a:1;
 	unsigned	s:1;
 	unsigned	d:1;
+	unsigned	t:1;
 	unsigned	lbrack:1;
 	unsigned	rbrack:1;
 	unsigned	left:1;
@@ -373,6 +374,8 @@ typedef struct		s_mob
 	double		width;
 	double		mass;
 	double		power;
+
+	unsigned 	anim;
 }					t_mob;
 
 typedef union		u_entity
@@ -461,6 +464,7 @@ typedef struct		s_text
 
 typedef struct		s_text_list
 {
+	t_text	t;
 	t_text	gen_map;
 	t_text	sect_index;
 	t_text	wall_index;
@@ -516,10 +520,6 @@ typedef struct		s_text_list
 typedef struct		s_al
 {
 	int				hard;
-	t_tex			h;
-	t_tex			f;
-	t_tex			weapon[7];
-	t_tex			hes_ded;
 	t_status		status;
 	void			(*stat_fnc[5])(struct s_al *);
 
@@ -547,6 +547,11 @@ typedef struct		s_al
 	t_tex			*tex;
 	unsigned short	nb_texgp;
 	t_tex_group		*texgp;
+	
+	t_tex			h;
+	t_tex			f;
+	t_tex			weapon[7];
+	t_tex			mob_death[8];
 
 	unsigned short	nb_ent;
 	t_mob			*ent;
@@ -585,6 +590,9 @@ typedef struct		s_al
 	t_sprite		*sprite;
 
 	char			v0id[32];
+
+	t_point			end_sect;
+
 }					t_al;
 
 /*
@@ -852,8 +860,11 @@ void				print_co(t_al *al);
 int					count_wall(t_walls *walls);
 void				mob_on_z(t_al *al, t_mob *e);
 
+void				edit_to_game(t_al *al);
 void				link_sectors(t_al *al);
 void				pewpew(t_al *al);
 void				set_spawn(t_al *al, SDL_MouseButtonEvent spw);
+void				set_end(t_al *al, SDL_MouseButtonEvent bev);
+
 
 #endif

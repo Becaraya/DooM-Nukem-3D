@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 14:45:33 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/24 17:42:50 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	keyup_func(t_al *al, SDL_KeyboardEvent kev)
 	kev.keysym.sym == SDLK_a ? al->k.a = 0 : 0;
 	kev.keysym.sym == SDLK_s ? al->k.s = 0 : 0;
 	kev.keysym.sym == SDLK_d ? al->k.d = 0 : 0;
+	kev.keysym.sym == SDLK_t ? al->k.t = 0 : 0;
 	kev.keysym.sym == SDLK_f ? al->play.fly = 0 : 0;
 	kev.keysym.sym == SDLK_LEFTBRACKET ? al->k.lbrack = 0 : 0;
 	kev.keysym.sym == SDLK_RIGHTBRACKET ? al->k.rbrack = 0 : 0;
@@ -54,6 +55,7 @@ static void	keydown_func(t_al *al, SDL_KeyboardEvent kev)
 	kev.keysym.sym == SDLK_a ? al->k.a = 1 : 0;
 	kev.keysym.sym == SDLK_s ? al->k.s = 1 : 0;
 	kev.keysym.sym == SDLK_d ? al->k.d = 1 : 0;
+	kev.keysym.sym == SDLK_t ? al->k.t = 1 : 0;
 	kev.keysym.sym == SDLK_f ? al->play.fly = 1 : 0;
 	kev.keysym.sym == SDLK_LEFTBRACKET ? al->k.lbrack = 1 : 0;
 	kev.keysym.sym == SDLK_RIGHTBRACKET ? al->k.rbrack = 1 : 0;

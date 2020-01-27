@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 17:09:27 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/24 12:13:55 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/26 10:59:59 by pierre42         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ double			wall_len(t_walls *wall)
 
 t_tex			find_ent_tex(t_al *al, t_mob *ent)
 {
-	t_tex	tmp;
+	t_tex		tmp;
+	unsigned	frame;
 
 	if (ent->alive)
 	{
@@ -56,6 +57,10 @@ t_tex			find_ent_tex(t_al *al, t_mob *ent)
 				ent->dir) / D_PI_4].pix[al->anim >> 14];
 	}
 	else
-		tmp = al->hes_ded;
+	{
+		frame = ent->anim / 100000;
+		frame > 7 ? frame = 7 : 0;
+		tmp = al->mob_death[frame];
+	}
 	return (tmp);
 }

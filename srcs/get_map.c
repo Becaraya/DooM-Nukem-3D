@@ -2,15 +2,15 @@
 
 void 	free_tab(t_al *al)
 {
-	int		i;
+	unsigned	i;
 
 	i = al->nb_sec;
 	if (al->sec)
 	{
-		while (i != 0)
+		while (i++ < al->nb_sec)
 		{
 			free(al->sec[i].walls);
-			i--;
+			free(al->rotsec[i].walls);
 		}
 		free(al->sec);
 	}

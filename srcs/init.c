@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 17:09:36 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/26 10:57:11 by pierre42         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,19 +116,58 @@ void			load_hud(t_al *al)
 
 }
 
-void			load_some_imgs(t_al *al)
+static void		init_anims(t_al *al)
+{
+	unsigned i;
+
+	al->fire_anim = 420000000;
+	i = 0;
+	while (i < al->nb_ent)
+		al->ent[i++].anim = 42000000;
+
+}
+
+/*
+** not so horrible function to add correct transparency to all death animation
+** frames
+*/
+
+static void		im_not_going_to_hell_for_this(t_al *al, int ipix)
+{
+	int i;
+
+	i = 0;
+	while (i < 8)
+	{
+		if (al->mob_death[i].pix[ipix] != 0xffff)
+			al->mob_death[i].pix[ipix] |= 0xff000000;
+		i++;
+	}
+}
+
+void			load_death(t_al *al)
 {
 	unsigned i;
 
 	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
-	bmp_to_tex(&al->hes_ded, "ressources/hes_ded.bmp", 512, 512);
+	bmp_to_tex(al->mob_death + 0, "ressources/mob_death/0.bmp", 512, 512);
+	bmp_to_tex(al->mob_death + 1, "ressources/mob_death/1.bmp", 512, 512);
+	bmp_to_tex(al->mob_death + 2, "ressources/mob_death/2.bmp", 512, 512);
+	bmp_to_tex(al->mob_death + 3, "ressources/mob_death/3.bmp", 512, 512);
+	bmp_to_tex(al->mob_death + 4, "ressources/mob_death/4.bmp", 512, 512);
+	bmp_to_tex(al->mob_death + 5, "ressources/mob_death/5.bmp", 512, 512);
+	bmp_to_tex(al->mob_death + 6, "ressources/mob_death/6.bmp", 512, 512);
+	bmp_to_tex(al->mob_death + 7, "ressources/mob_death/7.bmp", 512, 512);
 	i = 0;
-	while (i < 262144 && al->hes_ded.size_x == 512)
-	{
-		if (al->hes_ded.pix[i] != 0xffff)
-			al->hes_ded.pix[i] |= 0xff000000;
-		i++;
-	}
+	if (al->mob_death[0].size_x == 512 && al->mob_death[1].size_x == 512 &&
+		al->mob_death[2].size_x == 512 && al->mob_death[3].size_x == 512 &&
+		al->mob_death[4].size_x == 512 && al->mob_death[5].size_x == 512 &&
+		al->mob_death[6].size_x == 512 && al->mob_death[7].size_x == 512)
+		while (i < 262144)
+		{
+			im_not_going_to_hell_for_this(al, i);
+			i++;
+		}
 }
 
 void			init(t_al *al, char *str)
@@ -136,13 +175,13 @@ void			init(t_al *al, char *str)
 	if (hms_parser(al, str))
 		exit(0);
 	load_hud(al);
+	load_death(al);
 	init_player(al, &al->play);
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
-	load_some_imgs(al);
 	al->status = EDIT;
-	//  al->status = GAME;
+	al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -163,11 +202,16 @@ void			init(t_al *al, char *str)
 		init_edit(al);
 		get_map(al);
 	}
+	if (al->status == GAME)
+	{
+		set_text(&al->text.t, "TEXT", get_rect(300, 330),
+		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	}
 	// get_sec_tab(al);
 	// get_map(al);
-	al->fire_anim = 420000000;
 	al->hard = 2;
 	ft_bzero(&al->k, sizeof(t_keys));
+	init_anims(al);
 	al->edit.stat = SELECT;
 	al->edit.zoom = 10;
 	al->edit.index_sect = al->nb_sec;

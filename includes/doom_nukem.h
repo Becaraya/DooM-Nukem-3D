@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/25 11:24:35 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:24:27 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,7 @@ typedef struct		s_keys
 	unsigned	s:1;
 	unsigned	d:1;
 	unsigned	t:1;
+	unsigned	m:1;
 	unsigned	lbrack:1;
 	unsigned	rbrack:1;
 	unsigned	left:1;

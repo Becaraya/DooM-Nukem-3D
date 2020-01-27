@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:22:57 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/24 17:36:42 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/27 11:56:34 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static void	link_wall(t_sector *cur, t_walls *set, int id)
 			(wall->x1 == set->x2 && wall->x2 == set->x1 &&wall->y1 == set->y2 && wall->y2 == set->y1))
 		{
 			set->sec_lnk = id + 1;
+			set->is_cross = 1;
+			set->wall_tex = 0;
 			//printf("link !  ");
 			return;
 		}

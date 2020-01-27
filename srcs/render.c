@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/24 14:11:44 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:26:14 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void		render(t_al *al)
 		column(al, &ray);
 		x++;
 	}
-	draw_map(al);
+	al->k.m ? draw_map(al) : 0;
 	pimp_cross(al);
 	draw_hud(al);
 	shoot(al);

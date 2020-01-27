@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yeet.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/21 22:13:23 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/27 12:36:48 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@ void	free_sect(t_sector *sect)
 
 void	yeet(t_al *al)
 {
-	free_text(al);
+	//free_text(al);
 	al->sect ? free_sect(al->sect) : 0;
 	al->font ? TTF_CloseFont(al->font) : 0;
 	al->ttf_st ? TTF_Quit() : 0;
 	al->sdlsurf ? SDL_FreeSurface(al->sdlsurf) : 0;
 	al->surf_ed ? SDL_FreeSurface(al->surf_ed) : 0;
 	al->win_ed ? SDL_DestroyWindow(al->win_ed) : 0;
+	exit(0);
 	al->ent ? ft_memdel((void**)&(al->ent)) : 0;
 	al->rotent ? ft_memdel((void**)&(al->rotent)) : 0;
 	free(al);
-	exit(0);
 }

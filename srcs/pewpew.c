@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pewpew.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/24 14:14:27 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:49:51 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void		pewpew(t_al *al)
 	unsigned	i;
 	t_rc_ray	ray;
 
+
+	al->fire_anim = 0;
 	ft_bzero(&ray, sizeof(t_rc_hit));
 	cast_ray(al, al->play.dir, &ray);
 	i = 0;
@@ -27,7 +29,6 @@ void		pewpew(t_al *al)
 			al->ent[ray.hits[i].ent.index].alive -= al->play.dmg;
 			if ((int)al->ent[ray.hits[i].ent.index].alive < 0)
 				al->ent[ray.hits[i].ent.index].alive = 0;
-			printf("%d , %d\n", al->play.dmg,al->ent[ray.hits[i].ent.index].alive);
 			if (al->ent[ray.hits[i].ent.index].alive)
 			{
 				al->ent[ray.hits[i].ent.index].velx = 20 * al->sin[al->play.dir];

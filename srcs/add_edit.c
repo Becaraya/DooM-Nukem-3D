@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:08:39 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/25 12:01:03 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:43:04 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,44 @@ void			add_sector(t_al *al, t_point coo)
 	set_coo(al, coo, 2, al->sect->walls);
 }
 
+/*
+** yeah that's ugly. and so are you
+*/
+
+void			correct_all_shit(t_sector *sect)
+{
+	t_walls	*wall;
+	double	tmpx1;
+	double	tmpy1;
+
+	sect->ce_hei = 2.5;
+	wall = sect->walls;
+	while (wall)
+	{
+		tmpx1 = wall->x1;
+		tmpy1 = wall->y1;
+		wall->x1 = wall->x2;
+		wall->y1 = wall->y2;
+		wall->x2 = tmpx1;
+		wall->y2 = tmpy1;
+		wall = wall->next;
+	}
+}
+
 void			add_wall(t_al *al, t_sector *sect, t_point coo)
 {
 	t_walls		*new;
-
 	if (sect->walls->x1 == sect->walls->x2 && sect->walls->y1 == sect->walls->y2)
 		return ;
+	if (sect->walls->next && 
+		check_end_sector(sect->walls->next, coo.x - (coo.x % al->edit.zoom),
+		coo.y - (coo.y % al->edit.zoom)) == 1)
+	{
+		al->edit.stat = SELECT;
+		al->edit.index_sect++;
+		correct_all_shit(al->sect);
+		return ;
+	}
 	if (!(new = ft_memalloc(sizeof(t_walls))))
 		yeet(al);
 	sect->nb_wal++;
@@ -80,10 +112,4 @@ void			add_wall(t_al *al, t_sector *sect, t_point coo)
 	new->y2 = sect->walls->y2;
 	new->next = sect->walls;
 	sect->walls = new;
-	if (check_end_sector(sect->walls->next, coo.x - (coo.x % al->edit.zoom),
-		coo.y - (coo.y % al->edit.zoom)) == 1)
-	{
-		al->edit.stat = SELECT;
-		al->edit.index_sect++;
-	}
 }

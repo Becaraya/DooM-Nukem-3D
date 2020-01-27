@@ -3,49 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_edit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/25 15:53:32 by pierre42         ###   ########.fr       */
+/*   Updated: 2020/01/27 16:06:07 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
-
-// static void		print_wall(t_walls *wall)
-// {
-// 	if (wall->next)
-// 		print_wall(wall->next);
-// 	printf("x1 == %f\n", wall->x1);
-// 	printf("y1 == %f\n", wall->y1);
-// 	printf("x2 == %f\n", wall->x2);
-// 	printf("y2 == %f\n\n", wall->y2);
-// }
-
-// static void		print_al(t_al *al) // a tej plus tard
-// {
-// 	t_sector	*tmp_s;
-// 	t_walls		*tmp_w;
-// 	int i = 0;
-// 	int j = 0;
-
-// 	tmp_s = al->sect;
-// 	while (tmp_s)
-// 	{
-// 		printf("\nSECTOR %d\n", al->nb_sec - i);
-// 		tmp_w = tmp_s->walls;
-// 		j = 0;
-// 		i++;
-// 		printf("                       tmp_s->nb_wall = %d\n", tmp_s->nb_wal);
-// 		while (tmp_w)
-// 		{
-// 			printf("WALL %d // x1 = %f // x2 = %f // y1 = %f // y2 = %f\n", tmp_s->nb_wal - j, tmp_w->x1, tmp_w->x2, tmp_w->y1, tmp_w->y2);
-// 			j++;
-// 			tmp_w = tmp_w->next;
-// 		}
-// 		tmp_s = tmp_s->next;
-// 	}
-// }
 
 void	set_default_player(t_al *al)
 {

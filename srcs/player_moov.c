@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/23 14:42:42 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:52:23 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ void	wall_ok(t_al *al, t_walls t, t_doint p, t_point *m)
 		&& ((t.y1 <= j.posy && j.posy <= t.y2)
 			|| (t.y1 >= j.posy && j.posy >= t.y2)))
 		(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
-	if (p.x <= 0.0 && (t.x1 <= j.posx || t.x2 <= j.posx)
+	if (p.x < 0.0 && (t.x1 <= j.posx || t.x2 <= j.posx)
 		&& ((t.y1 <= j.posy && j.posy <= t.y2)
 				|| (t.y1 >= j.posy && j.posy >= t.y2)))
 		(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
@@ -87,7 +87,7 @@ void	wall_ok(t_al *al, t_walls t, t_doint p, t_point *m)
 		&& ((t.x1 <= j.posx && j.posx <= t.x2)
 				|| (t.x1 >= j.posx && j.posx >= t.x2)))
 		(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;
-	if (p.y <= 0.0 && (t.y1 <= j.posy || t.y2 <= j.posy)
+	if (p.y < 0.0 && (t.y1 <= j.posy || t.y2 <= j.posy)
 		&& ((t.x1 <= j.posx && j.posx <= t.x2)
 				|| (t.x1 >= j.posx && j.posx >= t.x2)))
 		(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;

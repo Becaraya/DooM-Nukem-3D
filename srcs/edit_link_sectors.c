@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_link_sectors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:22:57 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/27 11:56:34 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:59:59 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	link_wall(t_sector *cur, t_walls *set, int id)
 			set->sec_lnk = id + 1;
 			set->is_cross = 1;
 			set->wall_tex = 0;
-			//printf("link !  ");
 			return;
 		}
 		wall = wall->next;
@@ -38,23 +37,18 @@ static void	link_sector(t_sector *root, t_sector *cur, unsigned id)
 	t_walls		*wall;
 	unsigned	i;
 
-	//printf("sec %d > fl_hei:%.2f\n", id, cur->fl_hei);
 	i = 0;
 	while (root)
 	{
 		wall = (i != id ? cur->walls : 0);
-		//printf("check sec %d: [%s]\n", i, wall ? "TRUE" : "FALSE");
 		while (wall)
 		{
-			//printf(" wall y1>%.0f ", wall->y1);
 			link_wall(root, wall, i);
 			wall = wall->next;
 		}
-		//i != id ? printf("\n") : 0;
 		root = root->next;
 		i++;
 	}
-	//	printf("\n");
 }
 
 void		link_sectors(t_al *al)

@@ -26,38 +26,13 @@ void display(t_al *al)
 	sect = al->sect;
 	while (sect != NULL)
 	{
-		printf("sector %d\n\n",++i);
 		walls = sect->walls;
 
 		while (walls != NULL)
 		{
-			printf("p1 = (%f,%f)\np2 = (%f,%f)\n\n",walls->x1,walls->y1,walls->x2,walls->y2);
 			walls = walls->next;
 		}
 		sect = sect->next;
-	}
-}
-
-void display_tab(t_al *al)
-{
-	unsigned int i;
-	unsigned int j;
-
-	i = 0;
-	while (++i <= al->nb_sec)
-	{
-		printf("\nsector %d\n\n",i);
-		j = 0;
-		while (j < al->sec[i].nb_wal)
-		{
-			printf("wall %d\n",j);
-			printf("x1 = %f\n",al->sec[i].walls[j].x1);
-			printf("y1 = %f\n",al->sec[i].walls[j].y1);
-			printf("x2= %f\n",al->sec[i].walls[j].x2);
-			printf("y2= %f\n",al->sec[i].walls[j].y2);
-			j++;
-		}
-
 	}
 }
 

@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2020/01/27 12:16:31 by pitriche         ###   ########.fr       */
-=======
-/*   Updated: 2020/01/26 10:57:11 by pierre42         ###   ########.fr       */
->>>>>>> 35da9f8dc73d8e0342f316ab020742e7272c44e7
+/*   Updated: 2020/01/27 15:48:37 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +181,7 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	al->status = EDIT;
-	al->status = GAME;
+	//al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

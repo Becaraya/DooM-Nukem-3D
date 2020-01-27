@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   choose_tex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:52:57 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/12 18:53:30 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/27 16:00:00 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,6 @@ void 	click_on_menu(t_al *al, SDL_Surface *surf)
 		&& al->ev.button.y <= al->nb_tex * TEX_SIZE_MENU)
 		{
 			al->tex_choice = al->ev.button.y / TEX_SIZE_MENU;
-			// printf("tex = %d\n",al->tex_choice);
-			// printf("mouse (%d,%d)\n",al->ev.button.x,al->ev.button.y);
-			// printf("id = %d\n",al->ev.motion.windowID);
 		}
 	}
 }
@@ -58,7 +55,6 @@ void	tex_menu(t_al *al)
 	SDL_Surface 	*surf;
 	int 			i;
 
-	// printf("nb tex = %d\n",al->nb_tex);
 	surf = al->surf_ed;
 	i = -1;
 	while (++i != al->nb_tex)

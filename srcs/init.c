@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 16:07:02 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:21:17 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void			creat_entity(t_al *al)
 		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
 		al->ent[i].velx = 0;
 		al->ent[i].vely = 0;
-		al->ent[i].velz = 20;
+		al->ent[i].velz = 0;
 		al->ent[i].gd_vel = 0;
 		al->ent[i].on_ground = 1;
 		al->ent[i].alive = 10;

@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:09:55 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/27 18:18:51 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:24:59 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,9 @@ static int		is_cross_x(t_mob *e, t_walls t, double v, t_al *al)
 	d = d_wall(t, e->posx + v, e->posy);
 	if ((d < 0.5) && t.is_cross)
 	{
-		if (e->posz < al->sec[t.sec_lnk].fl_hei ||
-		e->posz + e->size > al->sec[t.sec_lnk].ce_hei)
+		if (e->posz + 0.5 < al->sec[t.sec_lnk].fl_hei ||
+		e->posz + e->size > al->sec[t.sec_lnk].ce_hei ||
+		al->sec[t.sec_lnk].ce_hei - al->sec[t.sec_lnk].fl_hei < e->size)
 			return (0);
 		else
 			return (1);
@@ -62,7 +63,8 @@ static int		is_cross_y(t_mob *e, t_walls t, double v, t_al *al)
 	if ((d < 0.5) && t.is_cross)
 	{
 		if (e->posz + 0.5 < al->sec[t.sec_lnk].fl_hei ||
-		e->posz + e->size > al->sec[t.sec_lnk].ce_hei)
+		e->posz + e->size > al->sec[t.sec_lnk].ce_hei ||
+		al->sec[t.sec_lnk].ce_hei - al->sec[t.sec_lnk].fl_hei < e->size)
 			return (0);
 		else
 			return (1);

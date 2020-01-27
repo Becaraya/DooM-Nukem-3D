@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 17:36:27 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/23 14:09:34 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:38:13 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,5 +79,5 @@ int			is_in_sector(t_al *al, double x, double y)
 		}
 		i++;
 	}
-	return (1);
+	return (0);
 }

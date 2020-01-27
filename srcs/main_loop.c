@@ -6,16 +6,30 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 14:56:03 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:27:38 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
+/*
+** wonderfully empty function
+*/
+
 void														menu(t_al *al)
 {
 	(void)al;
-	// refresh(al);
+}
+
+static void													anims(t_al *al)
+{
+	unsigned i;
+	al->anim += al->dtime * UINT16_MAX / 1000000;
+	al->fire_anim += al->dtime;
+
+	i = 0;
+	while (i < al->nb_ent)
+		al->ent[i++].anim += al->dtime;
 }
 
 static void													dtime(t_al *al)
@@ -31,10 +45,9 @@ static void													dtime(t_al *al)
 	}
 	al->dtime = al->curr_time - al->last_time;
 	al->dtime > 100000 ? al->dtime = 100000 : 0;
-	al->anim += al->dtime * UINT16_MAX / 1000000;
-	al->fire_anim += al->dtime;
 	al->last_time = al->curr_time;
 	al->tgt_time = al->last_time + 1000000 / al->fps;
+	anims(al);
 }
 
 void														main_loop(t_al *al)

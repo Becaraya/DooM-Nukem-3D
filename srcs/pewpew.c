@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/27 14:49:51 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:27:22 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,10 @@ void		pewpew(t_al *al)
 		{
 			al->ent[ray.hits[i].ent.index].alive -= al->play.dmg;
 			if ((int)al->ent[ray.hits[i].ent.index].alive < 0)
+			{
 				al->ent[ray.hits[i].ent.index].alive = 0;
+				al->ent[ray.hits[i].ent.index].anim = 0;
+			}
 			if (al->ent[ray.hits[i].ent.index].alive)
 			{
 				al->ent[ray.hits[i].ent.index].velx = 20 * al->sin[al->play.dir];

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 15:24:27 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:26:59 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -375,6 +375,8 @@ typedef struct		s_mob
 	double		width;
 	double		mass;
 	double		power;
+
+	unsigned 	anim;
 }					t_mob;
 
 typedef union		u_entity
@@ -519,10 +521,6 @@ typedef struct		s_text_list
 typedef struct		s_al
 {
 	int				hard;
-	t_tex			h;
-	t_tex			f;
-	t_tex			weapon[7];
-	t_tex			hes_ded;
 	t_status		status;
 	void			(*stat_fnc[5])(struct s_al *);
 
@@ -550,6 +548,11 @@ typedef struct		s_al
 	t_tex			*tex;
 	unsigned short	nb_texgp;
 	t_tex_group		*texgp;
+	
+	t_tex			h;
+	t_tex			f;
+	t_tex			weapon[7];
+	t_tex			mob_death[8];
 
 	unsigned short	nb_ent;
 	t_mob			*ent;
@@ -863,6 +866,7 @@ void				link_sectors(t_al *al);
 void				pewpew(t_al *al);
 void				set_spawn(t_al *al, SDL_MouseButtonEvent spw);
 void				set_end(t_al *al, SDL_MouseButtonEvent bev);
+void				print_text(t_al *al, t_text text, SDL_Surface *surf);
 
 
 #endif

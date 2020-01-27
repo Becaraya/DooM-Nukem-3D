@@ -71,7 +71,6 @@ void	display_texgp(t_al *al, unsigned int *pix)
 
 	i = -1;
 	x = -1;
-	// printf("start\n");
 	while (++x < SPRITE_W)
 	{
 		y = -1;

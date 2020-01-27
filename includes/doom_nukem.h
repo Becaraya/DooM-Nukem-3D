@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 15:26:59 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:06:07 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@
 # define WIN_SIZEY 720
 # define WIN_POSX 100
 # define WIN_POSY 10
+# define GRO 1.1
 
 # define WIN_EDIT_SIZEX	768
 # define WIN_EDIT_SIZEY	720

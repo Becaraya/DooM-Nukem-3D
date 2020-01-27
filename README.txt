@@ -1,4 +1,4 @@
-Documentation file for Doom-nukem project by becaraya and pitriche
+Documentation file for Doom-nukem project by ydemange, hutricot, becaraya and pitriche
 
 The binary takes a file witch content follows this pattern:
 (fields are indicated as 'size in byte - field name')

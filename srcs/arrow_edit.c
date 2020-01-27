@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 13:55:47 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/22 22:38:56 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:50:02 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ static void			arrow_stat_hei(t_al *al, SDL_MouseButtonEvent bev)
 	t_sector	*tmp;
 	int			i;
 
-	i = al->edit.index_sect - 1;
+	i = 0;
 	tmp = al->sect;
-	while (i--)
+	while (al->edit.index_sect + i++ < al->nb_sec)
 		tmp = tmp->next;
 	if (al->edit.stat == SET_CEL_HEI)
 	{

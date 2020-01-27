@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 15:27:38 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/27 16:08:38 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,6 @@ void														main_loop(t_al *al)
 {
 	while (1)
 	{
-		ft_putstr("yee ");
 		while (SDL_PollEvent(&al->ev) != 0)
 		{
 			al->ev.type == SDL_QUIT ? yeet(al) : 0;

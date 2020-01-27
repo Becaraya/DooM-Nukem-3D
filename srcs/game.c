@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/27 16:00:45 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/27 16:10:01 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ static void														sp_key(t_al *al)
 void															game(t_al *al)
 {
 	rotate(al);
-	ft_putstr("y1 ");
 	sp_key(al);
-	ft_putstr("y2 ");
 	al->k.space ? jump(al) : 0;
 	if (al->play.on_ground)
 		acceleration(al);

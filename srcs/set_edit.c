@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:50:00 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/25 11:49:20 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:23:27 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ void			get_hei(t_al *al)
 {
 	t_sector	*tmp;
 	char		*t;
-	int			i;
+	unsigned int			i;
 
 	t = NULL;
-	i = al->edit.index_sect - 1;
+	i = 0;
 	tmp = al->sect;
 	free_text_hei_num(al);
-	while (i--)
+	while (i++ < al->edit.index_sect)
 		tmp = tmp->next;
 	if (al->edit.stat == SET_FLO_HEI)
 	{

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 16:59:10 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/27 12:08:56 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,12 @@ void			free_before_refresh(t_al *al)
 void			editor(t_al *al)
 {
 	set_edit(al);
-	set_edit_menu(al);
+	ft_memset(al->pix_ed, LIGHT_GREY, WIN_EDIT_SIZEX * WIN_EDIT_SIZEY *
+		sizeof(int));
+	if (al->edit.stat == SET_FLO_TEXT)
+		tex_menu(al);
+	else
+		set_edit_menu(al);
 	if (al->sect)
 	{
 		draw_sect(al, al->sect);

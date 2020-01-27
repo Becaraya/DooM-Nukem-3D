@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 12:07:20 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:34:38 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -207,7 +207,7 @@ void			init(t_al *al, char *str)
 		set_text(&al->text.t, "TEXT", get_rect(300, 330),
 		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	}
-	// get_sec_tab(al);
+	//get_sec_tab(al);
 	// get_map(al);
 	al->hard = 2;
 	ft_bzero(&al->k, sizeof(t_keys));

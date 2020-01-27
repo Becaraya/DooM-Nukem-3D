@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_minimap.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/13 00:23:02 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/13 18:23:13 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:23:49 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ void		draw_map(t_al *al)
 		nb_wal = 0;
 		while (nb_wal < al->sec[nb_sec].nb_wal)
 		{
-			a.x = al->sec[nb_sec].walls[nb_wal].x1 * 10 + (WIN_SIZEX  + 10);
-			a.y = -al->sec[nb_sec].walls[nb_wal].y1 * 10 + (WIN_SIZEY  -10);
-			b.x = al->sec[nb_sec].walls[nb_wal].x2 * 10 + (WIN_SIZEX + 10);
-			b.y = -al->sec[nb_sec].walls[nb_wal].y2 * 10 + (WIN_SIZEY - 10);
+			a.x = al->sec[nb_sec].walls[nb_wal].x1 * 10 + (WIN_SIZEX + WIN_SIZEX / 2);
+			a.y = -al->sec[nb_sec].walls[nb_wal].y1 * 10 + (WIN_SIZEY - WIN_SIZEY / 2);
+			b.x = al->sec[nb_sec].walls[nb_wal].x2 * 10 + (WIN_SIZEX + WIN_SIZEX / 2);
+			b.y = -al->sec[nb_sec].walls[nb_wal].y2 * 10 + (WIN_SIZEY - WIN_SIZEY / 2);
 			//printf("xxxx%d,%d,%d,%dxxxxx",a.x,a.y,b.x,b.y);
 			ft_put_line(a, b, al->sdlsurf, 0xBF55EC);
 			nb_wal++;
@@ -46,8 +46,8 @@ void		draw_map(t_al *al)
 			al->pix[(int)(a.x + (a.y * WIN_SIZEX))] = 0x52fc03;
 	}
 	
-	a.x = al->play.posx * 10 + (WIN_SIZEX + 10);
-	a.y = -al->play.posy * 10 + (WIN_SIZEY - 10);
+	a.x = al->play.posx * 10 + (WIN_SIZEX + WIN_SIZEX / 2);
+	a.y = -al->play.posy * 10 + (WIN_SIZEY - WIN_SIZEY / 2);
 	b.x = a.x + al->sin[al->play.dir] * 10;
 	b.y = a.y - al->cos[al->play.dir] * 10;
 	ft_put_line(a, b, al->sdlsurf, WHITE);

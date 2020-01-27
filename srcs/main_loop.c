@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/26 10:48:30 by pierre42         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:27:38 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,19 +54,20 @@ void														main_loop(t_al *al)
 {
 	while (1)
 	{
+		ft_putstr("yee ");
 		while (SDL_PollEvent(&al->ev) != 0)
 		{
 			al->ev.type == SDL_QUIT ? yeet(al) : 0;
 			if ((al->ev.type == SDL_KEYDOWN || al->ev.type == SDL_KEYUP) &&
 				!al->ev.key.repeat)
 				key_func(al);
-			if (al->ev.type == SDL_MOUSEBUTTONDOWN)
+			else if (al->ev.type == SDL_MOUSEBUTTONDOWN)
 				mouse_press(al);
-			if (al->ev.type == SDL_MOUSEMOTION)
+			else if (al->ev.type == SDL_MOUSEMOTION)
 				mouse_mv(al);
-			if (al->ev.type == SDL_MOUSEWHEEL)
+			else if (al->ev.type == SDL_MOUSEWHEEL)
 				mouse_weel(al);
-			if (al->ev.type == SDL_WINDOWEVENT)
+			else if (al->ev.type == SDL_WINDOWEVENT)
 				if (al->ev.window.event == SDL_WINDOWEVENT_CLOSE)
 					yeet(al);
 		}

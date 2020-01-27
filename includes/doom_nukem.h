@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 10:55:30 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:26:59 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -227,6 +227,7 @@ typedef struct		s_keys
 	unsigned	s:1;
 	unsigned	d:1;
 	unsigned	t:1;
+	unsigned	m:1;
 	unsigned	lbrack:1;
 	unsigned	rbrack:1;
 	unsigned	left:1;

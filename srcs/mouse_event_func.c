@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_event_func.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:43:49 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 18:43:47 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:49:34 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,8 @@ void		mouse_press(t_al *al)
 		pewpew(al);
 	if (al->status == EDIT)
 		mouse_press_edit(al);
-	if (al->status == GAME)
-		al->fire_anim = 0;
 	if (al->status == DEAD)
-		yeet(al);
+		exit(0);
 }
 
 void		mouse_mv(t_al *al)

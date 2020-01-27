@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 10:39:36 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/25 11:50:50 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/27 14:47:22 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,28 @@ static void	link_sector(t_sector *root, t_sector *cur, unsigned id)
 	//	printf("\n");
 }*/
 
+static void		walls_to_game(t_walls *walls, t_sector *sec)
+{
+	unsigned	i;
+
+	i = sec->nb_wal - 1;
+	while (walls)
+	{	
+		sec->walls[i] = *walls;
+		sec->walls[i].x1 = (sec->walls[i].x1 - WIN_SIZEX / 2) / 10.0;
+		sec->walls[i].x2 = (sec->walls[i].x2 - WIN_SIZEX / 2) / 10.0;
+		sec->walls[i].y1 = (sec->walls[i].y1 - WIN_SIZEY / 2) / -10.0;
+		sec->walls[i].y2 = (sec->walls[i].y2 - WIN_SIZEY / 2) / -10.0;
+	
+		printf("NEW wall [%2.0f,%2.0f %2.0f,%2.0f] link [%c]\n",
+		sec->walls[i].x1, sec->walls[i].y1, sec->walls[i].x2, sec->walls[i].y2,
+		sec->walls[i].sec_lnk ? sec->walls[i].sec_lnk + '0' : 'X');
+		
+		walls = walls->next;
+		i--;
+	}
+}
+
 static unsigned	how_many_walls(t_sector *sec)
 {
 	t_walls		*cur;
@@ -64,9 +86,6 @@ static unsigned	how_many_walls(t_sector *sec)
 	i = 0;
 	while (cur)
 	{
-		printf("Wall [%.2f,%.2f %.2f,%.2f]\n",
-		cur->x1 - WIN_SIZEX/2, cur->y1 - WIN_SIZEY/2,
-		cur->x2 - WIN_SIZEX/2, cur->y2 - WIN_SIZEY/2);
 		cur = cur->next;
 		i++;
 	}
@@ -75,14 +94,25 @@ static unsigned	how_many_walls(t_sector *sec)
 
 static void		sector_to_game(t_al *al, t_sector *cur, unsigned id)
 {
-	t_sector *sec;
+	t_sector	*sec;
+	t_sector	*rotsec;
+	t_walls		*wall;
+	unsigned	i;
 
 	sec = al->sec + id;
+	rotsec = al->rotsec + id;
 	sec->fl_hei = cur->fl_hei;
 	sec->ce_hei = cur->ce_hei;
 	sec->fl_tex = cur->fl_tex;
 	sec->ce_tex = cur->ce_tex;
 	sec->nb_wal = how_many_walls(cur);
+	
+	if (!(sec->walls = ft_memalloc(sec->nb_wal * sizeof(t_walls))) ||
+		!(rotsec->walls = ft_memalloc(sec->nb_wal * sizeof(t_walls))))
+		exit(pr_err(MERROR_MESS));
+	walls_to_game(cur->walls, sec);
+	
+
 	printf("parse sec %.1f %.1f %hu %hu  [with %d walls]\n", sec->fl_hei,
 	sec->ce_hei, sec->fl_tex, sec->ce_tex, cur->nb_wal);
 }
@@ -107,6 +137,7 @@ void			edit_to_game(t_al *al)
 	t_sector	*cur;
 	unsigned	id;
 
+	link_sectors(al);
 	(!(cur = al->sect)) ? ft_putstr("Empty map\n") : 0;
 	if (!cur)
 		return ;
@@ -117,11 +148,17 @@ void			edit_to_game(t_al *al)
 	id = 1;
 	while (cur)
 	{
-		printf("go sec %d\n", id);
+		//printf("go sec %d\n", id);
 		sector_to_game(al, cur, id);
 		cur = cur->next;
 		id++;
 	}
-	
+	set_text(&al->text.t, "TEXT", get_rect(300, 330),
+		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	SDL_FreeSurface(al->surf_ed);
+	SDL_DestroyWindow(al->win_ed);
+	al->surf_ed = 0;
+	al->win_ed = 0;
+	al->status = GAME;
 	printf("YEeYYEEeeTT %d sec\n", al->nb_sec);
 }

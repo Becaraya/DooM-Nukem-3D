@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/24 17:44:15 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:04:56 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ static void														sp_key(t_al *al)
 void															game(t_al *al)
 {
 	rotate(al);
+	ft_putstr("y1 ");
 	sp_key(al);
+	ft_putstr("y2 ");
 	// if (al->k.t)
 	// 	printf("test\n");
 	al->k.space ? jump(al) : 0;

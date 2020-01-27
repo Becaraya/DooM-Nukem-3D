@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:50:00 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 14:23:27 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/27 15:50:04 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void			get_hei(t_al *al)
 	i = 0;
 	tmp = al->sect;
 	free_text_hei_num(al);
-	while (i++ < al->edit.index_sect)
+	while (al->nb_sec + i++ < al->edit.index_sect)
 		tmp = tmp->next;
 	if (al->edit.stat == SET_FLO_HEI)
 	{

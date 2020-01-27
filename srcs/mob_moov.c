@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:09:55 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/23 18:38:28 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/27 18:18:51 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,10 @@ static int		is_cross_x(t_mob *e, t_walls t, double v, t_al *al)
 	double	d;
 
 	d = d_wall(t, e->posx + v, e->posy);
-	if (t.is_cross)
+	if ((d < 0.5) && t.is_cross)
 	{
-		if ((d < 0.5) && e->posz < al->sec[t.sec_lnk].fl_hei)
+		if (e->posz < al->sec[t.sec_lnk].fl_hei ||
+		e->posz + e->size > al->sec[t.sec_lnk].ce_hei)
 			return (0);
 		else
 			return (1);
@@ -58,9 +59,10 @@ static int		is_cross_y(t_mob *e, t_walls t, double v, t_al *al)
 	double d;
 
 	d = d_wall(t, e->posx, e->posy + v);
-	if (t.is_cross)
+	if ((d < 0.5) && t.is_cross)
 	{
-		if ((d < 0.5) && e->posz + 0.5 < al->sec[t.sec_lnk].fl_hei)
+		if (e->posz + 0.5 < al->sec[t.sec_lnk].fl_hei ||
+		e->posz + e->size > al->sec[t.sec_lnk].ce_hei)
 			return (0);
 		else
 			return (1);

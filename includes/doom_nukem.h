@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 16:29:30 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 17:18:25 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,7 +382,7 @@ typedef struct		s_mob
 	double		power;
 
 	unsigned 	anim;
-	struct s_mob	*next;		
+	struct s_mob	*next;
 }					t_mob;
 
 typedef union		u_entity
@@ -554,7 +554,7 @@ typedef struct		s_al
 	t_tex			*tex;
 	unsigned short	nb_texgp;
 	t_tex_group		*texgp;
-	
+
 	t_tex			h;
 	t_tex			f;
 	t_tex			weapon[7];
@@ -874,6 +874,7 @@ void				set_spawn(t_al *al, SDL_MouseButtonEvent spw);
 void				set_end(t_al *al, SDL_MouseButtonEvent bev);
 void				convert_end(t_al *al);
 void				print_text(t_al *al, t_text text, SDL_Surface *surf);
+void				pig_pos(t_al *al);
 
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 10:39:36 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/28 14:50:34 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:59:24 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void		walls_to_game(t_walls *walls, t_sector *sec)
 
 	i = sec->nb_wal - 1;
 	while (walls)
-	{	
+	{
 		sec->walls[i] = *walls;
 		sec->walls[i].x1 = (sec->walls[i].x1 - WIN_SIZEX / 2) / 10.0;
 		sec->walls[i].x2 = (sec->walls[i].x2 - WIN_SIZEX / 2) / 10.0;
@@ -56,7 +56,6 @@ static void		sector_to_game(t_al *al, t_sector *cur, unsigned id)
 	sec->fl_tex = cur->fl_tex;
 	sec->ce_tex = cur->ce_tex;
 	sec->nb_wal = how_many_walls(cur);
-	
 	if (!(sec->walls = ft_memalloc(sec->nb_wal * sizeof(t_walls))) ||
 		!(rotsec->walls = ft_memalloc(sec->nb_wal * sizeof(t_walls))))
 		exit(pr_err(MERROR_MESS));

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tool_add_edit.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:10:14 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 10:56:05 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:57:21 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void			check_can_add(t_al *al, t_sector *sect, t_point coo)
 {
 	t_point		tmp;
 	t_sector	*stmp = NULL;
-	
+
 	tmp.x = coo.x - (coo.x % al->edit.zoom);
 	tmp.y = coo.y - (coo.y % al->edit.zoom);
 	stmp = al->sect;

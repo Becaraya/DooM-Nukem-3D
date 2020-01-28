@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 12:08:56 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:33:52 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ void			free_before_refresh(t_al *al)
 {
 	if (al->edit.stat != GRAVITY && al->text.g_num.str)
 		(al->text.g_num.str) ? ft_strdel(&al->text.g_num.str) : 0;
-		
 }
 
 void			editor(t_al *al)
@@ -112,6 +111,5 @@ void			editor(t_al *al)
 		draw_sect_index(al, al->sect, al->nb_sec);
 	}
 	interactive_arrow(al);
-	// free_before_refresh(al);
 	refresh(al);
 }

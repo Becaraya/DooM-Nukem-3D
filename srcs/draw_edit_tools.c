@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_edit_tools.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/19 16:12:32 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 17:30:11 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:31:31 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void		draw_wall(t_al *al, t_walls *wall, int clr)
 {
 	t_point		a;
 	t_point		b;
-	int clr_tmp;
+	int			clr_tmp;
 
 	a.x = wall->x1;
 	a.y = wall->y1;

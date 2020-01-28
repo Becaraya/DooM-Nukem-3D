@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 11:22:34 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:00:47 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,8 @@ static void		init_player(t_al *al, t_player *pl)
 */
 
 void			creat_entity(t_al *al)
-{
-/*	unsigned i;
+{/*
+	unsigned int	i;
 
 	al->nb_ent = 2;
 	if (!(al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
@@ -74,7 +74,7 @@ void			creat_entity(t_al *al)
 
 static void		init_trigo(t_al *al)
 {
-	int i;
+	int				i;
 
 	i = 0;
 	while (i < D_2PI)
@@ -104,8 +104,6 @@ static void		init_edit(t_al *al)
 void			load_hud(t_al *al)
 {
 	bmp_to_tex(&(al->h), "ressources/HUD/heart.bmp", 46, 41);
-	// bmp_to_tex(&(al->f), "ressources/HUD/chop.bmp", 100, 133);
-
 	bmp_to_tex(&(al->weapon[0]), "ressources/weapon/shotgun1.bmp", 102, 85);
 	bmp_to_tex(&(al->weapon[1]), "ressources/weapon/shotgun_fire.bmp", 102, 105);
 	bmp_to_tex(&(al->weapon[2]), "ressources/weapon/shotgun_fire2.bmp", 118, 150);
@@ -114,18 +112,16 @@ void			load_hud(t_al *al)
 	bmp_to_tex(&(al->weapon[5]), "ressources/weapon/shotgun4.bmp", 160, 176);
 	bmp_to_tex(&(al->weapon[6]), "ressources/weapon/shotgun5.bmp", 133, 172);
 	al->f = al->weapon[0];
-
 }
 
 static void		init_anims(t_al *al)
 {
-	unsigned i;
+	unsigned		i;
 
 	al->fire_anim = 420000000;
 	i = 0;
 	while (i < al->nb_ent)
 		al->ent[i++].anim = 42000000;
-
 }
 
 /*
@@ -135,7 +131,7 @@ static void		init_anims(t_al *al)
 
 static void		im_not_going_to_hell_for_this(t_al *al, int ipix)
 {
-	int i;
+	int				i;
 
 	i = 0;
 	while (i < 8)
@@ -148,7 +144,7 @@ static void		im_not_going_to_hell_for_this(t_al *al, int ipix)
 
 void			load_death(t_al *al)
 {
-	unsigned i;
+	unsigned		i;
 
 	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
 	bmp_to_tex(al->mob_death + 0, "ressources/mob_death/0.bmp", 512, 512);
@@ -182,7 +178,7 @@ void			init(t_al *al, char *str)
 	init_trigo(al);
 	init_status(al);
 	al->status = EDIT;
-	// al->status = GAME;
+	//al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

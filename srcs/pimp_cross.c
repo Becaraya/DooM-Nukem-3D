@@ -3,14 +3,40 @@
 /*                                                        :::      ::::::::   */
 /*   pimp_cross.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 14:45:55 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/13 14:05:57 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:48:15 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+
+void		pimp_cross(t_al *al)
+{
+	int		i;
+
+	i = WIN_SIZEY / 2 - 12;
+	while (i <= WIN_SIZEY / 2 + 12)
+	{
+		while (i < WIN_SIZEY / 2 + 2 && i > WIN_SIZEY / 2 - 2)
+			i++;
+		al->pix[i * WIN_SIZEX + WIN_SIZEX / 2 - 1] = 0x000000;
+		al->pix[i * WIN_SIZEX + WIN_SIZEX / 2] = 0x52fc03;
+		al->pix[i * WIN_SIZEX + WIN_SIZEX / 2 + 1] = 0x000000;
+		i++;
+	}
+	i = WIN_SIZEX / 2 - 12;
+	while (i <= WIN_SIZEX / 2 + 12)
+	{
+		while (i < WIN_SIZEX / 2 + 2 && i > WIN_SIZEX / 2 - 2)
+			i++;
+		al->pix[WIN_SIZEX * (WIN_SIZEY / 2 - 1) + i] = 0x0000000;
+		al->pix[WIN_SIZEX * WIN_SIZEY / 2 + i] = 0x52fc03;
+		al->pix[WIN_SIZEX * (WIN_SIZEY / 2 + 1) + i] = 0x0000000;
+		i++;
+	}
+}
 /*
 void		invert_pix(unsigned int *pix)
 {
@@ -23,29 +49,3 @@ void		invert_pix(unsigned int *pix)
 	// 	}
 	// *pix = ~(*pix);
 }*/
-
-void		pimp_cross(t_al *al)
-{
-	int i;
-
-	i = WIN_SIZEY / 2 - 12;
-	while (i <= WIN_SIZEY / 2 + 12)
-	{
-		while (i < WIN_SIZEY / 2 + 2 && i > WIN_SIZEY / 2 -2)
-			i++;
-		al->pix [i * WIN_SIZEX + WIN_SIZEX / 2 - 1] = 0x000000;
-		al->pix [i * WIN_SIZEX + WIN_SIZEX / 2] = 0x52fc03;
-		al->pix [i * WIN_SIZEX + WIN_SIZEX / 2 + 1] = 0x000000;
-		i++;
-	}
-	i = WIN_SIZEX / 2 - 12;
-	while (i <= WIN_SIZEX / 2 + 12)
-	{
-		while (i < WIN_SIZEX / 2 + 2 && i > WIN_SIZEX / 2 -2)
-			i++;
-			al->pix [WIN_SIZEX * (WIN_SIZEY / 2 - 1) + i]= 0x0000000;
-			al->pix [WIN_SIZEX * WIN_SIZEY / 2 + i]= 0x52fc03;
-			al->pix [WIN_SIZEX * (WIN_SIZEY / 2 + 1) + i]= 0x0000000;
-		i++;
-	}  
-}

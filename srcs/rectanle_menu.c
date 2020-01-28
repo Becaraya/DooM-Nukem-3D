@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rectanle_menu.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:00:13 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/25 10:36:20 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:49:07 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void		set_edit_menu_next_next(t_al *al)
 {
-	t_point m;
+	t_point		m;
 
 	m = itop(al->ev.motion.x, al->ev.motion.y);
 	if ((al->edit.stat >= SET_PLAYER && al->edit.stat <= MASS) ||
@@ -56,7 +56,6 @@ void			set_edit_menu_next(t_al *al)
 	if ((al->ev.motion.windowID == 2 && inr(itop(280, 655), itop(493, 698),
 				itop(al->ev.motion.x, al->ev.motion.y))))
 		put_rectangle(al->surf_ed, itop(280, 655), itop(490, 695), BLACK);
-
 	set_edit_menu_next_next(al);
 }
 

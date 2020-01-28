@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 18:06:07 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 10:09:27 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -378,6 +378,7 @@ typedef struct		s_mob
 	double		power;
 
 	unsigned 	anim;
+	struct s_mob	*next;		
 }					t_mob;
 
 typedef union		u_entity

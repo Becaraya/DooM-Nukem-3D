@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/27 18:30:06 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:40:45 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ void	wall_ok(t_al *al, t_walls t, t_doint p, t_point *m)
 	if (p.y > 0.0 && (t.y1 >= j.posy || t.y2 >= j.posy)
 		&& ((t.x1 <= j.posx && j.posx <= t.x2)
 				|| (t.x1 >= j.posx && j.posx >= t.x2)))
-		(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;
+		(!(is_cross_y(&al->play, t, p.y, al))) ? m->y = 0 : 1;
 	if (p.y < 0.0 && (t.y1 <= j.posy || t.y2 <= j.posy)
 		&& ((t.x1 <= j.posx && j.posx <= t.x2)
 				|| (t.x1 >= j.posx && j.posx >= t.x2)))
-		(!(is_cross_y(&al->play, t, p.x, al))) ? m->y = 0 : 1;
+		(!(is_cross_y(&al->play, t, p.y, al))) ? m->y = 0 : 1;
 }
 
 void	ft_nop_player(t_al *al, int i, double x, double y)

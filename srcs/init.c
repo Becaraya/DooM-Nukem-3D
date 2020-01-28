@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 18:21:17 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:22:34 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		init_player(t_al *al, t_player *pl)
 
 void			creat_entity(t_al *al)
 {
-	unsigned i;
+/*	unsigned i;
 
 	al->nb_ent = 2;
 	if (!(al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
@@ -68,7 +68,8 @@ void			creat_entity(t_al *al)
 		al->ent[i].hit = 1;
 		al->ent[i].index = i;
 		al->ent[i].fly = 1;
-	}
+	}*/
+	return ;
 }
 
 static void		init_trigo(t_al *al)

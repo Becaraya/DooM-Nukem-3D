@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:08:39 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 15:28:00 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:15:45 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,8 @@ void			correct_all_shit(t_sector *sect)
 		wall->y1 = wall->y2;
 		wall->x2 = tmpx1;
 		wall->y2 = tmpy1;
+		if (!wall->sec_lnk && !wall->wall_tex)
+			wall->wall_tex = 1;
 		wall = wall->next;
 	}
 }

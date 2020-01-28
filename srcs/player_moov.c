@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_moov.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/27 18:30:06 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:51:02 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,9 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	(m.y == 1) ? al->play.posy += y : 0;
 	(m.x == 1) ? al->play.posx += x : 0;
 	al->play.csec = is_in_sector(al, al->play.posx, al->play.posy);
+	if (!al->play.csec || (al->edit.sect_end
+		&& (int)al->play.csec == al->edit.sect_end))
+		al->play.alive = 0; // change stat
 	al->play.on_ground = 0;
 }
 

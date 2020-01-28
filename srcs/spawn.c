@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 15:04:08 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 15:07:11 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:41:05 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ void	set_end(t_al *al, SDL_MouseButtonEvent bev)
 {
 	al->end_sect.x = bev.x - (bev.x % al->edit.zoom);
 	al->end_sect.y = bev.y - (bev.y % al->edit.zoom);
+	al->edit.spawnz = 0;
 	al->edit.sect_end = 0;
 }

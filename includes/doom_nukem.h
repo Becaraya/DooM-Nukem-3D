@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 15:31:30 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:47:28 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,7 +298,8 @@ typedef struct		s_edit
 	t_status_ed		stat;
 	int				zoom;
 	int				sect_end;
-	t_point			set_spawn;
+	double			spawnz;
+	t_doint			set_spawn;
 	unsigned int	index_wall;
 	unsigned int	index_sect;
 }					t_edit;

@@ -186,7 +186,6 @@ void			init(t_al *al, char *str)
 	al->nb_texgp = 1;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		yeet(al);
-	ft_putendl("test");
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
 			WIN_SIZEX, WIN_SIZEY, SDL_WINDOW_SHOWN)))
 		yeet(al);

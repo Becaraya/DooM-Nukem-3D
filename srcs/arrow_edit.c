@@ -37,7 +37,6 @@ static void			arrow_stat_hei(t_al *al, SDL_MouseButtonEvent bev)
 		if (inr(itop(630, 410), itop(660, 435), itop(bev.x, bev.y))
 		&& tmp->ce_hei > tmp->fl_hei)
 			tmp->fl_hei += 0.25;
-		printf("tmp->fl_hei%f\n", tmp->fl_hei);
 	}
 }
 

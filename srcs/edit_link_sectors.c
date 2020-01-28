@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_link_sectors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/24 15:22:57 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/27 15:59:59 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:32:29 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,19 +14,20 @@
 
 static void	link_wall(t_sector *cur, t_walls *set, int id)
 {
-	t_walls	*wall;
+	t_walls		*wall;
 
 	wall = cur->walls;
-	while(wall)
+	while (wall)
 	{
 		if ((wall->x1 == set->x1 && wall->x2 == set->x2 && wall->y1 == set->y1
 			&& wall->y2 == set->y2) ||
-			(wall->x1 == set->x2 && wall->x2 == set->x1 &&wall->y1 == set->y2 && wall->y2 == set->y1))
+			(wall->x1 == set->x2 && wall->x2 == set->x1 && wall->y1 == set->y2
+				&& wall->y2 == set->y1))
 		{
 			set->sec_lnk = id + 1;
 			set->is_cross = 1;
 			set->wall_tex = 0;
-			return;
+			return ;
 		}
 		wall = wall->next;
 	}

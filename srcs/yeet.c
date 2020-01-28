@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/27 12:36:48 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:58:26 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	free_sect(t_sector *sect)
 
 void	yeet(t_al *al)
 {
-	//free_text(al);
 	al->sect ? free_sect(al->sect) : 0;
 	al->font ? TTF_CloseFont(al->font) : 0;
 	al->ttf_st ? TTF_Quit() : 0;

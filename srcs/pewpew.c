@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/27 15:27:22 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:42:15 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void		pewpew(t_al *al)
 {
 	unsigned	i;
 	t_rc_ray	ray;
-
 
 	al->fire_anim = 0;
 	ft_bzero(&ray, sizeof(t_rc_hit));

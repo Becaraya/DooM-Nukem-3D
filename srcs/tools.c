@@ -6,13 +6,13 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 14:22:25 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/22 23:57:52 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:57:57 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-t_point			itop(int x, int y) //se prononce "I TAU POINT"
+t_point			itop(int x, int y)
 {
 	t_point		res;
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_edit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 16:06:07 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:41:49 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ void	reset_map(t_al *al)
 
 void	mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 {
-// printf("x == %d // y == %d \n", bev.x, bev.y);
 	if (al->edit.stat == DRAWING)
 	{
 		if (bev.x > 590 && bev.x < 685 && bev.y > 15 && bev.y < 48)
@@ -74,7 +73,6 @@ void	mouse_press_edit(t_al *al)
 		return ;
 	if (bev.windowID == 1)
 	{
-		// print_al(al);
 		if (al->edit.stat == SET_SPAWN)
 			set_spawn(al, bev);
 		if (al->edit.stat == SET_END)

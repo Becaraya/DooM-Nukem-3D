@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/27 15:26:14 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:54:34 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void		shoot(t_al *al)
 	int tmp;
 
 	tmp = 60000;
-
 	if (al->fire_anim < (unsigned)100000)
 		al->f = al->weapon[1];
 	else if (al->fire_anim < (unsigned)100000 + 1 * tmp)
@@ -43,28 +42,28 @@ void		shoot(t_al *al)
 void		draw_wapon(t_al *al)
 {
 	t_tex		tex;
-	unsigned	x;
-	unsigned	y;
+	t_point		cor;
 	t_point		win;
 	unsigned	tmp;
 	double		scale;
 
 	scale = 2.5;
 	tex = al->f;
-	y = 0;
+	cor.y = 0;
 	win.x = WIN_SIZEX / 2 + (tex.size_x * scale) / 2 - 100;
 	win.y = WIN_SIZEY - (tex.size_y * scale);
-	while (y < (tex.size_y * scale))
+	while (cor.y < (tex.size_y * scale))
 	{
-		x = 0;
-		while (x < (tex.size_x * scale))
+		cor.x = 0;
+		while (cor.x < (tex.size_x * scale))
 		{
-			tmp = tex.pix[(unsigned)(y / scale) * (tex.size_x) + (unsigned)(x / scale)];
+			tmp = tex.pix[(unsigned)(cor.y / scale) * (tex.size_x) +
+				(unsigned)(cor.x / scale)];
 			if (tmp != 41704)
-				al->pix[(y + win.y) * WIN_SIZEX + x + win.x] = tmp;
-			x++;
+				al->pix[(cor.y + win.y) * WIN_SIZEX + cor.x + win.x] = tmp;
+			cor.x++;
 		}
-		y++;
+		cor.y++;
 	}
 }
 
@@ -72,16 +71,16 @@ void		draw_hud(t_al *al)
 {
 	unsigned	x;
 	unsigned	y;
-	int 		a;
+	int			a;
 
 	a = al->play.alive;
 	while (a)
 	{
 		y = 0;
-		while(y < al->h.size_y)
+		while (y < al->h.size_y)
 		{
 			x = 0;
-			while(x < al->h.size_x)
+			while (x < al->h.size_x)
 			{
 				if (al->h.pix[x + ((al->h.size_y - y - 1) *
 					al->h.size_x)])

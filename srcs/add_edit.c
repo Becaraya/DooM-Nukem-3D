@@ -3,27 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   add_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:08:39 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 15:28:00 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:24:46 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-void    		set_coo(t_al *al, t_point bev, int who, t_walls *wall)
+void			set_coo(t_al *al, t_point bev, int who, t_walls *wall)
 {
-    if (who == 1)
-    {
-        wall->x1 = bev.x - (bev.x % al->edit.zoom);
-        wall->y1 = bev.y - (bev.y % al->edit.zoom);
-    }
-    else
-    {
-        wall->x2 = bev.x - (bev.x % al->edit.zoom);
-        wall->y2 = bev.y - (bev.y % al->edit.zoom);
-    }
+	if (who == 1)
+	{
+		wall->x1 = bev.x - (bev.x % al->edit.zoom);
+		wall->y1 = bev.y - (bev.y % al->edit.zoom);
+	}
+	else
+	{
+		wall->x2 = bev.x - (bev.x % al->edit.zoom);
+		wall->y2 = bev.y - (bev.y % al->edit.zoom);
+	}
 }
 
 void			init_sect(t_al *al, t_sector *sect)
@@ -92,9 +92,11 @@ void			correct_all_shit(t_sector *sect)
 void			add_wall(t_al *al, t_sector *sect, t_point coo)
 {
 	t_walls		*new;
-	if (sect->walls->x1 == sect->walls->x2 && sect->walls->y1 == sect->walls->y2)
+
+	if (sect->walls->x1 == sect->walls->x2 &&
+		sect->walls->y1 == sect->walls->y2)
 		return ;
-	if (sect->walls->next && 
+	if (sect->walls->next &&
 		check_end_sector(sect->walls->next, coo.x - (coo.x % al->edit.zoom),
 		coo.y - (coo.y % al->edit.zoom)) == 1)
 	{

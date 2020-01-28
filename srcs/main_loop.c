@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 16:08:38 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:40:51 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,10 @@ void														menu(t_al *al)
 
 static void													anims(t_al *al)
 {
-	unsigned i;
+	unsigned		i;
+
 	al->anim += al->dtime * UINT16_MAX / 1000000;
 	al->fire_anim += al->dtime;
-
 	i = 0;
 	while (i < al->nb_ent)
 		al->ent[i++].anim += al->dtime;
@@ -73,5 +73,4 @@ void														main_loop(t_al *al)
 		dtime(al);
 		al->stat_fnc[al->status](al);
 	}
-
 }

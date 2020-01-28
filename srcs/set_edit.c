@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:50:00 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 15:50:04 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/28 11:55:45 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 void			set_edit(t_al *al)
 {
-	int		x;
-	int		y;
+	int				x;
+	int				y;
 
 	x = 0;
 	y = 0;
@@ -38,9 +38,9 @@ void			set_edit(t_al *al)
 
 void			get_hei(t_al *al)
 {
-	t_sector	*tmp;
-	char		*t;
-	unsigned int			i;
+	t_sector		*tmp;
+	char			*t;
+	unsigned int	i;
 
 	t = NULL;
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 11:44:55 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:26:54 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,8 @@ void			init(t_al *al, char *str)
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
-	// al->status = EDIT;
-	al->status = GAME;
+	 al->status = EDIT;
+	// al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
@@ -185,6 +185,7 @@ void			init(t_al *al, char *str)
 	al->nb_texgp = 1;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		yeet(al);
+	ft_putendl("test");
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
 			WIN_SIZEX, WIN_SIZEY, SDL_WINDOW_SHOWN)))
 		yeet(al);
@@ -209,6 +210,7 @@ void			init(t_al *al, char *str)
 	ft_bzero(&al->k, sizeof(t_keys));
 	init_anims(al);
 	al->edit.stat = SELECT;
+	al->edit.sect_end = -1;
 	al->edit.zoom = 10;
 	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;

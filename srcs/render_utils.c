@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pierre42 <pierre42@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 17:09:27 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/26 10:59:59 by pierre42         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:09:14 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_tex			find_ent_tex(t_al *al, t_mob *ent)
 	}
 	else
 	{
-		frame = ent->anim / 100000;
+		frame = ent->anim / 65000;
 		frame > 7 ? frame = 7 : 0;
 		tmp = al->mob_death[frame];
 	}

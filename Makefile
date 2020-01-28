@@ -74,7 +74,6 @@ SRC_LIST = arrow_edit.c		\
 		spawn.c				\
 		set_edit.c			\
 		sport_physics.c		\
-		sprite.c			\
 		texte.c				\
 		tool_add_edit.c		\
 		tool_arrow.c		\

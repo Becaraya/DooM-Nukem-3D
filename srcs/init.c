@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 15:26:54 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:28:30 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		init_player(t_al *al, t_player *pl)
 */
 
 void			creat_entity(t_al *al)
-{
+{/*
 	unsigned int	i;
 
 	al->nb_ent = 2;
@@ -68,7 +68,8 @@ void			creat_entity(t_al *al)
 		al->ent[i].hit = 1;
 		al->ent[i].index = i;
 		al->ent[i].fly = 1;
-	}
+	}*/
+	return ;
 }
 
 static void		init_trigo(t_al *al)
@@ -176,8 +177,8 @@ void			init(t_al *al, char *str)
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
-	 al->status = EDIT;
-	// al->status = GAME;
+	al->status = EDIT;
+	//al->status = GAME;
 	al->fps = 60;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;

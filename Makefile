@@ -24,6 +24,7 @@ HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 SRC_LIST = arrow_edit.c		\
 		add_edit.c			\
 		angles.c			\
+		bad_pig.c			\
 		bmp_to_tex.c		\
 		choose_tex.c		\
 		column_hits.c		\
@@ -80,7 +81,7 @@ SRC_LIST = arrow_edit.c		\
 		tool_text.c			\
 		tools.c				\
 		yeet_text.c			\
-		yeet.c
+		yeet.c				
 
 SRC_DIR = ./srcs/
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))

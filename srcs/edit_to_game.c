@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_to_game.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 10:39:36 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/28 15:07:13 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:29:31 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,6 @@ void			edit_to_game(t_al *al)
 		convert_end(al);
 	al->surf_ed = 0;
 	al->win_ed = 0;
+	load_pig(al);
 	al->status = GAME;
 }

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2020/01/28 10:09:27 by hutricot         ###   ########.fr       */
+=======
+/*   Updated: 2020/01/28 15:47:28 by becaraya         ###   ########.fr       */
+>>>>>>> 41e2fa7db1f103f5906ccc7d8dd7f67add34b8a6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +93,7 @@
 # define LIGHT_GREY		0xb0b0b0
 # define DARK_GREY		0x606060
 # define RED			0xff0000
+# define BLUE			0x0000ff
 # define DARK_RED		0xa50029
 # define YELLOW			0xffff00
 # define DARK_YELLOW	0xdec111
@@ -296,6 +301,9 @@ typedef struct		s_edit
 {
 	t_status_ed		stat;
 	int				zoom;
+	int				sect_end;
+	double			spawnz;
+	t_doint			set_spawn;
 	unsigned int	index_wall;
 	unsigned int	index_sect;
 }					t_edit;
@@ -868,6 +876,7 @@ void				link_sectors(t_al *al);
 void				pewpew(t_al *al);
 void				set_spawn(t_al *al, SDL_MouseButtonEvent spw);
 void				set_end(t_al *al, SDL_MouseButtonEvent bev);
+void				convert_end(t_al *al);
 void				print_text(t_al *al, t_text text, SDL_Surface *surf);
 
 

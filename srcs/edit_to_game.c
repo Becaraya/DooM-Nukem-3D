@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   edit_to_game.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 10:39:36 by pitriche          #+#    #+#             */
 /*   Updated: 2020/01/28 14:59:24 by hutricot         ###   ########.fr       */
+=======
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/01/25 10:39:36 by pitriche          #+#    #+#             */
+/*   Updated: 2020/01/28 15:07:13 by becaraya         ###   ########.fr       */
+>>>>>>> 41e2fa7db1f103f5906ccc7d8dd7f67add34b8a6
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +108,8 @@ void			edit_to_game(t_al *al)
 		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	SDL_FreeSurface(al->surf_ed);
 	SDL_DestroyWindow(al->win_ed);
+	if (!al->edit.sect_end)
+		convert_end(al);
 	al->surf_ed = 0;
 	al->win_ed = 0;
 	load_pig(al);

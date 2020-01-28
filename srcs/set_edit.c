@@ -6,11 +6,28 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:50:00 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 11:55:45 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:30:58 by becaraya         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+
+void			print_spawn_end(t_al *al)
+{
+	int		tmpx;
+	int		tmpy;
+
+	// tmpx = (al->play.posx - WIN_SIZEY / 2) / 10.0;
+	tmpy = al->play.posy * -10 + (WIN_SIZEY / 2);
+	tmpx = al->play.posx * 10 + (WIN_SIZEX / 2);
+	put_rectangle(al->sdlsurf, itop(tmpx - 1, tmpy - 1), 
+	itop(tmpx + 1, tmpy + 1), RED);
+	if (!al->edit.sect_end)
+	{
+		put_rectangle(al->sdlsurf, itop(al->end_sect.x - 1, al->end_sect.y - 1), 
+		itop(al->end_sect.x + 1, al->end_sect.y + 1), BLUE);
+	}
+}
 
 void			set_edit(t_al *al)
 {
@@ -34,6 +51,7 @@ void			set_edit(t_al *al)
 	}
 	put_rectangle(al->sdlsurf, itop(WIN_SIZEX / 2 - 2, WIN_SIZEY / 2 - 2),
 	itop(WIN_SIZEX / 2 + 2, WIN_SIZEY / 2 + 2), GREEN);
+	print_spawn_end(al);
 }
 
 void			get_hei(t_al *al)

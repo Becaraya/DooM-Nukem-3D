@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 15:00:47 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:28:30 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,6 +186,7 @@ void			init(t_al *al, char *str)
 	al->nb_texgp = 1;
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		yeet(al);
+	ft_putendl("test");
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
 			WIN_SIZEX, WIN_SIZEY, SDL_WINDOW_SHOWN)))
 		yeet(al);
@@ -210,6 +211,7 @@ void			init(t_al *al, char *str)
 	ft_bzero(&al->k, sizeof(t_keys));
 	init_anims(al);
 	al->edit.stat = SELECT;
+	al->edit.sect_end = -1;
 	al->edit.zoom = 10;
 	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;

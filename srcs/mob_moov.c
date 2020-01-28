@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/10 16:09:55 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/27 18:24:59 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 12:42:50 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ static void		wall_ok(t_al *al, t_mob *e, t_walls t, t_oint *o)
 	if (o->d.y > 0.0 && (t.y1 >= e->posy || t.y2 >= e->posy)
 		&& ((t.x1 <= e->posx && e->posx <= t.x2)
 				|| (t.x1 >= e->posx && e->posx >= t.x2)))
-		(!(is_cross_y(e, t, o->d.x, al))) ? o->p.y = 0 : 1;
+		(!(is_cross_y(e, t, o->d.y, al))) ? o->p.y = 0 : 1;
 	if (o->d.y < 0.0 && (t.y1 <= e->posy || t.y2 <= e->posy)
 		&& ((t.x1 <= e->posx && e->posx <= t.x2)
 				|| (t.x1 >= e->posx && e->posx >= t.x2)))
-		(!(is_cross_y(e, t, o->d.x, al))) ? o->p.y = 0 : 1;
+		(!(is_cross_y(e, t, o->d.y, al))) ? o->p.y = 0 : 1;
 }
 
 void			ft_nop(t_al *al, t_mob *e, double x, double y)

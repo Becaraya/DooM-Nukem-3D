@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 10:39:36 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/27 16:04:15 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:50:34 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,5 +104,6 @@ void			edit_to_game(t_al *al)
 	SDL_DestroyWindow(al->win_ed);
 	al->surf_ed = 0;
 	al->win_ed = 0;
+	load_pig(al);
 	al->status = GAME;
 }

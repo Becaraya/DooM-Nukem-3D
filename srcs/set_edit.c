@@ -60,11 +60,10 @@ void			get_hei(t_al *al)
 	char			*t;
 	unsigned int	i;
 
-	t = NULL;
 	i = 0;
 	tmp = al->sect;
 	free_text_hei_num(al);
-	while (al->nb_sec + i++ < al->edit.index_sect)
+	while (al->edit.index_sect + i++ < al->nb_sec)
 		tmp = tmp->next;
 	if (al->edit.stat == SET_FLO_HEI)
 	{

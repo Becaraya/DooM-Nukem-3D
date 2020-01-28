@@ -6,33 +6,14 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:00:37 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/28 14:52:11 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:47:41 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-void	load_pig(t_al *al)
+t_mob	*init_pig(t_al *al, t_mob *mob, t_mob *tmp, unsigned i)
 {
-	t_mob		*tmp;
-	t_mob		*mob;
-	unsigned	i;
-
-	i = 0;
-	al->nb_ent = 0;
-	if (al->ent == NULL)
-		return ;
-	tmp = al->ent;
-	while (tmp->next)
-	{
-		tmp = tmp->next;
-		al->nb_ent++;
-	}
-	if (!(mob = ft_memalloc(al->nb_ent * sizeof(t_mob))))
-		yeet(al);
-	if (!(al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
-		yeet(al);
-	tmp = al->ent;
 	while (tmp->next)
 	{
 		mob[i].posx = tmp->posx;
@@ -56,6 +37,29 @@ void	load_pig(t_al *al)
 		tmp = tmp->next;
 		i++;
 	}
+	return (mob);
+}
+
+void	load_pig(t_al *al)
+{
+	t_mob		*tmp;
+	t_mob		*mob;
+
+	al->nb_ent = 0;
+	if (al->ent == NULL)
+		return ;
+	tmp = al->ent;
+	while (tmp->next)
+	{
+		tmp = tmp->next;
+		al->nb_ent++;
+	}
+	if (!(mob = ft_memalloc(al->nb_ent * sizeof(t_mob))))
+		yeet(al);
+	if (!(al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
+		yeet(al);
+	tmp = al->ent;
+	mob = init_pig(al, mob, tmp, 0);
 	al->ent = mob;
 }
 
@@ -65,7 +69,7 @@ t_mob	*new_mob(t_al *al, SDL_MouseButtonEvent bev, unsigned i)
 
 	data = NULL;
 	if (!(data = ft_memalloc(sizeof(t_mob))))
-			yeet(al);
+		yeet(al);
 	data->posx = (bev.x - WIN_SIZEX / 2) / 10;
 	data->posy = (bev.y - WIN_SIZEY / 2) / -10;
 	data->index = i;
@@ -81,10 +85,9 @@ void	badpig(t_al *al, SDL_MouseButtonEvent bev)
 	i = 0;
 	if (al->ent == NULL)
 	{
-		al->ent= new_mob(al,bev,i);
+		al->ent = new_mob(al, bev, i);
 		return ;
 	}
-
 	cur = al->ent;
 	while (cur->next != NULL)
 	{
@@ -93,6 +96,3 @@ void	badpig(t_al *al, SDL_MouseButtonEvent bev)
 	}
 	cur->next = new_mob(al, bev, i);
 }
-
-
-

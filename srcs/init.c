@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/29 10:09:27 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/29 10:24:50 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,15 +176,16 @@ void			init_textures(t_al *al)
 		al->nb_tex = 3;
 		if (!(al->tex = ft_memalloc((al->nb_tex + 1) * sizeof(t_tex))))
 			exit(0);
-		bmp_to_tex(al->tex + 0, "ressources/skybox.bmp", 800, 600);
-		bmp_to_tex(al->tex + 1, "ressources/wall_tex.bmp", 800, 800);
-		bmp_to_tex(al->tex + 2, "ressources/floor_tex.bmp", 950, 950);
-		bmp_to_tex(al->tex + 3, "ressources/ceiling_tex.bmp", 512, 512);
+		bmp_to_tex(al->tex + 0, "ressources/skysbox.bmp", 800, 600);
+		bmp_to_tex(al->tex + 1, "ressources/walls_tex.bmp", 800, 800);
+		bmp_to_tex(al->tex + 2, "ressources/floors_tex.bmp", 950, 950);
+		bmp_to_tex(al->tex + 3, "ressources/ceilinsg_tex.bmp", 512, 512);
 	}
-	if (!al->texgp
+	if (!al->texgp)
 	{
 		al->nb_texgp = 1;
-		if (!(al->tex = ft_memalloc((al->nb_tex + 1) * sizeof(t_tex))))
+		al->texgp = ft_memalloc(al->nb_texgp * sizeof(t_tex_group));
+		if (!(al->texgp = ft_memalloc(al->nb_texgp * sizeof(t_tex_group))))
 			exit(0);
 		bmp_to_tex(al->tex + 0, "ressources/skybox.bmp", 800, 600);
 		bmp_to_tex(al->tex + 1, "ressources/wall_tex.bmp", 800, 800);

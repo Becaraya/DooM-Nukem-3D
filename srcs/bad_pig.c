@@ -6,11 +6,30 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:00:37 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/28 16:47:41 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/28 17:18:21 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+// void			put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr)
+
+void	pig_pos(t_al *al)
+{
+	t_mob		*mob;
+	t_point		point_a;
+	t_point		point_b;
+
+	mob = al->ent;
+	while (mob != NULL)
+	{
+		point_a.x = (mob->posx * 10) + (WIN_SIZEX / 2) + 2;
+		point_a.y = -(mob->posy * 10) + (WIN_SIZEY / 2) + 2;
+		point_b.x = (mob->posx * 10) + (WIN_SIZEX / 2) - 2;
+		point_b.y = -(mob->posy * 10) + (WIN_SIZEY / 2) - 2;
+		put_rectangle(al->sdlsurf, point_a, point_b, RED);
+		mob = mob->next;
+	}
+}
 
 t_mob	*init_pig(t_al *al, t_mob *mob, t_mob *tmp, unsigned i)
 {
@@ -25,7 +44,7 @@ t_mob	*init_pig(t_al *al, t_mob *mob, t_mob *tmp, unsigned i)
 		mob[i].velz = 0;
 		mob[i].gd_vel = 0;
 		mob[i].on_ground = 1;
-		mob[i].alive = 100;
+		mob[i].alive = 50;
 		mob[i].dir = 0;
 		mob[i].size = 2.5;
 		mob[i].width = 2.3;

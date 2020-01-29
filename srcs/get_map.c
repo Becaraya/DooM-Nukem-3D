@@ -4,10 +4,10 @@ void 	free_tab(t_al *al)
 {
 	unsigned	i;
 
-	i = al->nb_sec;
+	i = 0;
 	if (al->sec)
 	{
-		while (i++ < al->nb_sec)
+		while (++i < al->nb_sec)
 		{
 			free(al->sec[i].walls);
 			free(al->rotsec[i].walls);

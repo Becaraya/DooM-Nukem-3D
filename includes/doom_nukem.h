@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 18:06:07 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:59:43 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -523,6 +523,7 @@ typedef struct		s_al
 {
 	int				hard;
 	t_status		status;
+	char			*map_write_name;
 	void			(*stat_fnc[5])(struct s_al *);
 
 	SDL_Window		*sdlwin;
@@ -604,7 +605,7 @@ typedef struct		s_al
 unsigned int		*parse_tex(t_al *al, char *name, int w, int h);
 int					pr_err(char *str);
 
-void				init(t_al *al, char *str);
+void				init(t_al *al, char *str, int ed);
 void				main_loop(t_al *al);
 void				pix_to_pix(unsigned *src, unsigned *dst, double alpha);
 
@@ -868,6 +869,5 @@ void				pewpew(t_al *al);
 void				set_spawn(t_al *al, SDL_MouseButtonEvent spw);
 void				set_end(t_al *al, SDL_MouseButtonEvent bev);
 void				print_text(t_al *al, t_text text, SDL_Surface *surf);
-
 
 #endif

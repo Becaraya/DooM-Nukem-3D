@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/28 11:54:34 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:26:52 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,21 @@ void		draw_hud(t_al *al)
 
 void		render(t_al *al)
 {
-	t_rc_ray	ray;
+	t_rc_ray	*ray;
 	int			x;
 
 	al->wall_scale = 0.1624 * D_2PI / al->fov;
+	if (!(ray = ft_memalloc(sizeof(t_rc_ray))))
+		exit(0);
 	ft_bzero(al->pix, WIN_SIZEX * WIN_SIZEY * sizeof(int));
 	x = 0;
 	while (x < WIN_SIZEX)
 	{
-		ray.nb_hits = 0;
-		ray.x = x;
+		ray->nb_hits = 0;
+		ray->x = x;
 		cast_ray(al, (t_angle)(atan(al->fov * (x - (WIN_SIZEX / 2)) /
-					WIN_SIZEX) / M_2PI * D_2PI + al->play.dir) & D_2PIM, &ray);
-		column(al, &ray);
+					WIN_SIZEX) / M_2PI * D_2PI + al->play.dir) & D_2PIM, ray);
+		column(al, ray);
 		x++;
 	}
 	al->k.m ? draw_map(al) : 0;
@@ -119,4 +121,5 @@ void		render(t_al *al)
 	ft_putstr(" fps:");
 	ft_putnbr(1000000 / al->dtime);
 	refresh(al);
+	free(ray);
 }

@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/21 10:27:22 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/28 15:10:06 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,15 @@ int		main(int ac, char **av)
 
 	if (!(al = ft_memalloc(sizeof(t_al))))
 		exit(0);
-	if (ac < 2)
-		return (pr_err("No .hms file provided\n"));
-	init(al, av[1]);
+	if (ac == 1)
+		init(al, 0, 1);	
+	else if (ac == 2)
+		init(al, av[1], 0);
+	else if (ac == 3)
+	{
+		init(al, av[1], 1);
+		al->map_write_name = av[2]; 
+	}
 	//hms_encoder(&al, "housetexgp.hms");
 	main_loop(al);
 	return (0);

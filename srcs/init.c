@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 11:44:55 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/29 10:06:29 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->on_ground = 1;
 	pl->alive = 5;
 	pl->dmg = 6;
-	pl->posz = al->sec[pl->csec].fl_hei;
+	pl->csec ? pl->posz = al->sec[pl->csec].fl_hei : 0;
 }
 
 /*
@@ -53,7 +53,7 @@ void			creat_entity(t_al *al)
 		al->ent[i].csec = 1;
 		al->ent[i].posx = 12;
 		al->ent[i].posy = 4 + (double)i * 5;
-		al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei;
+		al->sec ? al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei : 0;
 		al->ent[i].velx = 0;
 		al->ent[i].vely = 0;
 		al->ent[i].velz = 0;
@@ -166,19 +166,44 @@ void			load_death(t_al *al)
 		}
 }
 
-void			init(t_al *al, char *str)
+void			init_textures(t_al *al)
 {
-	if (hms_parser(al, str))
-		exit(0);
 	load_hud(al);
 	load_death(al);
+	if (!al->tex)
+	{
+		al->nb_tex = 3;
+		if (!(al->tex = ft_memalloc((al->nb_tex + 1) * sizeof(t_tex))))
+			exit(0);
+		bmp_to_tex(al->tex + 0, "ressources/skybox.bmp", 800, 600);
+		bmp_to_tex(al->tex + 1, "ressources/wall_tex.bmp", 800, 800);
+		bmp_to_tex(al->tex + 2, "ressources/floor_tex.bmp", 950, 950);
+		bmp_to_tex(al->tex + 3, "ressources/ceiling_tex.bmp", 512, 512);
+	}
+	if (!al->texgp
+	{
+		al->nb_texgp = 1;
+		if (!(al->tex = ft_memalloc((al->nb_tex + 1) * sizeof(t_tex))))
+			exit(0);
+		bmp_to_tex(al->tex + 0, "ressources/skybox.bmp", 800, 600);
+		bmp_to_tex(al->tex + 1, "ressources/wall_tex.bmp", 800, 800);
+		bmp_to_tex(al->tex + 2, "ressources/floor_tex.bmp", 950, 950);
+		bmp_to_tex(al->tex + 3, "ressources/ceiling_tex.bmp", 512, 512);
+	}
+}
+
+void			init(t_al *al, char *str, int ed)
+{
+	if (str)
+		if (hms_parser(al, str))
+			exit(0);
+	init_textures(al);
 	init_player(al, &al->play);
 	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
-	// al->status = EDIT;
-	al->status = GAME;
 	al->fps = 60;
+	al->status = ed ? EDIT : GAME;
 	al->g = DEFAULT_G;
 	al->fov = DEFAULT_FOV;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
@@ -196,15 +221,13 @@ void			init(t_al *al, char *str)
 	if (al->status == EDIT)
 	{
 		init_edit(al);
-		get_map(al);
+		str ? get_map(al) : 0;
 	}
 	if (al->status == GAME)
 	{
 		set_text(&al->text.t, "TEXT", get_rect(300, 330),
 		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	}
-	//get_sec_tab(al);
-	// get_map(al);
 	al->hard = 2;
 	ft_bzero(&al->k, sizeof(t_keys));
 	init_anims(al);

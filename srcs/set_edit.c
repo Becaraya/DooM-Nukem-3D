@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:50:00 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 15:30:58 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/29 15:08:34 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@ void			print_spawn_end(t_al *al)
 	int		tmpx;
 	int		tmpy;
 
-	// tmpx = (al->play.posx - WIN_SIZEY / 2) / 10.0;
 	tmpy = al->play.posy * -10 + (WIN_SIZEY / 2);
 	tmpx = al->play.posx * 10 + (WIN_SIZEX / 2);
-	put_rectangle(al->sdlsurf, itop(tmpx - 1, tmpy - 1), 
+	put_rectangle(al->sdlsurf, itop(tmpx - 1, tmpy - 1),
 	itop(tmpx + 1, tmpy + 1), RED);
 	if (!al->edit.sect_end)
 	{
-		put_rectangle(al->sdlsurf, itop(al->end_sect.x - 1, al->end_sect.y - 1), 
+		put_rectangle(al->sdlsurf, itop(al->end_sect.x - 1, al->end_sect.y - 1),
 		itop(al->end_sect.x + 1, al->end_sect.y + 1), BLUE);
 	}
 }

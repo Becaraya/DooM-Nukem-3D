@@ -42,6 +42,7 @@ SRC_LIST = arrow_edit.c		\
 		game.c				\
 		dead.c				\
 		get_map.c			\
+		get_map_two.c			\
 		hms_parser.c		\
 		hms_parser_sec.c	\
 		hms_parser_tex.c	\
@@ -52,6 +53,8 @@ SRC_LIST = arrow_edit.c		\
 		hms_encoder_texgp.c	\
 		ia.c				\
 		init.c 				\
+		init_two.c 				\
+		init_troy.c 				\
 		main_loop.c 		\
 		main.c				\
 		mob_disp.c			\
@@ -81,7 +84,7 @@ SRC_LIST = arrow_edit.c		\
 		tool_text.c			\
 		tools.c				\
 		yeet_text.c			\
-		yeet.c				
+		yeet.c
 
 SRC_DIR = ./srcs/
 SRC = $(addprefix $(SRC_DIR), $(SRC_LIST))

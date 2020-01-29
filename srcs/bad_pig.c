@@ -6,12 +6,11 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:00:37 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/28 17:18:21 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:32:48 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
-// void			put_rectangle(SDL_Surface *surf, t_point a, t_point b, int clr)
 
 void	pig_pos(t_al *al)
 {

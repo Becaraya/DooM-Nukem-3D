@@ -6,13 +6,19 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:15:33 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 17:48:23 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/29 15:17:57 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-void	refresh(t_al *al)
+void			free_before_refresh(t_al *al)
+{
+	if (al->edit.stat != GRAVITY && al->text.g_num.str)
+		(al->text.g_num.str) ? ft_strdel(&al->text.g_num.str) : 0;
+}
+
+void			refresh(t_al *al)
 {
 	if (al->status == EDIT)
 		text(al);

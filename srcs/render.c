@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/28 15:26:52 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/29 15:15:43 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,17 @@ void		draw_hud(t_al *al)
 	}
 }
 
+static void	render_two(t_al *al)
+{
+	pimp_cross(al);
+	draw_hud(al);
+	shoot(al);
+	draw_wapon(al);
+	ft_putstr(" fps:");
+	ft_putnbr(1000000 / al->dtime);
+	refresh(al);
+}
+
 void		render(t_al *al)
 {
 	t_rc_ray	*ray;
@@ -114,12 +125,6 @@ void		render(t_al *al)
 		x++;
 	}
 	al->k.m ? draw_map(al) : 0;
-	pimp_cross(al);
-	draw_hud(al);
-	shoot(al);
-	draw_wapon(al);
-	ft_putstr(" fps:");
-	ft_putnbr(1000000 / al->dtime);
-	refresh(al);
+	render_two(al);
 	free(ray);
 }

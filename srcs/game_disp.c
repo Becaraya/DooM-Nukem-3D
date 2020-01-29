@@ -6,27 +6,11 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 16:05:51 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/28 11:35:10 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:48:39 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
-
-void		rotate(t_al *al)
-{
-	if (al->k.left)
-		al->play.dir = sub_angle(al->play.dir, (LOOK_SENS * D_2PI / 2500) *
-		al->dtime / 1000000);
-	if (al->k.righ)
-		al->play.dir = add_angle(al->play.dir, (LOOK_SENS * D_2PI / 2500) *
-		al->dtime / 1000000);
-	if (al->k.up)
-		al->play.horizon -= LOOK_SENS * al->dtime / 1000000;
-	if (al->k.down)
-		al->play.horizon += LOOK_SENS * al->dtime / 1000000;
-	al->play.horizon < -HORIZON_LIMIT ? al->play.horizon = -HORIZON_LIMIT : 0;
-	al->play.horizon > HORIZON_LIMIT ? al->play.horizon = HORIZON_LIMIT : 0;
-}
 
 /*
 ** mock me all you want but you have a better way i'm all ears
@@ -108,20 +92,8 @@ void		acceleration(t_al *al)
 	al->play.vely = al->cos[dir_force] * al->play.gd_vel;
 }
 
-void		displacement(t_al *al)
+void		diplacement(t_al *al)
 {
-	int i;
-
-	if (al->dtime > 1 && al->dtime < 1000000)
-		ft_nop_player(al, 0, al->play.velx * al->dtime / 1000000, al->play.vely
-		* al->dtime / 1000000);
-	al->play.posz += al->play.velz * al->dtime / 1000000;
-	al->play.eyez += al->play.velz * al->dtime / 1000000;
-	i = -1;
-	while (++i < al->nb_ent)
-		if (al->dtime > 1 && al->dtime < 1000000)
-			ft_nop(al, &al->ent[i], al->ent[i].velx * al->dtime / 1000000,
-			al->ent[i].vely * al->dtime / 1000000);
 	if (al->play.posz < al->sec[al->play.csec].fl_hei)
 	{
 		al->play.posz = al->sec[al->play.csec].fl_hei;
@@ -139,4 +111,21 @@ void		displacement(t_al *al)
 	if (al->sec[al->play.csec].ce_hei - al->sec[al->play.csec].fl_hei <
 		al->play.size)
 		al->play.alive = 0;
+}
+
+void		displacement(t_al *al)
+{
+	int i;
+
+	if (al->dtime > 1 && al->dtime < 1000000)
+		ft_nop_player(al, 0, al->play.velx * al->dtime / 1000000, al->play.vely
+		* al->dtime / 1000000);
+	al->play.posz += al->play.velz * al->dtime / 1000000;
+	al->play.eyez += al->play.velz * al->dtime / 1000000;
+	i = -1;
+	while (++i < al->nb_ent)
+		if (al->dtime > 1 && al->dtime < 1000000)
+			ft_nop(al, &al->ent[i], al->ent[i].velx * al->dtime / 1000000,
+			al->ent[i].vely * al->dtime / 1000000);
+	diplacement(al);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:08:39 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 14:58:54 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:32:27 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@ void			set_coo(t_al *al, t_point bev, int who, t_walls *wall)
 	}
 }
 
+void			init_sec(t_al *al)
+{
+	if (!(al->sect = ft_memalloc(sizeof(t_sector))))
+		yeet(al);
+	ft_bzero(al->sect, sizeof(t_sector *));
+	if (!(al->sect->walls = (t_walls *)ft_memalloc(sizeof(t_walls))))
+		yeet(al);
+	ft_bzero(al->sect->walls, sizeof(t_walls *));
+	set_coo(al, itop(-1, -1), 1, al->sect->walls);
+	set_coo(al, itop(-1, -1), 2, al->sect->walls);
+	al->sect->next = NULL;
+	al->sect->walls->next = NULL;
+}
+
 void			init_sect(t_al *al, t_sector *sect)
 {
 	t_sector	*new;
@@ -33,16 +47,7 @@ void			init_sect(t_al *al, t_sector *sect)
 	new = NULL;
 	if (!sect)
 	{
-		if (!(al->sect = ft_memalloc(sizeof(t_sector))))
-			yeet(al);
-		ft_bzero(al->sect, sizeof(t_sector *));
-		if (!(al->sect->walls = (t_walls *)ft_memalloc(sizeof(t_walls))))
-			yeet(al);
-		ft_bzero(al->sect->walls, sizeof(t_walls *));
-		set_coo(al, itop(-1, -1), 1, al->sect->walls);
-		set_coo(al, itop(-1, -1), 2, al->sect->walls);
-		al->sect->next = NULL;
-		al->sect->walls->next = NULL;
+		init_sec(al);
 	}
 	else
 	{
@@ -56,13 +61,6 @@ void			init_sect(t_al *al, t_sector *sect)
 		al->sect = new;
 	}
 	al->sect->nb_wal = 1;
-}
-
-void			add_sector(t_al *al, t_point coo)
-{
-	init_sect(al, al->sect);
-	set_coo(al, coo, 1, al->sect->walls);
-	set_coo(al, coo, 2, al->sect->walls);
 }
 
 /*

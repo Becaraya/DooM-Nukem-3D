@@ -3,31 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   edit_to_game.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 10:39:36 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/28 16:29:31 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:39:49 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
-
-static void		walls_to_game(t_walls *walls, t_sector *sec)
-{
-	unsigned	i;
-
-	i = sec->nb_wal - 1;
-	while (walls)
-	{
-		sec->walls[i] = *walls;
-		sec->walls[i].x1 = (sec->walls[i].x1 - WIN_SIZEX / 2) / 10.0;
-		sec->walls[i].x2 = (sec->walls[i].x2 - WIN_SIZEX / 2) / 10.0;
-		sec->walls[i].y1 = (sec->walls[i].y1 - WIN_SIZEY / 2) / -10.0;
-		sec->walls[i].y2 = (sec->walls[i].y2 - WIN_SIZEY / 2) / -10.0;
-		walls = walls->next;
-		i--;
-	}
-}
 
 static unsigned	how_many_walls(t_sector *sec)
 {
@@ -77,6 +60,20 @@ static unsigned	how_many_sectors(t_al *al)
 	return (i);
 }
 
+static void		edit_to_gamer(t_al *al)
+{
+	set_text(&al->text.t, "TEXT", get_rect(300, 330),
+		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+	SDL_FreeSurface(al->surf_ed);
+	SDL_DestroyWindow(al->win_ed);
+	if (!al->edit.sect_end)
+		convert_end(al);
+	al->surf_ed = 0;
+	al->win_ed = 0;
+	load_pig(al);
+	al->status = GAME;
+}
+
 void			edit_to_game(t_al *al)
 {
 	t_sector	*cur;
@@ -97,14 +94,5 @@ void			edit_to_game(t_al *al)
 		cur = cur->next;
 		id++;
 	}
-	set_text(&al->text.t, "TEXT", get_rect(300, 330),
-		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	SDL_FreeSurface(al->surf_ed);
-	SDL_DestroyWindow(al->win_ed);
-	if (!al->edit.sect_end)
-		convert_end(al);
-	al->surf_ed = 0;
-	al->win_ed = 0;
-	load_pig(al);
-	al->status = GAME;
+	edit_to_gamer(al);
 }

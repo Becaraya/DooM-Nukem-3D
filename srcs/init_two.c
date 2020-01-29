@@ -1,0 +1,52 @@
+#include "doom_nukem.h"
+
+void		init_status(t_al *al)
+{
+	al->stat_fnc[MENU] = menu;
+	al->stat_fnc[GAME] = game;
+	al->stat_fnc[DEAD] = dead;
+	al->stat_fnc[PAUSE] = yeet;
+	al->stat_fnc[EDIT] = editor;
+}
+
+void		init_player(t_al *al, t_player *pl)
+{
+	pl->mass = PLAYER_MASS;
+	pl->power = PLAYER_AERO_POWER;
+	pl->power_mult = 1;
+	pl->size = PLAYER_SIZE;
+	pl->eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
+	pl->on_ground = 1;
+	pl->alive = 5;
+	pl->dmg = 6;
+	pl->csec ? pl->posz = al->sec[pl->csec].fl_hei : 0;
+}
+
+void		init_trigo(t_al *al)
+{
+	int				i;
+
+	i = 0;
+	while (i < D_2PI)
+	{
+		al->sin[i] = sin(M_2PI * i / D_2PI);
+		i++;
+	}
+	i = 0;
+	while (i < D_2PI)
+	{
+		al->cos[i] = cos(M_2PI * i / D_2PI);
+		i++;
+	}
+}
+
+void		init_edit(t_al *al)
+{
+	if (!(al->win_ed = SDL_CreateWindow(WIN_TITLE, WIN_POSX + WIN_SIZEX,
+		WIN_POSY, WIN_EDIT_SIZEX, WIN_EDIT_SIZEY, SDL_WINDOW_SHOWN)))
+		yeet(al);
+	if (!(al->surf_ed = SDL_GetWindowSurface(al->win_ed)))
+		yeet(al);
+	al->pix_ed = al->surf_ed->pixels;
+	init_text_edit(al);
+}

@@ -6,11 +6,27 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 14:22:25 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 11:57:57 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/29 15:10:34 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+
+void			rotate(t_al *al)
+{
+	if (al->k.left)
+		al->play.dir = sub_angle(al->play.dir, (LOOK_SENS * D_2PI / 2500) *
+		al->dtime / 1000000);
+	if (al->k.righ)
+		al->play.dir = add_angle(al->play.dir, (LOOK_SENS * D_2PI / 2500) *
+		al->dtime / 1000000);
+	if (al->k.up)
+		al->play.horizon -= LOOK_SENS * al->dtime / 1000000;
+	if (al->k.down)
+		al->play.horizon += LOOK_SENS * al->dtime / 1000000;
+	al->play.horizon < -HORIZON_LIMIT ? al->play.horizon = -HORIZON_LIMIT : 0;
+	al->play.horizon > HORIZON_LIMIT ? al->play.horizon = HORIZON_LIMIT : 0;
+}
 
 t_point			itop(int x, int y)
 {

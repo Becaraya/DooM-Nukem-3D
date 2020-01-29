@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 16:56:59 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/29 14:41:50 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,6 @@ void			interactive_arrow(t_al *al)
 		draw_triangle(itop(640, 635), 1, al->surf_ed, inr(itop(630, 615),
 		itop(660, 660), itop(mev.x, mev.y)) ? BLACK : WHITE);
 	}
-}
-
-void			free_before_refresh(t_al *al)
-{
-	if (al->edit.stat != GRAVITY && al->text.g_num.str)
-		(al->text.g_num.str) ? ft_strdel(&al->text.g_num.str) : 0;
 }
 
 void			editor(t_al *al)

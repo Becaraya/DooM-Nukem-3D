@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_edit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 11:41:49 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/28 14:59:41 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void	mouse_press_edit(t_al *al)
 			set_spawn(al, bev);
 		if (al->edit.stat == SET_END)
 			set_end(al, bev);
+		if (al->edit.stat == SET_BAD_PIG)
+			badpig(al, bev);
 		if (al->edit.stat == SELECT)
 		{
 			al->edit.stat = DRAWING;

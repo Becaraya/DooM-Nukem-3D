@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/29 10:06:29 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/29 10:09:27 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void		init_player(t_al *al, t_player *pl)
 */
 
 void			creat_entity(t_al *al)
-{
+{/*
 	unsigned int	i;
 
 	al->nb_ent = 2;
@@ -68,7 +68,8 @@ void			creat_entity(t_al *al)
 		al->ent[i].hit = 1;
 		al->ent[i].index = i;
 		al->ent[i].fly = 1;
-	}
+	}*/
+	return ;
 }
 
 static void		init_trigo(t_al *al)
@@ -232,6 +233,7 @@ void			init(t_al *al, char *str, int ed)
 	ft_bzero(&al->k, sizeof(t_keys));
 	init_anims(al);
 	al->edit.stat = SELECT;
+	al->edit.sect_end = -1;
 	al->edit.zoom = 10;
 	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;

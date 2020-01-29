@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 11:33:52 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/28 16:56:59 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,5 +111,6 @@ void			editor(t_al *al)
 		draw_sect_index(al, al->sect, al->nb_sec);
 	}
 	interactive_arrow(al);
+	pig_pos(al);
 	refresh(al);
 }

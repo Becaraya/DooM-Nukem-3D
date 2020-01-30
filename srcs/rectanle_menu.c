@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 12:00:13 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 11:49:07 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:15:15 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,15 +63,18 @@ void			global_menu_rectangle(t_al *al)
 {
 	if (al->edit.stat == DRAWING)
 		put_rectangle(al->surf_ed, itop(590, 15), itop(699, 48), BLACK);
-	if (inr(itop(45, 125), itop(230, 170), itop(al->ev.motion.x,
-		al->ev.motion.y)))
-		put_rectangle(al->surf_ed, itop(45, 125), itop(230, 170), BLACK);
-	if (inr(itop(280, 125), itop(460, 170), itop(al->ev.motion.x,
-		al->ev.motion.y)))
-		put_rectangle(al->surf_ed, itop(280, 125), itop(460, 170), BLACK);
-	if (inr(itop(495, 125), itop(645, 170), itop(al->ev.motion.x,
-		al->ev.motion.y)))
-		put_rectangle(al->surf_ed, itop(495, 125), itop(645, 170), BLACK);
+	if (al->ev.motion.windowID == 2)
+	{
+		if (inr(itop(45, 125), itop(230, 170), itop(al->ev.motion.x,
+			al->ev.motion.y)))
+			put_rectangle(al->surf_ed, itop(45, 125), itop(230, 170), BLACK);
+		if (inr(itop(280, 125), itop(460, 170), itop(al->ev.motion.x,
+			al->ev.motion.y)))
+			put_rectangle(al->surf_ed, itop(280, 125), itop(460, 170), BLACK);
+		if (inr(itop(495, 125), itop(645, 170), itop(al->ev.motion.x,
+			al->ev.motion.y)))
+			put_rectangle(al->surf_ed, itop(495, 125), itop(645, 170), BLACK);
+	}
 	if ((al->ev.motion.windowID == 2 && inr(itop(45, 240), itop(220, 285),
 		itop(al->ev.motion.x, al->ev.motion.y))) || al->edit.stat == EDIT_SECT
 		|| al->edit.stat == SET_FLO_TEXT || al->edit.stat == SET_FLO_HEI

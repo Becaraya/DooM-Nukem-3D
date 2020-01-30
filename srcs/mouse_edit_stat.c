@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_edit_stat.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:31:24 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 15:24:37 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/30 18:42:48 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ void	mouse_press_edit_setting_sector(t_al *al, SDL_MouseButtonEvent bev)
 		if (inr(itop(45, 400), itop(220, 445), itop(bev.x, bev.y)))
 			al->edit.stat = SET_FLO_HEI;
 		if (inr(itop(45, 320), itop(220, 365), itop(bev.x, bev.y)))
-			al->edit.stat = (al->edit.stat == EDIT_WALL) ? SET_WALL_TEXT
-			: SET_FLO_TEXT;
+			al->edit.stat = (al->edit.stat == EDIT_WALL) ?  SET_WALL_TEXT : SET_FLO_TEXT;
 		if (inr(itop(280, 400), itop(460, 445), itop(bev.x, bev.y)))
 			al->edit.stat = SET_CEL_HEI;
 		if (inr(itop(280, 320), itop(460, 365), itop(bev.x, bev.y)))

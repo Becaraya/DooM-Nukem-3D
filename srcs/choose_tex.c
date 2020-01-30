@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:52:57 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/30 18:03:14 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/30 18:42:56 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void		display_tex_menu(SDL_Surface *surf, t_tex tex, int i)
 	}
 }
 
-static void		set_tex(t_al *al)
+static void		set_wall_tex(t_al *al)
 {
 	t_sector		*tmp_s;
 	t_walls			*tmp_w;
@@ -55,6 +55,30 @@ static void		set_tex(t_al *al)
 	tmp_w->wall_tex = al->tex_choice;
 }
 
+static void		set_cel_tex(t_al *al)
+{
+	t_sector		*tmp_s;
+	int				i;
+
+	i = 0;
+	tmp_s = al->sect;
+	while (al->edit.index_sect + i++ < al->nb_sec)
+		tmp_s = tmp_s->next;
+	tmp_s->ce_tex = al->tex_choice;
+}
+
+static void		set_flo_tex(t_al *al)
+{
+	t_sector		*tmp_s;
+	int				i;
+
+	i = 0;
+	tmp_s = al->sect;
+	while (al->edit.index_sect + i++ < al->nb_sec)
+		tmp_s = tmp_s->next;
+	tmp_s->fl_tex = al->tex_choice;
+}
+
 void		click_on_menu(t_al *al, SDL_Surface *surf)
 {
 	if (al->ev.type == SDL_MOUSEBUTTONDOWN && al->ev.motion.windowID == 2)
@@ -63,7 +87,12 @@ void		click_on_menu(t_al *al, SDL_Surface *surf)
 		&& al->ev.button.y <= (al->nb_tex + 1) * TEX_SIZE_MENU)
 		{
 			al->tex_choice = al->ev.button.y / TEX_SIZE_MENU;
-			set_tex(al);
+			if (al->edit.stat == SET_WALL_TEXT)
+				set_wall_tex(al);
+			if (al->edit.stat == SET_FLO_TEXT)
+				set_flo_tex(al);
+			if (al->edit.stat == SET_CEL_TEXT)
+				set_cel_tex(al);
 			al->edit.stat = SELECT;
 		}
 	}

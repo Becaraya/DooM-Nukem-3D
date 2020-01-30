@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 16:08:37 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/29 14:41:50 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/30 18:30:10 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ void			editor(t_al *al)
 	set_edit(al);
 	ft_memset(al->pix_ed, LIGHT_GREY, WIN_EDIT_SIZEX * WIN_EDIT_SIZEY *
 		sizeof(int));
-	if (al->edit.stat == SET_FLO_TEXT)
+	if (al->edit.stat == SET_WALL_TEXT || al->edit.stat == SET_CEL_TEXT ||al->edit.stat == SET_FLO_TEXT)
 		tex_menu(al);
 	else
 		set_edit_menu(al);

@@ -6,7 +6,7 @@
 /*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:52:57 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 11:30:14 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:05:14 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void		click_on_menu(t_al *al, SDL_Surface *surf)
 	if (al->ev.type == SDL_MOUSEBUTTONDOWN && al->ev.motion.windowID == 2)
 	{
 		if (al->ev.button.x >= surf->w - TEX_SIZE_MENU
-		&& al->ev.button.y <= al->nb_tex * TEX_SIZE_MENU)
+		&& al->ev.button.y <= (al->nb_tex + 1) * TEX_SIZE_MENU)
 		{
 			al->tex_choice = al->ev.button.y / TEX_SIZE_MENU;
 		}
@@ -56,7 +56,7 @@ void		tex_menu(t_al *al)
 
 	surf = al->surf_ed;
 	i = -1;
-	while (++i != al->nb_tex)
+	while (++i <= al->nb_tex)
 	{
 		display_tex_menu(surf, al->tex[i], (i * TEX_SIZE_MENU));
 	}

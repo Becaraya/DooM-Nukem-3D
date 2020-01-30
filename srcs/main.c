@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/30 11:38:30 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:41:17 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		main(int ac, char **av)
 		init(al, av[1], 1);
 		al->map_write_name = av[2]; 
 	}
-	//hms_encoder(&al, "housetexgp.hms");
 	main_loop(al);
 	return (0);
 }

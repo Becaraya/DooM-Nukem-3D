@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/30 11:16:48 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:42:09 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -861,7 +861,7 @@ int					test_ent_hit(t_al *al, t_rc_ray *ray, t_mob *rotent, t_mob
 
 void				rotate(t_al *al);
 void				free_before_refresh(t_al *al);
-void				walls_to_game(t_walls *walls, t_sector *sec);
+//void				walls_to_game(t_walls *walls, t_sector *sec);
 void				add_sector(t_al *al, t_point coo);
 t_angle				d_atan2(double d1, double d2);
 t_angle				d_atan(double a);
@@ -882,17 +882,15 @@ void		convert_end(t_al *al);
 void		print_text(t_al *al, t_text text, SDL_Surface *surf);
 void		pig_pos(t_al *al);
 
-void		init_status(t_al *al);
-void		init_player(t_al *al, t_player *pl);
-void		init_trigo(t_al *al);
-void		init_edit(t_al *al);
-void		load_hud(t_al *al);
-void		im_not_going_to_hell_for_this(t_al *al, int ipix);
-void		load_death(t_al *al);
-void		init_textures(t_al *al);
-void		free_tab(t_al *al);
-void		load_pig(t_al *al);
-void		badpig(t_al *al, SDL_MouseButtonEvent bev);
+//void		init_status(t_al *al);
+//void		init_player(t_al *al, t_player *pl);
+//void		init_trigo(t_al *al);
+//void		init_edit(t_al *al);
+void			load_hud(t_al *al);
+//void		im_not_going_to_hell_for_this(t_al *al, int ipix);
+void			load_death(t_al *al);
+void			init_textures(t_al *al);
+void	free_tab(t_al *al);
 
 
 

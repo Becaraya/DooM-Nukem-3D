@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:43:49 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/27 14:49:34 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:11:05 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,9 @@ void		mouse_mv(t_al *al)
 	SDL_MouseMotionEvent	mev;
 
 	mev = al->ev.motion;
-	if (mev.x != WIN_SIZEX / 2)
+	if (al->status == GAME && mev.x != WIN_SIZEX / 2)
 		al->play.dir = (al->play.dir + mev.xrel * 10) & D_2PIM;
-	if (mev.y != WIN_SIZEY / 2)
+	if (al->status == GAME && mev.y != WIN_SIZEY / 2)
 		al->play.horizon = al->play.horizon + mev.yrel * 3;
 	if (mev.windowID == 1)
 	{

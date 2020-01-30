@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 22:47:34 by pitriche          #+#    #+#             */
-/*   Updated: 2019/12/12 03:44:44 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/30 11:41:00 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,11 @@ int		write_wall(t_walls *wall, int fd)
 	unsigned char buf[32];
 
 	ft_bzero(buf, 32);
-	*(signed int *)(buf + 0) = wall->x1 * 100;
-	*(signed int *)(buf + 4) = wall->y1 * 100;
-	*(signed int *)(buf + 8) = wall->x2 * 100;
-	*(signed int *)(buf + 12) = wall->y2 * 100;
+	printf("wall > %.2f %.2f %.2f %.2f\n", wall->x2, wall->y2, wall->x1, wall->y1);
+	*(signed int *)(buf + 0) = wall->x2 * 100;
+	*(signed int *)(buf + 4) = wall->y2 * 100;
+	*(signed int *)(buf + 8) = wall->x1 * 100;
+	*(signed int *)(buf + 12) = wall->y1 * 100;
 	*(unsigned short *)(buf + 16) = wall->wall_tex;
 	*(unsigned short *)(buf + 18) = wall->bot_tex;
 	*(unsigned short *)(buf + 20) = wall->top_tex;
@@ -48,6 +49,7 @@ int		write_walls(t_sector *sec, int fd)
 int		write_sector(t_sector *sec, int fd)
 {
 	unsigned char buf[16];
+	printf("\nSECC\n");
 
 	*(unsigned int *)(buf + 0) = (sec->fl_hei + 0.001) * 100;
 	*(unsigned int *)(buf + 4) = (sec->ce_hei + 0.001) * 100;
@@ -67,7 +69,7 @@ int		write_sectors(t_al *al, int fd)
 	unsigned int	i;
 
 	buf[0] = al->nb_sec;
-	buf[1] = al->play.csec;
+	buf[1] = al->play.csec ? al->play.csec : 1;
 	buf[2] = al->play.posx * 100;
 	buf[3] = al->play.posy * 100;
 	if (write(fd, buf, 16) != 16)

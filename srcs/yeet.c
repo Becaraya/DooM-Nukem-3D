@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   yeet.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/03 12:23:57 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/28 11:58:26 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/30 11:34:44 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	yeet(t_al *al)
 	al->sdlsurf ? SDL_FreeSurface(al->sdlsurf) : 0;
 	al->surf_ed ? SDL_FreeSurface(al->surf_ed) : 0;
 	al->win_ed ? SDL_DestroyWindow(al->win_ed) : 0;
-	exit(0);
 	al->ent ? ft_memdel((void**)&(al->ent)) : 0;
 	al->rotent ? ft_memdel((void**)&(al->rotent)) : 0;
 	free(al);
+	exit(0);
 }

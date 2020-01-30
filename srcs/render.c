@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:55:59 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/29 15:15:43 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:29:07 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		draw_hud(t_al *al)
 			{
 				if (al->h.pix[x + ((al->h.size_y - y - 1) *
 					al->h.size_x)])
-					al->pix[x + (70 * a) + ((y + 20) * WIN_SIZEX)] =
+					al->pix[x + (45 * a) + ((y + 20) * WIN_SIZEX)] =
 					al->h.pix[x + ((al->h.size_y - y - 1) * al->h.size_x)];
 				x++;
 			}

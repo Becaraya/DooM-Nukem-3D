@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tool_arrow.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:04:13 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/23 00:01:25 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/01/30 15:28:48 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void			arrow_stat_player_minus(t_al *al)
 
 void			arrow_stat_player_plus(t_al *al)
 {
-	if (al->edit.stat == LIFE)
+	if (al->edit.stat == LIFE && al->play.alive < 25)
 		al->play.alive++;
 	if (al->edit.stat == POW)
 		al->play.power_mult += 0.1;

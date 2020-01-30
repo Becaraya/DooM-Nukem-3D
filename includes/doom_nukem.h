@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/29 15:32:20 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/30 11:16:48 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -873,24 +873,26 @@ void				print_co(t_al *al);
 int					count_wall(t_walls *walls);
 void				mob_on_z(t_al *al, t_mob *e);
 
-void				edit_to_game(t_al *al);
-void				link_sectors(t_al *al);
-void				pewpew(t_al *al);
-void				set_spawn(t_al *al, SDL_MouseButtonEvent spw);
-void				set_end(t_al *al, SDL_MouseButtonEvent bev);
-void				convert_end(t_al *al);
-void				print_text(t_al *al, t_text text, SDL_Surface *surf);
-void				pig_pos(t_al *al);
+void		edit_to_game(t_al *al);
+void		link_sectors(t_al *al);
+void		pewpew(t_al *al);
+void		set_spawn(t_al *al, SDL_MouseButtonEvent spw);
+void		set_end(t_al *al, SDL_MouseButtonEvent bev);
+void		convert_end(t_al *al);
+void		print_text(t_al *al, t_text text, SDL_Surface *surf);
+void		pig_pos(t_al *al);
 
 void		init_status(t_al *al);
 void		init_player(t_al *al, t_player *pl);
 void		init_trigo(t_al *al);
 void		init_edit(t_al *al);
-void			load_hud(t_al *al);
+void		load_hud(t_al *al);
 void		im_not_going_to_hell_for_this(t_al *al, int ipix);
-void			load_death(t_al *al);
-void			init_textures(t_al *al);
-void	free_tab(t_al *al);
+void		load_death(t_al *al);
+void		init_textures(t_al *al);
+void		free_tab(t_al *al);
+void		load_pig(t_al *al);
+void		badpig(t_al *al, SDL_MouseButtonEvent bev);
 
 
 

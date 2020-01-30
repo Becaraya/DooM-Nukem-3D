@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/29 15:03:05 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/30 11:15:00 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,40 +15,6 @@
 /*
 ** je sait pas ou ranger cette fonction
 */
-
-void			creat_entity(t_al *al)
-{/*
-	unsigned int	i;
-
-	al->nb_ent = 2;
-	if (!(al->ent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
-		yeet(al);
-	if (!(al->rotent = ft_memalloc(al->nb_ent * sizeof(t_mob))))
-		yeet(al);
-	i = -1;
-	while (++i < al->nb_ent)
-	{
-		al->ent[i].csec = 1;
-		al->ent[i].posx = 12;
-		al->ent[i].posy = 4 + (double)i * 5;
-		al->sec ? al->ent[i].posz = al->sec[al->ent[0].csec].fl_hei : 0;
-		al->ent[i].velx = 0;
-		al->ent[i].vely = 0;
-		al->ent[i].velz = 0;
-		al->ent[i].gd_vel = 0;
-		al->ent[i].on_ground = 1;
-		al->ent[i].alive = 10;
-		al->ent[i].dir = 0;
-		al->ent[i].size = 2.5;
-		al->ent[i].width = 2.3;
-		al->ent[i].mass = 50;
-		al->ent[i].power = 200;
-		al->ent[i].hit = 1;
-		al->ent[i].index = i;
-		al->ent[i].fly = 1;
-	}*/
-	return ;
-}
 
 static void		init_anims(t_al *al)
 {
@@ -94,7 +60,6 @@ void			init(t_al *al, char *str, int ed)
 			exit(0);
 	init_textures(al);
 	init_player(al, &al->play);
-	creat_entity(al);
 	init_trigo(al);
 	init_status(al);
 	al->fps = 60;

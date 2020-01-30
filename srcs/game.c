@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/28 11:36:03 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/01/30 19:31:41 by ydemange         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,18 @@ static void													sp_key(t_al *al)
 {
 	double		tmp;
 
-	tmp = 0.000001 * al->dtime;
-	if (al->k.lbrack && al->nb_sec >= 2)
+	// al->door = 1;
+	if (al->door != 0)
 	{
-		al->sec[2].fl_hei + tmp < al->sec[2].ce_hei ? al->sec[2].fl_hei += tmp
-		: 0;
+		tmp = 0.000001 * al->dtime;
+		if (al->k.lbrack)// && al->nb_sec >= 2)
+		{
+			al->sec[al->door].fl_hei + tmp < al->sec[al->door].ce_hei ? al->sec[al->door].fl_hei += tmp
+			: 0;
+		}
+		else if (al->k.rbrack)// && al->nb_sec >= 2)
+			al->sec[al->door].fl_hei -= tmp;
 	}
-	else if (al->k.rbrack && al->nb_sec >= 2)
-		al->sec[2].fl_hei -= tmp;
 }
 
 void														game(t_al *al)

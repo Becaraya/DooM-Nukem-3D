@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 15:10:06 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/01/30 14:59:53 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		main(int ac, char **av)
 		init(al, av[1], 1);
 		al->map_write_name = av[2]; 
 	}
-	//hms_encoder(&al, "housetexgp.hms");
 	main_loop(al);
 	return (0);
 }

@@ -21,6 +21,8 @@ HEADERS_LIST = doom_nukem.h
 HEADERS_DIR = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIR), $(HEADERS_LIST))
 
+#init_two.c 				
+#		init_troy.c 			
 SRC_LIST = arrow_edit.c		\
 		add_edit.c			\
 		angles.c			\
@@ -53,8 +55,6 @@ SRC_LIST = arrow_edit.c		\
 		hms_encoder_texgp.c	\
 		ia.c				\
 		init.c 				\
-		init_two.c 				\
-		init_troy.c 				\
 		main_loop.c 		\
 		main.c				\
 		mob_disp.c			\

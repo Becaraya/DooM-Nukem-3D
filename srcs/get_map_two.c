@@ -23,7 +23,7 @@ void		get_map(t_al *al)
 		}
 	}
 	al->sect = sect;
-	free_tab(al);
+	//free_tab(al);
 }
 
 int			count_wall(t_walls *wall)

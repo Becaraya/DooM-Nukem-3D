@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bad_pig.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:00:37 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/29 14:32:48 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/02/03 16:43:23 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ void	load_pig(t_al *al)
 		yeet(al);
 	tmp = al->ent;
 	mob = init_pig(al, mob, tmp, 0);
+	al->tmp_ent = al->ent; ////////////////////////////////////////////////////////////////////
 	al->ent = mob;
 }
 

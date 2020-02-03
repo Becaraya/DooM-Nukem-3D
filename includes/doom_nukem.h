@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/30 19:27:16 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/02/03 16:36:45 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -551,6 +551,7 @@ typedef struct		s_al
 	unsigned int	sp_key_sec;
 	t_sector		*sec;
 	t_sector		*rotsec;
+	t_sector		*tmp_sec;
 	unsigned short	nb_tex;
 	t_tex			*tex;
 	unsigned short	nb_texgp;
@@ -564,6 +565,7 @@ typedef struct		s_al
 	unsigned short	nb_ent;
 	t_mob			*ent;
 	t_mob			*rotent;
+	t_mob			*tmp_ent;
 
 	t_player		play;
 	double			g;

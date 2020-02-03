@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/30 15:54:39 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/03 18:31:05 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,44 +68,6 @@ static void		im_not_going_to_hell_for_this(t_al *al, int ipix)
 	}
 }
 
-void			load_goret(t_tex_group *tgp)
-{
-	unsigned	or;
-	unsigned	i;
-	unsigned	*tmp;
-	char		str[28];
-
-	tgp->nb_tex = 4;
-	tgp->size_x = 512;
-	tgp->size_y = 512;
-	or = 0;
-	ft_strcpy(str, "ressources/sprite/or1/1.bmp");
-	while (or < 8)
-	{
-		if (!(tgp->or[or].pix = ft_memalloc(tgp->nb_tex * sizeof(unsigned *))))
-			exit(pr_err(MERROR_MESS));
-		str[20] = or + '1';
-		i = 0;
-		while (i < tgp->nb_tex)
-		{
-			str[22] = i + '1';
-			bmp_to_pix(tgp->or[or].pix + i, str, 512, 512);
-			tmp = tgp->or[or].pix[i];
-			if (tmp[0] == 0xffff00ff && tmp[1] == 0xff000000 && tmp[2] ==
-				0xff000000 && tmp[3] == 0xffff00ff)
-			{
-				tgp->size_x = 2;
-				tgp->size_y = 2;
-				ft_putchar('X');
-			}
-			else
-				ft_putchar('O');
-			i++;
-		}
-		or++;
-	}
-}
-
 void			init(t_al *al, char *str, int ed)
 {
 	if (str)
@@ -146,6 +108,7 @@ void			init(t_al *al, char *str, int ed)
 	init_anims(al);
 	al->edit.stat = SELECT;
 	al->edit.sect_end = -1;
+	
 	al->edit.zoom = 10;
 	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;

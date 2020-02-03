@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/06 14:52:07 by becaraya          #+#    #+#             */
-/*   Updated: 2019/12/19 12:35:43 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/03 17:40:19 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,14 @@
 
 void	ft_bzero(void *s, size_t n)
 {
-	ft_memset(s, 0, n);
+	while (n & 0b111)
+	{
+		n--;
+		*((char *)s + n) = 0;
+	}
+	while (n >= 8)
+	{
+		n -= 8;
+		*((long *)s + (n >> 3)) = 0;
+	}
 }

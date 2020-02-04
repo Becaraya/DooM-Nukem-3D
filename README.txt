@@ -5,11 +5,13 @@ The binary takes a file witch content follows this pattern:
 (name:{} indicates a repeating field and () is a commentary)
 
 
-(16 header)
+(24 header)
 4  0- number of sectors
 4  4- player starting sector
 4  8- player starting x
 4 12- player starting y
+4 16- door sector
+4 20- difficulty
 sectors (16 header + nb_wall * 32 walls):
 {
 	4  0- floor height

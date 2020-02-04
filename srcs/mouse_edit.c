@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_edit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/27 16:53:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 14:59:41 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:08:33 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	mouse_press_edit_menu(t_al *al, SDL_MouseButtonEvent bev)
 	else
 		m_press_ed_glob_n_arr(al, bev);
 	if (inr(itop(45, 125), itop(230, 170), itop(bev.x, bev.y)))
-		al->diff = (al->diff == 0) ? 1 : 0;
+		al->hard = !al->hard;
 	if (inr(itop(280, 125), itop(460, 170), itop(bev.x, bev.y))
 		&& al->edit.stat != DRAWING && al->sect)
 		reset_map(al);

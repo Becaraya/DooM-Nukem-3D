@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   ia.c                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/12 19:06:05 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/24 13:14:59 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:15:17 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
+
+void		heeeet(t_al *al)
+{
+	int tmp;
+
+	tmp = al->hard ? 3 : 2;
+	al->play.alive -= (al->play.alive - tmp < 0) ?
+			al->play.alive : tmp;
+}
 
 void		acceleration_entities(t_al *al, t_mob *mob)
 {
@@ -32,8 +41,7 @@ void		acceleration_entities(t_al *al, t_mob *mob)
 		mob->velx = (d < 2.5) ? 0 : mob->velx;
 		mob->vely = (d < 2.5) ? 0 : mob->vely;
 		if (mob->hit)
-			al->play.alive -= (al->play.alive - al->hard < 0) ?
-			al->play.alive : al->hard;
+			heeeet(al);
 		mob->hit = 0;
 	}
 	else

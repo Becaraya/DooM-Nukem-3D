@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 22:47:34 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/30 11:41:00 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:03:01 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,14 +65,16 @@ int		write_sector(t_sector *sec, int fd)
 
 int		write_sectors(t_al *al, int fd)
 {
-	signed int		buf[4];
+	signed int		buf[6];
 	unsigned int	i;
 
 	buf[0] = al->nb_sec;
 	buf[1] = al->play.csec ? al->play.csec : 1;
 	buf[2] = al->play.posx * 100;
 	buf[3] = al->play.posy * 100;
-	if (write(fd, buf, 16) != 16)
+	buf[4] = al->door;
+	buf[5] = al->hard;
+	if (write(fd, buf, 24) != 24)
 		return (1);
 	i = 0;
 	while (i++ < al->nb_sec)

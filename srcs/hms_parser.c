@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:39:49 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/25 09:50:20 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 11:45:02 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,33 @@ int		check_links(t_sector *sec, unsigned nb_sec)
 	return (0);
 }
 
+int		parse_ent(t_al *al, int fd)
+{
+	signed int		buf[2];
+	unsigned int	i;
+
+	if (read(fd, buf, 4) != 4)
+		return (1);
+	al->nb_ent = buf[0];
+	if (!al->nb_ent)
+		return (0);
+	if (!(al->ent = ft_memalloc(al->nb_ent * sizeof(t_entity))))
+		exit(0);
+	if (!(al->rotent = ft_memalloc(al->nb_ent * sizeof(t_entity))))
+		exit(0);
+	i = 0;
+	while (i < al->nb_ent)
+	{
+		if (read(fd, buf, 8) != 8)
+			return (1);
+		al->ent[i].posx = buf[0] / 100.0;
+		al->ent[i].posy = buf[1] / 100.0;
+		init_pig(al, al->ent, al->ent + i, i);
+		i++;
+	}
+	return (0);
+}
+
 int		hms_parser(t_al *al, char *str)
 {
 	char	buf[1];
@@ -95,6 +122,8 @@ int		hms_parser(t_al *al, char *str)
 	init_sec_tex(al);
 	if (parse_sectors(al, fd))
 		return (pr_err("Invalid File (problem on sectors)\n"));
+	if (parse_ent(al, fd))
+		return (pr_err("Invalid Data (problem on entities)\n"));
 	if (parse_textures(al, fd))
 		return (pr_err("Invalid File (problem on textures)\n"));
 	if (parse_texture_groups(al, fd))

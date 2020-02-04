@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:00:37 by hutricot          #+#    #+#             */
-/*   Updated: 2020/02/03 11:26:24 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 13:11:43 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	pig_pos(t_al *al)
 
 t_mob	*init_pig(t_al *al, t_mob *mob, t_mob *tmp, unsigned i)
 {
-	while (tmp->next)
+	while (tmp)
 	{
 		mob[i].posx = tmp->posx;
 		mob[i].posy = tmp->posy;
@@ -67,7 +67,7 @@ void	load_pig(t_al *al)
 	if (al->ent == NULL)
 		return ;
 	tmp = al->ent;
-	while (tmp->next)
+	while (tmp)
 	{
 		tmp = tmp->next;
 		al->nb_ent++;
@@ -78,6 +78,7 @@ void	load_pig(t_al *al)
 		yeet(al);
 	tmp = al->ent;
 	mob = init_pig(al, mob, tmp, 0);
+	al->tmp_ent = al->ent;
 	al->ent = mob;
 }
 
@@ -102,14 +103,13 @@ void	badpig(t_al *al, SDL_MouseButtonEvent bev)
 	unsigned	true;
 
 	i = 0;
-	true = 1;
-	if (al->ent == NULL)
+	if (!al->ent)
 	{
 		al->ent = new_mob(al, bev, i);
 		return ;
 	}
 	cur = al->ent;
-	while (cur->next != NULL)
+	while (cur->next)
 	{
 		if (cur->posx == (bev.x - WIN_SIZEX / 2) / 10 &&
 			cur->posy == (bev.y - WIN_SIZEY / 2) / -10)

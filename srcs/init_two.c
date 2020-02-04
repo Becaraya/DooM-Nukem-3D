@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_two.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/02/04 11:44:07 by pitriche          #+#    #+#             */
+/*   Updated: 2020/02/04 11:44:18 by pitriche         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "doom_nukem.h"
 
 void		init_status(t_al *al)
@@ -38,6 +50,20 @@ void		init_trigo(t_al *al)
 		al->cos[i] = cos(M_2PI * i / D_2PI);
 		i++;
 	}
+}
+
+t_mob		*new_m(t_al *al, SDL_MouseButtonEvent bev, unsigned i)
+{
+	t_mob	*data;
+
+	if (!(data = malloc(sizeof(t_mob))))
+		yeet(al);
+	bzerooo(data, sizeof(t_mob));
+	data->posx = (bev.x - WIN_SIZEX / 2) / 10.0;
+	data->posy = (bev.y - WIN_SIZEY / 2) / -10.0;
+	data->index = i;
+	data->next = NULL;
+	return (data);
 }
 
 void		init_edit(t_al *al)

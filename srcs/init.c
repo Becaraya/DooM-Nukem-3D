@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/30 15:54:39 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:12:09 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,9 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->size = PLAYER_SIZE;
 	pl->eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
 	pl->on_ground = 1;
-	pl->alive = 5;
-	pl->dmg = 6;
+	pl->alive = al->hard ? 6 : 10;
+	pl->dmg = al->hard ? 4 : 6;
 	pl->csec ? pl->posz = al->sec[pl->csec].fl_hei : 0;
-}
-
-/*
-** je sait pas ou ranger cette fonction
-*/
-
-static void		init_anims(t_al *al)
-{
-	unsigned		i;
-
-	al->fire_anim = 420000000;
-	i = 0;
-	while (i < al->nb_ent)
-		al->ent[i++].anim = 42000000;
 }
 
 /*
@@ -65,44 +51,6 @@ static void		im_not_going_to_hell_for_this(t_al *al, int ipix)
 		if (al->mob_death[i].pix[ipix] != 0xffff)
 			al->mob_death[i].pix[ipix] |= 0xff000000;
 		i++;
-	}
-}
-
-void			load_goret(t_tex_group *tgp)
-{
-	unsigned	or;
-	unsigned	i;
-	unsigned	*tmp;
-	char		str[28];
-
-	tgp->nb_tex = 4;
-	tgp->size_x = 512;
-	tgp->size_y = 512;
-	or = 0;
-	ft_strcpy(str, "ressources/sprite/or1/1.bmp");
-	while (or < 8)
-	{
-		if (!(tgp->or[or].pix = ft_memalloc(tgp->nb_tex * sizeof(unsigned *))))
-			exit(pr_err(MERROR_MESS));
-		str[20] = or + '1';
-		i = 0;
-		while (i < tgp->nb_tex)
-		{
-			str[22] = i + '1';
-			bmp_to_pix(tgp->or[or].pix + i, str, 512, 512);
-			tmp = tgp->or[or].pix[i];
-			if (tmp[0] == 0xffff00ff && tmp[1] == 0xff000000 && tmp[2] ==
-				0xff000000 && tmp[3] == 0xffff00ff)
-			{
-				tgp->size_x = 2;
-				tgp->size_y = 2;
-				ft_putchar('X');
-			}
-			else
-				ft_putchar('O');
-			i++;
-		}
-		or++;
 	}
 }
 
@@ -141,11 +89,11 @@ void			init(t_al *al, char *str, int ed)
 		set_text(&al->text.t, "TEXT", get_rect(300, 330),
 		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	}
-	al->hard = 2;
 	ft_bzero(&al->k, sizeof(t_keys));
-	init_anims(al);
+	al->fire_anim = 42000000;
 	al->edit.stat = SELECT;
 	al->edit.sect_end = -1;
+	
 	al->edit.zoom = 10;
 	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;

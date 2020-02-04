@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:39:49 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/30 13:51:36 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 09:19:48 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int		you_must_install_cs_source_textures_pix(unsigned **pix)
 	return (0);
 }
 
-int		bmp_to_tex(t_tex *tex, char *str, int sizex, int sizey)
+int		bmp_to_tex(t_tex *tex, char *str, unsigned sizex, unsigned sizey)
 {
 	char	buf[1000];
 	int		fd;
@@ -58,7 +58,7 @@ int		bmp_to_tex(t_tex *tex, char *str, int sizex, int sizey)
 	return (0);
 }
 
-int		bmp_to_pix(unsigned **pix, char *str, int sizex, int sizey)
+int		bmp_to_pix(unsigned **pix, char *str, unsigned sizex, unsigned sizey)
 {
 	char		buf[1000];
 	int			fd;

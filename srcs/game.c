@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/30 19:31:41 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:24:31 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,16 +27,15 @@ static void													sp_key(t_al *al)
 {
 	double		tmp;
 
-	// al->door = 1;
 	if (al->door != 0)
 	{
 		tmp = 0.000001 * al->dtime;
-		if (al->k.lbrack)// && al->nb_sec >= 2)
+		if (al->k.lbrack)
 		{
-			al->sec[al->door].fl_hei + tmp < al->sec[al->door].ce_hei ? al->sec[al->door].fl_hei += tmp
-			: 0;
+			al->sec[al->door].fl_hei + tmp < al->sec[al->door].ce_hei ?
+			al->sec[al->door].fl_hei += tmp : 0;
 		}
-		else if (al->k.rbrack)// && al->nb_sec >= 2)
+		else if (al->k.rbrack)
 			al->sec[al->door].fl_hei -= tmp;
 	}
 }

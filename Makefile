@@ -40,6 +40,7 @@ SRC_LIST = arrow_edit.c		\
 		edit.c				\
 		event_func.c		\
 		ft_dtoa_doom.c		\
+		finish.c			\
 		game_disp.c			\
 		game.c				\
 		dead.c				\

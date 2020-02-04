@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hms_parser_sec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 11:45:25 by pitriche          #+#    #+#             */
-/*   Updated: 2020/02/04 11:55:55 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:26:41 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int		parse_sectors(t_al *al, int fd)
 	al->play.posy = *(signed int *)(buf + 12) / 100.0;
 	al->door = *(unsigned int *)(buf + 16);
 	al->hard = *(unsigned int *)(buf + 20);
-	
 	if (!al->play.csec || al->play.csec > al->nb_sec)
 		return (pr_err("Invalid starting sector\n"));
 	if (!(al->sec = ft_memalloc((al->nb_sec + 1) * sizeof(t_sector))) ||

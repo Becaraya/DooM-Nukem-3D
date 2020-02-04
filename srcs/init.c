@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/04 13:47:36 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:27:42 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,19 @@ static void		init_player(t_al *al, t_player *pl)
 ** frames
 */
 /*
-static void		im_not_going_to_hell_for_this(t_al *al, int ipix)
-{
-	int				i;
-
-	i = 0;
-	while (i < 8)
-	{
-		if (al->mob_death[i].pix[ipix] != 0xffff)
-			al->mob_death[i].pix[ipix] |= 0xff000000;
-		i++;
-	}
-}*/
+**static void		im_not_going_to_hell_for_this(t_al *al, int ipix)
+**{
+**	int				i;
+**
+**	i = 0;
+**	while (i < 8)
+**	{
+**		if (al->mob_death[i].pix[ipix] != 0xffff)
+**			al->mob_death[i].pix[ipix] |= 0xff000000;
+**		i++;
+**	}
+**}
+*/
 
 void			init(t_al *al, char *str, int ed)
 {
@@ -75,7 +76,7 @@ void			init(t_al *al, char *str, int ed)
 			WIN_SIZEX, WIN_SIZEY, SDL_WINDOW_SHOWN)))
 		yeet(al);
 	if (!(al->sdlsurf = SDL_GetWindowSurface(al->sdlwin)))
-			yeet(al);
+		yeet(al);
 	al->pix = al->sdlsurf->pixels;
 	init_ttf(al);
 	al->tex_choice = 0;
@@ -93,7 +94,6 @@ void			init(t_al *al, char *str, int ed)
 	al->fire_anim = 42000000;
 	al->edit.stat = SELECT;
 	al->edit.sect_end = -1;
-	
 	al->edit.zoom = 10;
 	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;

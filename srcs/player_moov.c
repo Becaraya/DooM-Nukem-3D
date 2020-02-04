@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 18:13:02 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/30 16:55:12 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:36:09 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,17 +83,17 @@ void	wall_ok(t_al *al, t_walls t, t_doint p, t_point *m)
 		&& ((t.y1 <= j.posy && j.posy <= t.y2)
 			|| (t.y1 >= j.posy && j.posy >= t.y2)))
 		(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
-	if (p.x < 0.0 && (t.x1 <= j.posx +p.x || t.x2 <= j.posx + p.x)
+	if (p.x < 0.0 && (t.x1 <= j.posx + p.x || t.x2 <= j.posx + p.x)
 		&& ((t.y1 <= j.posy && j.posy <= t.y2)
 				|| (t.y1 >= j.posy && j.posy >= t.y2)))
 		(!(is_cross_x(&al->play, t, p.x, al))) ? m->x = 0 : 1;
-	if (p.y > 0.0 && (t.y1 >= j.posy +p.y|| t.y2 >= j.posy +p.y)
-		&& ((t.x1 <= j.posx + p.x&& j.posx+ p.x <= t.x2)
-				|| (t.x1 >= j.posx+ p.x && j.posx+ p.x >= t.x2)))
+	if (p.y > 0.0 && (t.y1 >= j.posy + p.y || t.y2 >= j.posy + p.y)
+		&& ((t.x1 <= j.posx + p.x && j.posx + p.x <= t.x2)
+				|| (t.x1 >= j.posx + p.x && j.posx + p.x >= t.x2)))
 		(!(is_cross_y(&al->play, t, p.y, al))) ? m->y = 0 : 1;
-	if (p.y < 0.0 && (t.y1 <= j.posy +p.y || t.y2 <= j.posy +p.y)
-		&& ((t.x1 <= j.posx+ p.x && j.posx+ p.x <= t.x2)
-				|| (t.x1 >= j.posx+ p.x && j.posx+ p.x >= t.x2)))
+	if (p.y < 0.0 && (t.y1 <= j.posy + p.y || t.y2 <= j.posy + p.y)
+		&& ((t.x1 <= j.posx + p.x && j.posx + p.x <= t.x2)
+				|| (t.x1 >= j.posx + p.x && j.posx + p.x >= t.x2)))
 		(!(is_cross_y(&al->play, t, p.y, al))) ? m->y = 0 : 1;
 }
 
@@ -111,14 +111,6 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 	{
 		w = al->sec[al->play.csec].walls[i];
 		wall_ok(al, al->sec[al->play.csec].walls[i], p, &m);
-	/*	if ((al->play.posx + x - w.x1) * (al->play.posx + x - w.x1) + (al->play.posy - w.y1) * (al->play.posy - w.y1) < 1 && (al->play.posz + 0.5 < al->sec[w.sec_lnk].fl_hei ||
-		al->play.posz + al->play.size > al->sec[w.sec_lnk].ce_hei ||
-		al->sec[w.sec_lnk].ce_hei - al->sec[w.sec_lnk].fl_hei < al->play.size))
-			m.x = 0;
-		if ((al->play.posx + x- w.x1) * (al->play.posx+ x - w.x1) + (al->play.posy + y - w.y1) * (al->play.posy + y - w.y1) < 1 && (al->play.posz + 0.5 < al->sec[w.sec_lnk].fl_hei ||
-		al->play.posz + al->play.size > al->sec[w.sec_lnk].ce_hei ||
-		al->sec[w.sec_lnk].ce_hei - al->sec[w.sec_lnk].fl_hei < al->play.size))
-			m.y = 0;*/
 		i++;
 	}
 	(m.y == 1) ? al->play.posy += y : 0;
@@ -131,6 +123,18 @@ void	ft_nop_player(t_al *al, int i, double x, double y)
 }
 
 /*
+**if ((al->play.posx + x - w.x1) * (al->play.posx + x - w.x1) +
+**(al->play.posy - w.y1) * (al->play.posy - w.y1) < 1 &&
+**(al->play.posz + 0.5 < al->sec[w.sec_lnk].fl_hei ||
+**	al->play.posz + al->play.size > al->sec[w.sec_lnk].ce_hei ||
+**	al->sec[w.sec_lnk].ce_hei - al->sec[w.sec_lnk].fl_hei < al->play.size))
+**		m.x = 0;
+**	if ((al->play.posx + x- w.x1) * (al->play.posx+ x - w.x1) +
+**(al->play.posy + y - w.y1) * (al->play.posy + y - w.y1) < 1 &&
+**(al->play.posz + 0.5 < al->sec[w.sec_lnk].fl_hei ||
+**	al->play.posz + al->play.size > al->sec[w.sec_lnk].ce_hei ||
+**	al->sec[w.sec_lnk].ce_hei - al->sec[w.sec_lnk].fl_hei < al->play.size))
+**		m.y = 0;
 ** 07/novembre
 ** il y avais un numeros de telephone ici 14.12 10.88
 */

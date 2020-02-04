@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hms_encoder.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 10:45:30 by pitriche          #+#    #+#             */
-/*   Updated: 2020/02/04 09:44:28 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:22:13 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int		hms_encoder(t_al *al, char *str)
 		return (pr_err("Invalid Data (problem on textures)\n"));
 	if (write_texture_groups(al, fd))
 		return (pr_err("Invalid Data (problem on texture groups)\n"));
-	ft_putstr("Writing success !\n");
+	ft_putstr("\nWriting success !\n");
 	close(fd);
 	return (0);
 }

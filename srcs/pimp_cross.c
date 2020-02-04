@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pimp_cross.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/28 14:45:55 by pitriche          #+#    #+#             */
-/*   Updated: 2020/01/29 15:16:53 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:29:24 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,14 +38,15 @@ void		pimp_cross(t_al *al)
 	}
 }
 /*
-void		invert_pix(unsigned int *pix)
-{
-	*pix = 0x52fc03;
-	// if (((*pix >> 16) & 0xff) < 108 && 148 > ((*pix >> 16) & 0xff) &&
-	// ((*pix > 8) & 0xff) < 108 && 148 > ((*pix > 8) & 0xff) &&
-	// (*pix & 0xff) && (*pix & 0xff))
-	// 	{
-	// 		*pix = 0xFFFFFF;
-	// 	}
-	// *pix = ~(*pix);
-}*/
+**void		invert_pix(unsigned int *pix)
+**{
+**	*pix = 0x52fc03;
+**	// if (((*pix >> 16) & 0xff) < 108 && 148 > ((*pix >> 16) & 0xff) &&
+**	// ((*pix > 8) & 0xff) < 108 && 148 > ((*pix > 8) & 0xff) &&
+**	// (*pix & 0xff) && (*pix & 0xff))
+**	// 	{
+**	// 		*pix = 0xFFFFFF;
+**	// 	}
+**	// *pix = ~(*pix);
+**}
+*/

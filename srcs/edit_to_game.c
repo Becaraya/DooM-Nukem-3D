@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   edit_to_game.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 10:39:36 by pitriche          #+#    #+#             */
-/*   Updated: 2020/02/04 11:50:28 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:19:50 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,25 +87,18 @@ void			edit_to_game(t_al *al)
 	al->tmp_sec = al->sec;
 	if (!(al->sec = ft_memalloc((al->nb_sec + 1) * sizeof(t_sector))))
 		exit(pr_err(MERROR_MESS));
-	id = 1;
-	while (cur)
+	id = 0;
+	while (cur && ++id)
 	{
 		sector_to_game(al, cur, id);
 		cur = cur->next;
-		id++;
 	}
 	set_text(&al->text.t, "TEXT", get_rect(300, 330),
 		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	if (!al->edit.sect_end)
 		convert_end(al);
-	//al->surf_ed = 0;
-	//al->win_ed = 0;
 	load_pig(al);
-	!al->map_write_name ? al->map_write_name = "poi.hms" : 0; 
-	if (hms_encoder(al, al->map_write_name))
-		exit(0);
-	ft_putstr("Map written as [");
-	ft_putstr(al->map_write_name);
-	ft_putstr("] !\n");
-	exit(0);
+	!al->map_write_name ? al->map_write_name = "poi.hms" : 0;
+	(hms_encoder(al, al->map_write_name)) ?
+	finish_write(al, 1) : finish_write(al, 0);
 }

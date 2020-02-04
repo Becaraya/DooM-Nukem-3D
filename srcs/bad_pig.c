@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:00:37 by hutricot          #+#    #+#             */
-/*   Updated: 2020/02/04 14:04:54 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:42:08 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	badpig(t_al *al, SDL_MouseButtonEvent bev)
 	{
 		if (cur->posx == (bev.x - WIN_SIZEX / 2) / 10 &&
 			cur->posy == (bev.y - WIN_SIZEY / 2) / -10)
-				true = 0;
+			true = 0;
 		cur = cur->next;
 		i++;
 	}

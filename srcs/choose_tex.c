@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   choose_tex.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 18:52:57 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/30 18:42:56 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:51:42 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-void		display_tex_menu(SDL_Surface *surf, t_tex tex, int i)
+void				display_tex_menu(SDL_Surface *surf, t_tex tex, int i)
 {
 	unsigned int	tex_x;
 	unsigned int	tex_y;
@@ -37,7 +37,7 @@ void		display_tex_menu(SDL_Surface *surf, t_tex tex, int i)
 	}
 }
 
-static void		set_wall_tex(t_al *al)
+static void			set_wall_tex(t_al *al)
 {
 	t_sector		*tmp_s;
 	t_walls			*tmp_w;
@@ -55,19 +55,7 @@ static void		set_wall_tex(t_al *al)
 	tmp_w->wall_tex = al->tex_choice;
 }
 
-static void		set_cel_tex(t_al *al)
-{
-	t_sector		*tmp_s;
-	int				i;
-
-	i = 0;
-	tmp_s = al->sect;
-	while (al->edit.index_sect + i++ < al->nb_sec)
-		tmp_s = tmp_s->next;
-	tmp_s->ce_tex = al->tex_choice;
-}
-
-static void		set_flo_tex(t_al *al)
+static void			set_flo_tex(t_al *al)
 {
 	t_sector		*tmp_s;
 	int				i;
@@ -79,8 +67,11 @@ static void		set_flo_tex(t_al *al)
 	tmp_s->fl_tex = al->tex_choice;
 }
 
-void		click_on_menu(t_al *al, SDL_Surface *surf)
+void				click_on_menu(t_al *al, SDL_Surface *surf)
 {
+	int				i;
+	t_sector		*tmp_s;
+
 	if (al->ev.type == SDL_MOUSEBUTTONDOWN && al->ev.motion.windowID == 2)
 	{
 		if (al->ev.button.x >= surf->w - TEX_SIZE_MENU
@@ -92,13 +83,19 @@ void		click_on_menu(t_al *al, SDL_Surface *surf)
 			if (al->edit.stat == SET_FLO_TEXT)
 				set_flo_tex(al);
 			if (al->edit.stat == SET_CEL_TEXT)
-				set_cel_tex(al);
+			{
+				i = 0;
+				tmp_s = al->sect;
+				while (al->edit.index_sect + i++ < al->nb_sec)
+					tmp_s = tmp_s->next;
+				tmp_s->ce_tex = al->tex_choice;
+			}
 			al->edit.stat = SELECT;
 		}
 	}
 }
 
-void		tex_menu(t_al *al)
+void				tex_menu(t_al *al)
 {
 	SDL_Surface		*surf;
 	int				i;

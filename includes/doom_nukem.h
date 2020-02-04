@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/04 14:02:59 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:18:31 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -896,5 +896,6 @@ void				load_pig(t_al *al);
 void				bzerooo(void *s, size_t n);
 void				init_trigo(t_al *al);
 void				init_edit(t_al *al);
+void				finish_write(t_al *al, int true);
 
 #endif

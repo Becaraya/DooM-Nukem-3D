@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hms_encoder_sec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 22:47:34 by pitriche          #+#    #+#             */
-/*   Updated: 2020/02/04 12:03:01 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:25:46 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int		write_wall(t_walls *wall, int fd)
 	unsigned char buf[32];
 
 	ft_bzero(buf, 32);
-	printf("wall > %.2f %.2f %.2f %.2f\n", wall->x2, wall->y2, wall->x1, wall->y1);
 	*(signed int *)(buf + 0) = wall->x2 * 100;
 	*(signed int *)(buf + 4) = wall->y2 * 100;
 	*(signed int *)(buf + 8) = wall->x1 * 100;
@@ -49,7 +48,6 @@ int		write_walls(t_sector *sec, int fd)
 int		write_sector(t_sector *sec, int fd)
 {
 	unsigned char buf[16];
-	printf("\nSECC\n");
 
 	*(unsigned int *)(buf + 0) = (sec->fl_hei + 0.001) * 100;
 	*(unsigned int *)(buf + 4) = (sec->ce_hei + 0.001) * 100;

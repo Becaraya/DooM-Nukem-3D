@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:00:37 by hutricot          #+#    #+#             */
-/*   Updated: 2020/02/04 13:11:43 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:04:54 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,7 @@ void	badpig(t_al *al, SDL_MouseButtonEvent bev)
 	unsigned	true;
 
 	i = 0;
+	true = 1;
 	if (!al->ent)
 	{
 		al->ent = new_mob(al, bev, i);
@@ -117,6 +118,6 @@ void	badpig(t_al *al, SDL_MouseButtonEvent bev)
 		cur = cur->next;
 		i++;
 	}
-	if (true)
+	if (true && i < 21)
 		cur->next = new_mob(al, bev, i);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_edit_stat.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 23:31:24 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/30 19:31:20 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:30:56 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,6 @@ void	mouse_press_edit_setting_sector(t_al *al, SDL_MouseButtonEvent bev)
 		if (inr(itop(495, 320), itop(645, 365), itop(bev.x, bev.y)))
 			al->door = al->nb_sec - al->edit.index_sect + 1;
 	}
-	// printf("edit = %d\n",al->edit.stat);
-	// printf("index_sect = %d\n",al->edit.index_sect);
-	// printf("door = %d\n",al->door);
 }
 
 void	mouse_press_edit_player(t_al *al, SDL_MouseButtonEvent bev)

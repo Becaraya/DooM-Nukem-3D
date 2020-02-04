@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/04 11:07:34 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:22:59 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void													anims(t_al *al)
 	tmp = (al->dtime / 1000000.0) * UINT16_MAX;
 	if (tmp > UINT16_MAX)
 		return ;
-	al->anim = al->anim > 100000000 ? 100000 : al->anim + tmp;
+	al->anim = (unsigned)al->anim > 100000000 ? (unsigned short)100000 : al->anim + tmp;
 	al->fire_anim = al->fire_anim > 100000000 ? 1000000 : al->fire_anim +
 		al->dtime;
 	i = 0;

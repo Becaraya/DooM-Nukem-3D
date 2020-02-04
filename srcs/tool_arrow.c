@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 14:04:13 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/30 15:28:48 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:37:43 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void			arrow_stat_player_minus(t_al *al)
 		al->play.alive--;
 	if (al->edit.stat == POW && al->play.power_mult > 0.2)
 		al->play.power_mult -= 0.1;
-	if (al->edit.stat == WEAPON)
-		printf("NEED WEAPON PLEAZ\n");
 	if (al->edit.stat == SIZE && al->play.size > 0.3)
 		set_size_arrow(al, -1);
 	if (al->edit.stat == MASS && al->play.mass > 20 && al->play.mass != 67)
@@ -58,8 +56,6 @@ void			arrow_stat_player_plus(t_al *al)
 		al->play.alive++;
 	if (al->edit.stat == POW)
 		al->play.power_mult += 0.1;
-	if (al->edit.stat == WEAPON)
-		printf("NEED WEAPON PLEAZ\n");
 	if (al->edit.stat == SIZE)
 		set_size_arrow(al, 1);
 	if (al->edit.stat == MASS && al->play.mass != 67)

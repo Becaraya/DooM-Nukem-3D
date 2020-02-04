@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hms_parser_tex.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:39:49 by pitriche          #+#    #+#             */
-/*   Updated: 2020/02/03 15:15:12 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:25:45 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ int		parse_textures(t_al *al, int fd)
 	if (read(fd, buf, 16) != 16)
 		return (1);
 	al->nb_tex = *(unsigned short *)buf;
-printf("yaya %d\n", al->nb_tex);
 	if (!(al->tex = ft_memalloc((al->nb_tex + 1) * sizeof(t_tex))))
 		exit(pr_err(MERROR_MESS));
 	i = 0;

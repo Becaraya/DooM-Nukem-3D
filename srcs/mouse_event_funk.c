@@ -1,40 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_event_func.c                                 :+:      :+:    :+:   */
+/*   mouse_event_funk.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:43:49 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/30 15:11:05 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:33:16 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "doom_nukem.h"
 
-void		mouse_press_menu(t_al *al)
-{
-	SDL_MouseButtonEvent	bev;
-
-	bev = al->ev.button;
-	if (bev.clicks == 1)
-	{
-		if (bev.button == SDL_BUTTON_LEFT)
-		{
-			if (bev.y > 228 && bev.y < 315 && bev.x > 766 && bev.x < 940)
-				printf("GO\n");
-			if (bev.y > 472 && bev.y < 574 && bev.x > 772 && bev.x < 943)
-				printf("QUIT\n");
-			if (bev.y > 347 && bev.y < 444 && bev.x > 720 && bev.x < 1004)
-				printf("SETTING\n");
-		}
-	}
-}
-
 void		mouse_press(t_al *al)
 {
-	if (al->status == MENU)
-		mouse_press_menu(al);
 	if (al->status == GAME)
 		pewpew(al);
 	if (al->status == EDIT)

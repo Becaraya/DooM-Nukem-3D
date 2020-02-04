@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/04 10:27:39 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 14:02:59 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,13 +155,13 @@ typedef	unsigned	t_angle;
 
 typedef struct		s_floorcast
 {
-	long	posx;
-	long	posy;
-	long	dstx;
-	long	dsty;
-	long	dst;
-	int		hor;
-	int		indst;
+	long			posx;
+	long			posy;
+	long			dstx;
+	long			dsty;
+	long			dst;
+	int				hor;
+	int				indst;
 }					t_floorcast;
 
 /*
@@ -224,29 +224,29 @@ typedef struct		s_tex_group
 
 typedef struct		s_keys
 {
-	unsigned	w:1;
-	unsigned	a:1;
-	unsigned	s:1;
-	unsigned	d:1;
-	unsigned	t:1;
-	unsigned	m:1;
-	unsigned	lbrack:1;
-	unsigned	rbrack:1;
-	unsigned	left:1;
-	unsigned	righ:1;
-	unsigned	up:1;
-	unsigned	down:1;
-	unsigned	space:1;
+	unsigned		w:1;
+	unsigned		a:1;
+	unsigned		s:1;
+	unsigned		d:1;
+	unsigned		t:1;
+	unsigned		m:1;
+	unsigned		lbrack:1;
+	unsigned		rbrack:1;
+	unsigned		left:1;
+	unsigned		righ:1;
+	unsigned		up:1;
+	unsigned		down:1;
+	unsigned		space:1;
 }					t_keys;
 
 typedef struct		s_mouse
 {
-	unsigned	left:1;
-	unsigned	righ:1;
-	unsigned	up:1;
-	unsigned	down:1;
-	unsigned	mouve:1;
-	unsigned	click:1;
+	unsigned		left:1;
+	unsigned		righ:1;
+	unsigned		up:1;
+	unsigned		down:1;
+	unsigned		mouve:1;
+	unsigned		click:1;
 }					t_mouse;
 
 /*
@@ -262,22 +262,22 @@ typedef struct		s_mouse
 
 typedef struct		s_point
 {
-	int	x;
-	int	y;
-	int	color;
+	int				x;
+	int				y;
+	int				color;
 }					t_point;
 
 typedef struct		s_doint
 {
-	double	x;
-	double	y;
-	int		color;
+	double			x;
+	double			y;
+	int				color;
 }					t_doint;
 
 typedef struct		s_oint
 {
-	t_doint	d;
-	t_point	p;
+	t_doint			d;
+	t_point			p;
 }					t_oint;
 
 /*
@@ -327,27 +327,27 @@ typedef struct		s_sprite
 
 typedef struct		s_player
 {
-	unsigned	csec;
-	double		posx;
-	double		posy;
-	double		posz;
-	double		velx;
-	double		vely;
-	double		velz;
-	double		gd_vel;
-	unsigned	fly:1;
-	unsigned	on_ground:1;
-	int			alive;
-	t_angle		dir;
+	unsigned		csec;
+	double			posx;
+	double			posy;
+	double			posz;
+	double			velx;
+	double			vely;
+	double			velz;
+	double			gd_vel;
+	unsigned		fly:1;
+	unsigned		on_ground:1;
+	int				alive;
+	t_angle			dir;
 
-	double		size;
-	double		eyez;
-	double		mass;
-	double		power;
-	double		power_mult;
+	double			size;
+	double			eyez;
+	double			mass;
+	double			power;
+	double			power_mult;
 
-	unsigned	dmg;
-	int			horizon;
+	unsigned		dmg;
+	int				horizon;
 }					t_player;
 
 /*
@@ -360,35 +360,33 @@ typedef struct		s_player
 
 typedef struct		s_mob
 {
-	unsigned	csec;
-	double		posx;
-	double		posy;
-	double		posz;
-	double		velx;
-	double		vely;
-	double		velz;
-	double		gd_vel;
-	unsigned	on_ground:1;
-	unsigned	alive;
-	t_angle		dir;
-	t_angle		angle_to_player;
-	unsigned	hit;
-	unsigned	index;
-	unsigned	fly:1;
-
-	double		size;
-	double		width;
-	double		mass;
-	double		power;
-
-	unsigned 	anim;
+	unsigned		csec;
+	double			posx;
+	double			posy;
+	double			posz;
+	double			velx;
+	double			vely;
+	double			velz;
+	double			gd_vel;
+	unsigned		on_ground:1;
+	unsigned		alive;
+	t_angle			dir;
+	t_angle			angle_to_player;
+	unsigned		hit;
+	unsigned		index;
+	unsigned		fly:1;
+	double			size;
+	double			width;
+	double			mass;
+	double			power;
+	unsigned		anim;
 	struct s_mob	*next;
 }					t_mob;
 
 typedef union		u_entity
 {
-	t_player	pl;
-	t_mob		mob;
+	t_player		pl;
+	t_mob			mob;
 }					t_entity;
 
 /*
@@ -400,22 +398,22 @@ typedef union		u_entity
 
 typedef struct		s_rc_lim
 {
-	int	toplim;
-	int	topwall;
-	int	topmid;
-	int	botmid;
-	int	botwall;
-	int	botlim;
+	int				toplim;
+	int				topwall;
+	int				topmid;
+	int				botmid;
+	int				botwall;
+	int				botlim;
 
-	int	sc_toplim;
-	int	sc_topwall;
-	int	sc_topmid;
-	int	sc_botmid;
-	int	sc_botwall;
-	int	sc_botlim;
+	int				sc_toplim;
+	int				sc_topwall;
+	int				sc_topmid;
+	int				sc_botmid;
+	int				sc_botwall;
+	int				sc_botlim;
 
-	int	mb_botlim;
-	int	mb_toplim;
+	int				mb_botlim;
+	int				mb_toplim;
 }					t_rc_lim;
 
 /*
@@ -425,22 +423,22 @@ typedef struct		s_rc_lim
 
 typedef struct		s_rc_hit
 {
-	double		hitdst;
-	unsigned	hit_texx;
-	double		wall_length;
-	unsigned	botwall_he;
-	unsigned	topwall_he;
-	unsigned	wall_he;
-	unsigned	fl_tex;
-	double		fl_hei;
-	unsigned	ce_tex;
-	double		ce_hei;
-	t_walls		wall;
-	t_mob		ent;
-	t_tex		tex;
-	t_rc_lim	lim;
-	unsigned	transparent:1;
-	unsigned	is_entity:1;
+	double			hitdst;
+	unsigned		hit_texx;
+	double			wall_length;
+	unsigned		botwall_he;
+	unsigned		topwall_he;
+	unsigned		wall_he;
+	unsigned		fl_tex;
+	double			fl_hei;
+	unsigned		ce_tex;
+	double			ce_hei;
+	t_walls			wall;
+	t_mob			ent;
+	t_tex			tex;
+	t_rc_lim		lim;
+	unsigned		transparent:1;
+	unsigned		is_entity:1;
 }					t_rc_hit;
 
 /*
@@ -451,72 +449,72 @@ typedef struct		s_rc_hit
 
 typedef struct		s_rc_ray
 {
-	int			x;
-	t_angle		angle;
-	int			xfact;
-	int			yfact;
-	int			nb_hits;
-	t_rc_hit	hits[MAX_HITS];
+	int				x;
+	t_angle			angle;
+	int				xfact;
+	int				yfact;
+	int				nb_hits;
+	t_rc_hit		hits[MAX_HITS];
 
-	double		min;
-	double		minent;
+	double			min;
+	double			minent;
 }					t_rc_ray;
 
 typedef struct		s_text
 {
-	char		*str;
-	SDL_Color	clr;
-	SDL_Rect	*where;
+	char			*str;
+	SDL_Color		clr;
+	SDL_Rect		*where;
 }					t_text;
 
 typedef struct		s_text_list
 {
-	t_text	t;
-	t_text	gen_map;
-	t_text	sect_index;
-	t_text	wall_index;
-	t_text	settings;
-	t_text	wall_para;
-	t_text	sect_para;
-	t_text	wall;
-	t_text	sector;
-	t_text	tools;
-	t_text	cancel;
+	t_text			t;
+	t_text			gen_map;
+	t_text			sect_index;
+	t_text			wall_index;
+	t_text			settings;
+	t_text			wall_para;
+	t_text			sect_para;
+	t_text			wall;
+	t_text			sector;
+	t_text			tools;
+	t_text			cancel;
 
-	t_text	wall_tex;
+	t_text			wall_tex;
 
-	t_text	fl_hei;
-	t_text	ce_hei;
-	t_text	fl_hei_num;
-	t_text	ce_hei_num;
-	t_text	fl_tex;
-	t_text	ce_tex;
-	t_text	set_player;
-	t_text	life;
-	t_text	power;
-	t_text	weapon;
-	t_text	size;
-	t_text	mass;
+	t_text			fl_hei;
+	t_text			ce_hei;
+	t_text			fl_hei_num;
+	t_text			ce_hei_num;
+	t_text			fl_tex;
+	t_text			ce_tex;
+	t_text			set_player;
+	t_text			life;
+	t_text			power;
+	t_text			weapon;
+	t_text			size;
+	t_text			mass;
 
-	t_text	set_spawn;
-	t_text	set_end;
-	t_text	set_bad_pig;
-	t_text	draw;
-	t_text	del_sect;
+	t_text			set_spawn;
+	t_text			set_end;
+	t_text			set_bad_pig;
+	t_text			draw;
+	t_text			del_sect;
 
-	t_text	player_value;
+	t_text			player_value;
 
-	t_text	dif_ez;
-	t_text	dif_ha;
+	t_text			dif_ez;
+	t_text			dif_ha;
 
-	t_text	gravity;
-	t_text	g_num;
-	t_text	reset_map;
-	t_text	reset_player;
+	t_text			gravity;
+	t_text			g_num;
+	t_text			reset_map;
+	t_text			reset_player;
 
-	t_text	is_door;
+	t_text			is_door;
 
-	t_text	link;
+	t_text			link;
 }					t_text_list;
 
 /*
@@ -867,7 +865,6 @@ int					test_ent_hit(t_al *al, t_rc_ray *ray, t_mob *rotent, t_mob
 
 void				rotate(t_al *al);
 void				free_before_refresh(t_al *al);
-//void				walls_to_game(t_walls *walls, t_sector *sec);
 void				add_sector(t_al *al, t_point coo);
 t_angle				d_atan2(double d1, double d2);
 t_angle				d_atan(double a);
@@ -880,6 +877,8 @@ int					count_wall(t_walls *walls);
 void				mob_on_z(t_al *al, t_mob *e);
 
 t_mob				*new_mob(t_al *al, SDL_MouseButtonEvent bev, unsigned i);
+t_mob				*init_pig(t_al *al, t_mob *mob, t_mob *tmp, unsigned i);
+void				badpig(t_al *al, SDL_MouseButtonEvent bev);
 void				edit_to_game(t_al *al);
 void				link_sectors(t_al *al);
 void				pewpew(t_al *al);
@@ -889,24 +888,13 @@ void				convert_end(t_al *al);
 void				print_text(t_al *al, t_text text, SDL_Surface *surf);
 void				pig_pos(t_al *al);
 
-//void		init_status(t_al *al);
-//void		init_player(t_al *al, t_player *pl);
-//void		init_trigo(t_al *al);
-//void		init_edit(t_al *al);
-void			load_hud(t_al *al);
-//void		im_not_going_to_hell_for_this(t_al *al, int ipix);
-void			load_death(t_al *al);
-void			init_textures(t_al *al);
-void	free_tab(t_al *al);
-
-void			bzerooo(void *s, size_t n);
-
-
-
-
-
-
-
-
+void				load_hud(t_al *al);
+void				load_death(t_al *al);
+void				init_textures(t_al *al);
+void				free_tab(t_al *al);
+void				load_pig(t_al *al);
+void				bzerooo(void *s, size_t n);
+void				init_trigo(t_al *al);
+void				init_edit(t_al *al);
 
 #endif

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/04 12:12:09 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 13:47:36 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		init_player(t_al *al, t_player *pl)
 ** not so horrible function to add correct transparency to all death animation
 ** frames
 */
-
+/*
 static void		im_not_going_to_hell_for_this(t_al *al, int ipix)
 {
 	int				i;
@@ -52,7 +52,7 @@ static void		im_not_going_to_hell_for_this(t_al *al, int ipix)
 			al->mob_death[i].pix[ipix] |= 0xff000000;
 		i++;
 	}
-}
+}*/
 
 void			init(t_al *al, char *str, int ed)
 {

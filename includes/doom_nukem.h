@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/03 16:36:45 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 10:27:39 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -566,6 +566,7 @@ typedef struct		s_al
 	t_mob			*ent;
 	t_mob			*rotent;
 	t_mob			*tmp_ent;
+	t_mob			*tmp_ent2;
 
 	t_player		play;
 	double			g;
@@ -666,7 +667,8 @@ int					parse_sectors(t_al *al, int fd);
 int					parse_textures(t_al *al, int fd);
 int					parse_texture_groups(t_al *al, int fd);
 
-int					bmp_to_tex(t_tex *tex, char *str, int sizex, int sizey);
+int					bmp_to_tex(t_tex *tex, char *str, unsigned sizex, unsigned
+	sizey);
 
 /*
 ** hms encoder
@@ -811,6 +813,8 @@ void				mouse_press_edit_player(t_al *al,
 ** TRUC
 */
 
+int					bmp_to_pix(unsigned **pix, char *str, unsigned sizex,
+	unsigned sizey);
 char				*dtoa_doom(double n);
 void				add_wall(t_al *al, t_sector *sect, t_point coo);
 void				add_sector(t_al *al, t_point coo);
@@ -875,14 +879,15 @@ void				print_co(t_al *al);
 int					count_wall(t_walls *walls);
 void				mob_on_z(t_al *al, t_mob *e);
 
-void		edit_to_game(t_al *al);
-void		link_sectors(t_al *al);
-void		pewpew(t_al *al);
-void		set_spawn(t_al *al, SDL_MouseButtonEvent spw);
-void		set_end(t_al *al, SDL_MouseButtonEvent bev);
-void		convert_end(t_al *al);
-void		print_text(t_al *al, t_text text, SDL_Surface *surf);
-void		pig_pos(t_al *al);
+t_mob				*new_mob(t_al *al, SDL_MouseButtonEvent bev, unsigned i);
+void				edit_to_game(t_al *al);
+void				link_sectors(t_al *al);
+void				pewpew(t_al *al);
+void				set_spawn(t_al *al, SDL_MouseButtonEvent spw);
+void				set_end(t_al *al, SDL_MouseButtonEvent bev);
+void				convert_end(t_al *al);
+void				print_text(t_al *al, t_text text, SDL_Surface *surf);
+void				pig_pos(t_al *al);
 
 //void		init_status(t_al *al);
 //void		init_player(t_al *al, t_player *pl);
@@ -893,6 +898,8 @@ void			load_hud(t_al *al);
 void			load_death(t_al *al);
 void			init_textures(t_al *al);
 void	free_tab(t_al *al);
+
+void			bzerooo(void *s, size_t n);
 
 
 

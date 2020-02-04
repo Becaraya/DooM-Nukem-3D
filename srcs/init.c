@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/03 18:31:05 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 12:12:09 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,23 +31,9 @@ static void		init_player(t_al *al, t_player *pl)
 	pl->size = PLAYER_SIZE;
 	pl->eyez = PLAYER_SIZE - PLAYER_EYE_TOP;
 	pl->on_ground = 1;
-	pl->alive = 5;
-	pl->dmg = 6;
+	pl->alive = al->hard ? 6 : 10;
+	pl->dmg = al->hard ? 4 : 6;
 	pl->csec ? pl->posz = al->sec[pl->csec].fl_hei : 0;
-}
-
-/*
-** je sait pas ou ranger cette fonction
-*/
-
-static void		init_anims(t_al *al)
-{
-	unsigned		i;
-
-	al->fire_anim = 420000000;
-	i = 0;
-	while (i < al->nb_ent)
-		al->ent[i++].anim = 42000000;
 }
 
 /*
@@ -103,9 +89,8 @@ void			init(t_al *al, char *str, int ed)
 		set_text(&al->text.t, "TEXT", get_rect(300, 330),
 		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	}
-	al->hard = 2;
 	ft_bzero(&al->k, sizeof(t_keys));
-	init_anims(al);
+	al->fire_anim = 42000000;
 	al->edit.stat = SELECT;
 	al->edit.sect_end = -1;
 	

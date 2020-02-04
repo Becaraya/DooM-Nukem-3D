@@ -6,7 +6,7 @@
 /*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/25 10:39:36 by pitriche          #+#    #+#             */
-/*   Updated: 2020/02/03 16:43:19 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 11:50:28 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void			edit_to_game(t_al *al)
 	if (!cur)
 		return ;
 	al->nb_sec = how_many_sectors(al);
-	al->tmp_sec = al->sec; /////////////////////////////////////////////////////////////
+	al->tmp_sec = al->sec;
 	if (!(al->sec = ft_memalloc((al->nb_sec + 1) * sizeof(t_sector))))
 		exit(pr_err(MERROR_MESS));
 	id = 1;
@@ -98,8 +98,8 @@ void			edit_to_game(t_al *al)
 		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
 	if (!al->edit.sect_end)
 		convert_end(al);
-	al->surf_ed = 0;
-	al->win_ed = 0;
+	//al->surf_ed = 0;
+	//al->win_ed = 0;
 	load_pig(al);
 	!al->map_write_name ? al->map_write_name = "poi.hms" : 0; 
 	if (hms_encoder(al, al->map_write_name))

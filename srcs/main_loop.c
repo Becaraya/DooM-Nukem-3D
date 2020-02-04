@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_loop.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:15:11 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 11:40:51 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/02/04 11:07:34 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,22 @@ void														menu(t_al *al)
 static void													anims(t_al *al)
 {
 	unsigned		i;
+	unsigned		tmp;
 
-	al->anim += al->dtime * UINT16_MAX / 1000000;
-	al->fire_anim += al->dtime;
+	tmp = (al->dtime / 1000000.0) * UINT16_MAX;
+	if (tmp > UINT16_MAX)
+		return ;
+	al->anim = al->anim > 100000000 ? 100000 : al->anim + tmp;
+	al->fire_anim = al->fire_anim > 100000000 ? 1000000 : al->fire_anim +
+		al->dtime;
 	i = 0;
 	while (i < al->nb_ent)
-		al->ent[i++].anim += al->dtime;
+	{
+		if (!al->ent[i].alive)
+			al->ent[i].anim = al->ent[i].anim > 100000000 ? 1000000 :
+				al->ent[i].anim + al->dtime;
+		i++;
+	}
 }
 
 static void													dtime(t_al *al)

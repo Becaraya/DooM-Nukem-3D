@@ -63,7 +63,7 @@ SRC_LIST = arrow_edit.c		\
 		mob_moov.c			\
 		mouse_edit_stat.c	\
 		mouse_edit.c		\
-		mouse_event_func.c	\
+		mouse_event_funk.c	\
 		pewpew.c			\
 		pimp_cross.c		\
 		player_moov.c		\

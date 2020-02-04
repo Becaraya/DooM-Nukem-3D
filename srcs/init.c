@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/04 16:27:42 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:48:55 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,8 @@ static void		init_player(t_al *al, t_player *pl)
 **}
 */
 
-void			init(t_al *al, char *str, int ed)
+static void		launch_init(t_al *al, int ed)
 {
-	if (str)
-		if (hms_parser(al, str))
-			exit(0);
 	init_textures(al);
 	init_player(al, &al->play);
 	init_trigo(al);
@@ -70,6 +67,19 @@ void			init(t_al *al, char *str, int ed)
 	al->fov = DEFAULT_FOV;
 	al->stretch = WIN_SIZEY + HORIZON_LIMIT * 2;
 	al->nb_texgp = 1;
+	al->fire_anim = 42000000;
+	al->edit.stat = SELECT;
+	al->edit.sect_end = -1;
+	al->edit.zoom = 10;
+	al->edit.index_sect = al->nb_sec;
+}
+
+void			init(t_al *al, char *str, int ed)
+{
+	if (str)
+		if (hms_parser(al, str))
+			exit(0);
+	launch_init(al, ed);
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 		yeet(al);
 	if (!(al->sdlwin = SDL_CreateWindow(WIN_TITLE, WIN_POSX, WIN_POSY,
@@ -81,20 +91,12 @@ void			init(t_al *al, char *str, int ed)
 	init_ttf(al);
 	al->tex_choice = 0;
 	if (al->status == EDIT)
-	{
 		init_edit(al);
+	if (al->status == EDIT)
 		str ? get_map(al) : 0;
-	}
 	if (al->status == GAME)
-	{
 		set_text(&al->text.t, "TEXT", get_rect(300, 330),
 		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
-	}
 	ft_bzero(&al->k, sizeof(t_keys));
-	al->fire_anim = 42000000;
-	al->edit.stat = SELECT;
-	al->edit.sect_end = -1;
-	al->edit.zoom = 10;
-	al->edit.index_sect = al->nb_sec;
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;
 }

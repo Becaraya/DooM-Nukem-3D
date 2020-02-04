@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/04 16:18:31 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:14:25 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -856,6 +856,7 @@ void				cast_sec(t_al *al, t_rc_ray *ray, unsigned secid, t_angle
 	angle);
 void				cast_ray(t_al *al, t_angle an, t_rc_ray *ray);
 
+void				javoue_jabuse1(t_tex_group *tgp, unsigned i, unsigned or);
 int					test_aleready_hit(t_rc_ray *ray, t_walls *owall);
 int					test_hit(t_al *al, t_rc_ray *ray, t_walls *wall, t_walls
 	*owall);
@@ -897,5 +898,6 @@ void				bzerooo(void *s, size_t n);
 void				init_trigo(t_al *al);
 void				init_edit(t_al *al);
 void				finish_write(t_al *al, int true);
+int					pr_err(char *str);
 
 #endif

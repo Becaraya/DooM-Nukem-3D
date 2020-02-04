@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hms_parser.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/12 11:39:49 by pitriche          #+#    #+#             */
-/*   Updated: 2020/02/04 11:45:02 by pitriche         ###   ########.fr       */
+/*   Updated: 2020/02/04 16:53:41 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,6 @@
 /*
 ** Modular and easy to use .hms parser *giggles*
 */
-
-int		pr_err(char *str)
-{
-	ft_putstr_fd(str, 2);
-	return (1);
-}
 
 void	init_sec_tex(t_al *al)
 {

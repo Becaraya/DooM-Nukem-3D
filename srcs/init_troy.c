@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:28:11 by hutricot          #+#    #+#             */
-/*   Updated: 2020/02/04 16:28:27 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/04 17:16:01 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ void			load_goret(t_tex_group *tgp)
 {
 	unsigned	or;
 	unsigned	i;
-	unsigned	*tmp;
 	char		str[28];
 
 	tgp->nb_tex = 4;
@@ -87,16 +86,7 @@ void			load_goret(t_tex_group *tgp)
 		{
 			str[22] = i + '1';
 			bmp_to_pix(tgp->or[or].pix + i, str, 512, 512);
-			tmp = tgp->or[or].pix[i];
-			if (tmp[0] == 0xffff00ff && tmp[1] == 0xff000000 && tmp[2] ==
-				0xff000000 && tmp[3] == 0xffff00ff)
-			{
-				tgp->size_x = 2;
-				tgp->size_y = 2;
-				ft_putchar('X');
-			}
-			else
-				ft_putchar('O');
+			javoue_jabuse1(tgp, i, or);
 			i++;
 		}
 		or++;

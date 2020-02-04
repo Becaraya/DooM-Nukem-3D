@@ -6,7 +6,7 @@
 /*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/28 09:00:37 by hutricot          #+#    #+#             */
-/*   Updated: 2020/01/29 14:32:48 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/02/03 11:26:24 by hutricot         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,10 @@ void	badpig(t_al *al, SDL_MouseButtonEvent bev)
 {
 	t_mob		*cur;
 	unsigned	i;
+	unsigned	true;
 
 	i = 0;
+	true = 1;
 	if (al->ent == NULL)
 	{
 		al->ent = new_mob(al, bev, i);
@@ -109,8 +111,12 @@ void	badpig(t_al *al, SDL_MouseButtonEvent bev)
 	cur = al->ent;
 	while (cur->next != NULL)
 	{
+		if (cur->posx == (bev.x - WIN_SIZEX / 2) / 10 &&
+			cur->posy == (bev.y - WIN_SIZEY / 2) / -10)
+				true = 0;
 		cur = cur->next;
 		i++;
 	}
-	cur->next = new_mob(al, bev, i);
+	if (true)
+		cur->next = new_mob(al, bev, i);
 }

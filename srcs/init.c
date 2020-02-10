@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/27 12:19:03 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/04 16:48:55 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:27:34 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void		init_status(t_al *al)
 	al->stat_fnc[DEAD] = dead;
 	al->stat_fnc[PAUSE] = yeet;
 	al->stat_fnc[EDIT] = editor;
+	al->stat_fnc[WON] = won;
 }
 
 static void		init_player(t_al *al, t_player *pl)
@@ -90,13 +91,15 @@ void			init(t_al *al, char *str, int ed)
 	al->pix = al->sdlsurf->pixels;
 	init_ttf(al);
 	al->tex_choice = 0;
-	if (al->status == EDIT)
-		init_edit(al);
+	al->status == EDIT ? init_edit(al) : 0;
 	if (al->status == EDIT)
 		str ? get_map(al) : 0;
 	if (al->status == GAME)
+	{
 		set_text(&al->text.t, "TEXT", get_rect(300, 330),
 		add_color(TEXT_EDITOR)) == -1 ? yeet(al) : 0;
+		al->end = is_in_sector(al, al->end_sect.x, al->end_sect.y);
+	}
 	ft_bzero(&al->k, sizeof(t_keys));
 	(al->sect) ? al->edit.index_wall = al->sect->nb_wal - 1 : 0;
 }

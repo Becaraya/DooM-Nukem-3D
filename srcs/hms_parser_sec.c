@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hms_parser_sec.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/20 11:45:25 by pitriche          #+#    #+#             */
-/*   Updated: 2020/02/04 16:26:41 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:03:19 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ int		parse_sector(t_sector *sec, t_sector *rotsec, int fd)
 
 int		parse_sectors(t_al *al, int fd)
 {
-	unsigned char	buf[24];
+	unsigned char	buf[32];
 	unsigned int	i;
 
-	if (read(fd, buf, 24) != 24)
+	if (read(fd, buf, 32) != 32)
 		return (1);
 	al->nb_sec = *(unsigned int *)(buf + 0);
 	al->play.csec = *(unsigned int *)(buf + 4);
@@ -85,6 +85,8 @@ int		parse_sectors(t_al *al, int fd)
 	al->play.posy = *(signed int *)(buf + 12) / 100.0;
 	al->door = *(unsigned int *)(buf + 16);
 	al->hard = *(unsigned int *)(buf + 20);
+	al->end_sect.x = *(signed int *)(buf + 24);
+	al->end_sect.y = *(signed int *)(buf + 28);
 	if (!al->play.csec || al->play.csec > al->nb_sec)
 		return (pr_err("Invalid starting sector\n"));
 	if (!(al->sec = ft_memalloc((al->nb_sec + 1) * sizeof(t_sector))) ||

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_func.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/28 09:18:54 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/28 11:34:31 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:29:40 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void	keyup_func(t_al *al, SDL_KeyboardEvent kev)
 
 static void	keydown_func(t_al *al, SDL_KeyboardEvent kev)
 {
-	kev.keysym.sym == SDLK_ESCAPE ? exit(0) : 0;
+	kev.keysym.sym == SDLK_ESCAPE ? prepare_exit(al) : 0;
 	if (kev.keysym.sym == SDLK_F1)
 		al->status = (al->status == GAME) ? PAUSE : GAME;
 	kev.keysym.sym == SDLK_w ? al->k.w = 1 : 0;

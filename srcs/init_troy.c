@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_troy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 16:28:11 by hutricot          #+#    #+#             */
-/*   Updated: 2020/02/04 17:16:01 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:18:59 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void			load_death(t_al *al)
 	unsigned		i;
 
 	bmp_to_tex(&al->you_died, "ressources/you_died.bmp", 518, 93);
+	bmp_to_tex(&al->you_win, "ressources/you_win.bmp", 518, 93);
 	bmp_to_tex(al->mob_death + 0, "ressources/mob_death/0.bmp", 512, 512);
 	bmp_to_tex(al->mob_death + 1, "ressources/mob_death/1.bmp", 512, 512);
 	bmp_to_tex(al->mob_death + 2, "ressources/mob_death/2.bmp", 512, 512);
@@ -76,6 +77,7 @@ void			load_goret(t_tex_group *tgp)
 	tgp->size_y = 512;
 	or = 0;
 	ft_strcpy(str, "ressources/sprite/or1/1.bmp");
+	ft_putstr("Loading [");
 	while (or < 8)
 	{
 		if (!(tgp->or[or].pix = ft_memalloc(tgp->nb_tex * sizeof(unsigned *))))
@@ -86,15 +88,17 @@ void			load_goret(t_tex_group *tgp)
 		{
 			str[22] = i + '1';
 			bmp_to_pix(tgp->or[or].pix + i, str, 512, 512);
-			javoue_jabuse1(tgp, i, or);
-			i++;
+			javoue_jabuse1(tgp, i++, or);
 		}
 		or++;
 	}
+	ft_putstr("]\n");
 }
 
 void			init_textures(t_al *al)
 {
+	static unsigned i = 0;
+
 	load_hud(al);
 	load_death(al);
 	if (!al->tex)
@@ -102,10 +106,13 @@ void			init_textures(t_al *al)
 		al->nb_tex = 3;
 		if (!(al->tex = ft_memalloc((al->nb_tex + 1) * sizeof(t_tex))))
 			exit(0);
-		bmp_to_tex(al->tex + 0, "ressources/skybox.bmp", 800, 600);
+		bmp_to_tex(al->tex + 0, "ressources/skybox.bmp", 32, 32);
 		bmp_to_tex(al->tex + 1, "ressources/wall_tex.bmp", 800, 800);
 		bmp_to_tex(al->tex + 2, "ressources/floor_tex.bmp", 950, 950);
 		bmp_to_tex(al->tex + 3, "ressources/ceiling_tex.bmp", 512, 512);
+		if (al->tex[0].pix[0] != 0xffff00ff)
+			while (i < 32 * 32)
+				al->tex[0].pix[i++] |= 0xff000000;
 	}
 	if (!al->texgp)
 	{

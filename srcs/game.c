@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   game.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/22 15:11:26 by pitriche          #+#    #+#             */
-/*   Updated: 2020/02/04 16:24:31 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:00:49 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,16 @@ void														game(t_al *al)
 	rotate(al);
 	sp_key(al);
 	al->k.space ? jump(al) : 0;
-	if (al->play.on_ground)
-		acceleration(al);
-	else
-		flyyyy(al);
+	al->play.on_ground ? acceleration(al) : flyyyy(al);
 	displacement(al);
 	render(al);
-	if (al->play.alive)
+	if (al->play.won)
+	{
+		al->status = WON;
+		pix_to_pix(al->pix, al->pix_dead, 1);
+		SDL_ShowCursor(SDL_ENABLE);
+	}
+	else if (al->play.alive)
 	{
 		SDL_WarpMouseInWindow(al->sdlwin, WIN_SIZEX / 2, WIN_SIZEY / 2);
 		SDL_ShowCursor(SDL_DISABLE);

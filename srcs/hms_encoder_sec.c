@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hms_encoder_sec.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 22:47:34 by pitriche          #+#    #+#             */
-/*   Updated: 2020/02/04 14:25:46 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:02:15 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int		write_sector(t_sector *sec, int fd)
 
 int		write_sectors(t_al *al, int fd)
 {
-	signed int		buf[6];
+	signed int		buf[8];
 	unsigned int	i;
 
 	buf[0] = al->nb_sec;
@@ -72,7 +72,9 @@ int		write_sectors(t_al *al, int fd)
 	buf[3] = al->play.posy * 100;
 	buf[4] = al->door;
 	buf[5] = al->hard;
-	if (write(fd, buf, 24) != 24)
+	buf[6] = (al->end_sect.x - WIN_SIZEX / 2) / 10;
+	buf[7] = (al->end_sect.y - WIN_SIZEY / 2) / -10;
+	if (write(fd, buf, 32) != 32)
 		return (1);
 	i = 0;
 	while (i++ < al->nb_sec)

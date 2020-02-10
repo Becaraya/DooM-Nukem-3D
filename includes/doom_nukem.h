@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   doom_nukem.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:24:16 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/04 17:14:25 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/06 14:55:42 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ typedef enum		e_status
 	GAME,
 	DEAD,
 	PAUSE,
-	EDIT
+	EDIT,
+	WON
 }					t_status;
 
 typedef enum		e_status_ed
@@ -345,6 +346,7 @@ typedef struct		s_player
 	double			mass;
 	double			power;
 	double			power_mult;
+	unsigned		won:1;
 
 	unsigned		dmg;
 	int				horizon;
@@ -524,10 +526,11 @@ typedef struct		s_text_list
 
 typedef struct		s_al
 {
+	unsigned		end;
 	int				hard;
 	t_status		status;
 	char			*map_write_name;
-	void			(*stat_fnc[5])(struct s_al *);
+	void			(*stat_fnc[6])(struct s_al *);
 
 	SDL_Window		*sdlwin;
 	SDL_Surface		*sdlsurf;
@@ -535,6 +538,7 @@ typedef struct		s_al
 
 	unsigned		pix_dead[WIN_SIZEX * WIN_SIZEY];
 	t_tex			you_died;
+	t_tex			you_win;
 
 	SDL_Window		*win_ed;
 	SDL_Surface		*surf_ed;
@@ -889,6 +893,8 @@ void				convert_end(t_al *al);
 void				print_text(t_al *al, t_text text, SDL_Surface *surf);
 void				pig_pos(t_al *al);
 
+unsigned			alphapix(unsigned pix, double alpha);
+void				prepare_exit(t_al *al);
 void				load_hud(t_al *al);
 void				load_death(t_al *al);
 void				init_textures(t_al *al);
@@ -899,5 +905,6 @@ void				init_trigo(t_al *al);
 void				init_edit(t_al *al);
 void				finish_write(t_al *al, int true);
 int					pr_err(char *str);
+void				won(t_al *al);
 
 #endif

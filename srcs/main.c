@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/22 12:31:46 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/04 16:28:01 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:19:46 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int		main(int ac, char **av)
 		init(al, 0, 1);
 	else if (ac == 2)
 		init(al, av[1], 0);
-	else if (ac == 3)
+	else if (ac > 2)
 	{
 		init(al, 0, 1);
 		al->map_write_name = av[2];

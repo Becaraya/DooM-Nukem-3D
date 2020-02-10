@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_edit.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 22:08:39 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/29 14:32:27 by ydemange         ###   ########.fr       */
+/*   Updated: 2020/02/06 14:44:40 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ void			correct_all_shit(t_sector *sect)
 	double	tmpy1;
 
 	sect->ce_hei = 2.5;
+	sect->fl_tex = 2;
+	sect->ce_tex = 3;
 	wall = sect->walls;
 	while (wall)
 	{

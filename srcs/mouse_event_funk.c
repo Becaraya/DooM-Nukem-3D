@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_event_funk.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/12 20:43:49 by becaraya          #+#    #+#             */
-/*   Updated: 2020/02/04 14:33:16 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:20:27 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void		mouse_press(t_al *al)
 		pewpew(al);
 	if (al->status == EDIT)
 		mouse_press_edit(al);
-	if (al->status == DEAD)
+	if (al->status == DEAD || al->status == WON)
 		exit(0);
 }
 

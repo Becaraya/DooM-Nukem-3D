@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   refresh_text.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 09:15:33 by becaraya          #+#    #+#             */
-/*   Updated: 2020/01/24 18:06:28 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/02/06 14:49:05 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	text_default_edit(t_al *al)
 void	text(t_al *al)
 {
 	text_default_edit(al);
-	if (al->diff == 0)
+	if (al->hard == 0)
 		print_text(al, al->text.dif_ez, al->surf_ed);
 	else
 		print_text(al, al->text.dif_ha, al->surf_ed);

@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin_free_f.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: becaraya <becaraya@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/06 14:40:36 by becaraya          #+#    #+#             */
-/*   Updated: 2019/11/06 14:42:35 by becaraya         ###   ########.fr       */
+/*   Updated: 2020/02/06 15:26:36 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
 /*
-**free the first pointer 
+** free the first pointer
 */
 
 char	*ft_strjoinfreef(char *s1, char const *s2)

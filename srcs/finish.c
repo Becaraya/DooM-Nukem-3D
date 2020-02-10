@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   finish.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hutricot <hutricot@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pitriche <pitriche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/02/04 15:34:30 by hutricot          #+#    #+#             */
-/*   Updated: 2020/02/04 17:14:58 by hutricot         ###   ########.fr       */
+/*   Updated: 2020/02/06 10:36:52 by pitriche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,15 @@ void	javoue_jabuse1(t_tex_group *tgp, unsigned i, unsigned or)
 	}
 	else
 		ft_putchar('O');
+}
+
+/*
+** IT'S A PRANK !!!
+*/
+
+void	prepare_exit(t_al *al)
+{
+	(void)al;
+	ft_putstr_fd("[1]    9654 segmentation fault  ./doom_nukem\n", 2);
+	exit(0);
 }

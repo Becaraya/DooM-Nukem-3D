@@ -86,6 +86,7 @@ SRC_LIST = arrow_edit.c		\
 		tool_arrow.c		\
 		tool_text.c			\
 		tools.c				\
+		won.c				\
 		yeet_text.c			\
 		yeet.c
 
